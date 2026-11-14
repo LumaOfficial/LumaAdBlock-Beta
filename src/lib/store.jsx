@@ -8,7 +8,7 @@ import {
 import { compileRules } from './engine'
 import { DEFAULT_LISTS, FILTER_LISTS } from './blocklists'
 
-const STORAGE_KEY = 'luma.state.v1'
+const STORAGE_KEY = 'luma.state.v2'
 
 export function dayKey(date = new Date()) {
   const year = date.getFullYear()
@@ -17,107 +17,35 @@ export function dayKey(date = new Date()) {
   return `${year}-${month}-${day}`
 }
 
-function daysAgo(n) {
-  const date = new Date()
-  date.setDate(date.getDate() - n)
-  return dayKey(date)
-}
-
-function minutesAgo(n) {
-  return new Date(Date.now() - n * 60_000).toISOString()
-}
-
-const SEED_COUNTS = [21430, 19880, 24105, 17640, 22318, 26071, 15892]
-
-function seedState() {
-  const daily = {}
-  SEED_COUNTS.forEach((count, index) => {
-    daily[daysAgo(6 - index)] = count
-  })
-
+function emptyState() {
   return {
     protection: true,
     lists: { ...DEFAULT_LISTS },
-    customRules: ['||ads.partner-feed.test^', 'example.org##.sponsored'],
-    allowlist: ['bank.example'],
-    totals: { blocked: 148392, trackers: 41870, screened: 1204663, megabytes: 412 },
-    domains: {
-      'doubleclick.net': 38210,
-      'googlesyndication.com': 29414,
-      'connect.facebook.net': 18730,
-      'taboola.com': 12980,
-      'criteo.com': 9042,
-      'google-analytics.com': 7710,
-      'outbrain.com': 5302,
-    },
-    daily,
-    activity: [
-      {
-        id: 'seed-1',
-        host: 'doubleclick.net',
-        url: 'https://ad.doubleclick.net/ddm/adi/N4821/banner.gif',
-        rule: '||doubleclick.net^',
-        listId: 'luma-core',
-        type: 'image',
-        at: minutesAgo(4),
-      },
-      {
-        id: 'seed-2',
-        host: 'googletagmanager.com',
-        url: 'https://www.googletagmanager.com/gtm.js?id=GTM-42X',
-        rule: '||googletagmanager.com^',
-        listId: 'tracker-shield',
-        type: 'script',
-        at: minutesAgo(9),
-      },
-      {
-        id: 'seed-3',
-        host: 'taboola.com',
-        url: 'https://cdn.taboola.com/libtrc/network/loader.js',
-        rule: '||taboola.com^',
-        listId: 'luma-core',
-        type: 'script',
-        at: minutesAgo(17),
-      },
-      {
-        id: 'seed-4',
-        host: 'connect.facebook.net',
-        url: 'https://connect.facebook.net/en_US/fbevents.js',
-        rule: '||connect.facebook.net^',
-        listId: 'tracker-shield',
-        type: 'script',
-        at: minutesAgo(26),
-      },
-      {
-        id: 'seed-5',
-        host: 'google-analytics.com',
-        url: 'https://www.google-analytics.com/collect?v=1&t=pageview',
-        rule: '||google-analytics.com^',
-        listId: 'tracker-shield',
-        type: 'ping',
-        at: minutesAgo(41),
-      },
-    ],
+    customRules: [],
+    allowlist: [],
+    totals: { blocked: 0, trackers: 0, screened: 0, megabytes: 0 },
+    domains: {},
+    daily: {},
+    activity: [],
     runs: 0,
   }
 }
 
 function loadState() {
-  if (typeof window === 'undefined') return seedState()
+  const fallback = emptyState()
+  if (typeof window === 'undefined') return fallback
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY)
-    if (!raw) return seedState()
+    if (!raw) return fallback
     const parsed = JSON.parse(raw)
     return {
-      ...seedState(),
+      ...fallback,
       ...parsed,
       lists: { ...DEFAULT_LISTS, ...(parsed.lists || {}) },
-      totals: { ...seedState().totals, ...(parsed.totals || {}) },
-      domains: { ...seedState().domains, ...(parsed.domains || {}) },
-      daily: { ...seedState().daily, ...(parsed.daily || {}) },
+      totals: { ...fallback.totals, ...(parsed.totals || {}) },
     }
   } catch {
-    return seedState()
+    return fallback
   }
 }
 
@@ -169,7 +97,7 @@ function reducer(state, action) {
       }
     }
     case 'reset':
-      return seedState()
+      return emptyState()
     default:
       return state
   }

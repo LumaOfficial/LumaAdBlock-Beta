@@ -154,7 +154,9 @@ export default function Dashboard() {
                 <div className="chart-bar-track">
                   <div
                     className={'chart-bar' + (index === series.length - 1 ? ' today' : '')}
-                    style={{ height: Math.max(7, Math.round((day.count / max) * 100)) + '%' }}
+                    style={{
+                      height: day.count ? Math.max(7, Math.round((day.count / max) * 100)) + '%' : '0%',
+                    }}
                     title={`${formatNumber(day.count)} blocked`}
                   />
                 </div>
@@ -189,6 +191,9 @@ export default function Dashboard() {
                 <span className="domain-count">{formatCompact(domain.count)}</span>
               </div>
             ))}
+            {!domains.length ? (
+              <div className="empty">No blocked domains yet. Run the test lab to see them appear.</div>
+            ) : null}
           </div>
         </div>
       </section>
