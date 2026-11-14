@@ -7,6 +7,7 @@ import {
   Search,
 } from 'lucide-react'
 import { useApp } from '../lib/store'
+import AccountMenu from './AccountMenu'
 import { Switch } from './ui'
 
 const NAV = [
@@ -94,6 +95,7 @@ export default function Layout() {
               <span>{state.protection ? 'Protection on' : 'Protection off'}</span>
               <Switch on={state.protection} onChange={setProtection} label="Toggle protection" />
             </div>
+            <AccountMenu />
           </div>
         </header>
 

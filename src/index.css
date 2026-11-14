@@ -1946,3 +1946,243 @@ h3 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* ---------- account ---------- */
+
+.auth-shell {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 44px 20px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 520px;
+  padding: 30px 30px 26px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+.auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 24px;
+}
+
+.auth-brand .badge {
+  margin-left: auto;
+}
+
+.auth-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  margin: 22px 0 20px;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--paper-deep);
+}
+
+.auth-tab {
+  padding: 9px 12px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-2);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.auth-tab[aria-selected="true"] {
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.auth-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.field-error {
+  font-size: 12px;
+  color: var(--accent-deep);
+}
+
+.auth-remember {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.auth-remember input {
+  width: 16px;
+  height: 16px;
+  margin: 2px 0 0;
+  accent-color: var(--accent);
+  flex: 0 0 auto;
+}
+
+.auth-remember small {
+  display: block;
+  margin-top: 2px;
+  font-size: 11.5px;
+  font-weight: 400;
+  color: var(--ink-3);
+}
+
+.auth-notice {
+  padding: 10px 12px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+  background: var(--accent-soft);
+  color: var(--accent-deep);
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+.auth-submit {
+  width: 100%;
+  margin-top: 2px;
+}
+
+.auth-note {
+  margin-top: 18px;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--ink-3);
+}
+
+.account {
+  position: relative;
+}
+
+.account-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 11px 4px 4px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--card);
+  box-shadow: var(--shadow-sm);
+}
+
+.account-btn:hover {
+  background: var(--white);
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent-deep);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.account-name {
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.account-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 50;
+  width: 236px;
+  padding: 12px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 24px 44px -28px rgba(23, 21, 15, 0.55);
+}
+
+.account-menu-head {
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.account-menu-name {
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.account-menu-email {
+  font-size: 12px;
+  color: var(--ink-3);
+  overflow-wrap: anywhere;
+}
+
+.account-menu-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 0;
+  font-size: 11.5px;
+  color: var(--ink-3);
+}
+
+.account-signout {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.account-signout:hover {
+  background: var(--paper-deep);
+}
+
+.account-signout svg {
+  width: 14px;
+  height: 14px;
+}
+
+@media (max-width: 520px) {
+  .auth-card {
+    padding: 24px 20px 22px;
+  }
+  .auth-grid {
+    grid-template-columns: 1fr;
+  }
+  .account-name {
+    display: none;
+  }
+  .account-btn {
+    padding: 4px;
+  }
+}

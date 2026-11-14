@@ -10,6 +10,7 @@ import {
   Zap,
 } from 'lucide-react'
 import { useApp, lastNDays, useTopDomains, useBlockedToday } from '../lib/store'
+import { useAuth } from '../lib/auth'
 import { formatNumber, formatCompact, formatMegabytes, relativeTime, percent } from '../lib/format'
 import { CardHead, PageHead } from '../components/ui'
 
@@ -43,6 +44,8 @@ function greeting() {
 
 export default function Dashboard() {
   const { state, setProtection } = useApp()
+  const { user } = useAuth()
+  const firstName = user?.name?.split(/\s+/)[0]
   const blockedToday = useBlockedToday()
   const series = lastNDays(state, 7)
   const domains = useTopDomains(6)
@@ -56,7 +59,7 @@ export default function Dashboard() {
   return (
     <>
       <PageHead
-        eyebrow={greeting()}
+        eyebrow={firstName ? `${greeting()}, ${firstName}` : greeting()}
         title={state.protection ? 'The web, quiet again.' : 'Protection is paused.'}
         lede={
           state.protection

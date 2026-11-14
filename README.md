@@ -11,6 +11,7 @@ browser extension.
 | --- | --- | --- |
 | Filter engine | `src/lib/engine.js` | Parses `\|\|domain^`, `@@` exceptions, `$third-party,script` options, `/regex/` filters and `##.selector` element hiding, then screens requests |
 | Bundled lists | `src/lib/blocklists.js` | Luma Core, Tracker Shield, Annoyance Cleaner, Social Widgets |
+| Accounts | `src/lib/auth.jsx` | Device sign-up (name, date of birth, email, password, phone, state of residence), salted PBKDF2 password hash, session remembered on the device until sign-out |
 | State | `src/lib/store.jsx` | Protection switch, lists, custom rules, allowlist, counters (kept in `localStorage`) |
 | Test lab | `src/pages/Lab.jsx` | Four simulated sites; every request and ad slot is checked by the engine |
 | Inspector | `src/pages/Inspector.jsx` | Paste a URL and get a plain blocked/allowed verdict |
