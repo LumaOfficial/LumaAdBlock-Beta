@@ -245,7 +245,6 @@ export default function Auth() {
               onChange={(value) => {
                 setAccepted(value)
                 setErrors((current) => ({ ...current, terms: undefined }))
-                if (value) setLegal('terms')
               }}
               onOpen={setLegal}
             />
@@ -409,7 +408,6 @@ export default function Auth() {
                 onChange={(value) => {
                   setAccepted(value)
                   setErrors((current) => ({ ...current, terms: undefined }))
-                  if (value) setLegal('terms')
                 }}
                 onOpen={setLegal}
               />
