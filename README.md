@@ -13,7 +13,9 @@ browser extension.
 | Bundled lists | `src/lib/blocklists.js` | Luma Core, Tracker Shield, Annoyance Cleaner, Social Widgets |
 | State | `src/lib/store.jsx` | Protection switch, lists, custom rules, allowlist, counters (kept in `localStorage`) |
 | Test lab | `src/pages/Lab.jsx` | Four simulated sites; every request and ad slot is checked by the engine |
-| Inspector | `src/pages/Inspector.jsx` | Paste a URL, see the rule that decides |
+| Inspector | `src/pages/Inspector.jsx` | Paste a URL and get a plain blocked/allowed verdict |
+| Detection | `src/lib/learning.js` | Scores observed requests, adds a host rule for ad-like traffic that slips through, and runs the engine's self-checks |
+| Diagnostics | `src/pages/Diagnostics.jsx` | Internal console at `/diagnostics` (never linked in the app): self-checks, detection feed and learned rules |
 | Extension | `extension/` | The shipped extension: generated rulesets, hiding stylesheets, service worker, content script and the built dashboard |
 | Browser bridge | `src/lib/platform.js` | Detects the extension, sends settings to the worker and receives live counters |
 

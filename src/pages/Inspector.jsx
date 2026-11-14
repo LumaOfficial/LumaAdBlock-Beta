@@ -1,10 +1,8 @@
-import { useMemo, useState } from 'react'
-import { AlertTriangle, CheckCircle2, PauseCircle, Search, ShieldCheck, ShieldX } from 'lucide-react'
+import { useEffect, useMemo, useState } from 'react'
+import { CheckCircle2, PauseCircle, Search, ShieldX } from 'lucide-react'
 import { CardHead, PageHead } from '../components/ui'
 import { hostnameOf, isThirdParty, screenRequest } from '../lib/engine'
 import { useApp } from '../lib/store'
-import { formatNumber } from '../lib/format'
-import { ListBadge } from '../components/Layout'
 
 const EXAMPLES = [
   {
@@ -56,7 +54,7 @@ function sampleFromRule(rule) {
 const TYPES = ['script', 'image', 'stylesheet', 'xmlhttprequest', 'subdocument', 'document', 'media', 'font', 'ping', 'other']
 
 export default function Inspector() {
-  const { rules, state, networkRuleCount } = useApp()
+  const { rules, state, observe } = useApp()
   const [url, setUrl] = useState(EXAMPLES[0].url)
   const [type, setType] = useState(EXAMPLES[0].type)
   const [pageHost, setPageHost] = useState(EXAMPLES[0].pageHost)
@@ -90,11 +88,24 @@ export default function Inspector() {
   )
 
   const status = decision.status
+
+  // The inspector's verdict is a real observation for the learning engine.
+  useEffect(() => {
+    if (!requestHost) return
+    observe([{ url, type, pageHost, blocked: status === 'blocked' }])
+  }, [url, type, pageHost, status, requestHost, observe])
+
   const titles = {
     blocked: 'Blocked',
     allowed: 'Allowed',
     allowlisted: 'Allowed — site is allowlisted',
     paused: 'Allowed — protection is paused',
+  }
+  const reasons = {
+    blocked: 'Recognized as an ad or tracker',
+    allowed: 'Nothing suspicious found',
+    allowlisted: 'You allowlisted this site',
+    paused: 'Protection is paused',
   }
 
   return (
@@ -102,13 +113,8 @@ export default function Inspector() {
       <PageHead
         eyebrow="Inspector"
         title="Why was that blocked?"
-        lede="Paste any request and Luma will run it through the exact rule set in your browser, then show you the rule that decided."
-      >
-        <span className="badge plain">
-          <ShieldCheck />
-          {formatNumber(networkRuleCount)} network rules loaded
-        </span>
-      </PageHead>
+        lede="Paste any request and Luma will check it against your protection, then tell you what it would do."
+      />
 
       <section className="grid-2" style={{ alignItems: 'start' }}>
         <div className="card">
@@ -201,68 +207,27 @@ export default function Inspector() {
               </span>
               <div>
                 <h3>{titles[status]}</h3>
-                <p>{decision.reason}</p>
+                <p>{reasons[status]}</p>
               </div>
             </div>
 
-            {decision.rule ? (
-              <div className="match-list">
-                <div className="row" style={{ justifyContent: 'space-between' }}>
-                  <span className="eyebrow">Deciding rule</span>
-                  <ListBadge listId={decision.rule.listId} />
-                </div>
-                <div className="match">
-                  <code>{decision.rule.raw}</code>
-                  <span className={'badge ' + (decision.rule.exception ? 'good' : 'accent')}>
-                    {decision.rule.exception ? 'allow' : 'block'}
-                  </span>
-                </div>
-                {decision.matches.length > 1 ? (
-                  <p className="small muted">
-                    {decision.matches.length - 1} more rule
-                    {decision.matches.length - 1 === 1 ? '' : 's'} matched as well.
-                  </p>
-                ) : null}
-              </div>
-            ) : (
-              <div className="match-list">
-                <div className="eyebrow">No rule matched</div>
-                <p className="small muted" style={{ marginTop: 6 }}>
-                  This request is not on any of your enabled lists, so Luma lets it through.
-                </p>
-              </div>
-            )}
+            <div className="match-list">
+              <span className="eyebrow">Why</span>
+              <p className="small muted" style={{ marginTop: 6 }}>
+                {status === 'blocked'
+                  ? 'Luma recognizes this as an ad or tracker and stops it before it loads.'
+                  : status === 'allowlisted'
+                    ? 'You allowlisted this site, so Luma stays out of the way here.'
+                    : status === 'paused'
+                      ? 'Protection is paused, so nothing is blocked right now.'
+                      : 'This does not look like an ad or tracker Luma knows, so it is allowed.'}
+              </p>
+            </div>
           </div>
-
-          {decision.matches.length ? (
-            <div className="card" style={{ padding: 18 }}>
-              <CardHead title="All matching rules" sub={`${decision.matches.length} rule(s) hit this request`} />
-              <div className="stack" style={{ gap: 8 }}>
-                {decision.matches.map((rule) => (
-                  <div className="rule-row" key={rule.listId + rule.raw}>
-                    <span className={'badge ' + (rule.exception ? 'good' : 'plain')}>
-                      {rule.exception ? 'allow' : 'block'}
-                    </span>
-                    <code>{rule.raw}</code>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div className="card" style={{ padding: 18 }}>
-              <div className="row">
-                <AlertTriangle width={16} height={16} style={{ color: 'var(--warn)' }} />
-                <span className="small muted">
-                  Exceptions always win over block rules. Add <span className="mono">@@||host^</span> in Filter
-                  lists to let a whole domain through.
-                </span>
-              </div>
-            </div>
-          )}
 
           <p className="footer-note">
             <Search size={12} style={{ verticalAlign: '-2px', marginRight: 4 }} />
-            Decisions use the lists you have enabled plus your custom rules.
+            Luma checks this against the protection you have enabled.
           </p>
         </div>
       </section>

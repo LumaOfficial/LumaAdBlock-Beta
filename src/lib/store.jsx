@@ -1,12 +1,15 @@
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
   useReducer,
+  useRef,
   useState,
 } from 'react'
-import { compileRules } from './engine'
+import { compileRules, hostnameOf } from './engine'
+import { MAX_LEARNED, MAX_OBSERVATIONS, learnCandidate, runHealthChecks } from './learning'
 import { DEFAULT_LISTS, FILTER_LISTS } from './blocklists'
 import {
   buildPayload,
@@ -39,6 +42,12 @@ function emptyState() {
     daily: {},
     activity: [],
     runs: 0,
+    learned: [],
+    learningSince: 0,
+    observations: [],
+    scans: 0,
+    lastScan: null,
+    health: null,
   }
 }
 
@@ -102,8 +111,44 @@ function reducer(state, action) {
         lists: { ...DEFAULT_LISTS, ...(settings.lists || {}) },
         customRules: settings.customRules || [],
         allowlist: settings.allowlist || [],
+        learned: settings.learned || [],
       }
     }
+    case 'observe': {
+      const known = new Set(state.observations.map((item) => item.key))
+      const fresh = []
+      for (const item of action.items || []) {
+        if (!item || !item.url) continue
+        const key = [item.pageHost || '', item.url, item.blocked ? 'blocked' : 'allowed'].join('|')
+        if (known.has(key)) continue
+        known.add(key)
+        fresh.push({
+          ...item,
+          id: key,
+          key,
+          host: hostnameOf(item.url),
+          at: new Date().toISOString(),
+        })
+      }
+      if (!fresh.length) return state
+      return { ...state, observations: [...fresh, ...state.observations].slice(0, MAX_OBSERVATIONS) }
+    }
+    case 'learn': {
+      const known = new Set(state.learned.map((item) => item.rule))
+      const fresh = []
+      for (const item of action.items || []) {
+        if (known.has(item.rule)) continue
+        known.add(item.rule)
+        fresh.push(item)
+      }
+      if (!fresh.length) return state
+      return { ...state, learned: [...fresh, ...state.learned].slice(0, MAX_LEARNED) }
+    }
+    case 'forgetLearned':
+      // Older observations must not re-learn what was just reset.
+      return { ...state, learned: [], learningSince: Date.now() }
+    case 'scan':
+      return { ...state, scans: state.scans + 1, lastScan: action.at, health: action.health }
     case 'reset':
       return emptyState()
     default:
@@ -135,8 +180,10 @@ export function AppProvider({ children }) {
     }
     const custom = state.customRules.map((rule) => rule.trim()).filter(Boolean)
     compiled.push(...compileRules(custom, 'custom'))
+    const learned = state.learned.map((item) => item.rule)
+    compiled.push(...compileRules(learned, 'learned'))
     return compiled
-  }, [state.lists, state.customRules])
+  }, [state.lists, state.customRules, state.learned])
 
   const networkRuleCount = useMemo(
     () => rules.filter((rule) => rule.kind === 'network').length,
@@ -157,7 +204,7 @@ export function AppProvider({ children }) {
   const settingsPayload = useMemo(
     () => (isExtension ? buildPayload(state) : null),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [state.protection, state.lists, state.customRules, state.allowlist],
+    [state.protection, state.lists, state.customRules, state.allowlist, state.learned],
   )
 
   useEffect(() => {
@@ -190,6 +237,41 @@ export function AppProvider({ children }) {
     }
   }, [])
 
+  const observe = useCallback((items) => {
+    if (!items || !items.length) return
+    dispatch({ type: 'observe', items })
+  }, [])
+
+  // Self-improvement: anything ad-like that slipped through becomes a rule.
+  useEffect(() => {
+    const known = new Set(state.learned.map((item) => item.rule))
+    const added = []
+    for (const observation of state.observations) {
+      if (Date.parse(observation.at) < state.learningSince) continue
+      const candidate = learnCandidate(observation, {
+        rules,
+        allowlist: state.allowlist,
+        protection: state.protection,
+      })
+      if (candidate && !known.has(candidate.rule)) {
+        known.add(candidate.rule)
+        added.push(candidate)
+      }
+    }
+    if (added.length) dispatch({ type: 'learn', items: added })
+  }, [state.observations, state.learned, state.learningSince, state.allowlist, state.protection, rules])
+
+  // Continuous diagnostics: the engine re-checks itself on a short interval.
+  const scan = useRef(() => {})
+  scan.current = () => {
+    dispatch({ type: 'scan', at: Date.now(), health: runHealthChecks({ state, rules }) })
+  }
+  useEffect(() => {
+    scan.current()
+    const id = window.setInterval(() => scan.current(), 10000)
+    return () => window.clearInterval(id)
+  }, [])
+
   const value = useMemo(
     () => ({
       state,
@@ -203,12 +285,14 @@ export function AppProvider({ children }) {
       removeCustomRule: (rule) => dispatch({ type: 'removeRule', rule }),
       addAllow: (host) => dispatch({ type: 'addAllow', host }),
       removeAllow: (host) => dispatch({ type: 'removeAllow', host }),
+      observe,
+      clearLearned: () => dispatch({ type: 'forgetLearned' }),
       resetData: () => {
         resetStats()
         dispatch({ type: 'reset' })
       },
     }),
-    [state, rules, networkRuleCount, cosmeticRuleCount, activeListCount],
+    [state, rules, networkRuleCount, cosmeticRuleCount, activeListCount, observe],
   )
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>

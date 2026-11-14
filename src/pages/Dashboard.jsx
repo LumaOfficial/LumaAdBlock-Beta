@@ -6,15 +6,12 @@ import {
   FlaskConical,
   Search,
   ShieldCheck,
-  Sparkles,
   UserX,
   Zap,
 } from 'lucide-react'
 import { useApp, lastNDays, useTopDomains, useBlockedToday } from '../lib/store'
-import { isExtension } from '../lib/platform'
 import { formatNumber, formatCompact, formatMegabytes, relativeTime, percent } from '../lib/format'
 import { CardHead, PageHead } from '../components/ui'
-import { ListBadge } from '../components/Layout'
 
 const ACTIONS = [
   {
@@ -45,7 +42,7 @@ function greeting() {
 }
 
 export default function Dashboard() {
-  const { state, setProtection, activeListCount, networkRuleCount, cosmeticRuleCount } = useApp()
+  const { state, setProtection } = useApp()
   const blockedToday = useBlockedToday()
   const series = lastNDays(state, 7)
   const domains = useTopDomains(6)
@@ -63,7 +60,7 @@ export default function Dashboard() {
         title={state.protection ? 'The web, quiet again.' : 'Protection is paused.'}
         lede={
           state.protection
-            ? `${activeListCount} filter lists and ${formatNumber(networkRuleCount)} rules are standing between you and the noise.`
+            ? 'Ads, trackers and annoyances are filtered before they ever reach the page.'
             : 'Ads and trackers are loading everywhere while Luma is off. Flip it back on when you are ready.'
         }
       />
@@ -123,25 +120,12 @@ export default function Dashboard() {
           <div className="stat-foot">No creatives downloaded</div>
         </div>
         <div className="stat">
-          {isExtension ? (
-            <>
-              <div className="stat-label">
-                <ShieldCheck />
-                Filter rules active
-              </div>
-              <div className="stat-value">{formatNumber(networkRuleCount)}</div>
-              <div className="stat-foot">Enforced by the browser</div>
-            </>
-          ) : (
-            <>
-              <div className="stat-label">
-                <Zap />
-                Requests screened
-              </div>
-              <div className="stat-value">{formatNumber(state.totals.screened)}</div>
-              <div className="stat-foot">{blockedShare}% blocked</div>
-            </>
-          )}
+          <div className="stat-label">
+            <Zap />
+            Requests screened
+          </div>
+          <div className="stat-value">{formatNumber(state.totals.screened)}</div>
+          <div className="stat-foot">{blockedShare}% blocked</div>
         </div>
       </section>
 
@@ -150,12 +134,7 @@ export default function Dashboard() {
           <CardHead
             title="Blocked this week"
             sub="Requests stopped per day, your local timezone"
-          >
-            <span className="badge plain">
-              <Sparkles />
-              {cosmeticRuleCount} hiding rules
-            </span>
-          </CardHead>
+          />
 
           <div className="chart" role="img" aria-label={`Blocked requests for the last 7 days, totaling ${week}`}>
             {series.map((day, index) => (
@@ -225,11 +204,10 @@ export default function Dashboard() {
                 </span>
                 <div className="feed-main">
                   <div className="host">{event.host}</div>
-                  <div className="rule">{event.rule}</div>
+                  <div className="rule">Stopped before it loaded</div>
                 </div>
                 <div className="feed-side">
                   <time>{relativeTime(event.at)}</time>
-                  {event.listId ? <ListBadge listId={event.listId} /> : null}
                 </div>
               </div>
             ))}
@@ -269,8 +247,7 @@ export default function Dashboard() {
             })}
           </div>
           <p className="footer-note">
-            Your counters stay on this device. Beta diagnostics only cover app health — never what you
-            browse.
+            Your counters stay on this device — nothing about your browsing leaves it.
           </p>
         </div>
       </section>

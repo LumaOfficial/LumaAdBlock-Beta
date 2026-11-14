@@ -13,10 +13,19 @@ import { CardHead, PageHead } from '../components/ui'
 import { DEMO_SITES } from '../lib/demoSites'
 import { cosmeticFor, screenRequest } from '../lib/engine'
 import { useApp } from '../lib/store'
-import { formatNumber } from '../lib/format'
+
+/** A readable name for a demo selector, so checks never show raw CSS. */
+function selectorLabel(selector) {
+  const simple = selector.match(/^\.([a-z0-9-]+)$/i)
+  if (!simple) return 'Page element'
+  return simple[1]
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ')
+}
 
 export default function Lab() {
-  const { state, setProtection, rules } = useApp()
+  const { state, setProtection, rules, observe } = useApp()
   const [siteId, setSiteId] = useState(DEMO_SITES[0].id)
   const [checks, setChecks] = useState(null)
   const [hiddenCount, setHiddenCount] = useState(0)
@@ -40,6 +49,18 @@ export default function Lab() {
 
   const cosmetic = useMemo(() => cosmeticFor(site.host, rules), [rules, site.host])
   const blockedCount = decisions.filter((item) => item.decision.blocked).length
+
+  // Every request the lab screens is an observation the engine can learn from.
+  useEffect(() => {
+    observe(
+      decisions.map((item) => ({
+        url: item.url,
+        type: item.type,
+        pageHost: site.host,
+        blocked: item.decision.blocked,
+      })),
+    )
+  }, [decisions, site.host, observe])
 
   useEffect(() => {
     setChecks(null)
@@ -82,7 +103,7 @@ export default function Lab() {
     for (const item of decisions) {
       results.push({
         key: item.url,
-        label: `${item.label} · ${item.type}`,
+        label: item.label,
         detail: item.expect === 'blocked' ? 'should be blocked' : 'should be allowed',
         ok: item.decision.blocked === (item.expect === 'blocked'),
       })
@@ -92,7 +113,7 @@ export default function Lab() {
       const nodes = Array.from(root.querySelectorAll(selector))
       results.push({
         key: 'hide:' + selector,
-        label: selector,
+        label: selectorLabel(selector),
         detail: `${nodes.length} element${nodes.length === 1 ? '' : 's'} hidden`,
         ok:
           nodes.length > 0 &&
@@ -104,7 +125,7 @@ export default function Lab() {
       const nodes = Array.from(root.querySelectorAll(selector))
       results.push({
         key: 'keep:' + selector,
-        label: selector,
+        label: selectorLabel(selector),
         detail: 'should stay visible',
         ok:
           nodes.length > 0 &&
@@ -195,8 +216,8 @@ export default function Lab() {
                 <div className="request-row" key={item.url} data-status={item.decision.status}>
                   <div className="req-main">
                     <div className="req-label">{item.label}</div>
-                    <div className="req-url" title={item.url}>
-                      {item.decision.rule ? item.decision.rule.raw : item.url}
+                    <div className="req-url">
+                      {item.decision.blocked ? 'Recognized ad or tracker' : 'Nothing to block'}
                     </div>
                   </div>
                   <span className={'req-state ' + (state.protection ? item.decision.status : 'paused')}>
@@ -243,8 +264,7 @@ export default function Lab() {
           </div>
 
           <p className="footer-note">
-            {formatNumber(rules.length)} filter rules are active right now — every decision above comes
-            from the lists you have enabled.
+            Every decision above comes from the protection you have enabled.
           </p>
         </div>
       </section>

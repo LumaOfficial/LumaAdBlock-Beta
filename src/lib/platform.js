@@ -88,6 +88,17 @@ export function buildPayload(state) {
       nextId += 1
     }
 
+    const learnedNetwork = compileRules(
+      (state.learned || []).map((item) => item.rule),
+      'learned',
+    ).filter((rule) => rule.kind === 'network')
+    toDeclarativeNetRequest(learnedNetwork).forEach((rule, index) => {
+      rule.id = nextId
+      ruleIndex['_dynamic:' + rule.id] = { listId: 'learned', raw: learnedNetwork[index].raw }
+      dynamicRules.push(rule)
+      nextId += 1
+    })
+
     for (const host of state.allowlist) {
       dynamicRules.push({
         id: nextId,
@@ -124,6 +135,7 @@ export function buildPayload(state) {
       lists: state.lists,
       customRules: state.customRules,
       allowlist: state.allowlist,
+      learned: state.learned || [],
     },
   }
 }

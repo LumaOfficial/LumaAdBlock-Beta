@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import { Info, Plus, ShieldCheck, Trash2, X } from 'lucide-react'
-import { FILTER_LISTS, countRules, countCosmetic } from '../lib/blocklists'
+import { FILTER_LISTS } from '../lib/blocklists'
 import { hostnameOf, parseFilter } from '../lib/engine'
 import { useApp } from '../lib/store'
-import { formatNumber } from '../lib/format'
 import { CardHead, PageHead, Switch, useToast } from '../components/ui'
 
 export default function FilterLists() {
@@ -15,8 +14,6 @@ export default function FilterLists() {
     addAllow,
     removeAllow,
     activeListCount,
-    networkRuleCount,
-    cosmeticRuleCount,
   } = useApp()
 
   const [ruleDraft, setRuleDraft] = useState('')
@@ -70,7 +67,7 @@ export default function FilterLists() {
       >
         <span className="badge plain">
           <ShieldCheck />
-          {activeListCount} active · {formatNumber(networkRuleCount)} network · {formatNumber(cosmeticRuleCount)} hiding
+          {activeListCount} active
         </span>
       </PageHead>
 
@@ -91,12 +88,6 @@ export default function FilterLists() {
                 <Switch on={on} onChange={() => toggleList(list.id)} label={'Toggle ' + list.name} />
               </div>
               <div className="list-meta">
-                <span>
-                  <strong>{countRules(list)}</strong> network rules
-                </span>
-                <span>
-                  <strong>{countCosmetic(list)}</strong> hiding rules
-                </span>
                 <span>Updated weekly</span>
               </div>
             </div>
@@ -108,7 +99,7 @@ export default function FilterLists() {
         <div className="card">
           <CardHead
             title="Your custom rules"
-            sub="Adblock Plus syntax, applied on every page"
+            sub="Matched on every page you visit"
           />
           <form className="inline-form" onSubmit={submitRule}>
             <div className="field grow">
@@ -116,7 +107,7 @@ export default function FilterLists() {
               <input
                 id="rule"
                 className="input"
-                placeholder="||ads.example.com^  or  example.com##.sponsored"
+                placeholder="ads.example.com"
                 value={ruleDraft}
                 onChange={(event) => {
                   setRuleDraft(event.target.value)
@@ -130,12 +121,6 @@ export default function FilterLists() {
             </button>
           </form>
           {ruleError ? <p className="hint" style={{ color: 'var(--accent-deep)', marginTop: 8 }}>{ruleError}</p> : null}
-
-          <div className="note" style={{ marginTop: 12 }}>
-            <strong>Patterns:</strong> <span className="mono">||domain^</span> blocks a whole domain,{' '}
-            <span className="mono">@@||domain^</span> allows one, <span className="mono">##.class</span> hides an
-            element, <span className="mono">$script,third-party</span> narrows by request type.
-          </div>
 
           <div className="stack" style={{ gap: 8, marginTop: 14 }}>
             {state.customRules.map((rule) => {

@@ -21,10 +21,11 @@ const TITLES = {
   '/lists': 'Filter lists',
   '/lab': 'Test lab',
   '/inspector': 'URL inspector',
+  '/diagnostics': 'Diagnostics',
 }
 
 export default function Layout() {
-  const { state, setProtection, activeListCount, networkRuleCount } = useApp()
+  const { state, setProtection } = useApp()
   const location = useLocation()
 
   useEffect(() => {
@@ -57,7 +58,6 @@ export default function Layout() {
               >
                 <Icon />
                 {item.label}
-                {item.to === '/lists' ? <span className="nav-count">{activeListCount}</span> : null}
               </NavLink>
             )
           })}
@@ -70,9 +70,9 @@ export default function Layout() {
               {state.protection ? 'Protected' : 'Paused'}
             </div>
             <p>
-              {activeListCount} lists active
+              Ads, trackers and annoyances
               <br />
-              {networkRuleCount} network rules
+              filtered before they load
             </p>
           </div>
           <div className="side-links">
@@ -110,17 +110,6 @@ export default function Layout() {
       </div>
     </div>
   )
-}
-
-export function ListBadge({ listId }) {
-  const names = {
-    'luma-core': 'Luma Core',
-    'tracker-shield': 'Tracker Shield',
-    'annoyance-cleaner': 'Annoyance Cleaner',
-    'social-widgets': 'Social Widgets',
-    custom: 'Custom rule',
-  }
-  return <span className={'badge ' + (listId === 'custom' ? 'accent' : 'plain')}>{names[listId] || listId}</span>
 }
 
 export function StatusDot({ on }) {
