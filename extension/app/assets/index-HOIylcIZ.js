@@ -15306,6 +15306,11 @@ function useOutlet(context) {
     [outlet, context]
   );
 }
+function useParams() {
+  let { matches } = reactExports.useContext(RouteContext);
+  let routeMatch = matches[matches.length - 1];
+  return (routeMatch == null ? void 0 : routeMatch.params) ?? {};
+}
 function useResolvedPath(to, { relative } = {}) {
   let { matches } = reactExports.useContext(RouteContext);
   let { pathname: locationPathname } = useLocation();
@@ -17334,17 +17339,6 @@ const KeyRound = createLucideIcon("KeyRound", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const ListFilter = createLucideIcon("ListFilter", [
-  ["path", { d: "M3 6h18", key: "d0wm0j" }],
-  ["path", { d: "M7 12h10", key: "b7w52i" }],
-  ["path", { d: "M10 18h4", key: "1ulq68" }]
-]);
-/**
- * @license lucide-react v0.469.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
 const LogOut = createLucideIcon("LogOut", [
   ["path", { d: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4", key: "1uf3rs" }],
   ["polyline", { points: "16 17 21 12 16 7", key: "1gabdz" }],
@@ -17903,22 +17897,18 @@ const NAV = [
   }
 ];
 const TOOLS = [
-  { view: "lab", to: "/protection?view=lab", label: "Test lab", icon: FlaskConical },
-  { view: "lists", to: "/protection?view=lists", label: "Filter lists", icon: ListFilter },
-  { view: "inspector", to: "/protection?view=inspector", label: "URL inspector", icon: Search }
+  { to: "/tools/lab", label: "Test lab", icon: FlaskConical },
+  { to: "/tools/inspector", label: "URL inspector", icon: Search }
 ];
 const TITLES = {
   "/": "Overview",
   "/protection": "Protection",
   "/activity": "Activity",
   "/account": "Account",
+  "/tools/lab": "Test lab",
+  "/tools/inspector": "URL inspector",
   "/diagnostics": "Diagnostics",
   "/owner": "Owner console"
-};
-const TOOL_TITLES = {
-  lists: "Protection",
-  lab: "Test lab",
-  inspector: "URL inspector"
 };
 function Layout() {
   const { state, setProtection } = useApp();
@@ -17926,8 +17916,7 @@ function Layout() {
   reactExports.useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
-  const view = location.pathname === "/protection" ? new URLSearchParams(location.search).get("view") : "";
-  const title = view ? TOOL_TITLES[view] || "Protection" : TITLES[location.pathname] || "Overview";
+  const title = TITLES[location.pathname] || "Overview";
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "shell", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("aside", { className: "sidebar", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs(NavLink, { to: "/", className: "brand", "aria-label": "Luma home", children: [
@@ -17942,37 +17931,19 @@ function Layout() {
           /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "nav-label", style: { marginTop: index ? 14 : 0 }, children: group.label }),
           group.items.map((item) => {
             const Icon2 = item.icon;
-            return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-              NavLink,
-              {
-                to: item.to,
-                end: item.end,
-                className: ({ isActive }) => "nav-link" + // A tool view inside Protection highlights that tool instead.
-                (isActive && !(item.to === "/protection" && view) ? " active" : ""),
-                children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, {}),
-                  item.label
-                ]
-              },
-              item.to
-            );
+            return /* @__PURE__ */ jsxRuntimeExports.jsxs(NavLink, { to: item.to, end: item.end, className: "nav-link", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, {}),
+              item.label
+            ] }, item.to);
           })
         ] }, group.label)),
         /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "nav-label", style: { marginTop: 14 }, children: "Tools" }),
         TOOLS.map((tool) => {
           const Icon2 = tool.icon;
-          return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-            Link,
-            {
-              to: tool.to,
-              className: "nav-link" + ((view || "lists") === tool.view ? " active" : ""),
-              children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, {}),
-                tool.label
-              ]
-            },
-            tool.to
-          );
+          return /* @__PURE__ */ jsxRuntimeExports.jsxs(NavLink, { to: tool.to, className: "nav-link", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, {}),
+            tool.label
+          ] }, tool.to);
         })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "sidebar-foot", children: [
@@ -18948,7 +18919,7 @@ function Activity() {
         ] }, row.id)),
         !visible.length ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "empty", children: needle ? "No request from a site matching that filter." : "Nothing logged yet. Run the test lab to watch the engine work, or install the extension for live activity." }) : null
       ] }),
-      !needle && !rows.length ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "row", style: { marginTop: 14 }, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: "/protection?view=lab", className: "btn sm", children: [
+      !needle && !rows.length ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "row", style: { marginTop: 14 }, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: "/tools/lab", className: "btn sm", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(FlaskConical, {}),
         "Run the test lab"
       ] }) }) : null
@@ -20795,19 +20766,19 @@ function SiteControls() {
 }
 const ACTIONS = [
   {
-    to: "/protection?view=lab",
+    to: "/tools/lab",
     icon: FlaskConical,
     title: "Run the test lab",
     text: "Watch Luma strip ads from four simulated sites."
   },
   {
-    to: "/protection?view=lists",
+    to: "/protection",
     icon: ShieldCheck,
     title: "Tune your lists",
     text: "Add filter lists, custom rules and allowlisted sites."
   },
   {
-    to: "/protection?view=inspector",
+    to: "/tools/inspector",
     icon: Search,
     title: "Inspect any request",
     text: "Paste a URL and see exactly which rule decides."
@@ -20911,7 +20882,7 @@ function Dashboard() {
     /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "grid-2", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(SiteControls, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Recent activity", sub: "The last requests Luma stopped", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: "/protection?view=lab", className: "btn sm ghost", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Recent activity", sub: "The last requests Luma stopped", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: "/tools/lab", className: "btn sm ghost", children: [
           "Live demo",
           /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowRight, {})
         ] }) }),
@@ -21257,6 +21228,147 @@ function FilterListsPanel() {
       ] })
     ] }),
     toast.node
+  ] });
+}
+function Protection() {
+  const { activeListCount } = useApp();
+  const [params] = useSearchParams();
+  const legacy = params.get("view");
+  if (legacy === "lab" || legacy === "inspector") {
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/tools/" + legacy, replace: true });
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      PageHead,
+      {
+        eyebrow: "Protection",
+        title: "What Luma blocks.",
+        lede: "Filter lists, your own rules and the sites you trust. Change them here and every device signed in to your account follows.",
+        children: /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldCheck, {}),
+          activeListCount,
+          " active"
+        ] })
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(FilterListsPanel, {})
+  ] });
+}
+async function fetchAccounts() {
+  const data = await api("/api/owner/accounts");
+  return data.accounts || [];
+}
+async function eraseAccount(accountId) {
+  return api("/api/owner/erase", { method: "POST", body: { accountId } });
+}
+function methodLabel(via) {
+  if (via === "code") return "Email code";
+  if (via === "password") return "Password";
+  return via.charAt(0).toUpperCase() + via.slice(1);
+}
+function joined(value) {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? "—" : date.toLocaleDateString(void 0, { month: "short", day: "numeric", year: "numeric" });
+}
+function Owner() {
+  const { user } = useAuth();
+  const [accounts, setAccounts] = reactExports.useState([]);
+  const [status, setStatus] = reactExports.useState("loading");
+  const [error, setError] = reactExports.useState("");
+  const [confirming, setConfirming] = reactExports.useState("");
+  const [busy, setBusy] = reactExports.useState("");
+  const load = reactExports.useCallback(() => {
+    setStatus("loading");
+    setError("");
+    fetchAccounts().then((list) => {
+      setAccounts(list);
+      setStatus("ready");
+    }).catch((failure) => {
+      setError((failure == null ? void 0 : failure.message) || "Could not load the account list.");
+      setStatus("ready");
+    });
+  }, []);
+  reactExports.useEffect(() => {
+    if (user == null ? void 0 : user.owner) load();
+  }, [user, load]);
+  async function erase(account) {
+    setBusy(account.id);
+    setError("");
+    try {
+      await eraseAccount(account.id);
+      setAccounts((current) => current.filter((item) => item.id !== account.id));
+      setConfirming("");
+    } catch (failure) {
+      setError((failure == null ? void 0 : failure.message) || "Could not erase that account.");
+    } finally {
+      setBusy("");
+    }
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      PageHead,
+      {
+        eyebrow: "Owner only — not linked from the app",
+        title: "Owner console",
+        lede: "Every account on the service, with a way to erase one completely when its owner asks us to."
+      }
+    ),
+    !(user == null ? void 0 : user.owner) ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "card", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "empty", children: "This console belongs to Luma owner accounts. You are signed in as a regular member." }) }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "card", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        CardHead,
+        {
+          title: "Accounts",
+          sub: status === "loading" ? "Loading…" : `${accounts.length} account${accounts.length === 1 ? "" : "s"} on this service`,
+          children: /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "btn sm", onClick: load, disabled: status === "loading", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldCheck, {}),
+            "Refresh"
+          ] })
+        }
+      ),
+      error ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "auth-notice", role: "alert", children: error }) : null,
+      status === "ready" && accounts.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "empty", children: "No accounts yet." }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "owner-list", children: accounts.map((account) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "owner-row", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "owner-who", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "owner-name", children: [
+            account.name || account.email || "Unnamed account",
+            account.owner ? /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge accent", children: "Owner" }) : null,
+            account.id === user.id ? /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge plain", children: "You" }) : null
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "owner-meta", children: [
+            account.email,
+            " · ",
+            methodLabel(account.via),
+            " · joined ",
+            joined(account.createdAt),
+            account.synced ? " · settings synced" : ""
+          ] })
+        ] }),
+        account.id === user.id ? /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "muted", children: "current sign-in" }) : confirming === account.id ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "button",
+            {
+              type: "button",
+              className: "btn sm danger",
+              disabled: busy === account.id,
+              onClick: () => erase(account),
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Trash2, {}),
+                "Erase everything"
+              ]
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", className: "btn sm ghost", onClick: () => setConfirming(""), children: "Cancel" })
+        ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "button",
+          {
+            type: "button",
+            className: "btn sm ghost",
+            disabled: busy === account.id,
+            onClick: () => setConfirming(account.id),
+            children: "Erase data"
+          }
+        )
+      ] }, account.id)) })
+    ] })
   ] });
 }
 const EXAMPLES = [
@@ -21929,14 +22041,6 @@ function LabPanel() {
 }
 const VIEWS = [
   {
-    id: "lists",
-    label: "Filter lists",
-    icon: ListFilter,
-    title: "Filter lists",
-    lede: "Lists decide what Luma blocks. Turn on more for a quieter web, or write your own rules.",
-    Panel: FilterListsPanel
-  },
-  {
     id: "lab",
     label: "Test lab",
     icon: FlaskConical,
@@ -21953,19 +22057,15 @@ const VIEWS = [
     Panel: InspectorPanel
   }
 ];
-function Protection() {
-  const { activeListCount } = useApp();
-  const [params, setParams] = useSearchParams();
-  const requested = params.get("view");
-  const view = VIEWS.find((item) => item.id === requested) || VIEWS[0];
+function Tools() {
+  const { view: requested } = useParams();
+  const navigate = useNavigate();
+  const view = VIEWS.find((item) => item.id === requested);
+  if (!view) return /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/tools/lab", replace: true });
   const { Panel } = view;
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(PageHead, { eyebrow: "Protection", title: view.title, lede: view.lede, children: view.id === "lists" ? /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldCheck, {}),
-      activeListCount,
-      " active"
-    ] }) : null }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "view-tabs", role: "tablist", "aria-label": "Protection tools", children: VIEWS.map((item) => {
+    /* @__PURE__ */ jsxRuntimeExports.jsx(PageHead, { eyebrow: "Tools", title: view.title, lede: view.lede }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "view-tabs", role: "tablist", "aria-label": "Tools", children: VIEWS.map((item) => {
       const Icon2 = item.icon;
       return /* @__PURE__ */ jsxRuntimeExports.jsxs(
         "button",
@@ -21975,7 +22075,7 @@ function Protection() {
           "aria-selected": item.id === view.id,
           "data-active": item.id === view.id ? "true" : "false",
           className: "view-tab",
-          onClick: () => setParams({ view: item.id }, { replace: true }),
+          onClick: () => navigate("/tools/" + item.id, { replace: true }),
           children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, {}),
             item.label
@@ -21985,123 +22085,6 @@ function Protection() {
       );
     }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Panel, {})
-  ] });
-}
-async function fetchAccounts() {
-  const data = await api("/api/owner/accounts");
-  return data.accounts || [];
-}
-async function eraseAccount(accountId) {
-  return api("/api/owner/erase", { method: "POST", body: { accountId } });
-}
-function methodLabel(via) {
-  if (via === "code") return "Email code";
-  if (via === "password") return "Password";
-  return via.charAt(0).toUpperCase() + via.slice(1);
-}
-function joined(value) {
-  const date = new Date(value);
-  return Number.isNaN(date.getTime()) ? "—" : date.toLocaleDateString(void 0, { month: "short", day: "numeric", year: "numeric" });
-}
-function Owner() {
-  const { user } = useAuth();
-  const [accounts, setAccounts] = reactExports.useState([]);
-  const [status, setStatus] = reactExports.useState("loading");
-  const [error, setError] = reactExports.useState("");
-  const [confirming, setConfirming] = reactExports.useState("");
-  const [busy, setBusy] = reactExports.useState("");
-  const load = reactExports.useCallback(() => {
-    setStatus("loading");
-    setError("");
-    fetchAccounts().then((list) => {
-      setAccounts(list);
-      setStatus("ready");
-    }).catch((failure) => {
-      setError((failure == null ? void 0 : failure.message) || "Could not load the account list.");
-      setStatus("ready");
-    });
-  }, []);
-  reactExports.useEffect(() => {
-    if (user == null ? void 0 : user.owner) load();
-  }, [user, load]);
-  async function erase(account) {
-    setBusy(account.id);
-    setError("");
-    try {
-      await eraseAccount(account.id);
-      setAccounts((current) => current.filter((item) => item.id !== account.id));
-      setConfirming("");
-    } catch (failure) {
-      setError((failure == null ? void 0 : failure.message) || "Could not erase that account.");
-    } finally {
-      setBusy("");
-    }
-  }
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      PageHead,
-      {
-        eyebrow: "Owner only — not linked from the app",
-        title: "Owner console",
-        lede: "Every account on the service, with a way to erase one completely when its owner asks us to."
-      }
-    ),
-    !(user == null ? void 0 : user.owner) ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "card", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "empty", children: "This console belongs to Luma owner accounts. You are signed in as a regular member." }) }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "card", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        CardHead,
-        {
-          title: "Accounts",
-          sub: status === "loading" ? "Loading…" : `${accounts.length} account${accounts.length === 1 ? "" : "s"} on this service`,
-          children: /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "btn sm", onClick: load, disabled: status === "loading", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldCheck, {}),
-            "Refresh"
-          ] })
-        }
-      ),
-      error ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "auth-notice", role: "alert", children: error }) : null,
-      status === "ready" && accounts.length === 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "empty", children: "No accounts yet." }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "owner-list", children: accounts.map((account) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "owner-row", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "owner-who", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "owner-name", children: [
-            account.name || account.email || "Unnamed account",
-            account.owner ? /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge accent", children: "Owner" }) : null,
-            account.id === user.id ? /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge plain", children: "You" }) : null
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "owner-meta", children: [
-            account.email,
-            " · ",
-            methodLabel(account.via),
-            " · joined ",
-            joined(account.createdAt),
-            account.synced ? " · settings synced" : ""
-          ] })
-        ] }),
-        account.id === user.id ? /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "muted", children: "current sign-in" }) : confirming === account.id ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(
-            "button",
-            {
-              type: "button",
-              className: "btn sm danger",
-              disabled: busy === account.id,
-              onClick: () => erase(account),
-              children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(Trash2, {}),
-                "Erase everything"
-              ]
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", className: "btn sm ghost", onClick: () => setConfirming(""), children: "Cancel" })
-        ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx(
-          "button",
-          {
-            type: "button",
-            className: "btn sm ghost",
-            disabled: busy === account.id,
-            onClick: () => setConfirming(account.id),
-            children: "Erase data"
-          }
-        )
-      ] }, account.id)) })
-    ] })
   ] });
 }
 function App() {
@@ -22115,9 +22098,11 @@ function App() {
     /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/protection", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Protection, {}) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/activity", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Activity, {}) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/account", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Account, {}) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/lists", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/protection?view=lists", replace: true }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/lab", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/protection?view=lab", replace: true }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/inspector", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/protection?view=inspector", replace: true }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/tools", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/tools/lab", replace: true }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/tools/:view", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Tools, {}) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/lists", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/protection", replace: true }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/lab", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/tools/lab", replace: true }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/inspector", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/tools/inspector", replace: true }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/diagnostics", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Diagnostics, {}) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/owner", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Owner, {}) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "*", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/", replace: true }) })

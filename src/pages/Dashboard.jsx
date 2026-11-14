@@ -23,19 +23,19 @@ import BackupCard from '../components/dashboard/BackupCard'
 
 const ACTIONS = [
   {
-    to: '/protection?view=lab',
+    to: '/tools/lab',
     icon: FlaskConical,
     title: 'Run the test lab',
     text: 'Watch Luma strip ads from four simulated sites.',
   },
   {
-    to: '/protection?view=lists',
+    to: '/protection',
     icon: ShieldCheck,
     title: 'Tune your lists',
     text: 'Add filter lists, custom rules and allowlisted sites.',
   },
   {
-    to: '/protection?view=inspector',
+    to: '/tools/inspector',
     icon: Search,
     title: 'Inspect any request',
     text: 'Paste a URL and see exactly which rule decides.',
@@ -160,7 +160,7 @@ export default function Dashboard() {
 
         <div className="card">
           <CardHead title="Recent activity" sub="The last requests Luma stopped">
-            <Link to="/protection?view=lab" className="btn sm ghost">
+            <Link to="/tools/lab" className="btn sm ghost">
               Live demo
               <ArrowRight />
             </Link>

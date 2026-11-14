@@ -122,7 +122,7 @@ export default function Activity() {
 
         {!needle && !rows.length ? (
           <div className="row" style={{ marginTop: 14 }}>
-            <Link to="/protection?view=lab" className="btn sm">
+            <Link to="/tools/lab" className="btn sm">
               <FlaskConical />
               Run the test lab
             </Link>

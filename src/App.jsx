@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard'
 import Diagnostics from './pages/Diagnostics'
 import Protection from './pages/Protection'
 import Owner from './pages/Owner'
+import Tools from './pages/Tools'
 import { useAuth } from './lib/useAuth'
 
 export default function App() {
@@ -30,10 +31,13 @@ export default function App() {
         <Route path="/protection" element={<Protection />} />
         <Route path="/activity" element={<Activity />} />
         <Route path="/account" element={<Account />} />
-        {/* Old per-tool pages now live inside Protection. */}
-        <Route path="/lists" element={<Navigate to="/protection?view=lists" replace />} />
-        <Route path="/lab" element={<Navigate to="/protection?view=lab" replace />} />
-        <Route path="/inspector" element={<Navigate to="/protection?view=inspector" replace />} />
+        {/* Tools sit apart from the protection settings they inspect. */}
+        <Route path="/tools" element={<Navigate to="/tools/lab" replace />} />
+        <Route path="/tools/:view" element={<Tools />} />
+        {/* Old addresses for the tools and the lists. */}
+        <Route path="/lists" element={<Navigate to="/protection" replace />} />
+        <Route path="/lab" element={<Navigate to="/tools/lab" replace />} />
+        <Route path="/inspector" element={<Navigate to="/tools/inspector" replace />} />
         {/* Internal console: reachable by URL only, never linked from the app. */}
         <Route path="/diagnostics" element={<Diagnostics />} />
         {/* Owner console: only owner accounts can read or erase accounts. */}

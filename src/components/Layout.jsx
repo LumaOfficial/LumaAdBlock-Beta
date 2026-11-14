@@ -1,10 +1,9 @@
 import { Fragment, useEffect } from 'react'
-import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
+import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import {
   FlaskConical,
   Gauge,
   History,
-  ListFilter,
   Search,
   ShieldCheck,
   UserRound,
@@ -31,11 +30,10 @@ const NAV = [
   },
 ]
 
-// Shortcuts into the tools that live inside Protection.
+// Ways to look at protection working — kept out of the protection settings.
 const TOOLS = [
-  { view: 'lab', to: '/protection?view=lab', label: 'Test lab', icon: FlaskConical },
-  { view: 'lists', to: '/protection?view=lists', label: 'Filter lists', icon: ListFilter },
-  { view: 'inspector', to: '/protection?view=inspector', label: 'URL inspector', icon: Search },
+  { to: '/tools/lab', label: 'Test lab', icon: FlaskConical },
+  { to: '/tools/inspector', label: 'URL inspector', icon: Search },
 ]
 
 const TITLES = {
@@ -43,14 +41,10 @@ const TITLES = {
   '/protection': 'Protection',
   '/activity': 'Activity',
   '/account': 'Account',
+  '/tools/lab': 'Test lab',
+  '/tools/inspector': 'URL inspector',
   '/diagnostics': 'Diagnostics',
   '/owner': 'Owner console',
-}
-
-const TOOL_TITLES = {
-  lists: 'Protection',
-  lab: 'Test lab',
-  inspector: 'URL inspector',
 }
 
 export default function Layout() {
@@ -61,9 +55,7 @@ export default function Layout() {
     window.scrollTo(0, 0)
   }, [location.pathname])
 
-  // /protection hosts three tools; the query string says which one is open.
-  const view = location.pathname === '/protection' ? new URLSearchParams(location.search).get('view') : ''
-  const title = view ? TOOL_TITLES[view] || 'Protection' : TITLES[location.pathname] || 'Overview'
+  const title = TITLES[location.pathname] || 'Overview'
 
   return (
     <div className="shell">
@@ -85,16 +77,7 @@ export default function Layout() {
               {group.items.map((item) => {
                 const Icon = item.icon
                 return (
-                  <NavLink
-                    key={item.to}
-                    to={item.to}
-                    end={item.end}
-                    className={({ isActive }) =>
-                      'nav-link' +
-                      // A tool view inside Protection highlights that tool instead.
-                      (isActive && !(item.to === '/protection' && view) ? ' active' : '')
-                    }
-                  >
+                  <NavLink key={item.to} to={item.to} end={item.end} className="nav-link">
                     <Icon />
                     {item.label}
                   </NavLink>
@@ -109,14 +92,10 @@ export default function Layout() {
           {TOOLS.map((tool) => {
             const Icon = tool.icon
             return (
-              <Link
-                key={tool.to}
-                to={tool.to}
-                className={'nav-link' + ((view || 'lists') === tool.view ? ' active' : '')}
-              >
+              <NavLink key={tool.to} to={tool.to} className="nav-link">
                 <Icon />
                 {tool.label}
-              </Link>
+              </NavLink>
             )
           })}
         </nav>
