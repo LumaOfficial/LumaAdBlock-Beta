@@ -64,7 +64,8 @@ export async function api(path, { method = 'GET', body, auth = true } = {}) {
   try {
     data = await response.json()
   } catch {
-    /* empty body */
+    // Anything that is not a JSON reply never reached the account service.
+    throw new ApiError('Luma could not reach its accounts service. Check your connection and try again.', 0)
   }
   if (!response.ok) {
     throw new ApiError(data?.error || 'Something went wrong. Try again.', response.status, data?.errors)
