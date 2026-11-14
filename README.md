@@ -92,9 +92,11 @@ on port 8000 and the dev server points at it through `VITE_API_URL`.
 
 ### Sign-in
 
-Accounts are owners because of their address: `OWNER_EMAILS` in `server/index.js`
-holds `lumasupport@tidio.xyz` (support) and `6yokid@gmail.com` (owner), and both
-sign in like anyone else — the dashboard marks them as owner.
+Accounts are owners because of their address. `server/index.js` always treats the
+public support address as one, and any further owner addresses come from the
+`OWNER_EMAILS` secret (comma separated) — never from the source, so no personal
+address ships in the app. They sign in like anyone else and the dashboard marks
+them as owner.
 
 Provider sign-in and emailed codes need credentials, and each is optional until
 its credentials exist:

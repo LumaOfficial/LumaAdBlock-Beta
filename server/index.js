@@ -25,8 +25,17 @@ const TERMS_VERSION = '2026-11-13'
 
 // The addresses that run this deployment. Accounts on these addresses are
 // owners no matter how they signed in — password, provider or email code.
+// Only the public support address lives here: additional owner addresses come
+// from the OWNER_EMAILS secret (comma separated) so no personal address ships
+// in the source or the built app.
 const SUPPORT_EMAIL = 'lumasupport@tidio.xyz'
-const OWNER_EMAILS = [SUPPORT_EMAIL, '6yokid@gmail.com']
+const OWNER_EMAILS = [
+  SUPPORT_EMAIL,
+  ...String(process.env.OWNER_EMAILS || '')
+    .split(',')
+    .map((value) => value.trim().toLowerCase())
+    .filter(Boolean),
+]
 const isOwner = (email) => OWNER_EMAILS.includes(String(email || '').trim().toLowerCase())
 
 // Public addresses used to build provider redirects and to hand a finished
