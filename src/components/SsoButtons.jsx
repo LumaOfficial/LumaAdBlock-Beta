@@ -24,11 +24,11 @@ function Mark({ id }) {
   )
 }
 
-/** One button per provider. Picking one leaves the app for that provider. */
-export default function SsoButtons({ busy, onPick }) {
+/** One button per connected provider. Picking one leaves the app for that provider. */
+export default function SsoButtons({ providers = SSO_PROVIDERS, busy, onPick }) {
   return (
     <div className="sso-grid">
-      {SSO_PROVIDERS.map((provider) => (
+      {providers.map((provider) => (
         <button
           key={provider.id}
           type="button"

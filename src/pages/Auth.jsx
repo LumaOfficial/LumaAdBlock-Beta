@@ -92,21 +92,12 @@ export default function Auth() {
     setCodeStep('email')
   }
 
+  // Only providers the account service holds credentials for are offered, so a
+  // missing client id/secret never shows up as a button that cannot work.
+  const connected = (providers || []).filter((item) => item.configured)
+
   function startProvider(provider) {
     setNotice('')
-    // Until the account service says which providers have credentials, going
-    // to one would land on a dead page, so ask again in a moment.
-    if (!providers) {
-      setNotice('One moment — checking which sign-in providers are connected.')
-      return
-    }
-    const status = providers.find((item) => item.id === provider.id)
-    if (status && !status.configured) {
-      setNotice(
-        `${provider.label} sign-in isn't connected yet. Add this app's ${provider.label} client ID and secret to its secrets, then try again.`,
-      )
-      return
-    }
     window.location.assign(providerStartUrl(provider.id, remember))
   }
 
@@ -161,7 +152,7 @@ export default function Auth() {
       setCodeStep('code')
       setHandoff(
         data.devCode
-          ? 'Email delivery is not connected in this preview, so here is your code: ' + data.devCode
+          ? 'No mail service is connected yet, so here is your code: ' + data.devCode
           : 'We emailed a 6-digit code to ' + email + '. It works once and expires in 10 minutes.',
       )
     } catch (error) {
@@ -224,9 +215,9 @@ export default function Auth() {
           </button>
         </div>
 
-        {coding ? null : (
+        {coding || connected.length === 0 ? null : (
           <>
-            <SsoButtons busy={busy} onPick={startProvider} />
+            <SsoButtons providers={connected} busy={busy} onPick={startProvider} />
             <div className="auth-divider">
               <span>or use your email</span>
             </div>
