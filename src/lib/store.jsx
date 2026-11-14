@@ -24,12 +24,21 @@ const STORAGE_KEY = 'luma.state.v3'
 const MEGABYTES_PER_BLOCK = 0.09
 const MAX_ACTIVITY = 200
 
+// Only the two blocking styles exist; anything else keeps the current one.
+// Kept local: exporting a plain function from the provider module stops Fast
+// Refresh (see dates.js).
+const normalizeFeedback = (value, fallback) =>
+  value === 'visual' || value === 'hidden' ? value : fallback
+
 function emptyState() {
   return {
     protection: true,
     deep: false,
     // "system" follows the operating system; light and dark pin a theme.
     theme: 'system',
+    // How removed ads show on a page: "hidden" is silent, "visual" outlines
+    // each slot for a moment so the blocking is visible.
+    feedback: 'hidden',
     // Privacy mode stops blocking and keeps diagnostics anonymous.
     privacy: false,
     lists: { ...DEFAULT_LISTS },
@@ -104,6 +113,8 @@ function reducer(state, action) {
       return { ...state, deep: action.value }
     case 'theme':
       return { ...state, theme: action.value }
+    case 'feedback':
+      return { ...state, feedback: normalizeFeedback(action.value, state.feedback) }
     case 'privacy':
       return { ...state, privacy: action.value }
     case 'toggleList':
@@ -132,6 +143,7 @@ function reducer(state, action) {
         protection: typeof settings.protection === 'boolean' ? settings.protection : state.protection,
         deep: typeof settings.deep === 'boolean' ? settings.deep : state.deep,
         theme: settings.theme === 'light' || settings.theme === 'dark' ? settings.theme : state.theme,
+        feedback: normalizeFeedback(settings.feedback, state.feedback),
         privacy: typeof settings.privacy === 'boolean' ? settings.privacy : state.privacy,
         lists: { ...DEFAULT_LISTS, ...(settings.lists || {}) },
         customRules: Array.isArray(settings.customRules) ? settings.customRules : state.customRules,
@@ -158,6 +170,7 @@ function reducer(state, action) {
         protection: settings.protection ?? state.protection,
         deep: settings.deep ?? state.deep,
         theme: settings.theme ?? state.theme,
+        feedback: normalizeFeedback(settings.feedback, state.feedback),
         privacy: settings.privacy ?? state.privacy,
         lists: { ...DEFAULT_LISTS, ...(settings.lists || {}) },
         customRules: settings.customRules || [],
@@ -174,6 +187,7 @@ function reducer(state, action) {
         protection: settings.protection ?? state.protection,
         deep: settings.deep ?? state.deep,
         theme: settings.theme ?? state.theme,
+        feedback: normalizeFeedback(settings.feedback, state.feedback),
         privacy: settings.privacy ?? state.privacy,
         lists: { ...DEFAULT_LISTS, ...(settings.lists || {}) },
         customRules: settings.customRules || [],
@@ -299,6 +313,7 @@ export function AppProvider({ children }) {
       protection: state.protection,
       deep: state.deep,
       theme: state.theme,
+      feedback: state.feedback,
       privacy: state.privacy,
       lists: state.lists,
       customRules: state.customRules,
@@ -309,6 +324,7 @@ export function AppProvider({ children }) {
       state.protection,
       state.deep,
       state.theme,
+      state.feedback,
       state.privacy,
       state.lists,
       state.customRules,
@@ -436,6 +452,7 @@ export function AppProvider({ children }) {
       state.schedule,
       state.learned,
       state.privacy,
+      state.feedback,
       protectionNow,
     ],
   )
@@ -524,6 +541,7 @@ export function AppProvider({ children }) {
       setProtection: (value) => dispatch({ type: 'protection', value }),
       setDeep: (value) => dispatch({ type: 'deep', value }),
       setTheme: (theme) => dispatch({ type: 'theme', value: theme }),
+      setFeedback: (feedback) => dispatch({ type: 'feedback', value: feedback }),
       setPrivacy: (value) => dispatch({ type: 'privacy', value }),
       toggleList: (id) => dispatch({ type: 'toggleList', id }),
       addCustomRule: (rule) => dispatch({ type: 'addRule', rule }),

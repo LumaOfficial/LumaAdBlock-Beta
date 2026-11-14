@@ -1,8 +1,33 @@
-// Applies the element-hiding selectors the dashboard writes as custom rules.
-// The bundled lists ship as static stylesheets, so this only handles the
-// selectors the user adds themselves.
+// Hides the elements the filter lists point at, in whichever style the person
+// chose in the dashboard:
+//
+//   hidden  the slot is removed at document_start and leaves nothing behind
+//   visual  the slot is outlined and badged for a moment, then collapses, so
+//           it is obvious what went and that nothing useful went with it
+//
+// It also reports what it hid, which is what makes the dashboard's numbers
+// real: the browser does not expose matched network rules to a store install.
 const SETTINGS_KEY = 'luma:settings'
-const STYLE_ID = 'luma-custom-cosmetic'
+const STYLE_ID = 'luma-cosmetic'
+const HIDDEN_ATTR = 'data-luma-hidden'
+const ZAP_MS = 900
+const REPORT_MS = 600
+
+let bundled = null
+let active = { selectors: [], visual: false }
+const seen = new WeakSet()
+let pending = 0
+let reportTimer = 0
+let sweepTimer = 0
+
+const observer = new MutationObserver(() => {
+  if (!active.selectors.length) return
+  if (sweepTimer) return
+  sweepTimer = window.setTimeout(() => {
+    sweepTimer = 0
+    sweep()
+  }, 250)
+})
 
 function normalizeHost(value) {
   const text = String(value || '').trim().toLowerCase()
@@ -21,31 +46,130 @@ function hostMatches(host, domain) {
   return h === d || h.endsWith('.' + d)
 }
 
+async function loadBundled() {
+  if (bundled) return bundled
+  try {
+    const response = await fetch(chrome.runtime.getURL('cosmetic/selectors.json'))
+    bundled = await response.json()
+  } catch {
+    bundled = {}
+  }
+  return bundled
+}
+
+/** Every selector that applies here: the enabled lists' plus the person's own. */
 function selectorsFor(payload) {
-  const hidden = new Set()
-  if (!payload || !payload.protection) return hidden
-  const cosmetic = payload.cosmeticSelectors || { generic: [], site: {} }
+  const selectors = new Set()
+  if (!payload || !payload.protection) return []
   const host = location.hostname
   // An allowlisted site is left exactly as it is, custom hiding included.
   const allowlist = (payload.dashboard && payload.dashboard.allowlist) || []
-  if (allowlist.some((entry) => hostMatches(host, entry))) return hidden
+  if (allowlist.some((entry) => hostMatches(host, entry))) return []
 
-  for (const selector of cosmetic.generic || []) hidden.add(selector)
-  for (const [domain, selectors] of Object.entries(cosmetic.site || {})) {
-    if (!hostMatches(host, domain)) continue
-    for (const selector of selectors) hidden.add(selector)
+  for (const id of payload.enabledLists || []) {
+    for (const selector of (bundled && bundled[id]) || []) selectors.add(selector)
   }
-  return hidden
+  const cosmetic = payload.cosmeticSelectors || { generic: [], site: {} }
+  for (const selector of cosmetic.generic || []) selectors.add(selector)
+  for (const [domain, list] of Object.entries(cosmetic.site || {})) {
+    if (!hostMatches(host, domain)) continue
+    for (const selector of list) selectors.add(selector)
+  }
+  return [...selectors]
 }
 
-function apply(payload) {
-  document.getElementById(STYLE_ID)?.remove()
+function cssFor(selectors, visual) {
+  // One rule per selector: a selector a browser refuses to parse then only
+  // loses itself instead of voiding the whole sheet.
+  const hide = selectors
+    .map((selector) =>
+      visual
+        ? selector + ' { visibility: hidden !important; }\n'
+        : selector + ' { display: none !important; }\n',
+    )
+    .join('')
+  return (
+    hide +
+    '[' + HIDDEN_ATTR + '] { display: none !important; }\n' +
+    '.luma-zap { position: fixed; pointer-events: none; z-index: 2147483647;' +
+    ' border: 1px dashed #ff5522; border-radius: 6px; background: rgba(255, 85, 34, 0.08); }\n' +
+    '.luma-zap::after { content: "Luma blocked this"; position: absolute; left: 0; top: 0;' +
+    ' transform: translateY(-100%); padding: 2px 6px; border-radius: 4px 4px 0 0;' +
+    ' font: 600 11px/1.5 system-ui, -apple-system, sans-serif; color: #fff; background: #ff5522;' +
+    ' white-space: nowrap; }\n'
+  )
+}
+
+/** Outline where the slot was, then collapse it. */
+function zap(element) {
+  const rect = element.getBoundingClientRect()
+  const overlay = document.createElement('div')
+  overlay.className = 'luma-zap'
+  overlay.setAttribute('aria-hidden', 'true')
+  overlay.style.left = rect.left + 'px'
+  overlay.style.top = rect.top + 'px'
+  overlay.style.width = rect.width + 'px'
+  overlay.style.height = rect.height + 'px'
+  overlay.style.display = rect.width && rect.height ? 'block' : 'none'
+  ;(document.body || document.documentElement).appendChild(overlay)
+  window.setTimeout(() => {
+    element.setAttribute(HIDDEN_ATTR, '')
+    overlay.remove()
+  }, ZAP_MS)
+}
+
+function report() {
+  if (reportTimer || !pending) return
+  reportTimer = window.setTimeout(() => {
+    reportTimer = 0
+    const count = pending
+    pending = 0
+    try {
+      const sent = chrome.runtime.sendMessage({ type: 'luma:hidden', count, host: location.hostname })
+      if (sent && sent.catch) sent.catch(() => {})
+    } catch {
+      /* the worker may be asleep; the next page reports again */
+    }
+  }, REPORT_MS)
+}
+
+/** Count what this page has hidden so far, and outline it in Visual mode. */
+function sweep() {
+  let fresh = 0
+  for (const selector of active.selectors) {
+    let nodes = []
+    try {
+      nodes = document.querySelectorAll(selector)
+    } catch {
+      continue
+    }
+    for (const element of nodes) {
+      if (seen.has(element)) continue
+      seen.add(element)
+      fresh += 1
+      if (active.visual) zap(element)
+    }
+  }
+  if (!fresh) return
+  pending += fresh
+  report()
+}
+
+async function apply(payload) {
+  await loadBundled()
   const selectors = selectorsFor(payload)
-  if (!selectors.size) return
+  const visual = Boolean(payload && payload.protection && payload.dashboard?.feedback === 'visual')
+  active = { selectors, visual }
+  observer.disconnect()
+  document.getElementById(STYLE_ID)?.remove()
+  if (!selectors.length) return
+
   const style = document.createElement('style')
   style.id = STYLE_ID
-  style.textContent = [...selectors].join(',\n') + ' { display: none !important; }'
+  style.textContent = cssFor(selectors, visual)
   ;(document.head || document.documentElement).appendChild(style)
+  sweep()
+  observer.observe(document.documentElement, { childList: true, subtree: true })
 }
 
 chrome.storage.local.get(SETTINGS_KEY).then((stored) => apply(stored[SETTINGS_KEY]))

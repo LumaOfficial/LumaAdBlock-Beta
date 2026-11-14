@@ -17342,6 +17342,22 @@ const EyeOff = createLucideIcon("EyeOff", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
+const Eye = createLucideIcon("Eye", [
+  [
+    "path",
+    {
+      d: "M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0",
+      key: "1nclc0"
+    }
+  ],
+  ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
 const FileUp = createLucideIcon("FileUp", [
   ["path", { d: "M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z", key: "1rqfz7" }],
   ["path", { d: "M14 2v4a2 2 0 0 0 2 2h4", key: "tnqrlb" }],
@@ -24685,6 +24701,45 @@ function Diagnostics() {
     ] })
   ] });
 }
+const STYLES = [
+  {
+    id: "hidden",
+    label: "Hidden",
+    sub: "Ads just disappear",
+    icon: EyeOff
+  },
+  {
+    id: "visual",
+    label: "Visual",
+    sub: "See each ad go",
+    icon: Eye
+  }
+];
+function BlockStylePanel() {
+  const { state, setFeedback } = useApp();
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "card", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "How blocking looks", sub: "What you see on a page when Luma removes an ad" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "theme-options style-options", children: STYLES.map((style) => {
+      const Icon2 = style.icon;
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "button",
+        {
+          type: "button",
+          className: "theme-option",
+          "data-active": state.feedback === style.id,
+          "aria-pressed": state.feedback === style.id,
+          onClick: () => setFeedback(style.id),
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, {}),
+            style.label
+          ]
+        },
+        style.id
+      );
+    }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "hint", style: { marginTop: 12 }, children: state.feedback === "visual" ? "Each removed ad leaves a short dashed outline and a Luma badge, then collapses." : "Ads are removed before anything loads and leave nothing behind on the page." })
+  ] });
+}
 function DetectionCard() {
   const { state, setDeep, clearLearned } = useApp();
   const toast = useToast();
@@ -24941,6 +24996,7 @@ function Protection() {
       }
     ),
     /* @__PURE__ */ jsxRuntimeExports.jsx(FilterListsPanel, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(BlockStylePanel, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsx(DetectionCard, {})
   ] });
 }
@@ -25176,6 +25232,8 @@ function buildPayload(state, protectionNow = state.protection) {
       protection: state.protection,
       deep: Boolean(state.deep),
       theme: state.theme,
+      // How the content script shows a removal: silent or outlined.
+      feedback: state.feedback === "visual" ? "visual" : "hidden",
       privacy: Boolean(state.privacy),
       lists: state.lists,
       customRules: state.customRules,
@@ -25645,12 +25703,16 @@ function runHealthChecks({ state, rules = [] }) {
 const STORAGE_KEY = "luma.state.v3";
 const MEGABYTES_PER_BLOCK = 0.09;
 const MAX_ACTIVITY = 200;
+const normalizeFeedback = (value, fallback) => value === "visual" || value === "hidden" ? value : fallback;
 function emptyState() {
   return {
     protection: true,
     deep: false,
     // "system" follows the operating system; light and dark pin a theme.
     theme: "system",
+    // How removed ads show on a page: "hidden" is silent, "visual" outlines
+    // each slot for a moment so the blocking is visible.
+    feedback: "hidden",
     // Privacy mode stops blocking and keeps diagnostics anonymous.
     privacy: false,
     lists: { ...DEFAULT_LISTS },
@@ -25715,6 +25777,8 @@ function reducer(state, action) {
       return { ...state, deep: action.value };
     case "theme":
       return { ...state, theme: action.value };
+    case "feedback":
+      return { ...state, feedback: normalizeFeedback(action.value, state.feedback) };
     case "privacy":
       return { ...state, privacy: action.value };
     case "toggleList":
@@ -25742,6 +25806,7 @@ function reducer(state, action) {
         protection: typeof settings.protection === "boolean" ? settings.protection : state.protection,
         deep: typeof settings.deep === "boolean" ? settings.deep : state.deep,
         theme: settings.theme === "light" || settings.theme === "dark" ? settings.theme : state.theme,
+        feedback: normalizeFeedback(settings.feedback, state.feedback),
         privacy: typeof settings.privacy === "boolean" ? settings.privacy : state.privacy,
         lists: { ...DEFAULT_LISTS, ...settings.lists || {} },
         customRules: Array.isArray(settings.customRules) ? settings.customRules : state.customRules,
@@ -25767,6 +25832,7 @@ function reducer(state, action) {
         protection: settings.protection ?? state.protection,
         deep: settings.deep ?? state.deep,
         theme: settings.theme ?? state.theme,
+        feedback: normalizeFeedback(settings.feedback, state.feedback),
         privacy: settings.privacy ?? state.privacy,
         lists: { ...DEFAULT_LISTS, ...settings.lists || {} },
         customRules: settings.customRules || [],
@@ -25782,6 +25848,7 @@ function reducer(state, action) {
         protection: settings.protection ?? state.protection,
         deep: settings.deep ?? state.deep,
         theme: settings.theme ?? state.theme,
+        feedback: normalizeFeedback(settings.feedback, state.feedback),
         privacy: settings.privacy ?? state.privacy,
         lists: { ...DEFAULT_LISTS, ...settings.lists || {} },
         customRules: settings.customRules || [],
@@ -25889,6 +25956,7 @@ function AppProvider({ children }) {
       protection: state.protection,
       deep: state.deep,
       theme: state.theme,
+      feedback: state.feedback,
       privacy: state.privacy,
       lists: state.lists,
       customRules: state.customRules,
@@ -25899,6 +25967,7 @@ function AppProvider({ children }) {
       state.protection,
       state.deep,
       state.theme,
+      state.feedback,
       state.privacy,
       state.lists,
       state.customRules,
@@ -26010,6 +26079,7 @@ function AppProvider({ children }) {
       state.schedule,
       state.learned,
       state.privacy,
+      state.feedback,
       protectionNow
     ]
   );
@@ -26090,6 +26160,7 @@ function AppProvider({ children }) {
       setProtection: (value2) => dispatch({ type: "protection", value: value2 }),
       setDeep: (value2) => dispatch({ type: "deep", value: value2 }),
       setTheme: (theme) => dispatch({ type: "theme", value: theme }),
+      setFeedback: (feedback) => dispatch({ type: "feedback", value: feedback }),
       setPrivacy: (value2) => dispatch({ type: "privacy", value: value2 }),
       toggleList: (id) => dispatch({ type: "toggleList", id }),
       addCustomRule: (rule) => dispatch({ type: "addRule", rule }),

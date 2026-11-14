@@ -1,5 +1,6 @@
 import { Navigate, useSearchParams } from 'react-router-dom'
 import { ShieldCheck } from 'lucide-react'
+import BlockStylePanel from '../components/BlockStylePanel'
 import DetectionCard from '../components/DetectionCard'
 import FilterListsPanel from '../components/FilterListsPanel'
 import { PageHead } from '../components/ui'
@@ -31,6 +32,7 @@ export default function Protection() {
       </PageHead>
 
       <FilterListsPanel />
+      <BlockStylePanel />
       <DetectionCard />
     </>
   )

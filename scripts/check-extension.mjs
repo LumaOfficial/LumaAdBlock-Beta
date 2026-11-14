@@ -132,6 +132,20 @@ async function main() {
     )
   }
 
+  // Visual mode and the live counter read the same selectors as data.
+  const selectorMapPath = path.join(out, 'cosmetic', 'selectors.json')
+  if (await exists(selectorMapPath)) {
+    const selectorMap = JSON.parse(await readFile(selectorMapPath, 'utf8'))
+    const missing = FILTER_LISTS.filter((list) => !Array.isArray(selectorMap[list.id])).map(
+      (list) => list.id,
+    )
+    check('selectors.json covers every list', missing.length === 0, missing.join(', '))
+    const shipped = Object.values(selectorMap).reduce((sum, list) => sum + list.length, 0)
+    check('selectors.json ships hiding selectors', shipped > 20, String(shipped))
+  } else {
+    check('selectors.json exists', false)
+  }
+
   // Fresh installs read these before the dashboard ever opens.
   const defaultsPath = path.join(out, 'luma-defaults.json')
   if (await exists(defaultsPath)) {

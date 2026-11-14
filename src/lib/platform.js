@@ -158,6 +158,8 @@ export function buildPayload(state, protectionNow = state.protection) {
       protection: state.protection,
       deep: Boolean(state.deep),
       theme: state.theme,
+      // How the content script shows a removal: silent or outlined.
+      feedback: state.feedback === 'visual' ? 'visual' : 'hidden',
       privacy: Boolean(state.privacy),
       lists: state.lists,
       customRules: state.customRules,

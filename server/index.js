@@ -877,6 +877,7 @@ async function handle(req, res) {
       protection: input.protection !== false,
       deep: input.deep === true,
       theme: input.theme === 'dark' || input.theme === 'light' ? input.theme : 'system',
+      feedback: input.feedback === 'visual' ? 'visual' : 'hidden',
       privacy: input.privacy === true,
       lists: input.lists && typeof input.lists === 'object' ? input.lists : {},
       customRules: Array.isArray(input.customRules)

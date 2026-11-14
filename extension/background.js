@@ -45,10 +45,13 @@ function matchPatterns(host) {
   return ['*://' + host + '/*', '*://*.' + host + '/*']
 }
 
-async function syncCosmetic(enabledLists, allowlist = []) {
+async function syncCosmetic(enabledLists, allowlist = [], visual = false) {
   const registered = await chrome.scripting.getRegisteredContentScripts()
   const stale = registered.filter((script) => script.id.startsWith('luma-css-')).map((s) => s.id)
   if (stale.length) await chrome.scripting.unregisterContentScripts({ ids: stale })
+  // Visual mode outlines a slot before collapsing it, which a static sheet
+  // cannot do: it would remove the element before the content script sees it.
+  if (visual) return
   // A site the person allowlisted keeps its own layout, so the hiding
   // stylesheets skip it entirely.
   const excludeMatches = allowlist.filter(Boolean).flatMap(matchPatterns)
@@ -167,7 +170,8 @@ async function applySettings(payload) {
   }
 
   const allowlist = active ? payload.dashboard?.allowlist || [] : []
-  await syncCosmetic(enabledLists, allowlist)
+  const visual = payload.dashboard?.feedback === 'visual'
+  await syncCosmetic(enabledLists, allowlist, visual)
 }
 
 /**
@@ -183,6 +187,52 @@ async function readPageBlocks() {
     return Number.isFinite(count) ? count : 0
   } catch {
     return 0
+  }
+}
+
+function dayKey(date = new Date()) {
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  return date.getFullYear() + '-' + month + '-' + day
+}
+
+/**
+ * What a page's content script actually hid. A store install cannot read the
+ * browser's matched-rule feed, so the elements Luma removed are the only live
+ * count it can honestly report — and the dashboard reads exactly this.
+ */
+async function recordHidden(message) {
+  const count = Number(message?.count) || 0
+  if (!count) return
+  const stats = await getStats()
+  const at = new Date()
+  const key = dayKey(at)
+  const host = String(message.host || '').replace(/^www\./, '')
+  const next = {
+    ...stats,
+    totals: {
+      ...stats.totals,
+      blocked: (stats.totals.blocked || 0) + count,
+      screened: (stats.totals.screened || 0) + count,
+      megabytes: Number(((stats.totals.megabytes || 0) + count * 0.09).toFixed(2)),
+    },
+    daily: { ...stats.daily, [key]: (stats.daily[key] || 0) + count },
+  }
+  if (host) {
+    next.domains = { ...stats.domains, [host]: (stats.domains[host] || 0) + count }
+    next.activity = [
+      { id: host + '|' + at.getTime(), host, at: at.toISOString() },
+      ...(stats.activity || []),
+    ].slice(0, 200)
+  }
+  statsCache = next
+  await chrome.storage.local.set({ [STATS_KEY]: next })
+  try {
+    // The dashboard may be open in another tab.
+    const sent = chrome.runtime.sendMessage({ type: 'luma:stats', stats: next })
+    if (sent && sent.catch) sent.catch(() => {})
+  } catch {
+    /* no dashboard open */
   }
 }
 
@@ -255,6 +305,12 @@ chrome.runtime.onMessage.addListener((message, sender, respond) => {
   }
   if (message?.type === 'luma:page:read') {
     readPageBlocks().then((blocked) => respond?.({ blocked }))
+    return true
+  }
+  if (message?.type === 'luma:hidden') {
+    recordHidden(message)
+      .then(() => respond?.({ ok: true }))
+      .catch(() => respond?.({ ok: false }))
     return true
   }
   if (message?.type === 'luma:stats:reset') {
