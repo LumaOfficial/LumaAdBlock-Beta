@@ -7,6 +7,8 @@
 const SETTINGS_KEY = 'luma:settings'
 const STATS_KEY = 'luma:stats'
 const TAB_KEY = 'luma:dashboard-tab'
+const APPLIED_KEY = 'luma:applied'
+const QUIET_ALARM = 'luma-quiet-hours'
 
 // Rule sets this build actually ships (a list with no network rules has none).
 const RULESET_IDS = (
@@ -111,11 +113,33 @@ async function applyDefaultsIfUnset() {
   })
 }
 
+// Quiet hours are evaluated here too, so the schedule keeps working while the
+// dashboard is closed.
+function quietNow(schedule, date = new Date()) {
+  if (!schedule?.enabled) return false
+  const parse = (value) => {
+    const match = /^([01]\d|2[0-3]):([0-5]\d)$/.exec(String(value || ''))
+    return match ? Number(match[1]) * 60 + Number(match[2]) : null
+  }
+  const from = parse(schedule.from)
+  const to = parse(schedule.to)
+  if (from === null || to === null || from === to) return false
+  const now = date.getHours() * 60 + date.getMinutes()
+  return from < to ? now >= from && now < to : now >= from || now < to
+}
+
+/** The person's own switch, minus an active quiet hours window. */
+function protectionFor(payload) {
+  const master = payload.dashboard?.protection ?? payload.protection
+  return Boolean(master) && !quietNow(payload.dashboard?.schedule)
+}
+
 async function applySettings(payload) {
   settingsCache = payload
-  await chrome.storage.local.set({ [SETTINGS_KEY]: payload })
+  const active = protectionFor(payload)
+  await chrome.storage.local.set({ [SETTINGS_KEY]: payload, [APPLIED_KEY]: active })
 
-  const enabledLists = payload.protection ? payload.enabledLists || [] : []
+  const enabledLists = active ? payload.enabledLists || [] : []
   const enabled = enabledLists.filter((id) => RULESET_IDS.includes(id))
   await chrome.declarativeNetRequest.updateEnabledRulesets({
     enableRulesetIds: enabled,
@@ -124,7 +148,7 @@ async function applySettings(payload) {
 
   const current = await chrome.declarativeNetRequest.getDynamicRules()
   const removeRuleIds = current.map((rule) => rule.id)
-  const addRules = payload.protection ? payload.dynamicRules || [] : []
+  const addRules = active ? payload.dynamicRules || [] : []
   try {
     await chrome.declarativeNetRequest.updateDynamicRules({ removeRuleIds, addRules })
   } catch (error) {
@@ -253,6 +277,7 @@ chrome.runtime.onInstalled.addListener(async () => {
   await applyDefaultsIfUnset()
   const stored = await chrome.storage.local.get(SETTINGS_KEY)
   if (stored[SETTINGS_KEY]) await applySettings(stored[SETTINGS_KEY])
+  chrome.alarms.create(QUIET_ALARM, { periodInMinutes: 1 })
 })
 
 chrome.runtime.onStartup.addListener(async () => {
@@ -260,6 +285,17 @@ chrome.runtime.onStartup.addListener(async () => {
   await applyDefaultsIfUnset()
   const stored = await chrome.storage.local.get(SETTINGS_KEY)
   if (stored[SETTINGS_KEY]) await applySettings(stored[SETTINGS_KEY])
+  chrome.alarms.create(QUIET_ALARM, { periodInMinutes: 1 })
+})
+
+// Quiet hours start and end on the clock, not on a dashboard visit.
+chrome.alarms.onAlarm.addListener(async (alarm) => {
+  if (alarm.name !== QUIET_ALARM) return
+  const stored = await chrome.storage.local.get([SETTINGS_KEY, APPLIED_KEY])
+  const payload = stored[SETTINGS_KEY]
+  if (!payload) return
+  if (protectionFor(payload) === stored[APPLIED_KEY]) return
+  await applySettings(payload)
 })
 
 chrome.action.onClicked.addListener(() => void openDashboard())

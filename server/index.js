@@ -316,6 +316,14 @@ async function handle(req, res) {
       customRules: Array.isArray(input.customRules) ? input.customRules.map(String).slice(0, 500) : [],
       allowlist: Array.isArray(input.allowlist) ? input.allowlist.map(String).slice(0, 500) : [],
     }
+    // Quiet hours are optional: a client that does not send them must not wipe them.
+    if (input.schedule && typeof input.schedule === 'object') {
+      settings.schedule = {
+        enabled: Boolean(input.schedule.enabled),
+        from: String(input.schedule.from || '22:00').slice(0, 5),
+        to: String(input.schedule.to || '07:00').slice(0, 5),
+      }
+    }
     db.prepare('UPDATE accounts SET settings = ? WHERE id = ?').run(seal(settings), session.accountId)
     return send(res, 200, { ok: true })
   }

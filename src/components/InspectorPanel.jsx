@@ -54,7 +54,7 @@ function sampleFromRule(rule) {
 const TYPES = ['script', 'image', 'stylesheet', 'xmlhttprequest', 'subdocument', 'document', 'media', 'font', 'ping', 'other']
 
 export default function InspectorPanel() {
-  const { rules, state, observe } = useApp()
+  const { rules, state, observe, protectionNow } = useApp()
   const [url, setUrl] = useState(EXAMPLES[0].url)
   const [type, setType] = useState(EXAMPLES[0].type)
   const [pageHost, setPageHost] = useState(EXAMPLES[0].pageHost)
@@ -84,7 +84,7 @@ export default function InspectorPanel() {
   const third = isThirdParty(pageHost, requestHost)
   const decision = screenRequest(
     { url, type },
-    { rules, allowlist: state.allowlist, protection: state.protection, pageHost },
+    { rules, allowlist: state.allowlist, protection: protectionNow, pageHost },
   )
 
   const status = decision.status

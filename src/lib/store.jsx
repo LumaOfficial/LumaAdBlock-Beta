@@ -13,6 +13,7 @@ import { useAuth } from './auth'
 import { compileRules, hostnameOf } from './engine'
 import { MAX_LEARNED, MAX_OBSERVATIONS, learnCandidate, runHealthChecks } from './learning'
 import { DEFAULT_LISTS, FILTER_LISTS } from './blocklists'
+import { DEFAULT_SCHEDULE, isQuietNow, normalizeSchedule } from './schedule'
 import {
   buildPayload,
   isExtension,
@@ -39,6 +40,7 @@ function emptyState() {
     lists: { ...DEFAULT_LISTS },
     customRules: [],
     allowlist: [],
+    schedule: { ...DEFAULT_SCHEDULE },
     totals: { blocked: 0, trackers: 0, screened: 0, megabytes: 0 },
     domains: {},
     daily: {},
@@ -66,6 +68,7 @@ function loadState() {
       ...fallback,
       ...parsed,
       lists: { ...DEFAULT_LISTS, ...(parsed.lists || {}) },
+      schedule: normalizeSchedule(parsed.schedule, DEFAULT_SCHEDULE),
       totals: { ...fallback.totals, ...(parsed.totals || {}) },
     }
   } catch {
@@ -93,6 +96,20 @@ function reducer(state, action) {
       return { ...state, allowlist: [action.host, ...state.allowlist] }
     case 'removeAllow':
       return { ...state, allowlist: state.allowlist.filter((host) => host !== action.host) }
+    case 'schedule':
+      return { ...state, schedule: normalizeSchedule(action.schedule, state.schedule) }
+    case 'restore': {
+      // A backup file replaces the settings; counters stay on this device.
+      const settings = action.settings || {}
+      return {
+        ...state,
+        protection: typeof settings.protection === 'boolean' ? settings.protection : state.protection,
+        lists: { ...DEFAULT_LISTS, ...(settings.lists || {}) },
+        customRules: Array.isArray(settings.customRules) ? settings.customRules : state.customRules,
+        allowlist: Array.isArray(settings.allowlist) ? settings.allowlist : state.allowlist,
+        schedule: normalizeSchedule(settings.schedule, state.schedule),
+      }
+    }
     case 'stats': {
       // Live counters reported by the extension's service worker.
       const stats = action.stats || {}
@@ -113,6 +130,7 @@ function reducer(state, action) {
         lists: { ...DEFAULT_LISTS, ...(settings.lists || {}) },
         customRules: settings.customRules || [],
         allowlist: settings.allowlist || [],
+        schedule: normalizeSchedule(settings.schedule, state.schedule),
         learned: settings.learned || [],
       }
     }
@@ -125,6 +143,7 @@ function reducer(state, action) {
         lists: { ...DEFAULT_LISTS, ...(settings.lists || {}) },
         customRules: settings.customRules || [],
         allowlist: settings.allowlist || [],
+        schedule: normalizeSchedule(settings.schedule, state.schedule),
       }
     }
     case 'observe': {
@@ -207,12 +226,21 @@ export function AppProvider({ children }) {
             lists: state.lists,
             customRules: state.customRules,
             allowlist: state.allowlist,
+            schedule: state.schedule,
           },
         },
       }).catch(() => {})
     }, 1200)
     return () => window.clearTimeout(timer)
-  }, [userId, accountSynced, state.protection, state.lists, state.customRules, state.allowlist])
+  }, [
+    userId,
+    accountSynced,
+    state.protection,
+    state.lists,
+    state.customRules,
+    state.allowlist,
+    state.schedule,
+  ])
 
   useEffect(() => {
     if (isExtension) return
@@ -251,11 +279,35 @@ export function AppProvider({ children }) {
     [state.lists],
   )
 
+  // Quiet hours pause protection without touching the person's own switch.
+  // The window moves with the clock, so it is re-evaluated once a minute.
+  const [clockTick, setClockTick] = useState(0)
+  useEffect(() => {
+    if (!state.schedule.enabled) return undefined
+    const id = window.setInterval(() => setClockTick((tick) => tick + 1), 60000)
+    return () => window.clearInterval(id)
+  }, [state.schedule.enabled])
+
+  const pausedBySchedule = useMemo(
+    () => state.protection && isQuietNow(state.schedule),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [state.protection, state.schedule, clockTick],
+  )
+  const protectionNow = state.protection && !pausedBySchedule
+
   // Settings the browser has to enforce; posted only when they actually change.
   const settingsPayload = useMemo(
-    () => (isExtension ? buildPayload(state) : null),
+    () => (isExtension ? buildPayload(state, protectionNow) : null),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [state.protection, state.lists, state.customRules, state.allowlist, state.learned],
+    [
+      state.protection,
+      state.lists,
+      state.customRules,
+      state.allowlist,
+      state.schedule,
+      state.learned,
+      protectionNow,
+    ],
   )
 
   useEffect(() => {
@@ -302,7 +354,7 @@ export function AppProvider({ children }) {
       const candidate = learnCandidate(observation, {
         rules,
         allowlist: state.allowlist,
-        protection: state.protection,
+        protection: protectionNow,
       })
       if (candidate && !known.has(candidate.rule)) {
         known.add(candidate.rule)
@@ -310,7 +362,14 @@ export function AppProvider({ children }) {
       }
     }
     if (added.length) dispatch({ type: 'learn', items: added })
-  }, [state.observations, state.learned, state.learningSince, state.allowlist, state.protection, rules])
+  }, [
+    state.observations,
+    state.learned,
+    state.learningSince,
+    state.allowlist,
+    protectionNow,
+    rules,
+  ])
 
   // Continuous diagnostics: the engine re-checks itself on a short interval.
   const scan = useRef(() => {})
@@ -336,6 +395,10 @@ export function AppProvider({ children }) {
       removeCustomRule: (rule) => dispatch({ type: 'removeRule', rule }),
       addAllow: (host) => dispatch({ type: 'addAllow', host }),
       removeAllow: (host) => dispatch({ type: 'removeAllow', host }),
+      protectionNow,
+      pausedBySchedule,
+      setSchedule: (schedule) => dispatch({ type: 'schedule', schedule }),
+      importSettings: (settings) => dispatch({ type: 'restore', settings }),
       observe,
       clearLearned: () => dispatch({ type: 'forgetLearned' }),
       resetData: () => {
@@ -343,7 +406,16 @@ export function AppProvider({ children }) {
         dispatch({ type: 'reset' })
       },
     }),
-    [state, rules, networkRuleCount, cosmeticRuleCount, activeListCount, observe],
+    [
+      state,
+      rules,
+      networkRuleCount,
+      cosmeticRuleCount,
+      activeListCount,
+      protectionNow,
+      pausedBySchedule,
+      observe,
+    ],
   )
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>

@@ -25,7 +25,7 @@ function selectorLabel(selector) {
 }
 
 export default function LabPanel() {
-  const { state, setProtection, rules, observe } = useApp()
+  const { state, setProtection, rules, observe, protectionNow } = useApp()
   const [siteId, setSiteId] = useState(DEMO_SITES[0].id)
   const [checks, setChecks] = useState(null)
   const [hiddenCount, setHiddenCount] = useState(0)
@@ -40,11 +40,11 @@ export default function LabPanel() {
         decision: screenRequest(request, {
           rules,
           allowlist: state.allowlist,
-          protection: state.protection,
+          protection: protectionNow,
           pageHost: site.host,
         }),
       })),
-    [site, rules, state.allowlist, state.protection],
+    [site, rules, state.allowlist, protectionNow],
   )
 
   const cosmetic = useMemo(() => cosmeticFor(site.host, rules), [rules, site.host])
@@ -67,7 +67,7 @@ export default function LabPanel() {
     const root = siteRef.current
     if (!root) return
     root.querySelectorAll('[data-luma-hidden]').forEach((node) => node.removeAttribute('data-luma-hidden'))
-    if (!state.protection) {
+    if (!protectionNow) {
       setHiddenCount(0)
       return
     }
@@ -93,7 +93,7 @@ export default function LabPanel() {
       }
     }
     setHiddenCount(touched.size)
-  }, [cosmetic, state.protection, siteId])
+  }, [cosmetic, protectionNow, siteId])
 
   function runChecks() {
     const root = siteRef.current
@@ -173,7 +173,7 @@ export default function LabPanel() {
               </span>
               <span className="browser-shield">
                 <ShieldCheck />
-                {state.protection ? `${blockedCount} blocked` : 'paused'}
+                {protectionNow ? `${blockedCount} blocked` : 'paused'}
               </span>
             </div>
             <div className="browser-viewport" ref={siteRef}>
@@ -190,8 +190,11 @@ export default function LabPanel() {
               {state.protection ? <ShieldCheck /> : <ShieldOff />}
               {state.protection ? 'Pause protection' : 'Resume protection'}
             </button>
+            {state.protection && !protectionNow ? (
+              <span className="badge warn">Quiet hours</span>
+            ) : null}
             <span className="badge plain">
-              {state.protection ? hiddenCount : 0} ad elements hidden
+              {protectionNow ? hiddenCount : 0} ad elements hidden
             </span>
             <span className="badge plain">{blockedCount} of {decisions.length} requests blocked</span>
           </div>
@@ -209,8 +212,8 @@ export default function LabPanel() {
                       {item.decision.blocked ? 'Recognized ad or tracker' : 'Nothing to block'}
                     </div>
                   </div>
-                  <span className={'req-state ' + (state.protection ? item.decision.status : 'paused')}>
-                    {state.protection ? (item.decision.blocked ? 'blocked' : 'allowed') : 'paused'}
+                  <span className={'req-state ' + (protectionNow ? item.decision.status : 'paused')}>
+                    {protectionNow ? (item.decision.blocked ? 'blocked' : 'allowed') : 'paused'}
                   </span>
                 </div>
               ))}
@@ -233,7 +236,7 @@ export default function LabPanel() {
                       {passed} / {checks.length}
                     </strong>{' '}
                     checks passed
-                    {!state.protection ? ' — protection is paused' : ''}
+                    {!protectionNow ? ' — protection is paused' : ''}
                   </span>
                 </div>
                 <div className="check-list" style={{ marginTop: 10 }}>

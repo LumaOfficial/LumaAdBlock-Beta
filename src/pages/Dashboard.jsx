@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import {
   ArrowRight,
+  Clock,
   Database,
   EyeOff,
   FlaskConical,
@@ -9,10 +10,16 @@ import {
   UserX,
   Zap,
 } from 'lucide-react'
-import { useApp, lastNDays, useTopDomains, useBlockedToday } from '../lib/store'
+import { useApp, useBlockedToday } from '../lib/store'
 import { useAuth } from '../lib/auth'
-import { formatNumber, formatCompact, formatMegabytes, relativeTime, percent } from '../lib/format'
+import { formatNumber, formatMegabytes, relativeTime, percent } from '../lib/format'
+import { clockLabel } from '../lib/schedule'
 import { CardHead, PageHead } from '../components/ui'
+import TrendChart from '../components/dashboard/TrendChart'
+import BreakdownCard from '../components/dashboard/BreakdownCard'
+import SiteControls from '../components/dashboard/SiteControls'
+import ScheduleCard from '../components/dashboard/ScheduleCard'
+import BackupCard from '../components/dashboard/BackupCard'
 
 const ACTIONS = [
   {
@@ -43,39 +50,44 @@ function greeting() {
 }
 
 export default function Dashboard() {
-  const { state, setProtection } = useApp()
+  const { state, setProtection, protectionNow, pausedBySchedule } = useApp()
   const { user } = useAuth()
   const firstName = user?.name?.split(/\s+/)[0]
   const blockedToday = useBlockedToday()
-  const series = lastNDays(state, 7)
-  const domains = useTopDomains(6)
-
-  const week = series.reduce((sum, day) => sum + day.count, 0)
-  const max = Math.max(...series.map((day) => day.count), 1)
   const data = formatMegabytes(state.totals.megabytes)
-  const topDomainMax = domains.length ? domains[0].count : 1
   const blockedShare = percent(state.totals.blocked, state.totals.screened)
+
+  const title = pausedBySchedule
+    ? 'Quiet hours are on.'
+    : protectionNow
+      ? 'The web, quiet again.'
+      : 'Protection is paused.'
+  const lede = pausedBySchedule
+    ? `Luma is taking a break until ${clockLabel(state.schedule.to)}. Everything resumes on its own.`
+    : protectionNow
+      ? 'Ads, trackers and annoyances are filtered before they ever reach the page.'
+      : 'Ads and trackers are loading everywhere while Luma is off. Flip it back on when you are ready.'
 
   return (
     <>
-      <PageHead
-        eyebrow={firstName ? `${greeting()}, ${firstName}` : greeting()}
-        title={state.protection ? 'The web, quiet again.' : 'Protection is paused.'}
-        lede={
-          state.protection
-            ? 'Ads, trackers and annoyances are filtered before they ever reach the page.'
-            : 'Ads and trackers are loading everywhere while Luma is off. Flip it back on when you are ready.'
-        }
-      />
+      <PageHead eyebrow={firstName ? `${greeting()}, ${firstName}` : greeting()} title={title} lede={lede} />
 
-      <section className={'card hero-card'}>
+      <section className="card hero-card">
         <div className="hero-copy">
-          <h2>{state.protection ? 'You are protected.' : 'Nothing is being blocked.'}</h2>
+          <h2>{protectionNow ? 'You are protected.' : 'Nothing is being blocked.'}</h2>
           <p>
-            {state.protection
+            {protectionNow
               ? `Luma has blocked ${formatNumber(state.totals.blocked)} ads and trackers so far, and ${formatNumber(blockedToday)} of them today.`
-              : 'Turn protection on to resume blocking ads, trackers, cookie walls and noisy widgets.'}
+              : pausedBySchedule
+                ? `Your quiet hours pause ends at ${clockLabel(state.schedule.to)}.`
+                : 'Turn protection on to resume blocking ads, trackers, cookie walls and noisy widgets.'}
           </p>
+          {pausedBySchedule ? (
+            <span className="badge warn hero-badge">
+              <Clock width={12} height={12} />
+              Quiet hours until {clockLabel(state.schedule.to)}
+            </span>
+          ) : null}
         </div>
         <div className="hero-controls">
           <button
@@ -89,7 +101,13 @@ export default function Dashboard() {
           />
           <div className="state">
             {state.protection ? 'Protection on' : 'Protection off'}
-            <small>{state.protection ? 'All engines running' : 'Tap to resume blocking'}</small>
+            <small>
+              {pausedBySchedule
+                ? 'Quiet hours, resumes on its own'
+                : state.protection
+                  ? 'All engines running'
+                  : 'Tap to resume blocking'}
+            </small>
           </div>
         </div>
       </section>
@@ -133,65 +151,13 @@ export default function Dashboard() {
       </section>
 
       <section className="grid-2">
-        <div className="card">
-          <CardHead
-            title="Blocked this week"
-            sub="Requests stopped per day, your local timezone"
-          />
-
-          <div className="chart" role="img" aria-label={`Blocked requests for the last 7 days, totaling ${week}`}>
-            {series.map((day, index) => (
-              <div className="chart-col" key={day.key}>
-                <div className="chart-bar-track">
-                  <div
-                    className={'chart-bar' + (index === series.length - 1 ? ' today' : '')}
-                    style={{
-                      height: day.count ? Math.max(7, Math.round((day.count / max) * 100)) + '%' : '0%',
-                    }}
-                    title={`${formatNumber(day.count)} blocked`}
-                  />
-                </div>
-                <span>{day.label}</span>
-              </div>
-            ))}
-          </div>
-
-          <div className="chart-foot">
-            <strong>{formatNumber(week)}</strong>
-            <span className="small muted">
-              blocked in 7 days · {formatNumber(Math.round(week / 7))} per day
-            </span>
-          </div>
-        </div>
-
-        <div className="card">
-          <CardHead title="Top blocked domains" sub="Where the noise comes from" />
-          <div className="domain-list">
-            {domains.map((domain, index) => (
-              <div className="domain-row" key={domain.host}>
-                <span className="domain-rank">{index + 1}</span>
-                <div>
-                  <div className="domain-name">{domain.host}</div>
-                  <div className="domain-track">
-                    <div
-                      className="domain-fill"
-                      style={{ width: Math.max(4, (domain.count / topDomainMax) * 100) + '%' }}
-                    />
-                  </div>
-                </div>
-                <span className="domain-count">{formatCompact(domain.count)}</span>
-              </div>
-            ))}
-            {!domains.length ? (
-              <div className="empty">
-                No blocked domains yet. They show up here as you browse with protection on.
-              </div>
-            ) : null}
-          </div>
-        </div>
+        <TrendChart />
+        <BreakdownCard />
       </section>
 
       <section className="grid-2">
+        <SiteControls />
+
         <div className="card">
           <CardHead title="Recent activity" sub="The last requests Luma stopped">
             <Link to="/protection?view=lab" className="btn sm ghost">
@@ -219,41 +185,34 @@ export default function Dashboard() {
             ) : null}
           </div>
         </div>
-
-        <div className="card">
-          <CardHead title="Where to next" />
-          <div className="stack" style={{ gap: 10 }}>
-            {ACTIONS.map((action) => {
-              const Icon = action.icon
-              return (
-                <Link
-                  key={action.to}
-                  to={action.to}
-                  className="row"
-                  style={{
-                    padding: '11px 12px',
-                    border: '1px solid var(--line)',
-                    borderRadius: 12,
-                    background: 'var(--white)',
-                  }}
-                >
-                  <span className="feed-icon">
-                    <Icon />
-                  </span>
-                  <div className="grow">
-                    <div style={{ fontWeight: 600, fontSize: 13 }}>{action.title}</div>
-                    <div className="small muted">{action.text}</div>
-                  </div>
-                  <ArrowRight width={15} height={15} />
-                </Link>
-              )
-            })}
-          </div>
-          <p className="footer-note">
-            Your counters stay on this device — nothing about your browsing leaves it.
-          </p>
-        </div>
       </section>
+
+      <section className="grid-2">
+        <ScheduleCard />
+        <BackupCard />
+      </section>
+
+      <section className="grid-3">
+        {ACTIONS.map((action) => {
+          const Icon = action.icon
+          return (
+            <Link key={action.to} to={action.to} className="card action-tile">
+              <span className="feed-icon">
+                <Icon />
+              </span>
+              <div className="grow">
+                <div style={{ fontWeight: 600, fontSize: 13 }}>{action.title}</div>
+                <div className="small muted">{action.text}</div>
+              </div>
+              <ArrowRight width={15} height={15} />
+            </Link>
+          )
+        })}
+      </section>
+
+      <p className="footer-note">
+        Your counters stay on this device — nothing about your browsing leaves it.
+      </p>
     </>
   )
 }

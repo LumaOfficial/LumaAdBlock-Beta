@@ -60,13 +60,13 @@ export function openDashboard() {
  * sites, a rule-id index so live blocks can be labelled, and the dashboard's
  * own element-hiding selectors.
  */
-export function buildPayload(state) {
+export function buildPayload(state, protectionNow = state.protection) {
   const enabledLists = FILTER_LISTS.filter((list) => state.lists[list.id]).map((list) => list.id)
   const ruleIndex = {}
   const dynamicRules = []
   let nextId = 1
 
-  if (state.protection) {
+  if (protectionNow) {
     for (const list of FILTER_LISTS) {
       if (!enabledLists.includes(list.id)) continue
       const compiled = compileRules(list.rules, list.id).filter((rule) => rule.kind === 'network')
@@ -125,7 +125,7 @@ export function buildPayload(state) {
   }
 
   return {
-    protection: state.protection,
+    protection: protectionNow,
     enabledLists,
     dynamicRules,
     ruleIndex,
@@ -135,6 +135,7 @@ export function buildPayload(state) {
       lists: state.lists,
       customRules: state.customRules,
       allowlist: state.allowlist,
+      schedule: state.schedule,
       learned: state.learned || [],
     },
   }

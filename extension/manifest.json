@@ -5,6 +5,7 @@
   "description": "Luma — a fast, friendly ad and tracker blocker",
   "minimum_chrome_version": "102",
   "permissions": [
+    "alarms",
     "declarativeNetRequest",
     "declarativeNetRequestFeedback",
     "storage",
