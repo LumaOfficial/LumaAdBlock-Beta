@@ -15,7 +15,7 @@ browser extension.
 | Sign-in options | `src/lib/sso.js`, `src/components/SsoButtons.jsx`, `src/pages/Auth.jsx` | Google, Microsoft, GitHub and Apple sign-in, plus a 6-digit code emailed to the address (signs up a new address too) |
 | Account service | `server/index.js` | Dependency-free Node service: AES-256-GCM encrypted profiles and synced settings, HMAC email index, scrypt password hashes, hashed session tokens |
 | Agreements | `src/lib/legal.js`, `src/components/LegalDialog.jsx` | Terms & Conditions (EULA, Refund Policy) and Privacy Policy shown at sign-up |
-| State | `src/lib/store.jsx` | Protection switch, lists, custom rules, allowlist, counters (kept in `localStorage`) |
+| State | `src/lib/store.jsx` | Protection switch, lists, custom rules, allowlist, counters (kept in `localStorage`; the web build counts the requests the test lab and inspector really screen) |
 | Protection | `src/pages/Protection.jsx` | One page for filter lists, the test lab and the URL inspector, switched by tabs (`/protection?view=…`) |
 | Test lab | `src/components/LabPanel.jsx` | Four simulated sites; every request and ad slot is checked by the engine |
 | Inspector | `src/components/InspectorPanel.jsx` | Paste a URL and get a plain blocked/allowed verdict |

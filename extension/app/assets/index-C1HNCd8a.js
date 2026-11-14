@@ -17903,16 +17903,22 @@ const NAV = [
   }
 ];
 const TOOLS = [
-  { to: "/protection?view=lab", label: "Test lab", icon: FlaskConical },
-  { to: "/protection?view=lists", label: "Filter lists", icon: ListFilter },
-  { to: "/protection?view=inspector", label: "URL inspector", icon: Search }
+  { view: "lab", to: "/protection?view=lab", label: "Test lab", icon: FlaskConical },
+  { view: "lists", to: "/protection?view=lists", label: "Filter lists", icon: ListFilter },
+  { view: "inspector", to: "/protection?view=inspector", label: "URL inspector", icon: Search }
 ];
 const TITLES = {
   "/": "Overview",
   "/protection": "Protection",
   "/activity": "Activity",
   "/account": "Account",
-  "/diagnostics": "Diagnostics"
+  "/diagnostics": "Diagnostics",
+  "/owner": "Owner console"
+};
+const TOOL_TITLES = {
+  lists: "Protection",
+  lab: "Test lab",
+  inspector: "URL inspector"
 };
 function Layout() {
   const { state, setProtection } = useApp();
@@ -17920,7 +17926,8 @@ function Layout() {
   reactExports.useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
-  const title = TITLES[location.pathname] || "Overview";
+  const view = location.pathname === "/protection" ? new URLSearchParams(location.search).get("view") : "";
+  const title = view ? TOOL_TITLES[view] || "Protection" : TITLES[location.pathname] || "Overview";
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "shell", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("aside", { className: "sidebar", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs(NavLink, { to: "/", className: "brand", "aria-label": "Luma home", children: [
@@ -17940,7 +17947,8 @@ function Layout() {
               {
                 to: item.to,
                 end: item.end,
-                className: ({ isActive }) => "nav-link" + (isActive ? " active" : ""),
+                className: ({ isActive }) => "nav-link" + // A tool view inside Protection highlights that tool instead.
+                (isActive && !(item.to === "/protection" && view) ? " active" : ""),
                 children: [
                   /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, {}),
                   item.label
@@ -17953,10 +17961,18 @@ function Layout() {
         /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "nav-label", style: { marginTop: 14 }, children: "Tools" }),
         TOOLS.map((tool) => {
           const Icon2 = tool.icon;
-          return /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: tool.to, className: "nav-link", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, {}),
-            tool.label
-          ] }, tool.to);
+          return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            Link,
+            {
+              to: tool.to,
+              className: "nav-link" + ((view || "lists") === tool.view ? " active" : ""),
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, {}),
+                tool.label
+              ]
+            },
+            tool.to
+          );
         })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "sidebar-foot", children: [
@@ -18651,6 +18667,7 @@ function formatCompact(value) {
 function formatMegabytes(megabytes) {
   const mb = Number(megabytes) || 0;
   if (mb >= 1024) return { value: (mb / 1024).toFixed(1), unit: "GB" };
+  if (mb > 0 && mb < 10) return { value: mb.toFixed(1), unit: "MB" };
   return { value: String(Math.round(mb)), unit: "MB" };
 }
 function relativeTime(iso) {
@@ -21214,6 +21231,12 @@ const EXAMPLES = [
     pageHost: "watch.tubetime.test"
   },
   {
+    label: "YouTube ad ping",
+    url: "https://www.youtube.com/api/stats/ads?ver=2",
+    type: "xmlhttprequest",
+    pageHost: "www.youtube.com"
+  },
+  {
     label: "Session recorder",
     url: "https://static.hotjar.com/c/hotjar.js",
     type: "script",
@@ -21264,10 +21287,14 @@ function InspectorPanel() {
     { rules, allowlist: state.allowlist, protection: protectionNow, pageHost }
   );
   const status = decision.status;
+  const listId = decision.listId;
   reactExports.useEffect(() => {
-    if (!requestHost) return;
-    observe([{ url, type, pageHost, blocked: status === "blocked" }]);
-  }, [url, type, pageHost, status, requestHost, observe]);
+    if (!requestHost.includes(".")) return void 0;
+    const timer = window.setTimeout(() => {
+      observe([{ url, type, pageHost, blocked: status === "blocked", listId }]);
+    }, 600);
+    return () => window.clearTimeout(timer);
+  }, [url, type, pageHost, status, requestHost, listId, observe]);
   const titles = {
     blocked: "Blocked",
     allowed: "Allowed",
@@ -21670,7 +21697,8 @@ function LabPanel() {
         url: item.url,
         type: item.type,
         pageHost: site.host,
-        blocked: item.decision.blocked
+        blocked: item.decision.blocked,
+        listId: item.decision.listId
       }))
     );
   }, [decisions, site.host, observe]);
@@ -22445,6 +22473,8 @@ function buildPayload(state, protectionNow = state.protection) {
   };
 }
 const STORAGE_KEY = "luma.state.v3";
+const MEGABYTES_PER_BLOCK = 0.09;
+const MAX_ACTIVITY = 200;
 function emptyState() {
   return {
     protection: true,
@@ -22567,7 +22597,31 @@ function reducer(state, action) {
         });
       }
       if (!fresh.length) return state;
-      return { ...state, observations: [...fresh, ...state.observations].slice(0, MAX_OBSERVATIONS) };
+      const nextObservations = [...fresh, ...state.observations].slice(0, MAX_OBSERVATIONS);
+      if (isExtension) return { ...state, observations: nextObservations };
+      const totals = { ...state.totals };
+      const daily = { ...state.daily };
+      const domains = { ...state.domains };
+      const activity = [...state.activity];
+      const today = dayKey();
+      for (const item of fresh) {
+        totals.screened += 1;
+        if (!item.blocked) continue;
+        totals.blocked += 1;
+        totals.megabytes += MEGABYTES_PER_BLOCK;
+        if (item.listId === "tracker-shield") totals.trackers += 1;
+        daily[today] = (daily[today] || 0) + 1;
+        domains[item.host] = (domains[item.host] || 0) + 1;
+        activity.unshift({ id: item.id, host: item.host, at: item.at });
+      }
+      return {
+        ...state,
+        observations: nextObservations,
+        totals,
+        daily,
+        domains,
+        activity: activity.slice(0, MAX_ACTIVITY)
+      };
     }
     case "learn": {
       const known = new Set(state.learned.map((item) => item.rule));

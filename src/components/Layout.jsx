@@ -33,9 +33,9 @@ const NAV = [
 
 // Shortcuts into the tools that live inside Protection.
 const TOOLS = [
-  { to: '/protection?view=lab', label: 'Test lab', icon: FlaskConical },
-  { to: '/protection?view=lists', label: 'Filter lists', icon: ListFilter },
-  { to: '/protection?view=inspector', label: 'URL inspector', icon: Search },
+  { view: 'lab', to: '/protection?view=lab', label: 'Test lab', icon: FlaskConical },
+  { view: 'lists', to: '/protection?view=lists', label: 'Filter lists', icon: ListFilter },
+  { view: 'inspector', to: '/protection?view=inspector', label: 'URL inspector', icon: Search },
 ]
 
 const TITLES = {
@@ -44,6 +44,13 @@ const TITLES = {
   '/activity': 'Activity',
   '/account': 'Account',
   '/diagnostics': 'Diagnostics',
+  '/owner': 'Owner console',
+}
+
+const TOOL_TITLES = {
+  lists: 'Protection',
+  lab: 'Test lab',
+  inspector: 'URL inspector',
 }
 
 export default function Layout() {
@@ -54,7 +61,9 @@ export default function Layout() {
     window.scrollTo(0, 0)
   }, [location.pathname])
 
-  const title = TITLES[location.pathname] || 'Overview'
+  // /protection hosts three tools; the query string says which one is open.
+  const view = location.pathname === '/protection' ? new URLSearchParams(location.search).get('view') : ''
+  const title = view ? TOOL_TITLES[view] || 'Protection' : TITLES[location.pathname] || 'Overview'
 
   return (
     <div className="shell">
@@ -80,7 +89,11 @@ export default function Layout() {
                     key={item.to}
                     to={item.to}
                     end={item.end}
-                    className={({ isActive }) => 'nav-link' + (isActive ? ' active' : '')}
+                    className={({ isActive }) =>
+                      'nav-link' +
+                      // A tool view inside Protection highlights that tool instead.
+                      (isActive && !(item.to === '/protection' && view) ? ' active' : '')
+                    }
                   >
                     <Icon />
                     {item.label}
@@ -96,7 +109,11 @@ export default function Layout() {
           {TOOLS.map((tool) => {
             const Icon = tool.icon
             return (
-              <Link key={tool.to} to={tool.to} className="nav-link">
+              <Link
+                key={tool.to}
+                to={tool.to}
+                className={'nav-link' + ((view || 'lists') === tool.view ? ' active' : '')}
+              >
                 <Icon />
                 {tool.label}
               </Link>

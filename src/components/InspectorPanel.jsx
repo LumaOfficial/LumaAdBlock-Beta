@@ -96,10 +96,15 @@ export default function InspectorPanel() {
   const status = decision.status
 
   // The inspector's verdict is a real observation for the learning engine.
+  // Wait until typing settles so half-typed addresses are not logged or counted.
+  const listId = decision.listId
   useEffect(() => {
-    if (!requestHost) return
-    observe([{ url, type, pageHost, blocked: status === 'blocked' }])
-  }, [url, type, pageHost, status, requestHost, observe])
+    if (!requestHost.includes('.')) return undefined
+    const timer = window.setTimeout(() => {
+      observe([{ url, type, pageHost, blocked: status === 'blocked', listId }])
+    }, 600)
+    return () => window.clearTimeout(timer)
+  }, [url, type, pageHost, status, requestHost, listId, observe])
 
   const titles = {
     blocked: 'Blocked',

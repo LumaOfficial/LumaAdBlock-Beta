@@ -58,6 +58,7 @@ export default function LabPanel() {
         type: item.type,
         pageHost: site.host,
         blocked: item.decision.blocked,
+        listId: item.decision.listId,
       })),
     )
   }, [decisions, site.host, observe])

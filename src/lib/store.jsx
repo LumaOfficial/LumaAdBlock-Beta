@@ -3,6 +3,7 @@ import { api } from './api'
 import { useAuth } from './useAuth'
 import { compileRules, hostnameOf } from './engine'
 import { MAX_LEARNED, MAX_OBSERVATIONS, learnCandidate, runHealthChecks } from './learning'
+import { dayKey } from './dates'
 import { DEFAULT_LISTS, FILTER_LISTS } from './blocklists'
 import { DEFAULT_SCHEDULE, isQuietNow, normalizeSchedule } from './schedule'
 import {
@@ -18,6 +19,10 @@ import { AppContext } from './appContext'
 
 // v3: counters now come from the extension instead of the old demo recorder.
 const STORAGE_KEY = 'luma.state.v3'
+
+// A blocked ad creative plus its trackers is roughly this much data.
+const MEGABYTES_PER_BLOCK = 0.09
+const MAX_ACTIVITY = 200
 
 function emptyState() {
   return {
@@ -148,7 +153,35 @@ function reducer(state, action) {
         })
       }
       if (!fresh.length) return state
-      return { ...state, observations: [...fresh, ...state.observations].slice(0, MAX_OBSERVATIONS) }
+      const nextObservations = [...fresh, ...state.observations].slice(0, MAX_OBSERVATIONS)
+      // The packed extension counts its own blocks in the service worker. The
+      // web build has no browser to watch, so the requests the engine really
+      // screened here (test lab, inspector) are what the counters report.
+      if (isExtension) return { ...state, observations: nextObservations }
+
+      const totals = { ...state.totals }
+      const daily = { ...state.daily }
+      const domains = { ...state.domains }
+      const activity = [...state.activity]
+      const today = dayKey()
+      for (const item of fresh) {
+        totals.screened += 1
+        if (!item.blocked) continue
+        totals.blocked += 1
+        totals.megabytes += MEGABYTES_PER_BLOCK
+        if (item.listId === 'tracker-shield') totals.trackers += 1
+        daily[today] = (daily[today] || 0) + 1
+        domains[item.host] = (domains[item.host] || 0) + 1
+        activity.unshift({ id: item.id, host: item.host, at: item.at })
+      }
+      return {
+        ...state,
+        observations: nextObservations,
+        totals,
+        daily,
+        domains,
+        activity: activity.slice(0, MAX_ACTIVITY),
+      }
     }
     case 'learn': {
       const known = new Set(state.learned.map((item) => item.rule))

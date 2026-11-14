@@ -15,6 +15,8 @@ export function formatCompact(value) {
 export function formatMegabytes(megabytes) {
   const mb = Number(megabytes) || 0
   if (mb >= 1024) return { value: (mb / 1024).toFixed(1), unit: 'GB' }
+  // Small totals still deserve a readable number instead of a bare 0.
+  if (mb > 0 && mb < 10) return { value: mb.toFixed(1), unit: 'MB' }
   return { value: String(Math.round(mb)), unit: 'MB' }
 }
 
