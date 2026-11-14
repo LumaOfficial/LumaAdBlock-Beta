@@ -1,18 +1,21 @@
 import { useState } from 'react'
 import { ArrowRight } from 'lucide-react'
+import LegalDialog from '../components/LegalDialog'
 import { useAuth, validateSignup } from '../lib/auth'
 import { US_STATES } from '../lib/usStates'
 
 const BLANK = { name: '', dob: '', email: '', password: '', phone: '', state: '' }
 
 export default function Auth() {
-  const { signIn, signUp, lastEmail } = useAuth()
+  const { signIn, signUp, connectionError } = useAuth()
   const [mode, setMode] = useState('signin')
-  const [values, setValues] = useState({ ...BLANK, email: lastEmail || '' })
+  const [values, setValues] = useState(BLANK)
   const [errors, setErrors] = useState({})
   const [notice, setNotice] = useState('')
   const [busy, setBusy] = useState(false)
   const [remember, setRemember] = useState(true)
+  const [accepted, setAccepted] = useState(false)
+  const [legal, setLegal] = useState(null)
 
   const creating = mode === 'signup'
 
@@ -35,7 +38,7 @@ export default function Auth() {
     setNotice('')
     try {
       if (creating) {
-        const result = validateSignup(values)
+        const result = validateSignup({ ...values, acceptedTerms: accepted })
         if (Object.keys(result.errors).length) {
           setErrors(result.errors)
           return
@@ -52,6 +55,7 @@ export default function Auth() {
         await signIn({ email: values.email, password: values.password }, { remember })
       }
     } catch (error) {
+      if (error?.errors && Object.keys(error.errors).length) setErrors(error.errors)
       setNotice(error?.message || 'Something went wrong. Try again.')
     } finally {
       setBusy(false)
@@ -73,7 +77,7 @@ export default function Auth() {
         <h1 className="display">{creating ? 'Create your Luma account.' : 'Welcome back.'}</h1>
         <p className="lede">
           {creating
-            ? 'One account keeps your protection settings and counters together on this device.'
+            ? 'One account keeps your protection settings in sync on every device.'
             : 'Sign in to reach your dashboard and counters.'}
         </p>
 
@@ -201,9 +205,36 @@ export default function Auth() {
             </span>
           </label>
 
-          {notice ? (
+          {creating ? (
+            <div className="field">
+              <label className="auth-remember auth-terms">
+                <input
+                  type="checkbox"
+                  checked={accepted}
+                  onChange={(event) => {
+                    setAccepted(event.target.checked)
+                    setErrors((current) => ({ ...current, terms: undefined }))
+                    if (event.target.checked) setLegal('terms')
+                  }}
+                />
+                <span>
+                  I agree to the{' '}
+                  <button type="button" className="link-btn" onClick={(event) => { event.preventDefault(); setLegal('terms') }}>
+                    Terms and Conditions
+                  </button>{' '}
+                  (including the EULA and Refund Policy) and the{' '}
+                  <button type="button" className="link-btn" onClick={(event) => { event.preventDefault(); setLegal('privacy') }}>
+                    Privacy Policy
+                  </button>
+                </span>
+              </label>
+              {errors.terms ? <span className="field-error">{errors.terms}</span> : null}
+            </div>
+          ) : null}
+
+          {notice || connectionError ? (
             <div className="auth-notice" role="alert">
-              {notice}
+              {notice || connectionError}
             </div>
           ) : null}
 
@@ -214,9 +245,10 @@ export default function Auth() {
         </form>
 
         <p className="auth-note">
-          Your account is stored on this device only — Luma never sends your details anywhere.
+          Your account is encrypted and synced, so the same sign-in works on every device you use.
         </p>
       </div>
+      {legal ? <LegalDialog initial={legal} onClose={() => setLegal(null)} /> : null}
     </div>
   )
 }

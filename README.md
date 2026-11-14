@@ -11,7 +11,9 @@ browser extension.
 | --- | --- | --- |
 | Filter engine | `src/lib/engine.js` | Parses `\|\|domain^`, `@@` exceptions, `$third-party,script` options, `/regex/` filters and `##.selector` element hiding, then screens requests |
 | Bundled lists | `src/lib/blocklists.js` | Luma Core, Tracker Shield, Annoyance Cleaner, Social Widgets |
-| Accounts | `src/lib/auth.jsx` | Device sign-up (name, date of birth, email, password, phone, state of residence), salted PBKDF2 password hash, session remembered on the device until sign-out |
+| Accounts | `src/lib/auth.jsx`, `src/lib/api.js`, `server/index.js` | Sign-up (name, date of birth, email, password, phone, state of residence, Terms/Privacy consent) against the account service; one sign-in works on every device; this device keeps only a sign-in token |
+| Account service | `server/index.js` | Dependency-free Node service: AES-256-GCM encrypted profiles and synced settings, HMAC email index, scrypt password hashes, hashed session tokens |
+| Agreements | `src/lib/legal.js`, `src/components/LegalDialog.jsx` | Terms & Conditions (EULA, Refund Policy) and Privacy Policy shown at sign-up |
 | State | `src/lib/store.jsx` | Protection switch, lists, custom rules, allowlist, counters (kept in `localStorage`) |
 | Test lab | `src/pages/Lab.jsx` | Four simulated sites; every request and ad slot is checked by the engine |
 | Inspector | `src/pages/Inspector.jsx` | Paste a URL and get a plain blocked/allowed verdict |
@@ -48,7 +50,7 @@ $domain=a.com|~b.com         narrow by the page the request came from
 ## Building the extension
 
 ```bash
-npm run build:extension   # rules, hiding stylesheets, manifest, icons and the dashboard
+LUMA_API_URL=https://your-api.example.com npm run build:extension   # rules, hiding stylesheets, manifest, icons and the dashboard
 npm run check:extension   # validates the package and the filter decisions
 ```
 
@@ -68,10 +70,15 @@ Install it with **Developer mode → Load unpacked → `extension/`** (`opera://
 as `npm run dev`. Settings live in the extension's `chrome.storage`, so toggles,
 custom rules and the allowlist survive restarts.
 
-Live counters use `declarativeNetRequest.onRuleMatchedDebug`, which browsers only
-expose for unpacked/developer installs. In a store-installed build the dashboard
-still shows the active rule count but the blocked figures stay at zero (the toolbar
-badge keeps counting); drop `declarativeNetRequestFeedback` from the generated
-manifest if a store rejects it.
+Live counters work in every install. Unpacked installs get a per-request feed
+(`onRuleMatchedDebug`); store installs read the browser's matched-rule history with
+`getMatchedRules` (throttled to the browser's call limit) and the toolbar badge keeps
+its own count. Both need the `declarativeNetRequestFeedback` permission.
 
-Every counter in the app stays on the device — Luma uploads nothing.
+## Account service
+
+`server/index.js` stores accounts and syncs protection settings. It needs one secret,
+`ACCOUNT_ENCRYPTION_KEY` (keep it safe: losing it makes stored accounts unreadable),
+plus a persistent `DATA_DIR`. Run it with `node server/index.js` (Node 22+) behind HTTPS
+and pass its address to the extension build with `LUMA_API_URL`. In the sandbox it runs
+on port 8000 and the dev server points at it through `VITE_API_URL`.

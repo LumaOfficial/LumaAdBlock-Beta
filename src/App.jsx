@@ -9,7 +9,15 @@ import Inspector from './pages/Inspector'
 import { useAuth } from './lib/auth'
 
 export default function App() {
-  const { user } = useAuth()
+  const { user, status } = useAuth()
+
+  if (status === 'loading') {
+    return (
+      <div className="auth-shell">
+        <span className="brand-mark" aria-label="Loading" />
+      </div>
+    )
+  }
 
   // Nothing behind the dashboard is reachable until the device has an account.
   if (!user) return <Auth />

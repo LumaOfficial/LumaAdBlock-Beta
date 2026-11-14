@@ -127,6 +127,15 @@ function icon(size) {
 }
 
 async function main() {
+  // Accounts live on the Luma account service, so the packaged dashboard needs
+  // to know where it is. Never fall back to a sandbox/preview address.
+  const apiUrl = String(process.env.LUMA_API_URL || '').trim()
+  if (!/^https:\/\/[^/]+/.test(apiUrl)) {
+    throw new Error(
+      'Set LUMA_API_URL to the https address of the deployed account service, e.g.\n' +
+        '  LUMA_API_URL=https://api.example.com npm run build:extension',
+    )
+  }
   const pkg = JSON.parse(await readFile(path.join(root, 'package.json'), 'utf8'))
 
   await rm(path.join(out, 'rules'), { recursive: true, force: true })
@@ -205,7 +214,7 @@ async function main() {
       'extension/app',
       '--emptyOutDir',
     ],
-    { cwd: root, stdio: 'inherit' },
+    { cwd: root, stdio: 'inherit', env: { ...process.env, VITE_API_URL: apiUrl } },
   )
 
   console.log('Done. Load the extension/ folder as an unpacked extension.')

@@ -8,6 +8,8 @@ import {
   useRef,
   useState,
 } from 'react'
+import { api } from './api'
+import { useAuth } from './auth'
 import { compileRules, hostnameOf } from './engine'
 import { MAX_LEARNED, MAX_OBSERVATIONS, learnCandidate, runHealthChecks } from './learning'
 import { DEFAULT_LISTS, FILTER_LISTS } from './blocklists'
@@ -114,6 +116,17 @@ function reducer(state, action) {
         learned: settings.learned || [],
       }
     }
+    case 'syncIn': {
+      // Settings pulled from the account; device-learned rules stay as they are.
+      const settings = action.settings || {}
+      return {
+        ...state,
+        protection: settings.protection ?? state.protection,
+        lists: { ...DEFAULT_LISTS, ...(settings.lists || {}) },
+        customRules: settings.customRules || [],
+        allowlist: settings.allowlist || [],
+      }
+    }
     case 'observe': {
       const known = new Set(state.observations.map((item) => item.key))
       const fresh = []
@@ -162,6 +175,44 @@ export function AppProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, undefined, loadState)
 
   const [hydrated, setHydrated] = useState(!isExtension)
+  const { user } = useAuth()
+  const userId = user?.id
+  const [accountSynced, setAccountSynced] = useState(false)
+
+  // Account sync: pull the account's settings on sign-in, then keep them current.
+  useEffect(() => {
+    setAccountSynced(false)
+    if (!userId) return undefined
+    let alive = true
+    api('/api/settings')
+      .then((data) => {
+        if (!alive) return
+        if (data.settings) dispatch({ type: 'syncIn', settings: data.settings })
+        setAccountSynced(true)
+      })
+      .catch(() => {})
+    return () => {
+      alive = false
+    }
+  }, [userId])
+
+  useEffect(() => {
+    if (!userId || !accountSynced) return undefined
+    const timer = window.setTimeout(() => {
+      api('/api/settings', {
+        method: 'PUT',
+        body: {
+          settings: {
+            protection: state.protection,
+            lists: state.lists,
+            customRules: state.customRules,
+            allowlist: state.allowlist,
+          },
+        },
+      }).catch(() => {})
+    }, 1200)
+    return () => window.clearTimeout(timer)
+  }, [userId, accountSynced, state.protection, state.lists, state.customRules, state.allowlist])
 
   useEffect(() => {
     if (isExtension) return
