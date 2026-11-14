@@ -1,0 +1,9 @@
+{
+  "protection": true,
+  "lists": {
+    "luma-core": true,
+    "tracker-shield": true,
+    "annoyance-cleaner": true,
+    "social-widgets": false
+  }
+}

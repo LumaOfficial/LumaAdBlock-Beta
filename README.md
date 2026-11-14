@@ -76,6 +76,11 @@ Live counters work in every install. Unpacked installs get a per-request feed
 `getMatchedRules` (throttled to the browser's call limit) and the toolbar badge keeps
 its own count. Both need the `declarativeNetRequestFeedback` permission.
 
+The worker applies the shipped defaults itself on install and on every browser start
+(`luma-defaults.json`), so the network rulesets and the element-hiding stylesheets are
+active before the dashboard has ever been opened. Opening the dashboard only replaces
+those defaults with the settings you choose.
+
 ## Account service
 
 `server/index.js` stores accounts and syncs protection settings. It needs one secret,

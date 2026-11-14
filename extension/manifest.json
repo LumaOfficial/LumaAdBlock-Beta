@@ -53,6 +53,11 @@
         "path": "rules/tracker-shield.json"
       },
       {
+        "id": "annoyance-cleaner",
+        "enabled": true,
+        "path": "rules/annoyance-cleaner.json"
+      },
+      {
         "id": "social-widgets",
         "enabled": false,
         "path": "rules/social-widgets.json"

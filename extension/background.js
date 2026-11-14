@@ -64,17 +64,51 @@ async function syncCosmetic(enabledLists) {
   const registered = await chrome.scripting.getRegisteredContentScripts()
   const stale = registered.filter((script) => script.id.startsWith('luma-css-')).map((s) => s.id)
   if (stale.length) await chrome.scripting.unregisterContentScripts({ ids: stale })
-  if (!enabledLists.length) return
-  await chrome.scripting.registerContentScripts(
-    enabledLists.map((id) => ({
-      id: 'luma-css-' + id,
-      css: ['cosmetic/' + id + '.css'],
-      matches: ['<all_urls>'],
-      allFrames: true,
-      runAt: 'document_start',
-      persistAcrossSessions: true,
-    })),
-  )
+  for (const id of enabledLists) {
+    // Register each list separately: one unreadable stylesheet must not stop
+    // the others from hiding anything.
+    try {
+      await chrome.scripting.registerContentScripts([
+        {
+          id: 'luma-css-' + id,
+          css: ['cosmetic/' + id + '.css'],
+          matches: ['<all_urls>'],
+          allFrames: true,
+          runAt: 'document_start',
+          persistAcrossSessions: true,
+        },
+      ])
+    } catch (error) {
+      console.warn('Luma: could not register hiding stylesheet for ' + id, error)
+    }
+  }
+}
+
+/**
+ * First run: nothing has sent settings yet, so apply the shipped defaults. This
+ * registers the element-hiding stylesheets, which are what make ad slots
+ * disappear; without it a fresh install only blocks requests.
+ */
+async function applyDefaultsIfUnset() {
+  const stored = await chrome.storage.local.get(SETTINGS_KEY)
+  if (stored[SETTINGS_KEY]) return
+  let defaults = { protection: true, lists: {} }
+  try {
+    const response = await fetch(chrome.runtime.getURL('luma-defaults.json'))
+    defaults = await response.json()
+  } catch {
+    defaults = { protection: true, lists: Object.fromEntries(RULESET_IDS.map((id) => [id, true])) }
+  }
+  const lists = { ...(defaults.lists || {}) }
+  const enabledLists = Object.keys(lists).filter((id) => lists[id])
+  await applySettings({
+    protection: defaults.protection !== false,
+    enabledLists,
+    dynamicRules: [],
+    ruleIndex: {},
+    cosmeticSelectors: { generic: [], site: {} },
+    dashboard: { protection: true, lists, customRules: [], allowlist: [], learned: [] },
+  })
 }
 
 async function applySettings(payload) {
@@ -216,12 +250,14 @@ chrome.runtime.onInstalled.addListener(async () => {
   } catch {
     /* badge counting is a nice-to-have */
   }
+  await applyDefaultsIfUnset()
   const stored = await chrome.storage.local.get(SETTINGS_KEY)
   if (stored[SETTINGS_KEY]) await applySettings(stored[SETTINGS_KEY])
 })
 
 chrome.runtime.onStartup.addListener(async () => {
   void pollMatches(true)
+  await applyDefaultsIfUnset()
   const stored = await chrome.storage.local.get(SETTINGS_KEY)
   if (stored[SETTINGS_KEY]) await applySettings(stored[SETTINGS_KEY])
 })

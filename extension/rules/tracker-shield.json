@@ -56,7 +56,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||facebook.com/tr"
+      "urlFilter": "||pixel.facebook.com^"
     }
   },
   {
@@ -66,7 +66,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||bat.bing.com^"
+      "urlFilter": "||facebook.com/tr"
     }
   },
   {
@@ -76,7 +76,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||clarity.ms^"
+      "urlFilter": "||bat.bing.com^"
     }
   },
   {
@@ -86,7 +86,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||hotjar.com^"
+      "urlFilter": "||c.bing.com^"
     }
   },
   {
@@ -96,7 +96,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||static.hotjar.com^"
+      "urlFilter": "||clarity.ms^"
     }
   },
   {
@@ -106,7 +106,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||mixpanel.com^"
+      "urlFilter": "||hotjar.com^"
     }
   },
   {
@@ -116,7 +116,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||api.segment.io^"
+      "urlFilter": "||hotjar.io^"
     }
   },
   {
@@ -126,7 +126,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||segment.com/v1/"
+      "urlFilter": "||mixpanel.com^"
     }
   },
   {
@@ -136,7 +136,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||amplitude.com^"
+      "urlFilter": "||segment.io^"
     }
   },
   {
@@ -146,7 +146,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||api.amplitude.com^"
+      "urlFilter": "||segment.com^"
     }
   },
   {
@@ -156,7 +156,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||fullstory.com^"
+      "urlFilter": "||amplitude.com^"
     }
   },
   {
@@ -166,7 +166,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||heapanalytics.com^"
+      "urlFilter": "||fullstory.com^"
     }
   },
   {
@@ -176,7 +176,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||quantserve.com^"
+      "urlFilter": "||heapanalytics.com^"
     }
   },
   {
@@ -186,7 +186,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||quantcount.com^"
+      "urlFilter": "||quantserve.com^"
     }
   },
   {
@@ -196,7 +196,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||scorecardresearch.com^"
+      "urlFilter": "||quantcount.com^"
     }
   },
   {
@@ -206,7 +206,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||chartbeat.com^"
+      "urlFilter": "||scorecardresearch.com^"
     }
   },
   {
@@ -216,7 +216,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||parsely.com^"
+      "urlFilter": "||chartbeat.com^"
     }
   },
   {
@@ -226,7 +226,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||nr-data.net^"
+      "urlFilter": "||parsely.com^"
     }
   },
   {
@@ -236,7 +236,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||analytics.tiktok.com^"
+      "urlFilter": "||nr-data.net^"
     }
   },
   {
@@ -246,7 +246,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||ads-twitter.com^"
+      "urlFilter": "||analytics.tiktok.com^"
     }
   },
   {
@@ -256,7 +256,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||snap.licdn.com^"
+      "urlFilter": "||business-api.tiktok.com^"
     }
   },
   {
@@ -266,7 +266,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||px.ads.linkedin.com^"
+      "urlFilter": "||ads-twitter.com^"
     }
   },
   {
@@ -276,7 +276,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||ct.pinterest.com^"
+      "urlFilter": "||analytics.twitter.com^"
     }
   },
   {
@@ -286,7 +286,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||mc.yandex.ru^"
+      "urlFilter": "||t.co/i/adsct"
     }
   },
   {
@@ -296,7 +296,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||branch.io/v1/open"
+      "urlFilter": "||snap.licdn.com^"
     }
   },
   {
@@ -306,7 +306,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||appsflyer.com^"
+      "urlFilter": "||px.ads.linkedin.com^"
     }
   },
   {
@@ -316,7 +316,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||adjust.com^"
+      "urlFilter": "||linkedin.com/li/tr"
     }
   },
   {
@@ -326,7 +326,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||newrelic.com/browser"
+      "urlFilter": "||tr.snapchat.com^"
     }
   },
   {
@@ -336,7 +336,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||loggly.com/collect"
+      "urlFilter": "||sc-static.net^"
     }
   },
   {
@@ -346,7 +346,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||sessioncam.com^"
+      "urlFilter": "||analytics.snapchat.com^"
     }
   },
   {
@@ -356,7 +356,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||mouseflow.com^"
+      "urlFilter": "||ct.pinterest.com^"
     }
   },
   {
@@ -366,7 +366,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||crazyegg.com^"
+      "urlFilter": "||analytics.pinterest.com^"
     }
   },
   {
@@ -376,7 +376,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||optimizely.com/js/"
+      "urlFilter": "||omtrdc.net^"
     }
   },
   {
@@ -386,7 +386,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||vwo.com^"
+      "urlFilter": "||everesttech.net^"
     }
   },
   {
@@ -396,7 +396,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||demdex.net^"
+      "urlFilter": "||bluekai.com^"
     }
   },
   {
@@ -406,7 +406,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||omtrdc.net^"
+      "urlFilter": "||krxd.net^"
     }
   },
   {
@@ -416,7 +416,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||everesttech.net^"
+      "urlFilter": "||statcounter.com^"
     }
   },
   {
@@ -426,7 +426,7 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||bluekai.com^"
+      "urlFilter": "||clicky.com^"
     }
   },
   {
@@ -436,7 +436,117 @@
       "type": "block"
     },
     "condition": {
-      "urlFilter": "||krxd.net^"
+      "urlFilter": "||woopra.com^"
+    }
+  },
+  {
+    "id": 45,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "||kissmetrics.com^"
+    }
+  },
+  {
+    "id": 46,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "||crazyegg.com^"
+    }
+  },
+  {
+    "id": 47,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "||luckyorange.com^"
+    }
+  },
+  {
+    "id": 48,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "||mouseflow.com^"
+    }
+  },
+  {
+    "id": 49,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "||inspectlet.com^"
+    }
+  },
+  {
+    "id": 50,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "||smartlook.com^"
+    }
+  },
+  {
+    "id": 51,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "||app-measurement.com^"
+    }
+  },
+  {
+    "id": 52,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "||adjust.com^"
+    }
+  },
+  {
+    "id": 53,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "||appsflyer.com^"
+    }
+  },
+  {
+    "id": 54,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "||matheranalytics.com^"
+    }
+  },
+  {
+    "id": 55,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "||permutive.com^"
     }
   }
 ]

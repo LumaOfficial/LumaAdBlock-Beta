@@ -7,7 +7,7 @@
 import { readFile, stat } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { FILTER_LISTS } from '../src/lib/blocklists.js'
+import { DEFAULT_LISTS, FILTER_LISTS } from '../src/lib/blocklists.js'
 import { compileRules, screenRequest, toDeclarativeNetRequest } from '../src/lib/engine.js'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
@@ -70,8 +70,43 @@ async function main() {
   check('network rules generated', totalRules > 50, String(totalRules))
 
   for (const list of FILTER_LISTS) {
-    check(list.id + ' hiding stylesheet', await exists(path.join(out, 'cosmetic', list.id + '.css')))
+    const css = path.join(out, 'cosmetic', list.id + '.css')
+    if (!(await exists(css))) {
+      check(list.id + ' hiding stylesheet', false)
+      continue
+    }
+    const text = await readFile(css, 'utf8')
+    const selectors = compileRules(list.rules, list.id)
+      .filter((rule) => rule.kind === 'cosmetic' && !rule.exception && !rule.domains.length)
+      .map((rule) => rule.selector)
+    check(
+      list.id + ' hiding stylesheet (' + selectors.length + ' selectors)',
+      selectors.every((selector) => text.includes(selector + ' {')),
+    )
   }
+
+  // Fresh installs read these before the dashboard ever opens.
+  const defaultsPath = path.join(out, 'luma-defaults.json')
+  if (await exists(defaultsPath)) {
+    const defaults = JSON.parse(await readFile(defaultsPath, 'utf8'))
+    check(
+      'install defaults match the bundled lists',
+      JSON.stringify(defaults.lists) === JSON.stringify(DEFAULT_LISTS),
+    )
+  } else {
+    check('install defaults written', false, 'luma-defaults.json')
+  }
+
+  const rawRules = new Map()
+  const duplicates = []
+  for (const list of FILTER_LISTS) {
+    for (const line of list.rules) {
+      if (!line || line.startsWith('!')) continue
+      if (rawRules.has(line)) duplicates.push(line + ' (' + rawRules.get(line) + ', ' + list.id + ')')
+      else rawRules.set(line, list.id)
+    }
+  }
+  check('no rule is duplicated across lists', duplicates.length === 0, duplicates.join('; '))
 
   for (const icon of ['icon16.png', 'icon32.png', 'icon48.png', 'icon128.png']) {
     check(icon + ' present', await exists(path.join(out, 'icons', icon)))
