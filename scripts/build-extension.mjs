@@ -152,6 +152,12 @@ async function main() {
     minimum_chrome_version: '102',
     permissions: ['alarms', 'declarativeNetRequest', 'storage', 'scripting'],
     host_permissions: ['<all_urls>'],
+    // The content script reads the same selectors the stylesheets are built
+    // from. A packaged file can only be read from a page when it is listed
+    // here; without it the read fails and Visual mode hides nothing.
+    web_accessible_resources: [
+      { resources: ['cosmetic/selectors.json'], matches: ['<all_urls>'] },
+    ],
     background: { service_worker: 'background.js' },
     action: {
       default_title: 'Luma Ad Blocker',

@@ -14,6 +14,16 @@
   "host_permissions": [
     "<all_urls>"
   ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "cosmetic/selectors.json"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
   "background": {
     "service_worker": "background.js"
   },

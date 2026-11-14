@@ -145,6 +145,16 @@ async function main() {
   } else {
     check('selectors.json exists', false)
   }
+  // A page can only read a packaged file the manifest exposes; without this the
+  // content script gets nothing and hides nothing.
+  check(
+    'selectors.json is readable from a page',
+    (manifest.web_accessible_resources || []).some(
+      (entry) =>
+        (entry.resources || []).includes('cosmetic/selectors.json') &&
+        (entry.matches || []).includes('<all_urls>'),
+    ),
+  )
 
   // Fresh installs read these before the dashboard ever opens.
   const defaultsPath = path.join(out, 'luma-defaults.json')
