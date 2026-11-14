@@ -76,7 +76,7 @@ export default function Layout() {
             </p>
           </div>
           <div className="side-links">
-            <span>Luma 0.1</span>
+            <span>Luma 0.1 beta</span>
             <span>·</span>
             <span>Local data</span>
           </div>
@@ -98,6 +98,13 @@ export default function Layout() {
         </header>
 
         <main className="page">
+          <div className="beta-note">
+            <span className="badge accent">Beta</span>
+            <span>
+              This is the Luma beta. Diagnostics are monitored continuously so blocking problems get
+              found and fixed quickly.
+            </span>
+          </div>
           <Outlet />
         </main>
       </div>

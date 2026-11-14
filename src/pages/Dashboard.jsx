@@ -253,7 +253,8 @@ export default function Dashboard() {
             })}
           </div>
           <p className="footer-note">
-            Luma keeps every counter on this device. Nothing is uploaded anywhere.
+            Your counters stay on this device. Beta diagnostics only cover app health — never what you
+            browse.
           </p>
         </div>
       </section>
