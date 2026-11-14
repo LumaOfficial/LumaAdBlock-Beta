@@ -8,7 +8,6 @@
   "permissions": [
     "alarms",
     "declarativeNetRequest",
-    "declarativeNetRequestFeedback",
     "storage",
     "scripting"
   ],

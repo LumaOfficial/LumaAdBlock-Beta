@@ -8,8 +8,7 @@
  *   app/               the dashboard, built from src/
  */
 import { execFileSync } from 'node:child_process'
-import { mkdir, readFile, rm, writeFile } from 'node:fs/promises'
-import { deflateSync } from 'node:zlib'
+import { copyFile, mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { DEFAULT_LISTS, FILTER_LISTS } from '../src/lib/blocklists.js'
@@ -61,72 +60,6 @@ function cosmeticCss(list, compiled) {
   )
 }
 
-const CRC_TABLE = (() => {
-  const table = new Int32Array(256)
-  for (let n = 0; n < 256; n += 1) {
-    let c = n
-    for (let k = 0; k < 8; k += 1) c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1
-    table[n] = c
-  }
-  return table
-})()
-
-function crc32(buffer) {
-  let crc = -1
-  for (const byte of buffer) crc = CRC_TABLE[(crc ^ byte) & 0xff] ^ (crc >>> 8)
-  return (crc ^ -1) >>> 0
-}
-
-function pngChunk(type, data) {
-  const length = Buffer.alloc(4)
-  length.writeUInt32BE(data.length)
-  const body = Buffer.concat([Buffer.from(type, 'ascii'), data])
-  const crc = Buffer.alloc(4)
-  crc.writeUInt32BE(crc32(body))
-  return Buffer.concat([length, body, crc])
-}
-
-/** Renders the Luma mark: an orange ring with a paper-coloured centre. */
-function icon(size) {
-  const raw = Buffer.alloc(size * (size * 4 + 1))
-  const padding = 1
-  const outer = size / 2 - padding
-  const inner = outer * 0.46
-  for (let y = 0; y < size; y += 1) {
-    raw[y * (size * 4 + 1)] = 0
-    for (let x = 0; x < size; x += 1) {
-      const dx = x - size / 2 + 0.5
-      const dy = y - size / 2 + 0.5
-      const distance = Math.sqrt(dx * dx + dy * dy)
-      const index = y * (size * 4 + 1) + 1 + x * 4
-      const edge = Math.min(1, Math.max(0, outer - distance))
-      const hole = Math.min(1, Math.max(0, distance - inner))
-      if (edge <= 0 || hole <= 0) {
-        raw[index] = 0
-        raw[index + 1] = 0
-        raw[index + 2] = 0
-        raw[index + 3] = 0
-      } else {
-        raw[index] = 0xef
-        raw[index + 1] = 0x5a
-        raw[index + 2] = 0x2b
-        raw[index + 3] = Math.round(255 * Math.min(edge, hole))
-      }
-    }
-  }
-  const header = Buffer.alloc(13)
-  header.writeUInt32BE(size, 0)
-  header.writeUInt32BE(size, 4)
-  header[8] = 8
-  header[9] = 6
-  return Buffer.concat([
-    Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]),
-    pngChunk('IHDR', header),
-    pngChunk('IDAT', deflateSync(raw, { level: 9 })),
-    pngChunk('IEND', Buffer.alloc(0)),
-  ])
-}
-
 async function main() {
   // Accounts live on the Luma account service, so the packaged dashboard needs
   // to know where it is. Never fall back to a sandbox/preview address.
@@ -164,8 +97,12 @@ async function main() {
     summary.push({ list: list.name, rules: rules.length, hiding: countHiding(compiled) })
   }
 
+  // The designer's mark, cut out on a transparent background.
   for (const size of [16, 32, 48, 128]) {
-    await writeFile(path.join(out, 'icons', 'icon' + size + '.png'), icon(size))
+    await copyFile(
+      path.join(root, 'src', 'assets', 'brand', 'icon' + size + '.png'),
+      path.join(out, 'icons', 'icon' + size + '.png'),
+    )
   }
 
   // The worker applies these the moment the extension is installed, so ads are
@@ -180,14 +117,9 @@ async function main() {
     name: 'Luma Ad Blocker',
     version: pkg.version,
     description: pkg.description,
+    author: 'Luma Official',
     minimum_chrome_version: '102',
-    permissions: [
-      'alarms',
-      'declarativeNetRequest',
-      'declarativeNetRequestFeedback',
-      'storage',
-      'scripting',
-    ],
+    permissions: ['alarms', 'declarativeNetRequest', 'storage', 'scripting'],
     host_permissions: ['<all_urls>'],
     background: { service_worker: 'background.js' },
     action: { default_title: 'Luma Ad Blocker' },

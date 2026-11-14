@@ -26,13 +26,6 @@ const emptyStats = () => ({
 
 let statsCache = null
 let settingsCache = null
-let flushTimer = null
-
-function dayKey(date = new Date()) {
-  const month = String(date.getMonth() + 1).padStart(2, '0')
-  const day = String(date.getDate()).padStart(2, '0')
-  return `${date.getFullYear()}-${month}-${day}`
-}
 
 async function getSettings() {
   if (settingsCache) return settingsCache
@@ -46,20 +39,6 @@ async function getStats() {
   const stored = await chrome.storage.local.get(STATS_KEY)
   statsCache = stored[STATS_KEY] || emptyStats()
   return statsCache
-}
-
-function scheduleFlush() {
-  if (flushTimer) return
-  flushTimer = setTimeout(async () => {
-    flushTimer = null
-    if (!statsCache) return
-    await chrome.storage.local.set({ [STATS_KEY]: statsCache })
-    try {
-      await chrome.runtime.sendMessage({ type: 'luma:stats', stats: statsCache })
-    } catch {
-      /* no dashboard open */
-    }
-  }, 800)
 }
 
 async function syncCosmetic(enabledLists) {
@@ -160,51 +139,6 @@ async function applySettings(payload) {
   await syncCosmetic(enabledLists)
 }
 
-// Host a rule targets, read from its ||domain^ filter (used when the browser
-// reports a match without the request URL).
-function hostFromFilter(raw) {
-  const match = /^\|\|([a-z0-9.-]+)/i.exec(String(raw || ''))
-  return match ? match[1].toLowerCase() : ''
-}
-
-async function recordMatch(info, at = Date.now()) {
-  const [stats, settings] = await Promise.all([getStats(), getSettings()])
-  const request = info.request || {}
-  const rule = info.rule || {}
-  const meta = settings?.ruleIndex?.[rule.rulesetId + ':' + rule.ruleId] || null
-
-  let host = ''
-  try {
-    host = new URL(request.url).hostname
-  } catch {
-    host = hostFromFilter(meta?.raw)
-  }
-
-  stats.totals.blocked += 1
-  stats.totals.megabytes = Math.round((stats.totals.megabytes + 0.04) * 10) / 10
-  if (rule.rulesetId === 'tracker-shield' || meta?.listId === 'tracker-shield') {
-    stats.totals.trackers += 1
-  }
-  if (host) stats.domains[host] = (stats.domains[host] || 0) + 1
-  const key = dayKey()
-  stats.daily[key] = (stats.daily[key] || 0) + 1
-
-  stats.activity = [
-    {
-      id: Date.now() + '-' + Math.random().toString(36).slice(2, 7),
-      host: host || 'unknown',
-      url: request.url || '',
-      rule: meta?.raw || (rule.ruleId ? 'rule #' + rule.ruleId + ' · ' + rule.rulesetId : 'matched a rule'),
-      listId: meta?.listId || rule.rulesetId || 'custom',
-      type: request.type || 'other',
-      at: new Date(at).toISOString(),
-    },
-    ...stats.activity,
-  ].slice(0, 40)
-
-  scheduleFlush()
-}
-
 async function openDashboard() {
   const url = chrome.runtime.getURL('app/index.html')
   const session = await chrome.storage.session.get(TAB_KEY)
@@ -220,52 +154,10 @@ async function openDashboard() {
   await chrome.storage.session.set({ [TAB_KEY]: tab.id })
 }
 
-// Live counting. Unpacked installs get a per-request feed
-// (onRuleMatchedDebug). Store installs do not, so every install also reads the
-// browser's own matched-rule history (getMatchedRules), which works for any
-// install. The browser limits that call to roughly 20 per 10 minutes, so it is
-// throttled, and only one source counts at a time so nothing is double counted.
-const ruleFeedback = chrome.declarativeNetRequest.onRuleMatchedDebug
-if (ruleFeedback) ruleFeedback.addListener((info) => void recordMatch(info))
-
-const POLL_KEY = 'luma:last-match'
-const POLL_GAP_MS = 35000
-let lastPoll = 0
-let polling = null
-
-async function pollMatches(force = false) {
-  if (ruleFeedback || !chrome.declarativeNetRequest.getMatchedRules) return
-  const now = Date.now()
-  if (polling) return polling
-  if (!force && now - lastPoll < POLL_GAP_MS) return
-  lastPoll = now
-  polling = (async () => {
-    try {
-      const stored = await chrome.storage.local.get(POLL_KEY)
-      const since = stored[POLL_KEY] || now - 1000
-      const { rulesMatchedInfo = [] } = await chrome.declarativeNetRequest.getMatchedRules({
-        minTimeStamp: since + 1,
-      })
-      let newest = since
-      for (const info of rulesMatchedInfo.sort((a, b) => a.timeStamp - b.timeStamp)) {
-        await recordMatch({ rule: info.rule, request: {} }, info.timeStamp)
-        newest = Math.max(newest, info.timeStamp)
-      }
-      await chrome.storage.local.set({ [POLL_KEY]: newest })
-    } catch {
-      /* feedback unavailable in this browser; the toolbar badge still counts */
-    } finally {
-      polling = null
-    }
-  })()
-  return polling
-}
-
-chrome.tabs.onUpdated.addListener((tabId, change) => {
-  if (change.status === 'complete') void pollMatches()
-})
-chrome.tabs.onRemoved.addListener(() => void pollMatches())
-
+// Blocked-request counts for the dashboard need the matched-rule feed, which
+// Chromium only grants to unpacked extensions. The packaged build therefore
+// declares no debug permission and the toolbar badge is what counts blocks:
+// setExtensionActionOptions keeps that number for every install.
 chrome.runtime.onInstalled.addListener(async () => {
   try {
     await chrome.declarativeNetRequest.setExtensionActionOptions({
@@ -281,7 +173,6 @@ chrome.runtime.onInstalled.addListener(async () => {
 })
 
 chrome.runtime.onStartup.addListener(async () => {
-  void pollMatches(true)
   await applyDefaultsIfUnset()
   const stored = await chrome.storage.local.get(SETTINGS_KEY)
   if (stored[SETTINGS_KEY]) await applySettings(stored[SETTINGS_KEY])
@@ -312,9 +203,7 @@ chrome.runtime.onMessage.addListener((message, sender, respond) => {
     return true
   }
   if (message?.type === 'luma:stats:read') {
-    pollMatches(true)
-      .then(getStats)
-      .then((stats) => respond?.({ stats }))
+    getStats().then((stats) => respond?.({ stats }))
     return true
   }
   if (message?.type === 'luma:stats:reset') {
