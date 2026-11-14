@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { ArrowRight, Mail } from 'lucide-react'
 import LegalDialog from '../components/LegalDialog'
 import SsoButtons from '../components/SsoButtons'
+import { API_BASE } from '../lib/api'
 import { useAuth } from '../lib/useAuth'
 import { validateSignup } from '../lib/validation'
 import { US_STATES } from '../lib/usStates'
@@ -178,6 +180,34 @@ export default function Auth() {
     } finally {
       setBusy(false)
     }
+  }
+
+  // A build without an account service (the packaged extension) cannot sign
+  // anyone in, so it says so instead of offering a form that only errors.
+  if (!API_BASE) {
+    return (
+      <div className="auth-shell">
+        <div className="auth-card">
+          <div className="auth-brand">
+            <span className="brand-mark" />
+            <span className="brand-name">
+              Luma
+              <span>Ad blocker</span>
+            </span>
+            <span className="badge accent">Beta</span>
+          </div>
+          <h1 className="display">Protection runs on this device.</h1>
+          <p className="lede">
+            This copy of Luma does not include accounts. Your settings, custom rules and counts stay
+            in this browser.
+          </p>
+          <Link className="btn primary auth-submit" to="/">
+            Back to Luma
+            <ArrowRight />
+          </Link>
+        </div>
+      </div>
+    )
   }
 
   const heading = creating ? 'Create your Luma account.' : coding ? 'Sign in with a code.' : 'Welcome back.'

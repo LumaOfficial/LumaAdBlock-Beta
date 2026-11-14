@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { EyeOff, KeyRound, LogOut, Monitor, Moon, Sun, Trash2 } from 'lucide-react'
 import { CardHead, PageHead, Switch } from '../components/ui'
+import Auth from './Auth'
 import PasswordDialog from '../components/PasswordDialog'
 import ScheduleCard from '../components/dashboard/ScheduleCard'
 import BackupCard from '../components/dashboard/BackupCard'
@@ -32,6 +33,10 @@ export default function Account() {
   const { state, resetCounters, setTheme, setPrivacy } = useApp()
   const [passwordOpen, setPasswordOpen] = useState(false)
   const [confirmReset, setConfirmReset] = useState(false)
+
+  // On a device used without an account (the packaged extension), the account
+  // page is where signing in to sync starts.
+  if (!user) return <Auth />
 
   const initials = (user?.name || '')
     .split(/\s+/)

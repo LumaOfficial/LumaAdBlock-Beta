@@ -170,6 +170,22 @@ async function applySettings(payload) {
   await syncCosmetic(enabledLists, allowlist)
 }
 
+/**
+ * The browser's own per-tab count of blocked requests (the toolbar badge).
+ * It is the only live counter a store install exposes, so the panel reads it.
+ */
+async function readPageBlocks() {
+  try {
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
+    if (!tab?.id) return 0
+    const text = await chrome.action.getBadgeText({ tabId: tab.id })
+    const count = Number(text)
+    return Number.isFinite(count) ? count : 0
+  } catch {
+    return 0
+  }
+}
+
 async function openDashboard() {
   const url = chrome.runtime.getURL('app/index.html')
   const session = await chrome.storage.session.get(TAB_KEY)
@@ -235,6 +251,10 @@ chrome.runtime.onMessage.addListener((message, sender, respond) => {
   }
   if (message?.type === 'luma:stats:read') {
     getStats().then((stats) => respond?.({ stats }))
+    return true
+  }
+  if (message?.type === 'luma:page:read') {
+    readPageBlocks().then((blocked) => respond?.({ blocked }))
     return true
   }
   if (message?.type === 'luma:stats:reset') {

@@ -9,6 +9,8 @@ import Protection from './pages/Protection'
 import Owner from './pages/Owner'
 import Panel from './pages/Panel'
 import Tools from './pages/Tools'
+import { API_BASE } from './lib/api'
+import { isExtension } from './lib/platform'
 import { useAuth } from './lib/useAuth'
 
 export default function App() {
@@ -22,8 +24,12 @@ export default function App() {
     )
   }
 
+  // The packaged extension ships without an account service, so it works on its
+  // own: protection is device-local, and an account only adds sync.
+  const withoutAccount = isExtension || !API_BASE
+
   // Nothing behind the dashboard is reachable until the device has an account.
-  if (!user) return <Auth />
+  if (!user && !withoutAccount) return <Auth />
 
   return (
     <Routes>

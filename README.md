@@ -54,14 +54,19 @@ $domain=a.com|~b.com         narrow by the page the request came from
 ## Building the extension
 
 ```bash
-LUMA_API_URL=https://your-api.example.com npm run build:extension   # rules, hiding stylesheets, manifest, icons and the dashboard
+npm run build:extension   # rules, hiding stylesheets, manifest, icons and the dashboard
 npm run check:extension   # validates the package and the filter decisions
+npm run package:extension # writes release/luma-ad-blocker-<version>.zip for the store
 ```
 
 The extension build compiles the dashboard **unminified**: store reviewers must be able to
 read it, and Opera rejects obfuscated or minified code. The web build stays minified.
-Without `LUMA_API_URL` the package still blocks ads, but its dashboard cannot sign in —
-set it for any build you submit to a store.
+Set `LUMA_API_URL=https://your-api.example.com` before `build:extension` to ship accounts
+and cross-device sync. Without it the package is self-contained: blocking, settings and
+counters stay on the device and the account page says accounts are unavailable.
+
+`STORE_SUBMISSION.md` holds the listing fields, permission justifications, privacy
+policy answers and the pre-upload checklist.
 
 `npm run build:extension` writes a loadable extension into `extension/`:
 

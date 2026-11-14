@@ -22214,649 +22214,6 @@ function Layout() {
     ] })
   ] });
 }
-const DEFAULT_SCHEDULE = { enabled: false, from: "22:00", to: "07:00" };
-function parseClock(value) {
-  const match = /^([01]\d|2[0-3]):([0-5]\d)$/.exec(String(value || ""));
-  return match ? Number(match[1]) * 60 + Number(match[2]) : null;
-}
-function normalizeSchedule(input, fallback = DEFAULT_SCHEDULE) {
-  const next = { ...fallback, ...input && typeof input === "object" ? input : {} };
-  return {
-    enabled: Boolean(next.enabled),
-    from: parseClock(next.from) === null ? fallback.from : next.from,
-    to: parseClock(next.to) === null ? fallback.to : next.to
-  };
-}
-function isQuietNow(schedule, date = /* @__PURE__ */ new Date()) {
-  if (!(schedule == null ? void 0 : schedule.enabled)) return false;
-  const from = parseClock(schedule.from);
-  const to = parseClock(schedule.to);
-  if (from === null || to === null || from === to) return false;
-  const now = date.getHours() * 60 + date.getMinutes();
-  if (from < to) return now >= from && now < to;
-  return now >= from || now < to;
-}
-function clockLabel(value) {
-  const minutes = parseClock(value);
-  if (minutes === null) return value;
-  const date = new Date(2e3, 0, 1, Math.floor(minutes / 60), minutes % 60);
-  return date.toLocaleTimeString(void 0, { hour: "numeric", minute: "2-digit" });
-}
-function scheduleLabel(schedule) {
-  return clockLabel(schedule.from) + " – " + clockLabel(schedule.to);
-}
-function TimeField({ id, label, value, onChange }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: id, children: label }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      "input",
-      {
-        id,
-        className: "input",
-        type: "time",
-        value,
-        onChange: (event) => {
-          if (/^\d{2}:\d{2}$/.test(event.target.value)) onChange(event.target.value);
-        }
-      }
-    )
-  ] });
-}
-function ScheduleCard() {
-  const { state, setSchedule, pausedBySchedule } = useApp();
-  const schedule = state.schedule;
-  function update(patch) {
-    setSchedule({ ...schedule, ...patch });
-  }
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      CardHead,
-      {
-        title: "Quiet hours",
-        sub: "Let protection step aside on a schedule, every day",
-        children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Switch,
-          {
-            on: schedule.enabled,
-            onChange: (enabled) => update({ enabled }),
-            label: "Quiet hours"
-          }
-        )
-      }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "schedule-grid", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        TimeField,
-        {
-          id: "quiet-from",
-          label: "Pause at",
-          value: schedule.from,
-          onChange: (from) => update({ from })
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        TimeField,
-        {
-          id: "quiet-to",
-          label: "Resume at",
-          value: schedule.to,
-          onChange: (to) => update({ to })
-        }
-      )
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "schedule-state", "data-on": schedule.enabled ? "true" : "false", children: schedule.enabled ? pausedBySchedule ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Moon, { width: 14, height: 14 }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
-        "Quiet hours are on right now — protection resumes at",
-        " ",
-        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: clockLabel(schedule.to) }),
-        "."
-      ] })
-    ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Clock, { width: 14, height: 14 }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
-        "Protection is active. It pauses at ",
-        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: clockLabel(schedule.from) }),
-        " and resumes at ",
-        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: clockLabel(schedule.to) }),
-        "."
-      ] })
-    ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Clock, { width: 14, height: 14 }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
-        "Off — protection runs around the clock (",
-        scheduleLabel(schedule),
-        " is saved)."
-      ] })
-    ] }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Quiet hours only pause blocking; your lists, rules and trusted sites stay exactly as they are." })
-  ] });
-}
-const APP = "luma";
-const VERSION = 1;
-const SEAL = "LUMA1";
-const KEY = "luma.backup.v1";
-function buildBackup(state) {
-  return {
-    app: APP,
-    version: VERSION,
-    exportedAt: (/* @__PURE__ */ new Date()).toISOString(),
-    protection: Boolean(state.protection),
-    theme: state.theme === "light" || state.theme === "dark" ? state.theme : "system",
-    privacy: Boolean(state.privacy),
-    lists: { ...DEFAULT_LISTS, ...state.lists || {} },
-    customRules: [...state.customRules || []],
-    allowlist: [...state.allowlist || []],
-    schedule: normalizeSchedule(state.schedule, DEFAULT_SCHEDULE)
-  };
-}
-function seal(bytes) {
-  const out = new Uint8Array(bytes.length);
-  let s = (2654435769 ^ bytes.length) >>> 0;
-  for (let i = 0; i < bytes.length; i += 1) {
-    s ^= s << 13 >>> 0;
-    s >>>= 0;
-    s ^= s >>> 17;
-    s ^= s << 5 >>> 0;
-    s >>>= 0;
-    out[i] = bytes[i] ^ s & 255 ^ KEY.charCodeAt(i % KEY.length);
-  }
-  return out;
-}
-function toBase64Url(bytes) {
-  let binary = "";
-  for (const byte of bytes) binary += String.fromCharCode(byte);
-  return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
-}
-function fromBase64Url(text) {
-  const padded = text.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((text.length + 3) % 4);
-  const binary = atob(padded);
-  return Uint8Array.from(binary, (char) => char.charCodeAt(0));
-}
-function stamp(body) {
-  let a = 2166136261;
-  let b = 668265263;
-  const text = `${KEY}|${body}`;
-  for (let i = 0; i < text.length; i += 1) {
-    const code = text.charCodeAt(i);
-    a = Math.imul(a ^ code, 16777619) >>> 0;
-    b = Math.imul(b ^ code, 2246822507) >>> 0;
-  }
-  return a.toString(36) + b.toString(36);
-}
-function encodeBackup(state) {
-  const body = toBase64Url(seal(new TextEncoder().encode(JSON.stringify(buildBackup(state)))));
-  return `${SEAL}.${body}.${stamp(body)}`;
-}
-function parseBackup(text) {
-  const trimmed = String(text || "").trim();
-  if (trimmed.startsWith(`${SEAL}.`)) {
-    const parts = trimmed.split(".");
-    const body = parts[1] || "";
-    if (parts.length !== 3 || parts[2] !== stamp(body)) return { altered: true };
-    try {
-      return { parsed: JSON.parse(new TextDecoder().decode(seal(fromBase64Url(body)))) };
-    } catch {
-      return { altered: true };
-    }
-  }
-  try {
-    return { parsed: JSON.parse(trimmed) };
-  } catch {
-    return {};
-  }
-}
-function readBackup(text) {
-  const { parsed, altered } = parseBackup(text);
-  if (altered) {
-    return { ok: false, error: "That backup has been changed since it was exported, so it was not restored." };
-  }
-  if (!parsed || parsed.app !== APP || typeof parsed !== "object") {
-    return { ok: false, error: "That file is not a Luma backup." };
-  }
-  const lists = parsed.lists && typeof parsed.lists === "object" ? parsed.lists : {};
-  const customRules = Array.isArray(parsed.customRules) ? parsed.customRules.map(String) : [];
-  const allowlist = Array.isArray(parsed.allowlist) ? parsed.allowlist.map(String) : [];
-  if (!customRules.length && !allowlist.length && !Object.values(lists).some(Boolean)) {
-    return { ok: false, error: "That backup has no settings to restore." };
-  }
-  return {
-    ok: true,
-    settings: {
-      protection: typeof parsed.protection === "boolean" ? parsed.protection : true,
-      theme: parsed.theme === "light" || parsed.theme === "dark" ? parsed.theme : "system",
-      privacy: parsed.privacy === true,
-      lists,
-      customRules,
-      allowlist,
-      schedule: normalizeSchedule(parsed.schedule, DEFAULT_SCHEDULE)
-    }
-  };
-}
-function downloadBackup(state) {
-  const file = new Blob([encodeBackup(state)], { type: "text/plain" });
-  const url = URL.createObjectURL(file);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = "luma-settings.luma";
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-  window.setTimeout(() => URL.revokeObjectURL(url), 1e3);
-}
-function BackupCard() {
-  const { state, importSettings, activeListCount } = useApp();
-  const toast = useToast();
-  const fileRef = reactExports.useRef(null);
-  const [error, setError] = reactExports.useState("");
-  async function restore(event) {
-    var _a;
-    const file = (_a = event.target.files) == null ? void 0 : _a[0];
-    event.target.value = "";
-    if (!file) return;
-    const result = readBackup(await file.text());
-    if (!result.ok) {
-      setError(result.error);
-      return;
-    }
-    importSettings(result.settings);
-    setError("");
-    toast.show("Settings restored from backup");
-  }
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Back up your settings", sub: "Lists, rules, trusted sites and quiet hours" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "backup-summary", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: activeListCount }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "lists on" })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: state.customRules.length }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "custom rules" })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: state.allowlist.length }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "trusted sites" })
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "backup-actions", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        "button",
-        {
-          type: "button",
-          className: "btn primary",
-          onClick: () => {
-            downloadBackup(state);
-            toast.show("Settings exported");
-          },
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Download, {}),
-            "Export settings"
-          ]
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "btn", onClick: () => {
-        var _a;
-        return (_a = fileRef.current) == null ? void 0 : _a.click();
-      }, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(FileUp, {}),
-        "Import backup"
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "input",
-        {
-          ref: fileRef,
-          type: "file",
-          accept: ".luma,.json,application/json,text/plain",
-          onChange: restore,
-          hidden: true
-        }
-      )
-    ] }),
-    error ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "hint", style: { color: "var(--accent-deep)", marginTop: 8 }, children: error }) : null,
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Your export is sealed, so it is safe to share: nobody can read or edit the settings inside it, and a changed file is refused on import. Counters and browsing history never leave this device." }),
-    toast.node
-  ] });
-}
-const THEMES = [
-  { id: "system", label: "System", icon: Monitor },
-  { id: "light", label: "Light", icon: Sun },
-  { id: "dark", label: "Dark", icon: Moon }
-];
-function methodLabel$1(via) {
-  if (via === "code") return "email code";
-  if (via === "password") return "password";
-  return via;
-}
-function joined$1(value) {
-  const date = new Date(value);
-  return Number.isNaN(date.getTime()) ? "—" : date.toLocaleDateString(void 0, { month: "short", day: "numeric", year: "numeric" });
-}
-function Account() {
-  const { user, stateLabel, signOut } = useAuth();
-  const { state, resetCounters, setTheme, setPrivacy } = useApp();
-  const [passwordOpen, setPasswordOpen] = reactExports.useState(false);
-  const [confirmReset, setConfirmReset] = reactExports.useState(false);
-  const initials = ((user == null ? void 0 : user.name) || "").split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join("").toUpperCase();
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      PageHead,
-      {
-        eyebrow: "Account",
-        title: "Your account and settings.",
-        lede: "The account your protection settings sync to, plus the look and privacy choices that follow you."
-      }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "grid-2", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Profile", sub: "One sign-in on every device" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "owner-row", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "owner-who", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "owner-name", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "avatar", "aria-hidden": "true", children: initials }),
-            user == null ? void 0 : user.name,
-            (user == null ? void 0 : user.owner) ? /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge accent", children: "Owner" }) : null
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "owner-meta", children: [
-            user == null ? void 0 : user.email,
-            " · signed in with ",
-            methodLabel$1(user == null ? void 0 : user.via),
-            " · joined",
-            " ",
-            joined$1(user == null ? void 0 : user.createdAt)
-          ] })
-        ] }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "owner-row", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "owner-who", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "owner-name", children: "Region" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "owner-meta", children: stateLabel || "Not set" })
-        ] }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "owner-row", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "owner-who", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "owner-name", children: "Settings sync" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "owner-meta", children: [
-            formatNumber(Object.values(state.lists).filter(Boolean).length),
-            " lists,",
-            " ",
-            formatNumber(state.customRules.length),
-            " custom rules and",
-            " ",
-            formatNumber(state.allowlist.length),
-            " trusted sites saved to this account"
-          ] })
-        ] }) })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Password", sub: "Use it with your email to sign in" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "small muted", children: "Signed up with a provider or an email code? Set a password here and either way works." }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "row", style: { marginTop: 12 }, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "btn primary", onClick: () => setPasswordOpen(true), children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(KeyRound, {}),
-          "Change password"
-        ] }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Your password is stored only as a hash on the account service — never in this browser." })
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "grid-2", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Theme", sub: "How Luma looks, on every device you sign in to" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "theme-options", role: "group", "aria-label": "Theme", children: THEMES.map((option) => {
-          const Icon2 = option.icon;
-          return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-            "button",
-            {
-              type: "button",
-              className: "theme-option",
-              "data-active": state.theme === option.id ? "true" : "false",
-              "aria-pressed": state.theme === option.id,
-              onClick: () => setTheme(option.id),
-              children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, {}),
-                option.label
-              ]
-            },
-            option.id
-          );
-        }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "System follows your device's light or dark setting and switches with it." })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Privacy mode", sub: "No blocking, anonymous diagnostics", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Switch, { on: state.privacy, onChange: setPrivacy, label: "Privacy mode" }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "small muted", children: "Turns every block off and pauses anything that could identify you. Diagnostics keep running, but they forget the who: no site names, no addresses and no activity log." }),
-        state.privacy ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "note", style: { marginTop: 12 }, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", style: { gap: 8 }, children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(EyeOff, { width: 14, height: 14 }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Private browsing is on." })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "small muted", style: { marginTop: 4 }, children: "Ads are loading, and the pages you visit are not recorded. Anything collected before now stays on this device until you reset counters." })
-        ] }) : null
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "grid-2", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(ScheduleCard, {}),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(BackupCard, {})
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "card", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "This device", sub: "Counters live here; settings live in your account" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "btn", onClick: signOut, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(LogOut, {}),
-          "Sign out"
-        ] }),
-        confirmReset ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(
-            "button",
-            {
-              type: "button",
-              className: "btn danger",
-              onClick: () => {
-                resetCounters();
-                setConfirmReset(false);
-              },
-              children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx(Trash2, {}),
-                "Yes, reset counters"
-              ]
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", className: "btn ghost", onClick: () => setConfirmReset(false), children: "Cancel" })
-        ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "btn ghost", onClick: () => setConfirmReset(true), children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Trash2, {}),
-          "Reset counters"
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Resetting counters clears the blocking numbers and the activity log on this device. Your lists, rules and trusted sites stay as they are." })
-    ] }),
-    passwordOpen ? /* @__PURE__ */ jsxRuntimeExports.jsx(PasswordDialog, { onClose: () => setPasswordOpen(false) }) : null
-  ] });
-}
-const FILTERS = [
-  { id: "all", label: "Everything" },
-  { id: "blocked", label: "Stopped" },
-  { id: "allowed", label: "Allowed" }
-];
-function logRows(state) {
-  const rows = [];
-  const seen = /* @__PURE__ */ new Set();
-  for (const event of state.activity) {
-    if (!(event == null ? void 0 : event.host) || seen.has(event.id)) continue;
-    seen.add(event.id);
-    rows.push({ id: event.id, host: event.host, at: event.at, blocked: true });
-  }
-  for (const item of state.observations) {
-    if (!(item == null ? void 0 : item.host) || seen.has(item.id)) continue;
-    seen.add(item.id);
-    rows.push({ id: item.id, host: item.host, at: item.at, blocked: Boolean(item.blocked) });
-  }
-  return rows.sort((a, b) => Date.parse(b.at) - Date.parse(a.at)).slice(0, 200);
-}
-function saveLog(rows) {
-  const lines = ["when,site,outcome"];
-  for (const row of rows) {
-    const when = new Date(row.at);
-    const stamp2 = Number.isFinite(when.getTime()) ? when.toISOString() : "";
-    lines.push([stamp2, row.host, row.blocked ? "stopped" : "allowed"].join(","));
-  }
-  const blob = new Blob([lines.join("\n") + "\n"], { type: "text/csv" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = "luma-activity-" + dayKey() + ".csv";
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-  URL.revokeObjectURL(url);
-}
-function Activity() {
-  const { state, addCustomRule } = useApp();
-  const blockedToday = useBlockedToday();
-  const [query, setQuery] = reactExports.useState("");
-  const [filter, setFilter] = reactExports.useState("all");
-  const toast = useToast();
-  const rows = reactExports.useMemo(() => logRows(state), [state]);
-  const stopped = rows.filter((row) => row.blocked).length;
-  const allowed = rows.length - stopped;
-  const needle = query.trim().toLowerCase();
-  const visible = rows.filter((row) => filter === "all" ? true : filter === "blocked" ? row.blocked : !row.blocked).filter((row) => needle ? row.host.toLowerCase().includes(needle) : true);
-  const blockedShare = percent(state.totals.blocked, state.totals.screened);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      PageHead,
-      {
-        eyebrow: "Activity",
-        title: "Every request Luma saw.",
-        lede: "A running log of what the engine screened on this device, newest first.",
-        children: /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(EyeOff, {}),
-          formatNumber(rows.length),
-          " logged"
-        ] })
-      }
-    ),
-    state.privacy ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "note", style: { marginBottom: 18 }, children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Privacy mode is on." }),
-      " New entries are not recorded: no site names, no addresses. Anything collected before now is still below until you reset counters."
-    ] }) : null,
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "stat-grid", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat-label", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(EyeOff, {}),
-          "Stopped today"
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-value", children: formatNumber(blockedToday) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-foot", children: "Since midnight" })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat-label", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldCheck, {}),
-          "Stopped all time"
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-value", children: formatNumber(state.totals.blocked) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-foot", children: "Across every site" })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat-label", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(UserX, {}),
-          "Trackers stopped"
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-value", children: formatNumber(state.totals.trackers) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-foot", children: "Pixels, beacons and analytics" })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat-label", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Zap, {}),
-          "Requests screened"
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-value", children: formatNumber(state.totals.screened) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat-foot", children: [
-          blockedShare,
-          "% blocked"
-        ] })
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "card", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Request log", sub: "The last 200 entries, newest first", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        "button",
-        {
-          type: "button",
-          className: "btn sm ghost",
-          disabled: !visible.length,
-          onClick: () => {
-            saveLog(visible);
-            toast.show("Log saved to this device");
-          },
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Download, {}),
-            "Save log"
-          ]
-        }
-      ) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "inline-form", style: { marginBottom: 4 }, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "activity-filter", children: "Filter by site" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "input",
-            {
-              id: "activity-filter",
-              className: "input",
-              value: query,
-              placeholder: "news.example",
-              onChange: (event) => setQuery(event.target.value)
-            }
-          )
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "seg", role: "group", "aria-label": "Show", children: FILTERS.map((option) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
-          "button",
-          {
-            type: "button",
-            "data-active": option.id === filter ? "true" : "false",
-            "aria-pressed": option.id === filter,
-            onClick: () => setFilter(option.id),
-            children: [
-              option.label,
-              " ",
-              option.id === "all" ? rows.length : option.id === "blocked" ? stopped : allowed
-            ]
-          },
-          option.id
-        )) })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed", children: [
-        visible.map((row) => {
-          const allowRule2 = "@@||" + row.host + "^";
-          const allowedAlready = state.customRules.includes(allowRule2);
-          return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-row", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "feed-icon", children: row.blocked ? /* @__PURE__ */ jsxRuntimeExports.jsx(EyeOff, {}) : /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldCheck, {}) }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-main", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "host", children: row.host }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "rule", children: row.blocked ? "Stopped before it loaded" : "Allowed to load" })
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-side", children: [
-              row.blocked ? allowedAlready ? /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge good", children: "Allowed" }) : /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "button",
-                {
-                  type: "button",
-                  className: "icon-btn",
-                  title: "Always allow requests to " + row.host,
-                  "aria-label": "Always allow requests to " + row.host,
-                  onClick: () => {
-                    addCustomRule(allowRule2);
-                    toast.show(row.host + " allowed");
-                  },
-                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(Undo2, {})
-                }
-              ) : null,
-              /* @__PURE__ */ jsxRuntimeExports.jsx("time", { children: relativeTime(row.at) })
-            ] })
-          ] }, row.id);
-        }),
-        !visible.length ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "empty", children: needle || filter !== "all" ? "No request in the log matches that." : "Nothing logged yet. Run an experiment to watch the engine work, or install the extension for live activity." }) : null
-      ] }),
-      !needle && filter === "all" && !rows.length ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "row", style: { marginTop: 14 }, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: "/tools/experiments", className: "btn sm", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(FlaskConical, {}),
-        "Run an experiment"
-      ] }) }) : null
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "This log never leaves your device unless you save a copy." }),
-    toast.node
-  ] });
-}
 const SUPPORT_EMAIL = "lumasupport@tidio.xyz";
 const TERMS = {
   title: "Terms and Conditions",
@@ -23888,6 +23245,24 @@ function Auth() {
       setBusy(false);
     }
   }
+  if (!API_BASE) {
+    return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "auth-shell", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "auth-card", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "auth-brand", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "brand-mark" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "brand-name", children: [
+          "Luma",
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Ad blocker" })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge accent", children: "Beta" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "display", children: "Protection runs on this device." }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "lede", children: "This copy of Luma does not include accounts. Your settings, custom rules and counts stay in this browser." }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { className: "btn primary auth-submit", to: "/", children: [
+        "Back to Luma",
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowRight, {})
+      ] })
+    ] }) });
+  }
   const heading = creating ? "Create your Luma account." : coding ? "Sign in with a code." : "Welcome back.";
   const lede = creating ? "One account keeps your protection settings in sync on every device." : coding ? "Sign in to an existing account with a 6-digit code. No password to remember. New here? Create an account first." : "Sign in to reach your dashboard and counters.";
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "auth-shell", children: [
@@ -24090,6 +23465,650 @@ function Auth() {
       /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "auth-note", children: "Your account is encrypted and synced, so the same sign-in works on every device you use." })
     ] }),
     legal ? /* @__PURE__ */ jsxRuntimeExports.jsx(LegalDialog, { initial: legal, onClose: () => setLegal(null) }) : null
+  ] });
+}
+const DEFAULT_SCHEDULE = { enabled: false, from: "22:00", to: "07:00" };
+function parseClock(value) {
+  const match = /^([01]\d|2[0-3]):([0-5]\d)$/.exec(String(value || ""));
+  return match ? Number(match[1]) * 60 + Number(match[2]) : null;
+}
+function normalizeSchedule(input, fallback = DEFAULT_SCHEDULE) {
+  const next = { ...fallback, ...input && typeof input === "object" ? input : {} };
+  return {
+    enabled: Boolean(next.enabled),
+    from: parseClock(next.from) === null ? fallback.from : next.from,
+    to: parseClock(next.to) === null ? fallback.to : next.to
+  };
+}
+function isQuietNow(schedule, date = /* @__PURE__ */ new Date()) {
+  if (!(schedule == null ? void 0 : schedule.enabled)) return false;
+  const from = parseClock(schedule.from);
+  const to = parseClock(schedule.to);
+  if (from === null || to === null || from === to) return false;
+  const now = date.getHours() * 60 + date.getMinutes();
+  if (from < to) return now >= from && now < to;
+  return now >= from || now < to;
+}
+function clockLabel(value) {
+  const minutes = parseClock(value);
+  if (minutes === null) return value;
+  const date = new Date(2e3, 0, 1, Math.floor(minutes / 60), minutes % 60);
+  return date.toLocaleTimeString(void 0, { hour: "numeric", minute: "2-digit" });
+}
+function scheduleLabel(schedule) {
+  return clockLabel(schedule.from) + " – " + clockLabel(schedule.to);
+}
+function TimeField({ id, label, value, onChange }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: id, children: label }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "input",
+      {
+        id,
+        className: "input",
+        type: "time",
+        value,
+        onChange: (event) => {
+          if (/^\d{2}:\d{2}$/.test(event.target.value)) onChange(event.target.value);
+        }
+      }
+    )
+  ] });
+}
+function ScheduleCard() {
+  const { state, setSchedule, pausedBySchedule } = useApp();
+  const schedule = state.schedule;
+  function update(patch) {
+    setSchedule({ ...schedule, ...patch });
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      CardHead,
+      {
+        title: "Quiet hours",
+        sub: "Let protection step aside on a schedule, every day",
+        children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Switch,
+          {
+            on: schedule.enabled,
+            onChange: (enabled) => update({ enabled }),
+            label: "Quiet hours"
+          }
+        )
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "schedule-grid", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        TimeField,
+        {
+          id: "quiet-from",
+          label: "Pause at",
+          value: schedule.from,
+          onChange: (from) => update({ from })
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        TimeField,
+        {
+          id: "quiet-to",
+          label: "Resume at",
+          value: schedule.to,
+          onChange: (to) => update({ to })
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "schedule-state", "data-on": schedule.enabled ? "true" : "false", children: schedule.enabled ? pausedBySchedule ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Moon, { width: 14, height: 14 }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
+        "Quiet hours are on right now — protection resumes at",
+        " ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: clockLabel(schedule.to) }),
+        "."
+      ] })
+    ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Clock, { width: 14, height: 14 }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
+        "Protection is active. It pauses at ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: clockLabel(schedule.from) }),
+        " and resumes at ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: clockLabel(schedule.to) }),
+        "."
+      ] })
+    ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Clock, { width: 14, height: 14 }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
+        "Off — protection runs around the clock (",
+        scheduleLabel(schedule),
+        " is saved)."
+      ] })
+    ] }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Quiet hours only pause blocking; your lists, rules and trusted sites stay exactly as they are." })
+  ] });
+}
+const APP = "luma";
+const VERSION = 1;
+const SEAL = "LUMA1";
+const KEY = "luma.backup.v1";
+function buildBackup(state) {
+  return {
+    app: APP,
+    version: VERSION,
+    exportedAt: (/* @__PURE__ */ new Date()).toISOString(),
+    protection: Boolean(state.protection),
+    theme: state.theme === "light" || state.theme === "dark" ? state.theme : "system",
+    privacy: Boolean(state.privacy),
+    lists: { ...DEFAULT_LISTS, ...state.lists || {} },
+    customRules: [...state.customRules || []],
+    allowlist: [...state.allowlist || []],
+    schedule: normalizeSchedule(state.schedule, DEFAULT_SCHEDULE)
+  };
+}
+function seal(bytes) {
+  const out = new Uint8Array(bytes.length);
+  let s = (2654435769 ^ bytes.length) >>> 0;
+  for (let i = 0; i < bytes.length; i += 1) {
+    s ^= s << 13 >>> 0;
+    s >>>= 0;
+    s ^= s >>> 17;
+    s ^= s << 5 >>> 0;
+    s >>>= 0;
+    out[i] = bytes[i] ^ s & 255 ^ KEY.charCodeAt(i % KEY.length);
+  }
+  return out;
+}
+function toBase64Url(bytes) {
+  let binary = "";
+  for (const byte of bytes) binary += String.fromCharCode(byte);
+  return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+function fromBase64Url(text) {
+  const padded = text.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((text.length + 3) % 4);
+  const binary = atob(padded);
+  return Uint8Array.from(binary, (char) => char.charCodeAt(0));
+}
+function stamp(body) {
+  let a = 2166136261;
+  let b = 668265263;
+  const text = `${KEY}|${body}`;
+  for (let i = 0; i < text.length; i += 1) {
+    const code = text.charCodeAt(i);
+    a = Math.imul(a ^ code, 16777619) >>> 0;
+    b = Math.imul(b ^ code, 2246822507) >>> 0;
+  }
+  return a.toString(36) + b.toString(36);
+}
+function encodeBackup(state) {
+  const body = toBase64Url(seal(new TextEncoder().encode(JSON.stringify(buildBackup(state)))));
+  return `${SEAL}.${body}.${stamp(body)}`;
+}
+function parseBackup(text) {
+  const trimmed = String(text || "").trim();
+  if (trimmed.startsWith(`${SEAL}.`)) {
+    const parts = trimmed.split(".");
+    const body = parts[1] || "";
+    if (parts.length !== 3 || parts[2] !== stamp(body)) return { altered: true };
+    try {
+      return { parsed: JSON.parse(new TextDecoder().decode(seal(fromBase64Url(body)))) };
+    } catch {
+      return { altered: true };
+    }
+  }
+  try {
+    return { parsed: JSON.parse(trimmed) };
+  } catch {
+    return {};
+  }
+}
+function readBackup(text) {
+  const { parsed, altered } = parseBackup(text);
+  if (altered) {
+    return { ok: false, error: "That backup has been changed since it was exported, so it was not restored." };
+  }
+  if (!parsed || parsed.app !== APP || typeof parsed !== "object") {
+    return { ok: false, error: "That file is not a Luma backup." };
+  }
+  const lists = parsed.lists && typeof parsed.lists === "object" ? parsed.lists : {};
+  const customRules = Array.isArray(parsed.customRules) ? parsed.customRules.map(String) : [];
+  const allowlist = Array.isArray(parsed.allowlist) ? parsed.allowlist.map(String) : [];
+  if (!customRules.length && !allowlist.length && !Object.values(lists).some(Boolean)) {
+    return { ok: false, error: "That backup has no settings to restore." };
+  }
+  return {
+    ok: true,
+    settings: {
+      protection: typeof parsed.protection === "boolean" ? parsed.protection : true,
+      theme: parsed.theme === "light" || parsed.theme === "dark" ? parsed.theme : "system",
+      privacy: parsed.privacy === true,
+      lists,
+      customRules,
+      allowlist,
+      schedule: normalizeSchedule(parsed.schedule, DEFAULT_SCHEDULE)
+    }
+  };
+}
+function downloadBackup(state) {
+  const file = new Blob([encodeBackup(state)], { type: "text/plain" });
+  const url = URL.createObjectURL(file);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "luma-settings.luma";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1e3);
+}
+function BackupCard() {
+  const { state, importSettings, activeListCount } = useApp();
+  const toast = useToast();
+  const fileRef = reactExports.useRef(null);
+  const [error, setError] = reactExports.useState("");
+  async function restore(event) {
+    var _a;
+    const file = (_a = event.target.files) == null ? void 0 : _a[0];
+    event.target.value = "";
+    if (!file) return;
+    const result = readBackup(await file.text());
+    if (!result.ok) {
+      setError(result.error);
+      return;
+    }
+    importSettings(result.settings);
+    setError("");
+    toast.show("Settings restored from backup");
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Back up your settings", sub: "Lists, rules, trusted sites and quiet hours" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "backup-summary", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: activeListCount }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "lists on" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: state.customRules.length }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "custom rules" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: state.allowlist.length }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "trusted sites" })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "backup-actions", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "button",
+        {
+          type: "button",
+          className: "btn primary",
+          onClick: () => {
+            downloadBackup(state);
+            toast.show("Settings exported");
+          },
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Download, {}),
+            "Export settings"
+          ]
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "btn", onClick: () => {
+        var _a;
+        return (_a = fileRef.current) == null ? void 0 : _a.click();
+      }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(FileUp, {}),
+        "Import backup"
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "input",
+        {
+          ref: fileRef,
+          type: "file",
+          accept: ".luma,.json,application/json,text/plain",
+          onChange: restore,
+          hidden: true
+        }
+      )
+    ] }),
+    error ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "hint", style: { color: "var(--accent-deep)", marginTop: 8 }, children: error }) : null,
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Your export is sealed, so it is safe to share: nobody can read or edit the settings inside it, and a changed file is refused on import. Counters and browsing history never leave this device." }),
+    toast.node
+  ] });
+}
+const THEMES = [
+  { id: "system", label: "System", icon: Monitor },
+  { id: "light", label: "Light", icon: Sun },
+  { id: "dark", label: "Dark", icon: Moon }
+];
+function methodLabel$1(via) {
+  if (via === "code") return "email code";
+  if (via === "password") return "password";
+  return via;
+}
+function joined$1(value) {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? "—" : date.toLocaleDateString(void 0, { month: "short", day: "numeric", year: "numeric" });
+}
+function Account() {
+  const { user, stateLabel, signOut } = useAuth();
+  const { state, resetCounters, setTheme, setPrivacy } = useApp();
+  const [passwordOpen, setPasswordOpen] = reactExports.useState(false);
+  const [confirmReset, setConfirmReset] = reactExports.useState(false);
+  if (!user) return /* @__PURE__ */ jsxRuntimeExports.jsx(Auth, {});
+  const initials = ((user == null ? void 0 : user.name) || "").split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join("").toUpperCase();
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      PageHead,
+      {
+        eyebrow: "Account",
+        title: "Your account and settings.",
+        lede: "The account your protection settings sync to, plus the look and privacy choices that follow you."
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "grid-2", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Profile", sub: "One sign-in on every device" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "owner-row", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "owner-who", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "owner-name", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "avatar", "aria-hidden": "true", children: initials }),
+            user == null ? void 0 : user.name,
+            (user == null ? void 0 : user.owner) ? /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge accent", children: "Owner" }) : null
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "owner-meta", children: [
+            user == null ? void 0 : user.email,
+            " · signed in with ",
+            methodLabel$1(user == null ? void 0 : user.via),
+            " · joined",
+            " ",
+            joined$1(user == null ? void 0 : user.createdAt)
+          ] })
+        ] }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "owner-row", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "owner-who", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "owner-name", children: "Region" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "owner-meta", children: stateLabel || "Not set" })
+        ] }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "owner-row", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "owner-who", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "owner-name", children: "Settings sync" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "owner-meta", children: [
+            formatNumber(Object.values(state.lists).filter(Boolean).length),
+            " lists,",
+            " ",
+            formatNumber(state.customRules.length),
+            " custom rules and",
+            " ",
+            formatNumber(state.allowlist.length),
+            " trusted sites saved to this account"
+          ] })
+        ] }) })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Password", sub: "Use it with your email to sign in" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "small muted", children: "Signed up with a provider or an email code? Set a password here and either way works." }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "row", style: { marginTop: 12 }, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "btn primary", onClick: () => setPasswordOpen(true), children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(KeyRound, {}),
+          "Change password"
+        ] }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Your password is stored only as a hash on the account service — never in this browser." })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "grid-2", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Theme", sub: "How Luma looks, on every device you sign in to" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "theme-options", role: "group", "aria-label": "Theme", children: THEMES.map((option) => {
+          const Icon2 = option.icon;
+          return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "button",
+            {
+              type: "button",
+              className: "theme-option",
+              "data-active": state.theme === option.id ? "true" : "false",
+              "aria-pressed": state.theme === option.id,
+              onClick: () => setTheme(option.id),
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, {}),
+                option.label
+              ]
+            },
+            option.id
+          );
+        }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "System follows your device's light or dark setting and switches with it." })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Privacy mode", sub: "No blocking, anonymous diagnostics", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Switch, { on: state.privacy, onChange: setPrivacy, label: "Privacy mode" }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "small muted", children: "Turns every block off and pauses anything that could identify you. Diagnostics keep running, but they forget the who: no site names, no addresses and no activity log." }),
+        state.privacy ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "note", style: { marginTop: 12 }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", style: { gap: 8 }, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(EyeOff, { width: 14, height: 14 }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Private browsing is on." })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "small muted", style: { marginTop: 4 }, children: "Ads are loading, and the pages you visit are not recorded. Anything collected before now stays on this device until you reset counters." })
+        ] }) : null
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "grid-2", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(ScheduleCard, {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(BackupCard, {})
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "card", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "This device", sub: "Counters live here; settings live in your account" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "btn", onClick: signOut, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(LogOut, {}),
+          "Sign out"
+        ] }),
+        confirmReset ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "button",
+            {
+              type: "button",
+              className: "btn danger",
+              onClick: () => {
+                resetCounters();
+                setConfirmReset(false);
+              },
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Trash2, {}),
+                "Yes, reset counters"
+              ]
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", className: "btn ghost", onClick: () => setConfirmReset(false), children: "Cancel" })
+        ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "btn ghost", onClick: () => setConfirmReset(true), children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Trash2, {}),
+          "Reset counters"
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Resetting counters clears the blocking numbers and the activity log on this device. Your lists, rules and trusted sites stay as they are." })
+    ] }),
+    passwordOpen ? /* @__PURE__ */ jsxRuntimeExports.jsx(PasswordDialog, { onClose: () => setPasswordOpen(false) }) : null
+  ] });
+}
+const FILTERS = [
+  { id: "all", label: "Everything" },
+  { id: "blocked", label: "Stopped" },
+  { id: "allowed", label: "Allowed" }
+];
+function logRows(state) {
+  const rows = [];
+  const seen = /* @__PURE__ */ new Set();
+  for (const event of state.activity) {
+    if (!(event == null ? void 0 : event.host) || seen.has(event.id)) continue;
+    seen.add(event.id);
+    rows.push({ id: event.id, host: event.host, at: event.at, blocked: true });
+  }
+  for (const item of state.observations) {
+    if (!(item == null ? void 0 : item.host) || seen.has(item.id)) continue;
+    seen.add(item.id);
+    rows.push({ id: item.id, host: item.host, at: item.at, blocked: Boolean(item.blocked) });
+  }
+  return rows.sort((a, b) => Date.parse(b.at) - Date.parse(a.at)).slice(0, 200);
+}
+function saveLog(rows) {
+  const lines = ["when,site,outcome"];
+  for (const row of rows) {
+    const when = new Date(row.at);
+    const stamp2 = Number.isFinite(when.getTime()) ? when.toISOString() : "";
+    lines.push([stamp2, row.host, row.blocked ? "stopped" : "allowed"].join(","));
+  }
+  const blob = new Blob([lines.join("\n") + "\n"], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "luma-activity-" + dayKey() + ".csv";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+function Activity() {
+  const { state, addCustomRule } = useApp();
+  const blockedToday = useBlockedToday();
+  const [query, setQuery] = reactExports.useState("");
+  const [filter, setFilter] = reactExports.useState("all");
+  const toast = useToast();
+  const rows = reactExports.useMemo(() => logRows(state), [state]);
+  const stopped = rows.filter((row) => row.blocked).length;
+  const allowed = rows.length - stopped;
+  const needle = query.trim().toLowerCase();
+  const visible = rows.filter((row) => filter === "all" ? true : filter === "blocked" ? row.blocked : !row.blocked).filter((row) => needle ? row.host.toLowerCase().includes(needle) : true);
+  const blockedShare = percent(state.totals.blocked, state.totals.screened);
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      PageHead,
+      {
+        eyebrow: "Activity",
+        title: "Every request Luma saw.",
+        lede: "A running log of what the engine screened on this device, newest first.",
+        children: /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(EyeOff, {}),
+          formatNumber(rows.length),
+          " logged"
+        ] })
+      }
+    ),
+    state.privacy ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "note", style: { marginBottom: 18 }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Privacy mode is on." }),
+      " New entries are not recorded: no site names, no addresses. Anything collected before now is still below until you reset counters."
+    ] }) : null,
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "stat-grid", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat-label", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(EyeOff, {}),
+          "Stopped today"
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-value", children: formatNumber(blockedToday) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-foot", children: "Since midnight" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat-label", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldCheck, {}),
+          "Stopped all time"
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-value", children: formatNumber(state.totals.blocked) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-foot", children: "Across every site" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat-label", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(UserX, {}),
+          "Trackers stopped"
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-value", children: formatNumber(state.totals.trackers) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-foot", children: "Pixels, beacons and analytics" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat-label", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Zap, {}),
+          "Requests screened"
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-value", children: formatNumber(state.totals.screened) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat-foot", children: [
+          blockedShare,
+          "% blocked"
+        ] })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "card", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Request log", sub: "The last 200 entries, newest first", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "button",
+        {
+          type: "button",
+          className: "btn sm ghost",
+          disabled: !visible.length,
+          onClick: () => {
+            saveLog(visible);
+            toast.show("Log saved to this device");
+          },
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Download, {}),
+            "Save log"
+          ]
+        }
+      ) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "inline-form", style: { marginBottom: 4 }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "activity-filter", children: "Filter by site" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "input",
+            {
+              id: "activity-filter",
+              className: "input",
+              value: query,
+              placeholder: "news.example",
+              onChange: (event) => setQuery(event.target.value)
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "seg", role: "group", "aria-label": "Show", children: FILTERS.map((option) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          "button",
+          {
+            type: "button",
+            "data-active": option.id === filter ? "true" : "false",
+            "aria-pressed": option.id === filter,
+            onClick: () => setFilter(option.id),
+            children: [
+              option.label,
+              " ",
+              option.id === "all" ? rows.length : option.id === "blocked" ? stopped : allowed
+            ]
+          },
+          option.id
+        )) })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed", children: [
+        visible.map((row) => {
+          const allowRule2 = "@@||" + row.host + "^";
+          const allowedAlready = state.customRules.includes(allowRule2);
+          return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-row", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "feed-icon", children: row.blocked ? /* @__PURE__ */ jsxRuntimeExports.jsx(EyeOff, {}) : /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldCheck, {}) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-main", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "host", children: row.host }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "rule", children: row.blocked ? "Stopped before it loaded" : "Allowed to load" })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-side", children: [
+              row.blocked ? allowedAlready ? /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge good", children: "Allowed" }) : /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "button",
+                {
+                  type: "button",
+                  className: "icon-btn",
+                  title: "Always allow requests to " + row.host,
+                  "aria-label": "Always allow requests to " + row.host,
+                  onClick: () => {
+                    addCustomRule(allowRule2);
+                    toast.show(row.host + " allowed");
+                  },
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(Undo2, {})
+                }
+              ) : null,
+              /* @__PURE__ */ jsxRuntimeExports.jsx("time", { children: relativeTime(row.at) })
+            ] })
+          ] }, row.id);
+        }),
+        !visible.length ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "empty", children: needle || filter !== "all" ? "No request in the log matches that." : "Nothing logged yet. Run an experiment to watch the engine work, or install the extension for live activity." }) : null
+      ] }),
+      !needle && filter === "all" && !rows.length ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "row", style: { marginTop: 14 }, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: "/tools/experiments", className: "btn sm", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(FlaskConical, {}),
+        "Run an experiment"
+      ] }) }) : null
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "This log never leaves your device unless you save a copy." }),
+    toast.node
   ] });
 }
 const RANGES = [7, 14, 30];
@@ -25042,6 +25061,130 @@ function Owner() {
     ] })
   ] });
 }
+const isExtension = typeof chrome !== "undefined" && Boolean(chrome.runtime && chrome.runtime.id);
+function safeSend(message) {
+  if (!isExtension) return Promise.resolve(null);
+  try {
+    return chrome.runtime.sendMessage(message).catch(() => null);
+  } catch {
+    return Promise.resolve(null);
+  }
+}
+function postSettings(payload) {
+  return safeSend({ type: "luma:settings", payload });
+}
+async function readSettings() {
+  const reply = await safeSend({ type: "luma:settings:read" });
+  return (reply == null ? void 0 : reply.settings) || null;
+}
+async function readStats() {
+  const reply = await safeSend({ type: "luma:stats:read" });
+  return (reply == null ? void 0 : reply.stats) || null;
+}
+async function readPageBlocks() {
+  const reply = await safeSend({ type: "luma:page:read" });
+  return Number(reply == null ? void 0 : reply.blocked) || 0;
+}
+function subscribeStats(handler) {
+  if (!isExtension) return () => {
+  };
+  const listener = (message) => {
+    if ((message == null ? void 0 : message.type) === "luma:stats" && message.stats) handler(message.stats);
+  };
+  chrome.runtime.onMessage.addListener(listener);
+  return () => chrome.runtime.onMessage.removeListener(listener);
+}
+function resetStats() {
+  return safeSend({ type: "luma:stats:reset" });
+}
+function allowlistHost(value) {
+  const text = String(value || "").trim().toLowerCase();
+  if (!text) return "";
+  try {
+    const parsed = new URL(/^[a-z][a-z0-9+.-]*:\/\//.test(text) ? text : "http://" + text);
+    return /^[a-z0-9.-]+$/.test(parsed.hostname) ? parsed.hostname : "";
+  } catch {
+    return "";
+  }
+}
+function buildPayload(state, protectionNow = state.protection) {
+  const enabledLists = FILTER_LISTS.filter((list) => state.lists[list.id]).map((list) => list.id);
+  const ruleIndex = {};
+  const dynamicRules = [];
+  const allowlist = [...new Set((state.allowlist || []).map(allowlistHost).filter(Boolean))];
+  let nextId = 1;
+  if (protectionNow) {
+    for (const list of FILTER_LISTS) {
+      if (!enabledLists.includes(list.id)) continue;
+      const compiled = compileRules(list.rules, list.id).filter((rule) => rule.kind === "network");
+      toDeclarativeNetRequest(compiled).forEach((rule, index) => {
+        ruleIndex[list.id + ":" + rule.id] = { listId: list.id, raw: compiled[index].raw };
+      });
+    }
+    const customNetwork = compileRules(state.customRules, "custom").filter(
+      (rule) => rule.kind === "network"
+    );
+    for (const rule of toDeclarativeNetRequest(customNetwork)) {
+      rule.id = nextId;
+      ruleIndex["_dynamic:" + rule.id] = {
+        listId: "custom",
+        raw: customNetwork[nextId - 1].raw
+      };
+      dynamicRules.push(rule);
+      nextId += 1;
+    }
+    const learnedNetwork = compileRules(
+      (state.learned || []).map((item) => item.rule),
+      "learned"
+    ).filter((rule) => rule.kind === "network");
+    toDeclarativeNetRequest(learnedNetwork).forEach((rule, index) => {
+      rule.id = nextId;
+      ruleIndex["_dynamic:" + rule.id] = { listId: "learned", raw: learnedNetwork[index].raw };
+      dynamicRules.push(rule);
+      nextId += 1;
+    });
+    for (const host of allowlist) {
+      dynamicRules.push({
+        id: nextId,
+        priority: 200,
+        action: { type: "allow" },
+        condition: { initiatorDomains: [host] }
+      });
+      nextId += 1;
+    }
+  }
+  const cosmeticSelectors = { generic: [], site: {} };
+  for (const rule of compileRules(state.customRules, "custom")) {
+    if (rule.kind !== "cosmetic") continue;
+    if (rule.exception) continue;
+    if (rule.domains.length) {
+      for (const domain of rule.domains) {
+        cosmeticSelectors.site[domain] = cosmeticSelectors.site[domain] || [];
+        cosmeticSelectors.site[domain].push(rule.selector);
+      }
+    } else {
+      cosmeticSelectors.generic.push(rule.selector);
+    }
+  }
+  return {
+    protection: protectionNow,
+    enabledLists,
+    dynamicRules,
+    ruleIndex,
+    cosmeticSelectors,
+    dashboard: {
+      protection: state.protection,
+      deep: Boolean(state.deep),
+      theme: state.theme,
+      privacy: Boolean(state.privacy),
+      lists: state.lists,
+      customRules: state.customRules,
+      allowlist,
+      schedule: state.schedule,
+      learned: state.learned || []
+    }
+  };
+}
 function openPage(route) {
   const base = window.location.href.split("#")[0];
   window.open(base + "#" + route, "_blank", "noopener");
@@ -25053,9 +25196,18 @@ const SHORTCUTS = [
 function Panel() {
   const { state, protectionNow, setProtection, setPrivacy } = useApp();
   const blockedToday = useBlockedToday();
+  const [pageBlocks, setPageBlocks] = reactExports.useState(0);
   reactExports.useEffect(() => {
     document.documentElement.classList.add("is-panel");
     return () => document.documentElement.classList.remove("is-panel");
+  }, []);
+  reactExports.useEffect(() => {
+    if (!isExtension) return void 0;
+    let alive = true;
+    readPageBlocks().then((count) => alive && setPageBlocks(count));
+    return () => {
+      alive = false;
+    };
   }, []);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("main", { className: "panel", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("header", { className: "panel-head", children: [
@@ -25066,8 +25218,8 @@ function Panel() {
       ] })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "panel-stat", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "eyebrow", children: "Stopped today" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: blockedToday.toLocaleString() }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "eyebrow", children: isExtension ? "Stopped on this page" : "Stopped today" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: (isExtension ? pageBlocks : blockedToday).toLocaleString() }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "small muted", children: "ads, trackers and annoyances" })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "panel-row", children: [
@@ -25182,7 +25334,8 @@ function App() {
   if (status === "loading") {
     return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "auth-shell", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "brand-mark", "aria-label": "Loading" }) });
   }
-  if (!user) return /* @__PURE__ */ jsxRuntimeExports.jsx(Auth, {});
+  const withoutAccount = isExtension || !API_BASE;
+  if (!user && !withoutAccount) return /* @__PURE__ */ jsxRuntimeExports.jsx(Auth, {});
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(Routes, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/panel", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Panel, {}) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(Route, { element: /* @__PURE__ */ jsxRuntimeExports.jsx(Layout, {}), children: [
@@ -25487,126 +25640,6 @@ function runHealthChecks({ state, rules = [] }) {
     checks,
     latency,
     checkedAt: Date.now()
-  };
-}
-const isExtension = typeof chrome !== "undefined" && Boolean(chrome.runtime && chrome.runtime.id);
-function safeSend(message) {
-  if (!isExtension) return Promise.resolve(null);
-  try {
-    return chrome.runtime.sendMessage(message).catch(() => null);
-  } catch {
-    return Promise.resolve(null);
-  }
-}
-function postSettings(payload) {
-  return safeSend({ type: "luma:settings", payload });
-}
-async function readSettings() {
-  const reply = await safeSend({ type: "luma:settings:read" });
-  return (reply == null ? void 0 : reply.settings) || null;
-}
-async function readStats() {
-  const reply = await safeSend({ type: "luma:stats:read" });
-  return (reply == null ? void 0 : reply.stats) || null;
-}
-function subscribeStats(handler) {
-  if (!isExtension) return () => {
-  };
-  const listener = (message) => {
-    if ((message == null ? void 0 : message.type) === "luma:stats" && message.stats) handler(message.stats);
-  };
-  chrome.runtime.onMessage.addListener(listener);
-  return () => chrome.runtime.onMessage.removeListener(listener);
-}
-function resetStats() {
-  return safeSend({ type: "luma:stats:reset" });
-}
-function allowlistHost(value) {
-  const text = String(value || "").trim().toLowerCase();
-  if (!text) return "";
-  try {
-    const parsed = new URL(/^[a-z][a-z0-9+.-]*:\/\//.test(text) ? text : "http://" + text);
-    return /^[a-z0-9.-]+$/.test(parsed.hostname) ? parsed.hostname : "";
-  } catch {
-    return "";
-  }
-}
-function buildPayload(state, protectionNow = state.protection) {
-  const enabledLists = FILTER_LISTS.filter((list) => state.lists[list.id]).map((list) => list.id);
-  const ruleIndex = {};
-  const dynamicRules = [];
-  const allowlist = [...new Set((state.allowlist || []).map(allowlistHost).filter(Boolean))];
-  let nextId = 1;
-  if (protectionNow) {
-    for (const list of FILTER_LISTS) {
-      if (!enabledLists.includes(list.id)) continue;
-      const compiled = compileRules(list.rules, list.id).filter((rule) => rule.kind === "network");
-      toDeclarativeNetRequest(compiled).forEach((rule, index) => {
-        ruleIndex[list.id + ":" + rule.id] = { listId: list.id, raw: compiled[index].raw };
-      });
-    }
-    const customNetwork = compileRules(state.customRules, "custom").filter(
-      (rule) => rule.kind === "network"
-    );
-    for (const rule of toDeclarativeNetRequest(customNetwork)) {
-      rule.id = nextId;
-      ruleIndex["_dynamic:" + rule.id] = {
-        listId: "custom",
-        raw: customNetwork[nextId - 1].raw
-      };
-      dynamicRules.push(rule);
-      nextId += 1;
-    }
-    const learnedNetwork = compileRules(
-      (state.learned || []).map((item) => item.rule),
-      "learned"
-    ).filter((rule) => rule.kind === "network");
-    toDeclarativeNetRequest(learnedNetwork).forEach((rule, index) => {
-      rule.id = nextId;
-      ruleIndex["_dynamic:" + rule.id] = { listId: "learned", raw: learnedNetwork[index].raw };
-      dynamicRules.push(rule);
-      nextId += 1;
-    });
-    for (const host of allowlist) {
-      dynamicRules.push({
-        id: nextId,
-        priority: 200,
-        action: { type: "allow" },
-        condition: { initiatorDomains: [host] }
-      });
-      nextId += 1;
-    }
-  }
-  const cosmeticSelectors = { generic: [], site: {} };
-  for (const rule of compileRules(state.customRules, "custom")) {
-    if (rule.kind !== "cosmetic") continue;
-    if (rule.exception) continue;
-    if (rule.domains.length) {
-      for (const domain of rule.domains) {
-        cosmeticSelectors.site[domain] = cosmeticSelectors.site[domain] || [];
-        cosmeticSelectors.site[domain].push(rule.selector);
-      }
-    } else {
-      cosmeticSelectors.generic.push(rule.selector);
-    }
-  }
-  return {
-    protection: protectionNow,
-    enabledLists,
-    dynamicRules,
-    ruleIndex,
-    cosmeticSelectors,
-    dashboard: {
-      protection: state.protection,
-      deep: Boolean(state.deep),
-      theme: state.theme,
-      privacy: Boolean(state.privacy),
-      lists: state.lists,
-      customRules: state.customRules,
-      allowlist,
-      schedule: state.schedule,
-      learned: state.learned || []
-    }
   };
 }
 const STORAGE_KEY = "luma.state.v3";

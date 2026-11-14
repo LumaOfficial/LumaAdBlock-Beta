@@ -1,6 +1,7 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { ArrowUpRight, History, LayoutGrid } from 'lucide-react'
 import { Switch } from '../components/ui'
+import { isExtension, readPageBlocks } from '../lib/platform'
 import { useApp, useBlockedToday } from '../lib/useApp'
 
 /** Opens the full dashboard in a tab, whichever build is running. */
@@ -22,10 +23,22 @@ const SHORTCUTS = [
 export default function Panel() {
   const { state, protectionNow, setProtection, setPrivacy } = useApp()
   const blockedToday = useBlockedToday()
+  const [pageBlocks, setPageBlocks] = useState(0)
 
   useEffect(() => {
     document.documentElement.classList.add('is-panel')
     return () => document.documentElement.classList.remove('is-panel')
+  }, [])
+
+  // The packaged extension cannot read the per-request feed; the browser's own
+  // per-tab count is the live number it can show.
+  useEffect(() => {
+    if (!isExtension) return undefined
+    let alive = true
+    readPageBlocks().then((count) => alive && setPageBlocks(count))
+    return () => {
+      alive = false
+    }
   }, [])
 
   return (
@@ -39,8 +52,8 @@ export default function Panel() {
       </header>
 
       <div className="panel-stat">
-        <span className="eyebrow">Stopped today</span>
-        <strong>{blockedToday.toLocaleString()}</strong>
+        <span className="eyebrow">{isExtension ? 'Stopped on this page' : 'Stopped today'}</span>
+        <strong>{(isExtension ? pageBlocks : blockedToday).toLocaleString()}</strong>
         <span className="small muted">ads, trackers and annoyances</span>
       </div>
 

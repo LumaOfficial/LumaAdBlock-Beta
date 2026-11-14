@@ -37,6 +37,15 @@ export async function readStats() {
   return reply?.stats || null
 }
 
+/**
+ * Blocks the browser counted for the page in the active tab. The toolbar badge
+ * is the only live counter a store install exposes, so the panel reads it.
+ */
+export async function readPageBlocks() {
+  const reply = await safeSend({ type: 'luma:page:read' })
+  return Number(reply?.blocked) || 0
+}
+
 export function subscribeStats(handler) {
   if (!isExtension) return () => {}
   const listener = (message) => {
