@@ -633,6 +633,11 @@ async function handle(req, res) {
       return send(res, 429, { error: 'Too many codes requested. Wait a few minutes and try again.' })
     }
     noteAttempt(key)
+    // Emailed codes sign in to an account that already exists; they never create one.
+    const known = db.prepare('SELECT id FROM accounts WHERE email_index = ?').get(index)
+    if (!known) {
+      return send(res, 404, { error: 'No Luma account uses that email. Create an account first.' })
+    }
     const code = String(crypto.randomInt(0, 1000000)).padStart(6, '0')
     emailCodes.set(index, { hash: sha256(code), expiresAt: Date.now() + CODE_TTL, attempts: 0 })
     const delivered = await sendCodeEmail(email, code)
@@ -664,15 +669,10 @@ async function handle(req, res) {
     emailCodes.delete(index)
     attempts.delete(key)
     const found = db.prepare('SELECT * FROM accounts WHERE email_index = ?').get(index)
-    if (!found && body.acceptedTerms !== true) {
-      return send(res, 422, {
-        error: 'Accept the Terms and Privacy Policy to create your account',
-        errors: { terms: 'Accept the Terms and Privacy Policy to continue' },
-      })
+    if (!found) {
+      return send(res, 404, { error: 'No Luma account uses that email. Create an account first.' })
     }
-    const account = found
-      ? { id: found.id, profile: open(found.profile), createdAt: found.created_at }
-      : externalAccount({ email, via: 'code' })
+    const account = { id: found.id, profile: open(found.profile), createdAt: found.created_at }
     const token = startSession(account.id, body.remember !== false)
     return send(res, 200, { token, user: publicProfile(account.id, account.profile, account.createdAt) })
   }

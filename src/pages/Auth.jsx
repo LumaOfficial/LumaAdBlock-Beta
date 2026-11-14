@@ -138,7 +138,6 @@ export default function Auth() {
     const email = values.email.trim().toLowerCase()
     const next = {}
     if (!EMAIL_PATTERN.test(email)) next.email = 'Enter a valid email address'
-    if (!accepted) next.terms = 'Accept the Terms and Privacy Policy to continue'
     if (Object.keys(next).length) {
       setErrors(next)
       return
@@ -172,7 +171,7 @@ export default function Auth() {
     }
     setBusy(true)
     try {
-      await signInWithCode({ email: values.email, code, acceptedTerms: accepted }, { remember })
+      await signInWithCode({ email: values.email, code }, { remember })
     } catch (error) {
       if (error?.errors && Object.keys(error.errors).length) setErrors(error.errors)
       setNotice(error?.message || 'Something went wrong. Try again.')
@@ -185,7 +184,7 @@ export default function Auth() {
   const lede = creating
     ? 'One account keeps your protection settings in sync on every device.'
     : coding
-      ? 'Enter your email and we send a 6-digit code. No password to remember.'
+      ? 'Sign in to an existing account with a 6-digit code. No password to remember. New here? Create an account first.'
       : 'Sign in to reach your dashboard and counters.'
 
   return (
@@ -238,16 +237,6 @@ export default function Auth() {
               />
               {errors.email ? <span className="field-error">{errors.email}</span> : null}
             </div>
-
-            <Terms
-              accepted={accepted}
-              error={errors.terms}
-              onChange={(value) => {
-                setAccepted(value)
-                setErrors((current) => ({ ...current, terms: undefined }))
-              }}
-              onOpen={setLegal}
-            />
 
             {codeStep === 'code' ? (
               <div className="field">

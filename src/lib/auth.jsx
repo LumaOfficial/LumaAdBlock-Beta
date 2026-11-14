@@ -91,13 +91,13 @@ export function AuthProvider({ children }) {
     return data.user
   }, [])
 
-  // The code that was emailed to the address. A new address gets its account
-  // here too, so nobody needs a password to start.
-  const signInWithCode = useCallback(async ({ email, code, acceptedTerms }, { remember = true } = {}) => {
+  // The code that was emailed to the address. Codes only sign in to an account
+  // that already exists, so a new account still starts with the sign-up form.
+  const signInWithCode = useCallback(async ({ email, code }, { remember = true } = {}) => {
     const data = await api('/api/email/verify', {
       method: 'POST',
       auth: false,
-      body: { email, code, acceptedTerms, remember },
+      body: { email, code, remember },
     })
     setToken(data.token, remember)
     setConnectionError('')
