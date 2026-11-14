@@ -23,6 +23,22 @@ const DATA_DIR = process.env.DATA_DIR || path.resolve('server-data')
 const MASTER = process.env.ACCOUNT_ENCRYPTION_KEY || ''
 const TERMS_VERSION = '2026-11-13'
 
+// The addresses that run this deployment. Accounts on these addresses are
+// owners no matter how they signed in — password, provider or email code.
+const SUPPORT_EMAIL = 'lumasupport@tidio.xyz'
+const OWNER_EMAILS = [SUPPORT_EMAIL, '6yokid@gmail.com']
+const isOwner = (email) => OWNER_EMAILS.includes(String(email || '').trim().toLowerCase())
+
+// Public addresses used to build provider redirects and to hand a finished
+// sign-in back to the app. Filled in by the deployment; derived from the
+// request when missing.
+const PREVIEW = process.env.BASE44_PREVIEW_MODE === '1'
+const PUBLIC_API_URL = String(process.env.PUBLIC_API_URL || '').replace(/\/$/, '')
+const WEB_APP_URL = String(process.env.WEB_APP_URL || '').replace(/\/$/, '')
+const RESEND_API_KEY = process.env.RESEND_API_KEY || ''
+const EMAIL_FROM = process.env.EMAIL_FROM || `Luma <${SUPPORT_EMAIL}>`
+const CODE_TTL = 10 * 60 * 1000
+
 if (MASTER.length < 16) {
   console.error('ACCOUNT_ENCRYPTION_KEY is missing or too short; refusing to start.')
   process.exit(1)
@@ -80,7 +96,7 @@ function hashPassword(password) {
 }
 
 function checkPassword(password, stored) {
-  const [salt, hash] = String(stored).split(':')
+  const [salt, hash] = String(stored || '').split(':')
   const expected = Buffer.from(hash || '', 'hex')
   const actual = crypto.scryptSync(password, Buffer.from(salt || '', 'hex'), 64)
   return expected.length === actual.length && crypto.timingSafeEqual(expected, actual)
@@ -88,6 +104,194 @@ function checkPassword(password, stored) {
 
 // Used so an unknown email costs the same time as a wrong password.
 const DUMMY_HASH = hashPassword('luma-dummy-password')
+
+// ---------- sign-in providers ----------
+
+// Every provider ends at `profile()`, which answers with the person's email.
+// Credentials arrive from the platform secret store; a provider without a
+// client id and secret simply reports itself as not connected.
+function jwtPayload(token) {
+  const part = String(token || '').split('.')[1]
+  if (!part) return {}
+  try {
+    return JSON.parse(Buffer.from(part, 'base64url').toString('utf8'))
+  } catch {
+    return {}
+  }
+}
+
+async function getJson(url, headers) {
+  const response = await fetch(url, { headers })
+  const text = await response.text()
+  let data = null
+  try {
+    data = JSON.parse(text)
+  } catch {
+    throw new Error('Unexpected reply from ' + new URL(url).host)
+  }
+  if (!response.ok) throw new Error(data?.error?.message || data?.error || 'Sign-in provider refused the request')
+  return data
+}
+
+async function postForm(url, form) {
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams(form),
+  })
+  const text = await response.text()
+  let data = null
+  try {
+    data = JSON.parse(text)
+  } catch {
+    data = Object.fromEntries(new URLSearchParams(text))
+  }
+  if (!response.ok || data.error) {
+    throw new Error(data?.error_description || data?.error || 'Sign-in provider refused the request')
+  }
+  return data
+}
+
+const OAUTH = {
+  google: {
+    label: 'Google',
+    clientId: process.env.GOOGLE_CLIENT_ID || '',
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+    authorizeUrl: 'https://accounts.google.com/o/oauth2/v2/auth',
+    tokenUrl: 'https://oauth2.googleapis.com/token',
+    scope: 'openid email profile',
+    params: { access_type: 'online', prompt: 'select_account' },
+    async profile(tokens) {
+      const info = await getJson('https://openidconnect.googleapis.com/v1/userinfo', {
+        Authorization: 'Bearer ' + tokens.accessToken,
+      })
+      return { email: info.email, name: info.name }
+    },
+  },
+  microsoft: {
+    label: 'Microsoft',
+    clientId: process.env.MICROSOFT_CLIENT_ID || '',
+    clientSecret: process.env.MICROSOFT_CLIENT_SECRET || '',
+    authorizeUrl: 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize',
+    tokenUrl: 'https://login.microsoftonline.com/common/oauth2/v2.0/token',
+    scope: 'openid email profile',
+    params: { prompt: 'select_account' },
+    async profile(tokens) {
+      const info = await getJson('https://graph.microsoft.com/oidc/userinfo', {
+        Authorization: 'Bearer ' + tokens.accessToken,
+      })
+      return { email: info.email || info.preferred_username, name: info.name }
+    },
+  },
+  github: {
+    label: 'GitHub',
+    clientId: process.env.GITHUB_CLIENT_ID || '',
+    clientSecret: process.env.GITHUB_CLIENT_SECRET || '',
+    authorizeUrl: 'https://github.com/login/oauth/authorize',
+    tokenUrl: 'https://github.com/login/oauth/access_token',
+    scope: 'read:user user:email',
+    async profile(tokens) {
+      const headers = {
+        Authorization: 'Bearer ' + tokens.accessToken,
+        Accept: 'application/vnd.github+json',
+        'User-Agent': 'Luma',
+      }
+      const me = await getJson('https://api.github.com/user', headers)
+      let email = me.email
+      if (!email) {
+        const list = await getJson('https://api.github.com/user/emails', headers)
+        const pick = list.find((item) => item.primary && item.verified) || list.find((item) => item.verified)
+        email = pick?.email
+      }
+      return { email, name: me.name || me.login }
+    },
+  },
+  apple: {
+    label: 'Apple',
+    clientId: process.env.APPLE_CLIENT_ID || '',
+    clientSecret: process.env.APPLE_CLIENT_SECRET || '',
+    authorizeUrl: 'https://appleid.apple.com/auth/authorize',
+    tokenUrl: 'https://appleid.apple.com/auth/token',
+    scope: 'name email',
+    responseMode: 'form_post',
+    async profile(tokens) {
+      const claims = jwtPayload(tokens.idToken)
+      return { email: claims.email, name: '' }
+    },
+  },
+}
+
+function providerList() {
+  return Object.entries(OAUTH).map(([id, provider]) => ({
+    id,
+    label: provider.label,
+    configured: Boolean(provider.clientId && provider.clientSecret),
+  }))
+}
+
+async function exchangeCode(provider, code, redirectUri) {
+  const data = await postForm(provider.tokenUrl, {
+    grant_type: 'authorization_code',
+    code: String(code || ''),
+    redirect_uri: redirectUri,
+    client_id: provider.clientId,
+    client_secret: provider.clientSecret,
+  })
+  return { accessToken: data.access_token, idToken: data.id_token }
+}
+
+// Where this service and the app are reachable. Ports sit side by side
+// (`<port>-<host>`), so the app is the same host on port 3000.
+function bases(req) {
+  const proto = String(req.headers['x-forwarded-proto'] || 'https').split(',')[0].trim()
+  const host = String(req.headers['x-forwarded-host'] || req.headers.host || 'localhost:8000').split(',')[0].trim()
+  const api = PUBLIC_API_URL || proto + '://' + host
+  const web = WEB_APP_URL || proto + '://' + host.replace(/^8000-/, '3000-').replace(/^localhost:8000$/, 'localhost:3000')
+  return { api, web }
+}
+
+async function sendCodeEmail(email, code) {
+  if (!RESEND_API_KEY) return false
+  try {
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: 'Bearer ' + RESEND_API_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from: EMAIL_FROM,
+        to: [email],
+        subject: 'Your Luma sign-in code: ' + code,
+        text:
+          'Your Luma sign-in code is ' + code + '.\n\n' +
+          'It expires in 10 minutes and can be used once. If you did not ask for it, ignore this email.\n\n' +
+          'Luma support: ' + SUPPORT_EMAIL,
+      }),
+    })
+    return response.ok
+  } catch {
+    return false
+  }
+}
+
+// Accounts created by a provider or an email code have no password; they are
+// matched by email so a password account and a provider sign-in stay the same
+// account.
+function externalAccount({ email, name, via }) {
+  const index = emailIndex(email)
+  const existing = db.prepare('SELECT * FROM accounts WHERE email_index = ?').get(index)
+  if (existing) return { id: existing.id, profile: open(existing.profile), createdAt: existing.created_at }
+  const id = crypto.randomUUID()
+  const createdAt = Date.now()
+  const profile = {
+    name: String(name || email.split('@')[0]).trim().slice(0, 120),
+    email,
+    via,
+    terms: { version: TERMS_VERSION, acceptedAt: new Date(createdAt).toISOString(), via },
+  }
+  db.prepare(
+    'INSERT INTO accounts (id, email_index, profile, password, settings, created_at) VALUES (?, ?, ?, ?, NULL, ?)',
+  ).run(id, index, seal(profile), '', createdAt)
+  return { id, profile, createdAt }
+}
 
 // ---------- validation ----------
 
@@ -161,13 +365,30 @@ function sessionFor(req) {
 }
 
 function publicProfile(id, profile, createdAt) {
-  const { name, email, phone, state, dob } = profile
-  return { id, name, email, phone, state, dob, createdAt: new Date(createdAt).toISOString() }
+  const { name, email, phone, state, dob, via } = profile
+  return {
+    id,
+    name,
+    email,
+    phone,
+    state,
+    dob,
+    // Owners are decided by address, so an owner account created before this
+    // list existed is an owner too.
+    owner: isOwner(email),
+    via: via || 'password',
+    createdAt: new Date(createdAt).toISOString(),
+  }
 }
 
 // ---------- throttling ----------
 
 const attempts = new Map()
+// Short-lived, single-use values: provider state, post-provider tickets and
+// emailed sign-in codes.
+const oauthStates = new Map()
+const tickets = new Map()
+const emailCodes = new Map()
 
 function tooManyAttempts(key) {
   const now = Date.now()
@@ -184,6 +405,11 @@ setInterval(() => {
   const now = Date.now()
   for (const [key, list] of attempts) {
     if (!list.some((time) => now - time < 10 * 60 * 1000)) attempts.delete(key)
+  }
+  for (const store of [oauthStates, tickets, emailCodes]) {
+    for (const [key, entry] of store) {
+      if (entry.expiresAt < now) store.delete(key)
+    }
   }
   db.prepare('DELETE FROM sessions WHERE expires_at < ?').run(now)
 }, 10 * 60 * 1000).unref()
@@ -222,6 +448,25 @@ function readBody(req, limit = 256 * 1024) {
         reject(Object.assign(new Error('Invalid request'), { status: 400 }))
       }
     })
+    req.on('error', reject)
+  })
+}
+
+// Provider callbacks (Apple posts a form) can arrive URL-encoded, not JSON.
+function readParams(req, limit = 64 * 1024) {
+  return new Promise((resolve, reject) => {
+    let size = 0
+    const chunks = []
+    req.on('data', (chunk) => {
+      size += chunk.length
+      if (size > limit) {
+        reject(Object.assign(new Error('Request too large'), { status: 413 }))
+        req.destroy()
+        return
+      }
+      chunks.push(chunk)
+    })
+    req.on('end', () => resolve(new URLSearchParams(Buffer.concat(chunks).toString('utf8'))))
     req.on('error', reject)
   })
 }
@@ -275,7 +520,7 @@ async function handle(req, res) {
     const row = email
       ? db.prepare('SELECT * FROM accounts WHERE email_index = ?').get(emailIndex(email))
       : null
-    const valid = checkPassword(password, row ? row.password : DUMMY_HASH)
+    const valid = checkPassword(password, row && row.password ? row.password : DUMMY_HASH)
     if (!row || !valid) {
       noteAttempt(key)
       return send(res, 401, { error: 'Email or password is incorrect' })
@@ -283,6 +528,153 @@ async function handle(req, res) {
     attempts.delete(key)
     const token = startSession(row.id, body.remember !== false)
     return send(res, 200, { token, user: publicProfile(row.id, open(row.profile), row.created_at) })
+  }
+
+  // ---------- public sign-in routes ----------
+
+  if (route === 'GET /api/auth/providers') {
+    return send(res, 200, {
+      providers: providerList(),
+      emailCode: true,
+      emailDelivery: Boolean(RESEND_API_KEY),
+    })
+  }
+
+  const oauthRoute = url.pathname.match(/^\/api\/oauth\/([a-z]+)\/(start|callback)$/)
+  const provider = oauthRoute ? OAUTH[oauthRoute[1]] : null
+  if (oauthRoute && !provider) return send(res, 404, { error: 'Unknown sign-in provider' })
+
+  if (provider && oauthRoute[2] === 'start') {
+    if (!provider.clientId || !provider.clientSecret) {
+      return send(res, 503, { error: provider.label + ' sign-in is not connected yet' })
+    }
+    const state = crypto.randomBytes(24).toString('base64url')
+    oauthStates.set(state, {
+      provider: oauthRoute[1],
+      remember: url.searchParams.get('remember') !== '0',
+      expiresAt: Date.now() + CODE_TTL,
+    })
+    const params = new URLSearchParams({
+      client_id: provider.clientId,
+      redirect_uri: bases(req).api + '/api/oauth/' + oauthRoute[1] + '/callback',
+      response_type: 'code',
+      scope: provider.scope,
+      state,
+    })
+    for (const [name, value] of Object.entries(provider.params || {})) params.set(name, value)
+    if (provider.responseMode) params.set('response_mode', provider.responseMode)
+    res.writeHead(302, { Location: provider.authorizeUrl + '?' + params.toString() })
+    return res.end()
+  }
+
+  if (provider && oauthRoute[2] === 'callback') {
+    const params = req.method === 'POST' ? await readParams(req) : url.searchParams
+    const state = params.get('state') || ''
+    const pending = state ? oauthStates.get(state) : null
+    oauthStates.delete(state)
+    const backToApp = (query) => {
+      res.writeHead(302, { Location: bases(req).web + '/?' + query })
+      return res.end()
+    }
+    if (!pending || pending.provider !== oauthRoute[1] || pending.expiresAt < Date.now()) {
+      return backToApp('auth_error=' + encodeURIComponent('That sign-in link expired. Try again.'))
+    }
+    if (params.get('error')) return backToApp('auth_error=' + encodeURIComponent('Sign-in was cancelled.'))
+    try {
+      const tokens = await exchangeCode(
+        provider,
+        params.get('code'),
+        bases(req).api + '/api/oauth/' + oauthRoute[1] + '/callback',
+      )
+      const info = await provider.profile(tokens)
+      const accountEmail = String(info.email || '').trim().toLowerCase()
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(accountEmail)) {
+        return backToApp(
+          'auth_error=' + encodeURIComponent('That account did not share an email address. Try another way to sign in.'),
+        )
+      }
+      const account = externalAccount({ email: accountEmail, name: info.name, via: oauthRoute[1] })
+      const ticket = crypto.randomBytes(24).toString('base64url')
+      tickets.set(ticket, {
+        accountId: account.id,
+        remember: pending.remember,
+        expiresAt: Date.now() + 2 * 60 * 1000,
+      })
+      return backToApp('luma_ticket=' + ticket)
+    } catch (error) {
+      console.error('Sign-in with ' + provider.label + ' failed:', error.message)
+      return backToApp('auth_error=' + encodeURIComponent('That sign-in did not finish. Try again.'))
+    }
+  }
+
+  if (route === 'POST /api/session/ticket') {
+    const body = await readBody(req)
+    const ticket = String(body.ticket || '')
+    const pending = tickets.get(ticket)
+    tickets.delete(ticket)
+    if (!pending || pending.expiresAt < Date.now()) {
+      return send(res, 401, { error: 'That sign-in link expired. Try again.' })
+    }
+    const row = db.prepare('SELECT * FROM accounts WHERE id = ?').get(pending.accountId)
+    if (!row) return send(res, 401, { error: 'That sign-in link expired. Try again.' })
+    const token = startSession(row.id, pending.remember)
+    return send(res, 200, { token, user: publicProfile(row.id, open(row.profile), row.created_at) })
+  }
+
+  if (route === 'POST /api/email/start') {
+    const body = await readBody(req)
+    const email = String(body.email || '').trim().toLowerCase()
+    if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return send(res, 422, { error: 'Enter a valid email address' })
+    }
+    const index = emailIndex(email)
+    const key = 'code:' + clientKey(req, index)
+    if (tooManyAttempts(key)) {
+      return send(res, 429, { error: 'Too many codes requested. Wait a few minutes and try again.' })
+    }
+    noteAttempt(key)
+    const code = String(crypto.randomInt(0, 1000000)).padStart(6, '0')
+    emailCodes.set(index, { hash: sha256(code), expiresAt: Date.now() + CODE_TTL, attempts: 0 })
+    const delivered = await sendCodeEmail(email, code)
+    if (!delivered && !PREVIEW) {
+      emailCodes.delete(index)
+      return send(res, 503, { error: 'Email sign-in is not available right now. Use your password instead.' })
+    }
+    // The sandbox preview has no mail provider, so the code comes back with the
+    // reply there. Outside preview mode a code is only ever sent by email.
+    return send(res, 200, { ok: true, delivered, devCode: delivered ? undefined : code })
+  }
+
+  if (route === 'POST /api/email/verify') {
+    const body = await readBody(req)
+    const email = String(body.email || '').trim().toLowerCase()
+    const code = String(body.code || '').replace(/\D/g, '')
+    const index = email ? emailIndex(email) : ''
+    const pending = index ? emailCodes.get(index) : null
+    const key = 'verify:' + clientKey(req, email)
+    if (tooManyAttempts(key)) return send(res, 429, { error: 'Too many attempts. Request a new code.' })
+    if (!pending || pending.expiresAt < Date.now() || pending.attempts >= 5 || sha256(code) !== pending.hash) {
+      if (pending) {
+        pending.attempts += 1
+        if (pending.attempts >= 5) emailCodes.delete(index)
+      }
+      noteAttempt(key)
+      return send(res, 401, { error: 'That code is not valid. Check it, or request a new one.' })
+    }
+    emailCodes.delete(index)
+    attempts.delete(key)
+    const found = db.prepare('SELECT * FROM accounts WHERE email_index = ?').get(index)
+    if (!found && body.acceptedTerms !== true) {
+      return send(res, 422, {
+        error: 'Accept the Terms and Privacy Policy to create your account',
+        errors: { terms: 'Accept the Terms and Privacy Policy to continue' },
+      })
+    }
+    const account = found
+      ? { id: found.id, profile: open(found.profile), createdAt: found.created_at }
+      : externalAccount({ email, via: 'code' })
+    const token = startSession(account.id, body.remember !== false)
+    return send(res, 200, { token, user: publicProfile(account.id, account.profile, account.createdAt) })
   }
 
   const session = sessionFor(req)

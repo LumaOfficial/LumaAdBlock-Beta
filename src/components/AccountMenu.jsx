@@ -52,7 +52,10 @@ export default function AccountMenu() {
       {open ? (
         <div className="account-menu" role="menu">
           <div className="account-menu-head">
-            <div className="account-menu-name">{user.name}</div>
+            <div className="account-menu-name">
+              {user.name}
+              {user.owner ? <span className="badge accent">Owner</span> : null}
+            </div>
             <div className="account-menu-email">{user.email}</div>
           </div>
           <div className="account-menu-meta">

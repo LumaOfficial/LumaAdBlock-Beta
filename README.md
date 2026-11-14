@@ -12,6 +12,7 @@ browser extension.
 | Filter engine | `src/lib/engine.js` | Parses `\|\|domain^`, `@@` exceptions, `$third-party,script` options, `/regex/` filters and `##.selector` element hiding, then screens requests |
 | Bundled lists | `src/lib/blocklists.js` | Luma Core, Tracker Shield, Annoyance Cleaner, Social Widgets |
 | Accounts | `src/lib/auth.jsx`, `src/lib/api.js`, `server/index.js` | Sign-up (name, date of birth, email, password, phone, state of residence, Terms/Privacy consent) against the account service; one sign-in works on every device; this device keeps only a sign-in token |
+| Sign-in options | `src/lib/sso.js`, `src/components/SsoButtons.jsx`, `src/pages/Auth.jsx` | Google, Microsoft, GitHub and Apple sign-in, plus a 6-digit code emailed to the address (signs up a new address too) |
 | Account service | `server/index.js` | Dependency-free Node service: AES-256-GCM encrypted profiles and synced settings, HMAC email index, scrypt password hashes, hashed session tokens |
 | Agreements | `src/lib/legal.js`, `src/components/LegalDialog.jsx` | Terms & Conditions (EULA, Refund Policy) and Privacy Policy shown at sign-up |
 | State | `src/lib/store.jsx` | Protection switch, lists, custom rules, allowlist, counters (kept in `localStorage`) |
@@ -88,3 +89,26 @@ those defaults with the settings you choose.
 plus a persistent `DATA_DIR`. Run it with `node server/index.js` (Node 22+) behind HTTPS
 and pass its address to the extension build with `LUMA_API_URL`. In the sandbox it runs
 on port 8000 and the dev server points at it through `VITE_API_URL`.
+
+### Sign-in
+
+Accounts are owners because of their address: `OWNER_EMAILS` in `server/index.js`
+holds `lumasupport@tidio.xyz` (support) and `6yokid@gmail.com` (owner), and both
+sign in like anyone else — the dashboard marks them as owner.
+
+Provider sign-in and emailed codes need credentials, and each is optional until
+its credentials exist:
+
+| Feature | Secrets | Where it comes from |
+| --- | --- | --- |
+| Google | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | Google Cloud console → APIs & Services → Credentials → OAuth client (Web) |
+| Microsoft | `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET` | Microsoft Entra admin center → App registrations |
+| GitHub | `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` | GitHub → Settings → Developer settings → OAuth Apps |
+| Apple | `APPLE_CLIENT_ID`, `APPLE_CLIENT_SECRET` | Apple Developer → Certificates, Identifiers & Profiles → Services ID (+ key for the client secret JWT) |
+| Email codes | `RESEND_API_KEY` (optional `EMAIL_FROM`) | resend.com → API keys |
+
+Register `<api address>/api/oauth/<provider>/callback` as the redirect URI (Apple
+too). `GET /api/auth/providers` reports which ones are ready, and the sign-in screen
+says so instead of starting a dead redirect. Without `RESEND_API_KEY` the code
+endpoint answers 503 — except in the sandbox preview, where the code is shown on
+screen so the flow can be tried; a code is only ever emailed outside preview mode.

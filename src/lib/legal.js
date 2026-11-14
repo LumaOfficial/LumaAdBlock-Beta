@@ -1,7 +1,11 @@
 // The agreements shown at sign-up. Version must match TERMS_VERSION in server/index.js.
 // Blocks: a string is a paragraph, { sub } a sub-heading, { list } a bullet list.
 export const LEGAL_VERSION = '2026-11-13'
+// Both addresses run Luma: support answers first, and the owner address is the
+// account this deployment belongs to.
 export const SUPPORT_EMAIL = 'lumasupport@tidio.xyz'
+export const OWNER_EMAIL = '6yokid@gmail.com'
+export const OWNER_EMAILS = [SUPPORT_EMAIL, OWNER_EMAIL]
 
 export const TERMS = {
   title: 'Terms and Conditions',
@@ -10,7 +14,7 @@ export const TERMS = {
     'Effective date: November 13, 2026',
     'Provider: Luma Official',
     'Product: Luma AdBlock Beta Opera browser extension',
-    'Contact: ' + SUPPORT_EMAIL,
+    'Contact: ' + SUPPORT_EMAIL + ' · Owner: ' + OWNER_EMAIL,
   ],
   intro:
     'Important: Luma AdBlock Beta is experimental beta software. By creating an account and accepting these Terms and the Privacy Policy, you acknowledge that the extension may contain bugs, errors, compatibility issues, incomplete features, and unexpected behavior.',
@@ -358,7 +362,7 @@ export const TERMS = {
     {
       title: '26. Contact',
       blocks: [
-        'For support, account deletion, bug reports, legal concerns, privacy questions, or charge disputes, contact: Luma Official, Email: ' + SUPPORT_EMAIL,
+        'For support, account deletion, bug reports, legal concerns, privacy questions, or charge disputes, contact: Luma Official, Support email: ' + SUPPORT_EMAIL + ', Owner email: ' + OWNER_EMAIL,
       ],
     },
   ],
@@ -371,7 +375,7 @@ export const PRIVACY = {
     'Effective date: November 13, 2026',
     'Provider: Luma Official',
     'Product: Luma AdBlock Beta Opera browser extension',
-    'Contact: ' + SUPPORT_EMAIL,
+    'Contact: ' + SUPPORT_EMAIL + ' · Owner: ' + OWNER_EMAIL,
   ],
   sections: [
     {
@@ -602,7 +606,7 @@ export const PRIVACY = {
     {
       title: '13. Contact Us',
       blocks: [
-        'For privacy questions, account-deletion requests, data requests, security concerns, or other privacy matters, contact: Luma Official, Email: ' + SUPPORT_EMAIL,
+        'For privacy questions, account-deletion requests, data requests, security concerns, or other privacy matters, contact: Luma Official, Support email: ' + SUPPORT_EMAIL + ', Owner email: ' + OWNER_EMAIL,
       ],
     },
   ],

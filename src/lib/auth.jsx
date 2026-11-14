@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { ApiError, api, clearToken, getToken, setToken } from './api'
 import { stateName } from './usStates'
 import { AuthContext } from './authContext'
+import { takeSignInReply } from './sso'
 
 /**
  * Accounts live on the Luma account service (encrypted at rest), so one
@@ -29,6 +30,28 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     clearLegacyData()
+    // A provider sign-in comes back to this page with a one-time ticket.
+    const reply = takeSignInReply()
+    if (reply.error) setConnectionError(reply.error)
+    if (reply.ticket) {
+      let ready = true
+      setStatus('loading')
+      api('/api/session/ticket', { method: 'POST', auth: false, body: { ticket: reply.ticket } })
+        .then((data) => {
+          if (!ready) return
+          setToken(data.token, true)
+          setUser(data.user)
+        })
+        .catch((error) => {
+          if (ready) setConnectionError(error.message)
+        })
+        .finally(() => {
+          if (ready) setStatus('ready')
+        })
+      return () => {
+        ready = false
+      }
+    }
     if (!getToken()) return undefined
     let alive = true
     api('/api/me')
@@ -68,6 +91,20 @@ export function AuthProvider({ children }) {
     return data.user
   }, [])
 
+  // The code that was emailed to the address. A new address gets its account
+  // here too, so nobody needs a password to start.
+  const signInWithCode = useCallback(async ({ email, code, acceptedTerms }, { remember = true } = {}) => {
+    const data = await api('/api/email/verify', {
+      method: 'POST',
+      auth: false,
+      body: { email, code, acceptedTerms, remember },
+    })
+    setToken(data.token, remember)
+    setConnectionError('')
+    setUser(data.user)
+    return data.user
+  }, [])
+
   const signOut = useCallback(() => {
     api('/api/signout', { method: 'POST' }).catch(() => {})
     clearToken()
@@ -82,9 +119,10 @@ export function AuthProvider({ children }) {
       stateLabel: user ? stateName(user.state) : '',
       signUp,
       signIn,
+      signInWithCode,
       signOut,
     }),
-    [user, status, connectionError, signUp, signIn, signOut],
+    [user, status, connectionError, signUp, signIn, signInWithCode, signOut],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
