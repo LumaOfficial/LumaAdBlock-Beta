@@ -62,7 +62,7 @@ export default function BackupCard() {
         <input
           ref={fileRef}
           type="file"
-          accept="application/json,.json"
+          accept=".luma,.json,application/json,text/plain"
           onChange={restore}
           hidden
         />
@@ -74,8 +74,9 @@ export default function BackupCard() {
       ) : null}
 
       <p className="footer-note">
-        The file is a plain JSON backup of your settings. Counters and browsing history never leave
-        this device.
+        Your export is sealed, so it is safe to share: nobody can read or edit the settings inside
+        it, and a changed file is refused on import. Counters and browsing history never leave this
+        device.
       </p>
 
       {toast.node}

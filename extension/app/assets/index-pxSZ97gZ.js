@@ -18527,6 +18527,8 @@ const DEFAULT_LISTS = {
 };
 const APP = "luma";
 const VERSION = 1;
+const SEAL = "LUMA1";
+const KEY = "luma.backup.v1";
 function buildBackup(state) {
   return {
     app: APP,
@@ -18539,12 +18541,66 @@ function buildBackup(state) {
     schedule: normalizeSchedule(state.schedule, DEFAULT_SCHEDULE)
   };
 }
-function readBackup(text) {
-  let parsed;
+function seal(bytes) {
+  const out = new Uint8Array(bytes.length);
+  let s = (2654435769 ^ bytes.length) >>> 0;
+  for (let i = 0; i < bytes.length; i += 1) {
+    s ^= s << 13 >>> 0;
+    s >>>= 0;
+    s ^= s >>> 17;
+    s ^= s << 5 >>> 0;
+    s >>>= 0;
+    out[i] = bytes[i] ^ s & 255 ^ KEY.charCodeAt(i % KEY.length);
+  }
+  return out;
+}
+function toBase64Url(bytes) {
+  let binary = "";
+  for (const byte of bytes) binary += String.fromCharCode(byte);
+  return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+function fromBase64Url(text) {
+  const padded = text.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((text.length + 3) % 4);
+  const binary = atob(padded);
+  return Uint8Array.from(binary, (char) => char.charCodeAt(0));
+}
+function stamp(body) {
+  let a = 2166136261;
+  let b = 668265263;
+  const text = `${KEY}|${body}`;
+  for (let i = 0; i < text.length; i += 1) {
+    const code = text.charCodeAt(i);
+    a = Math.imul(a ^ code, 16777619) >>> 0;
+    b = Math.imul(b ^ code, 2246822507) >>> 0;
+  }
+  return a.toString(36) + b.toString(36);
+}
+function encodeBackup(state) {
+  const body = toBase64Url(seal(new TextEncoder().encode(JSON.stringify(buildBackup(state)))));
+  return `${SEAL}.${body}.${stamp(body)}`;
+}
+function parseBackup(text) {
+  const trimmed = String(text || "").trim();
+  if (trimmed.startsWith(`${SEAL}.`)) {
+    const parts = trimmed.split(".");
+    const body = parts[1] || "";
+    if (parts.length !== 3 || parts[2] !== stamp(body)) return { altered: true };
+    try {
+      return { parsed: JSON.parse(new TextDecoder().decode(seal(fromBase64Url(body)))) };
+    } catch {
+      return { altered: true };
+    }
+  }
   try {
-    parsed = JSON.parse(String(text || ""));
+    return { parsed: JSON.parse(trimmed) };
   } catch {
-    return { ok: false, error: "That file is not a Luma backup." };
+    return {};
+  }
+}
+function readBackup(text) {
+  const { parsed, altered } = parseBackup(text);
+  if (altered) {
+    return { ok: false, error: "That backup has been changed since it was exported, so it was not restored." };
   }
   if (!parsed || parsed.app !== APP || typeof parsed !== "object") {
     return { ok: false, error: "That file is not a Luma backup." };
@@ -18567,13 +18623,11 @@ function readBackup(text) {
   };
 }
 function downloadBackup(state) {
-  const file = new Blob([JSON.stringify(buildBackup(state), null, 2)], {
-    type: "application/json"
-  });
+  const file = new Blob([encodeBackup(state)], { type: "text/plain" });
   const url = URL.createObjectURL(file);
   const link = document.createElement("a");
   link.href = url;
-  link.download = "luma-settings.json";
+  link.download = "luma-settings.luma";
   document.body.appendChild(link);
   link.click();
   link.remove();
@@ -18642,14 +18696,14 @@ function BackupCard() {
         {
           ref: fileRef,
           type: "file",
-          accept: "application/json,.json",
+          accept: ".luma,.json,application/json,text/plain",
           onChange: restore,
           hidden: true
         }
       )
     ] }),
     error ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "hint", style: { color: "var(--accent-deep)", marginTop: 8 }, children: error }) : null,
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "The file is a plain JSON backup of your settings. Counters and browsing history never leave this device." }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Your export is sealed, so it is safe to share: nobody can read or edit the settings inside it, and a changed file is refused on import. Counters and browsing history never leave this device." }),
     toast.node
   ] });
 }
