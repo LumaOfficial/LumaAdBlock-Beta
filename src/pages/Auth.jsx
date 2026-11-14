@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { ArrowRight } from 'lucide-react'
 import LegalDialog from '../components/LegalDialog'
-import { useAuth, validateSignup } from '../lib/auth'
+import { useAuth } from '../lib/useAuth'
+import { validateSignup } from '../lib/validation'
 import { US_STATES } from '../lib/usStates'
 
 const BLANK = { name: '', dob: '', email: '', password: '', phone: '', state: '' }

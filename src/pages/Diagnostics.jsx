@@ -1,6 +1,6 @@
 import { Activity, CheckCircle2, RefreshCw, ShieldQuestion, Trash2, XCircle } from 'lucide-react'
 import { CardHead, PageHead } from '../components/ui'
-import { useApp } from '../lib/store'
+import { useApp } from '../lib/useApp'
 import { formatNumber, relativeTime } from '../lib/format'
 
 function lastScanLabel(lastScan) {

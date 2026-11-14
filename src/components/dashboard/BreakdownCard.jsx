@@ -1,6 +1,6 @@
 import { ShieldCheck } from 'lucide-react'
 import { CardHead } from '../ui'
-import { useApp } from '../../lib/store'
+import { useApp } from '../../lib/useApp'
 import { formatNumber, percent } from '../../lib/format'
 
 export default function BreakdownCard() {

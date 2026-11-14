@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { CheckCircle2, PauseCircle, Search, ShieldX } from 'lucide-react'
 import { CardHead } from './ui'
 import { hostnameOf, isThirdParty, screenRequest } from '../lib/engine'
-import { useApp } from '../lib/store'
+import { useApp } from '../lib/useApp'
 
 const EXAMPLES = [
   {

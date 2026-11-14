@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { Gauge, ShieldCheck } from 'lucide-react'
-import { useApp } from '../lib/store'
+import { useApp } from '../lib/useApp'
 import AccountMenu from './AccountMenu'
 import { Switch } from './ui'
 

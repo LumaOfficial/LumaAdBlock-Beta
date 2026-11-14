@@ -1,15 +1,6 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useReducer,
-  useRef,
-  useState,
-} from 'react'
+import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
 import { api } from './api'
-import { useAuth } from './auth'
+import { useAuth } from './useAuth'
 import { compileRules, hostnameOf } from './engine'
 import { MAX_LEARNED, MAX_OBSERVATIONS, learnCandidate, runHealthChecks } from './learning'
 import { DEFAULT_LISTS, FILTER_LISTS } from './blocklists'
@@ -23,16 +14,10 @@ import {
   resetStats,
   subscribeStats,
 } from './platform'
+import { AppContext } from './appContext'
 
 // v3: counters now come from the extension instead of the old demo recorder.
 const STORAGE_KEY = 'luma.state.v3'
-
-export function dayKey(date = new Date()) {
-  const year = date.getFullYear()
-  const month = String(date.getMonth() + 1).padStart(2, '0')
-  const day = String(date.getDate()).padStart(2, '0')
-  return `${year}-${month}-${day}`
-}
 
 function emptyState() {
   return {
@@ -187,8 +172,6 @@ function reducer(state, action) {
       return state
   }
 }
-
-const AppContext = createContext(null)
 
 export function AppProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, undefined, loadState)
@@ -421,40 +404,3 @@ export function AppProvider({ children }) {
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>
 }
 
-export function useApp() {
-  const context = useContext(AppContext)
-  if (!context) throw new Error('useApp must be used inside AppProvider')
-  return context
-}
-
-export function lastNDays(state, n = 7) {
-  const series = []
-  for (let offset = n - 1; offset >= 0; offset -= 1) {
-    const date = new Date()
-    date.setDate(date.getDate() - offset)
-    const key = dayKey(date)
-    series.push({
-      key,
-      label: date.toLocaleDateString(undefined, { weekday: 'short' }),
-      count: state.daily[key] || 0,
-    })
-  }
-  return series
-}
-
-export function useTopDomains(limit = 6) {
-  const { state } = useApp()
-  return useMemo(
-    () =>
-      Object.entries(state.domains)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, limit)
-        .map(([host, count]) => ({ host, count })),
-    [state.domains, limit],
-  )
-}
-
-export function useBlockedToday() {
-  const { state } = useApp()
-  return state.daily[dayKey()] || 0
-}

@@ -12,7 +12,7 @@ import FakeSite from './FakeSite'
 import { CardHead } from './ui'
 import { DEMO_SITES } from '../lib/demoSites'
 import { cosmeticFor, screenRequest } from '../lib/engine'
-import { useApp } from '../lib/store'
+import { useApp } from '../lib/useApp'
 
 /** A readable name for a demo selector, so checks never show raw CSS. */
 function selectorLabel(selector) {

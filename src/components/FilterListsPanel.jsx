@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Info, Plus, Trash2, X } from 'lucide-react'
 import { FILTER_LISTS } from '../lib/blocklists'
 import { hostnameOf, parseFilter } from '../lib/engine'
-import { useApp } from '../lib/store'
+import { useApp } from '../lib/useApp'
 import { CardHead, Switch, useToast } from './ui'
 
 export default function FilterListsPanel() {

@@ -1,6 +1,6 @@
 import { Clock, Moon } from 'lucide-react'
 import { CardHead, Switch } from '../ui'
-import { useApp } from '../../lib/store'
+import { useApp } from '../../lib/useApp'
 import { clockLabel, scheduleLabel } from '../../lib/schedule'
 
 function TimeField({ id, label, value, onChange }) {

@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { Download, FileUp } from 'lucide-react'
 import { CardHead, useToast } from '../ui'
-import { useApp } from '../../lib/store'
+import { useApp } from '../../lib/useApp'
 import { downloadBackup, readBackup } from '../../lib/backup'
 
 export default function BackupCard() {

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Globe, Plus, ShieldCheck, Undo2, X } from 'lucide-react'
 import { CardHead } from '../ui'
-import { useApp, useTopDomains } from '../../lib/store'
+import { useApp, useTopDomains } from '../../lib/useApp'
 import { hostnameOf, siteOf } from '../../lib/engine'
 import { formatCompact } from '../../lib/format'
 

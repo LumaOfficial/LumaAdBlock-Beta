@@ -4,7 +4,7 @@ import FilterListsPanel from '../components/FilterListsPanel'
 import InspectorPanel from '../components/InspectorPanel'
 import LabPanel from '../components/LabPanel'
 import { PageHead } from '../components/ui'
-import { useApp } from '../lib/store'
+import { useApp } from '../lib/useApp'
 
 const VIEWS = [
   {

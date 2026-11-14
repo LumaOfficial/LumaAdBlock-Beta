@@ -10,8 +10,8 @@ import {
   UserX,
   Zap,
 } from 'lucide-react'
-import { useApp, useBlockedToday } from '../lib/store'
-import { useAuth } from '../lib/auth'
+import { useApp, useBlockedToday } from '../lib/useApp'
+import { useAuth } from '../lib/useAuth'
 import { formatNumber, formatMegabytes, relativeTime, percent } from '../lib/format'
 import { clockLabel } from '../lib/schedule'
 import { CardHead, PageHead } from '../components/ui'

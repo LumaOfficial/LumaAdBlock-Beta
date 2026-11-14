@@ -4,7 +4,7 @@ import Auth from './pages/Auth'
 import Dashboard from './pages/Dashboard'
 import Diagnostics from './pages/Diagnostics'
 import Protection from './pages/Protection'
-import { useAuth } from './lib/auth'
+import { useAuth } from './lib/useAuth'
 
 export default function App() {
   const { user, status } = useAuth()

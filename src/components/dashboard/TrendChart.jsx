@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { CardHead } from '../ui'
-import { lastNDays, useApp } from '../../lib/store'
+import { useApp } from '../../lib/useApp'
+import { lastNDays } from '../../lib/dates'
 import { formatNumber } from '../../lib/format'
 
 const RANGES = [7, 14, 30]
