@@ -39,6 +39,17 @@
         "content.js"
       ],
       "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "*://*.youtube.com/*",
+        "*://*.youtube-nocookie.com/*"
+      ],
+      "js": [
+        "youtube.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
     }
   ],
   "declarative_net_request": {

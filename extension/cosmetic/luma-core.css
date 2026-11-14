@@ -158,3 +158,69 @@ img[src*="doubleclick.net"] {
 img[src*="googlesyndication"] {
   display: none !important;
 }
+.ytp-ad-module {
+  display: none !important;
+}
+.ytp-ad-overlay-container {
+  display: none !important;
+}
+.ytp-ad-overlay-slot {
+  display: none !important;
+}
+.ytp-ad-progress-list {
+  display: none !important;
+}
+.ytp-ad-player-overlay {
+  display: none !important;
+}
+.ytp-ad-player-overlay-layout {
+  display: none !important;
+}
+.ytp-suggested-action {
+  display: none !important;
+}
+ytd-display-ad-renderer {
+  display: none !important;
+}
+ytd-promoted-sparkles-web-renderer {
+  display: none !important;
+}
+ytd-promoted-video-renderer {
+  display: none !important;
+}
+ytd-in-feed-ad-layout-renderer {
+  display: none !important;
+}
+ytd-ad-slot-renderer {
+  display: none !important;
+}
+ytd-banner-promo-renderer {
+  display: none !important;
+}
+ytd-statement-banner-renderer {
+  display: none !important;
+}
+ytd-companion-slot-renderer {
+  display: none !important;
+}
+ytd-video-masthead-ad-v3-renderer {
+  display: none !important;
+}
+ytd-primetime-promo-renderer {
+  display: none !important;
+}
+ytd-merch-shelf-renderer {
+  display: none !important;
+}
+#masthead-ad {
+  display: none !important;
+}
+ytm-companion-slot {
+  display: none !important;
+}
+ytm-promoted-sparkles-web-renderer {
+  display: none !important;
+}
+ytm-promoted-video-renderer {
+  display: none !important;
+}

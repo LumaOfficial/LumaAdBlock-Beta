@@ -60,10 +60,25 @@ export function openDashboard() {
  * sites, a rule-id index so live blocks can be labelled, and the dashboard's
  * own element-hiding selectors.
  */
+/** "Example.COM/path" and "https://example.com" both become "example.com". */
+export function allowlistHost(value) {
+  const text = String(value || '').trim().toLowerCase()
+  if (!text) return ''
+  try {
+    const parsed = new URL(/^[a-z][a-z0-9+.-]*:\/\//.test(text) ? text : 'http://' + text)
+    return /^[a-z0-9.-]+$/.test(parsed.hostname) ? parsed.hostname : ''
+  } catch {
+    return ''
+  }
+}
+
 export function buildPayload(state, protectionNow = state.protection) {
   const enabledLists = FILTER_LISTS.filter((list) => state.lists[list.id]).map((list) => list.id)
   const ruleIndex = {}
   const dynamicRules = []
+  // One bad entry would make the browser reject every dynamic rule, so only
+  // real host names are sent, once each.
+  const allowlist = [...new Set((state.allowlist || []).map(allowlistHost).filter(Boolean))]
   let nextId = 1
 
   if (protectionNow) {
@@ -99,7 +114,7 @@ export function buildPayload(state, protectionNow = state.protection) {
       nextId += 1
     })
 
-    for (const host of state.allowlist) {
+    for (const host of allowlist) {
       dynamicRules.push({
         id: nextId,
         priority: 200,
@@ -134,7 +149,7 @@ export function buildPayload(state, protectionNow = state.protection) {
       protection: state.protection,
       lists: state.lists,
       customRules: state.customRules,
-      allowlist: state.allowlist,
+      allowlist,
       schedule: state.schedule,
       learned: state.learned || [],
     },

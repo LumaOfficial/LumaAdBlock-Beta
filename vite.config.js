@@ -9,6 +9,9 @@ const sandboxHost = process.env.BASE44_SANDBOX_HOST_DOMAIN
 
 export default defineConfig({
   plugins: [react()],
+  // The packed extension ships readable code for store review; the web build
+  // stays minified.
+  build: { minify: process.env.LUMA_EXTENSION === '1' ? false : 'esbuild' },
   server: {
     host: '0.0.0.0',
     port: 5173,

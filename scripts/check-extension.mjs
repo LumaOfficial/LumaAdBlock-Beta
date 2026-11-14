@@ -4,11 +4,20 @@
  * dashboard bundle, and that the filter engine reaches the right decisions for
  * the requests the lists are built for.
  */
+import { execFileSync } from 'node:child_process'
 import { readFile, stat } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { DEFAULT_LISTS, FILTER_LISTS } from '../src/lib/blocklists.js'
-import { compileRules, screenRequest, toDeclarativeNetRequest } from '../src/lib/engine.js'
+import {
+  BROWSER_TYPES,
+  compileRules,
+  parseFilter,
+  screenRequest,
+  toDeclarativeNetRequest,
+} from '../src/lib/engine.js'
+
+const BROWSER_TYPE_NAMES = new Set(Object.values(BROWSER_TYPES))
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const out = path.join(root, 'extension')
@@ -45,6 +54,29 @@ async function main() {
     manifest.options_ui?.page,
   )
   check('content script declared', Boolean(manifest.content_scripts?.length))
+  check(
+    'YouTube handler declared',
+    (manifest.content_scripts || []).some(
+      (script) =>
+        (script.js || []).includes('youtube.js') &&
+        (script.matches || []).some((match) => match.includes('youtube.com')),
+    ),
+  )
+  const syntaxError = (file) => {
+    try {
+      execFileSync(process.execPath, ['--check', file], { stdio: 'pipe' })
+      return ''
+    } catch (error) {
+      return String(error.stderr || error.message || 'could not parse').trim().slice(0, 200)
+    }
+  }
+  check('YouTube handler present', await exists(path.join(out, 'youtube.js')))
+  for (const script of ['youtube.js', 'background.js', 'content.js']) {
+    const failure = await exists(path.join(out, script))
+      ? syntaxError(path.join(out, script))
+      : 'missing'
+    check(script + ' is valid script', !failure, failure)
+  }
 
   const resources = manifest.declarative_net_request?.rule_resources || []
   const expected = FILTER_LISTS.filter((list) =>
@@ -66,6 +98,21 @@ async function main() {
       resource.id + ' ruleset valid (' + rules.length + ' rules)',
       rules.length > 0 && ids.size === rules.length,
     )
+    const badTypes = [
+      ...new Set(
+        rules
+          .flatMap((rule) => [
+            ...(rule.condition?.resourceTypes || []),
+            ...(rule.condition?.excludedResourceTypes || []),
+          ])
+          .filter((type) => !BROWSER_TYPE_NAMES.has(type)),
+      ),
+    ]
+    check(resource.id + ' uses browser request types', badTypes.length === 0, badTypes.join(', '))
+    const leaked = rules
+      .map((rule) => rule.condition?.urlFilter || rule.condition?.regexFilter || '')
+      .filter((filter) => /\.test(?:\^|\/|\||$)/.test(filter))
+    check(resource.id + ' ships no test domains', leaked.length === 0, leaked.join(', '))
   }
   check('network rules generated', totalRules > 50, String(totalRules))
 
@@ -127,6 +174,10 @@ async function main() {
     ['blocks a Taboola loader', 'https://cdn.taboola.com/libtrc/network/loader.js', 'script', 'news.example.com', true],
     ['blocks a Facebook pixel', 'https://connect.facebook.net/en_US/fbevents.js', 'script', 'shop.example.com', true],
     ['blocks a pre-roll ad tag', 'https://pubads.g.doubleclick.net/gampad/ads?iu=/1234', 'xmlhttprequest', 'watch.example.com', true],
+    ['blocks a YouTube ad ping', 'https://www.youtube.com/api/stats/ads?ver=2', 'xmlhttprequest', 'www.youtube.com', true],
+    ['blocks a YouTube midroll request', 'https://www.youtube.com/get_midroll_info?cpn=abc', 'xmlhttprequest', 'www.youtube.com', true],
+    ['allows YouTube video playback', 'https://rr3---sn-abc.googlevideo.com/videoplayback?dur=634', 'media', 'www.youtube.com', false],
+    ['allows a YouTube page load', 'https://www.youtube.com/watch?v=abc123', 'document', 'www.youtube.com', false],
     ['allows first-party assets', 'https://news.example.com/assets/app.js', 'script', 'news.example.com', false],
     ['allows ordinary images', 'https://news.example.com/img/hero.jpg', 'image', 'news.example.com', false],
   ]
@@ -151,6 +202,18 @@ async function main() {
   check(
     'every rule converts to a browser rule',
     dnr.every((rule) => rule.condition && (rule.condition.urlFilter || rule.condition.regexFilter)),
+  )
+
+  const documentRule = toDeclarativeNetRequest(compileRules(['@@||example.com^$document'], 'custom'))
+  check(
+    'adblock request types become browser types',
+    documentRule[0]?.condition?.resourceTypes?.[0] === 'main_frame',
+    JSON.stringify(documentRule[0]?.condition),
+  )
+  check(
+    'the test-lab exception never ships',
+    parseFilter('@@||dailybyte.test^$document').kind === 'network' &&
+      !FILTER_LISTS.some((list) => list.rules.some((line) => /\.test/.test(line))),
   )
 
   console.log('')

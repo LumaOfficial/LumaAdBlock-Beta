@@ -41,27 +41,60 @@ async function getStats() {
   return statsCache
 }
 
-async function syncCosmetic(enabledLists) {
+function matchPatterns(host) {
+  return ['*://' + host + '/*', '*://*.' + host + '/*']
+}
+
+async function syncCosmetic(enabledLists, allowlist = []) {
   const registered = await chrome.scripting.getRegisteredContentScripts()
   const stale = registered.filter((script) => script.id.startsWith('luma-css-')).map((s) => s.id)
   if (stale.length) await chrome.scripting.unregisterContentScripts({ ids: stale })
+  // A site the person allowlisted keeps its own layout, so the hiding
+  // stylesheets skip it entirely.
+  const excludeMatches = allowlist.filter(Boolean).flatMap(matchPatterns)
   for (const id of enabledLists) {
     // Register each list separately: one unreadable stylesheet must not stop
     // the others from hiding anything.
+    const script = {
+      id: 'luma-css-' + id,
+      css: ['cosmetic/' + id + '.css'],
+      matches: ['<all_urls>'],
+      allFrames: true,
+      runAt: 'document_start',
+      persistAcrossSessions: true,
+    }
+    if (excludeMatches.length) script.excludeMatches = excludeMatches
     try {
-      await chrome.scripting.registerContentScripts([
-        {
-          id: 'luma-css-' + id,
-          css: ['cosmetic/' + id + '.css'],
-          matches: ['<all_urls>'],
-          allFrames: true,
-          runAt: 'document_start',
-          persistAcrossSessions: true,
-        },
-      ])
+      await chrome.scripting.registerContentScripts([script])
     } catch (error) {
       console.warn('Luma: could not register hiding stylesheet for ' + id, error)
     }
+  }
+}
+
+/** Enable the chosen rulesets; one rejected ruleset must not disable the rest. */
+async function enableRulesets(enabled) {
+  const disableRulesetIds = RULESET_IDS.filter((id) => !enabled.includes(id))
+  try {
+    await chrome.declarativeNetRequest.updateEnabledRulesets({
+      enableRulesetIds: enabled,
+      disableRulesetIds,
+    })
+    return
+  } catch (error) {
+    console.warn('Luma: a ruleset was rejected, enabling the others one at a time', error)
+  }
+  for (const id of enabled) {
+    try {
+      await chrome.declarativeNetRequest.updateEnabledRulesets({ enableRulesetIds: [id] })
+    } catch (error) {
+      console.warn('Luma: ruleset ' + id + ' could not be enabled', error)
+    }
+  }
+  try {
+    await chrome.declarativeNetRequest.updateEnabledRulesets({ disableRulesetIds })
+  } catch {
+    /* the rejected ruleset stays off */
   }
 }
 
@@ -120,10 +153,7 @@ async function applySettings(payload) {
 
   const enabledLists = active ? payload.enabledLists || [] : []
   const enabled = enabledLists.filter((id) => RULESET_IDS.includes(id))
-  await chrome.declarativeNetRequest.updateEnabledRulesets({
-    enableRulesetIds: enabled,
-    disableRulesetIds: RULESET_IDS.filter((id) => !enabled.includes(id)),
-  })
+  await enableRulesets(enabled)
 
   const current = await chrome.declarativeNetRequest.getDynamicRules()
   const removeRuleIds = current.map((rule) => rule.id)
@@ -136,7 +166,8 @@ async function applySettings(payload) {
     await chrome.declarativeNetRequest.updateDynamicRules({ removeRuleIds })
   }
 
-  await syncCosmetic(enabledLists)
+  const allowlist = active ? payload.dashboard?.allowlist || [] : []
+  await syncCosmetic(enabledLists, allowlist)
 }
 
 async function openDashboard() {

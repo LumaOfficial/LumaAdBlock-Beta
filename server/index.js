@@ -98,21 +98,38 @@ function open(sealed) {
 const emailIndex = (email) => crypto.createHmac('sha256', INDEX_KEY).update(email).digest('hex')
 const sha256 = (value) => crypto.createHash('sha256').update(value).digest('hex')
 
-function hashPassword(password) {
+// scrypt runs off the event loop: a slow hash must not stall other requests.
+const scrypt = (password, salt) =>
+  new Promise((resolve, reject) => {
+    crypto.scrypt(String(password), salt, 64, (error, key) => (error ? reject(error) : resolve(key)))
+  })
+
+async function hashPassword(password) {
   const salt = crypto.randomBytes(16)
-  const hash = crypto.scryptSync(password, salt, 64)
+  const hash = await scrypt(password, salt)
   return salt.toString('hex') + ':' + hash.toString('hex')
 }
 
-function checkPassword(password, stored) {
+async function checkPassword(password, stored) {
   const [salt, hash] = String(stored || '').split(':')
   const expected = Buffer.from(hash || '', 'hex')
-  const actual = crypto.scryptSync(password, Buffer.from(salt || '', 'hex'), 64)
-  return expected.length === actual.length && crypto.timingSafeEqual(expected, actual)
+  try {
+    const actual = await scrypt(password, Buffer.from(salt || '', 'hex'))
+    return expected.length === actual.length && crypto.timingSafeEqual(expected, actual)
+  } catch {
+    return false
+  }
+}
+
+/** Constant-time comparison of two hex digests. */
+function sameDigest(left, right) {
+  const a = Buffer.from(String(left || ''), 'hex')
+  const b = Buffer.from(String(right || ''), 'hex')
+  return a.length > 0 && a.length === b.length && crypto.timingSafeEqual(a, b)
 }
 
 // Used so an unknown email costs the same time as a wrong password.
-const DUMMY_HASH = hashPassword('luma-dummy-password')
+const DUMMY_HASH = await hashPassword('luma-dummy-password')
 
 // ---------- sign-in providers ----------
 
@@ -174,7 +191,7 @@ const OAUTH = {
       const info = await getJson('https://openidconnect.googleapis.com/v1/userinfo', {
         Authorization: 'Bearer ' + tokens.accessToken,
       })
-      return { email: info.email, name: info.name }
+      return { email: info.email, name: info.name, verified: info.email_verified !== false }
     },
   },
   microsoft: {
@@ -225,7 +242,11 @@ const OAUTH = {
     responseMode: 'form_post',
     async profile(tokens) {
       const claims = jwtPayload(tokens.idToken)
-      return { email: claims.email, name: '' }
+      return {
+        email: claims.email,
+        name: '',
+        verified: String(claims.email_verified) !== 'false',
+      }
     },
   },
 }
@@ -430,6 +451,12 @@ function send(res, status, body) {
     'Content-Type': 'application/json; charset=utf-8',
     'Cache-Control': 'no-store',
     'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'DENY',
+    'Referrer-Policy': 'no-referrer',
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
+    // The app and the extension dashboard call this service from their own
+    // origins. Sign-in uses a bearer token, never a cookie, so wildcard access
+    // does not let another site act as a signed-in person.
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Authorization, Content-Type',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, OPTIONS',
@@ -480,8 +507,24 @@ function readParams(req, limit = 64 * 1024) {
   })
 }
 
+// Behind the platform proxy the socket address is the proxy itself, so the
+// last forwarded hop — the one our own proxy appended — is the caller. Reading
+// the first hop would let a caller spoof their address and dodge throttling.
+const TRUST_PROXY = process.env.TRUST_PROXY !== '0'
+
+function clientAddress(req) {
+  if (TRUST_PROXY) {
+    const hops = String(req.headers['x-forwarded-for'] || '')
+      .split(',')
+      .map((hop) => hop.trim())
+      .filter(Boolean)
+    if (hops.length) return hops[hops.length - 1]
+  }
+  return req.socket.remoteAddress || ''
+}
+
 function clientKey(req, extra) {
-  return (req.headers['x-forwarded-for'] || req.socket.remoteAddress || '') + '|' + extra
+  return clientAddress(req) + '|' + extra
 }
 
 async function handle(req, res) {
@@ -493,6 +536,12 @@ async function handle(req, res) {
 
   if (route === 'POST /api/signup') {
     const body = await readBody(req)
+    // Hashing is deliberately expensive, so sign-ups are throttled too.
+    const key = 'signup:' + clientKey(req, '')
+    if (tooManyAttempts(key)) {
+      return send(res, 429, { error: 'Too many sign-up attempts. Wait a few minutes and try again.' })
+    }
+    noteAttempt(key)
     const { errors, clean } = validateSignup(body)
     if (Object.keys(errors).length) return send(res, 422, { error: 'Check the highlighted fields', errors })
 
@@ -512,7 +561,7 @@ async function handle(req, res) {
     }
     db.prepare(
       'INSERT INTO accounts (id, email_index, profile, password, settings, created_at) VALUES (?, ?, ?, ?, NULL, ?)',
-    ).run(id, index, seal(profile), hashPassword(clean.password), createdAt)
+    ).run(id, index, seal(profile), await hashPassword(clean.password), createdAt)
 
     const token = startSession(id, body.remember !== false)
     return send(res, 201, { token, user: publicProfile(id, profile, createdAt) })
@@ -529,7 +578,7 @@ async function handle(req, res) {
     const row = email
       ? db.prepare('SELECT * FROM accounts WHERE email_index = ?').get(emailIndex(email))
       : null
-    const valid = checkPassword(password, row && row.password ? row.password : DUMMY_HASH)
+    const valid = await checkPassword(password, row && row.password ? row.password : DUMMY_HASH)
     if (!row || !valid) {
       noteAttempt(key)
       return send(res, 401, { error: 'Email or password is incorrect' })
@@ -602,6 +651,14 @@ async function handle(req, res) {
           'auth_error=' + encodeURIComponent('That account did not share an email address. Try another way to sign in.'),
         )
       }
+      // An unverified address must never become a Luma account: someone else
+      // could claim an address they do not control.
+      if (info.verified === false) {
+        return backToApp(
+          'auth_error=' +
+            encodeURIComponent('Verify that email address with the provider, then try again.'),
+        )
+      }
       const account = externalAccount({ email: accountEmail, name: info.name, via: oauthRoute[1] })
       const ticket = crypto.randomBytes(24).toString('base64url')
       tickets.set(ticket, {
@@ -667,7 +724,12 @@ async function handle(req, res) {
     const pending = index ? emailCodes.get(index) : null
     const key = 'verify:' + clientKey(req, email)
     if (tooManyAttempts(key)) return send(res, 429, { error: 'Too many attempts. Request a new code.' })
-    if (!pending || pending.expiresAt < Date.now() || pending.attempts >= 5 || sha256(code) !== pending.hash) {
+    if (
+      !pending ||
+      pending.expiresAt < Date.now() ||
+      pending.attempts >= 5 ||
+      !sameDigest(sha256(code), pending.hash)
+    ) {
       if (pending) {
         pending.attempts += 1
         if (pending.attempts >= 5) emailCodes.delete(index)
@@ -705,11 +767,17 @@ async function handle(req, res) {
     const current = String(body.currentPassword || '')
     const next = String(body.newPassword || '')
     const row = db.prepare('SELECT password FROM accounts WHERE id = ?').get(session.accountId)
+    const key = 'password:' + session.accountId
+    if (tooManyAttempts(key)) {
+      return send(res, 429, { error: 'Too many attempts. Wait a few minutes and try again.' })
+    }
     // Accounts started with a provider or an emailed code have no password yet,
     // so the first one can be chosen without proving an old one.
-    if (row?.password && !checkPassword(current, row.password)) {
+    if (row?.password && !(await checkPassword(current, row.password))) {
+      noteAttempt(key)
       return send(res, 401, { error: 'That current password is not right' })
     }
+    attempts.delete(key)
     if (next.length < 8 || next.length > 200) {
       return send(res, 422, {
         error: 'Use at least 8 characters',
@@ -717,8 +785,13 @@ async function handle(req, res) {
       })
     }
     db.prepare('UPDATE accounts SET password = ? WHERE id = ?').run(
-      hashPassword(next),
+      await hashPassword(next),
       session.accountId,
+    )
+    // A changed password signs every other device out; this one stays in.
+    db.prepare('DELETE FROM sessions WHERE account_id = ? AND token_hash <> ?').run(
+      session.accountId,
+      sha256(session.token),
     )
     return send(res, 200, { ok: true })
   }
@@ -779,11 +852,28 @@ async function handle(req, res) {
     if (!input || typeof input !== 'object' || Array.isArray(input)) {
       return send(res, 422, { error: 'Invalid settings' })
     }
+    const ruleText = (value) => String(value || '').trim().slice(0, 400)
+    // "https://Example.com/path" and "Example.com" both become "example.com";
+    // anything that is not a host name is dropped.
+    const hostname = (value) => {
+      const text = String(value || '').trim().toLowerCase()
+      if (!text) return ''
+      try {
+        const parsed = new URL(/^[a-z][a-z0-9+.-]*:\/\//.test(text) ? text : 'http://' + text)
+        return /^[a-z0-9.-]+$/.test(parsed.hostname) ? parsed.hostname : ''
+      } catch {
+        return ''
+      }
+    }
     const settings = {
       protection: input.protection !== false,
       lists: input.lists && typeof input.lists === 'object' ? input.lists : {},
-      customRules: Array.isArray(input.customRules) ? input.customRules.map(String).slice(0, 500) : [],
-      allowlist: Array.isArray(input.allowlist) ? input.allowlist.map(String).slice(0, 500) : [],
+      customRules: Array.isArray(input.customRules)
+        ? [...new Set(input.customRules.map(ruleText).filter(Boolean))].slice(0, 500)
+        : [],
+      allowlist: Array.isArray(input.allowlist)
+        ? [...new Set(input.allowlist.map(hostname).filter(Boolean))].slice(0, 500)
+        : [],
     }
     // Quiet hours are optional: a client that does not send them must not wipe them.
     if (input.schedule && typeof input.schedule === 'object') {

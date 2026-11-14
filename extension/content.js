@@ -4,9 +4,19 @@
 const SETTINGS_KEY = 'luma:settings'
 const STYLE_ID = 'luma-custom-cosmetic'
 
+function normalizeHost(value) {
+  const text = String(value || '').trim().toLowerCase()
+  if (!text) return ''
+  try {
+    return new URL(/^[a-z][a-z0-9+.-]*:\/\//.test(text) ? text : 'http://' + text).hostname
+  } catch {
+    return ''
+  }
+}
+
 function hostMatches(host, domain) {
   const h = String(host || '').toLowerCase()
-  const d = String(domain || '').toLowerCase().replace(/^\./, '')
+  const d = normalizeHost(domain)
   if (!h || !d) return false
   return h === d || h.endsWith('.' + d)
 }
@@ -16,6 +26,9 @@ function selectorsFor(payload) {
   if (!payload || !payload.protection) return hidden
   const cosmetic = payload.cosmeticSelectors || { generic: [], site: {} }
   const host = location.hostname
+  // An allowlisted site is left exactly as it is, custom hiding included.
+  const allowlist = (payload.dashboard && payload.dashboard.allowlist) || []
+  if (allowlist.some((entry) => hostMatches(host, entry))) return hidden
 
   for (const selector of cosmetic.generic || []) hidden.add(selector)
   for (const [domain, selectors] of Object.entries(cosmetic.site || {})) {

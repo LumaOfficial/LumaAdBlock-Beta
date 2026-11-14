@@ -1519,15 +1519,52 @@
   },
   {
     "id": 150,
-    "priority": 10,
+    "priority": 1,
     "action": {
-      "type": "allow"
+      "type": "block"
     },
     "condition": {
-      "urlFilter": "||dailybyte.test^",
-      "resourceTypes": [
-        "document"
-      ]
+      "urlFilter": "||youtube.com/pagead/"
+    }
+  },
+  {
+    "id": 151,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "||youtube.com/api/stats/ads"
+    }
+  },
+  {
+    "id": 152,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "||youtube.com/get_midroll_info"
+    }
+  },
+  {
+    "id": 153,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "||youtube.com/ptracking"
+    }
+  },
+  {
+    "id": 154,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "||youtube.com/api/stats/atr"
     }
   }
 ]

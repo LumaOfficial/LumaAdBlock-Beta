@@ -23,6 +23,7 @@ export const RESOURCE_TYPES = [
   'stylesheet',
   'media',
   'font',
+  'object',
   'xmlhttprequest',
   'websocket',
   'ping',
@@ -30,6 +31,34 @@ export const RESOURCE_TYPES = [
 ]
 
 const TYPE_SET = new Set(RESOURCE_TYPES)
+
+// Adblock Plus names differ from the browser's for two request types. Emitting
+// the ABP name (for example "document") makes the browser reject the whole
+// ruleset, which silently disables blocking — so always translate.
+export const BROWSER_TYPES = {
+  document: 'main_frame',
+  subdocument: 'sub_frame',
+  script: 'script',
+  image: 'image',
+  stylesheet: 'stylesheet',
+  media: 'media',
+  font: 'font',
+  object: 'object',
+  xmlhttprequest: 'xmlhttprequest',
+  websocket: 'websocket',
+  ping: 'ping',
+  other: 'other',
+}
+
+/** Browser (declarativeNetRequest) names for a set of adblock request types. */
+export function toBrowserTypes(types) {
+  const out = []
+  for (const type of types || []) {
+    const mapped = BROWSER_TYPES[type]
+    if (mapped && !out.includes(mapped)) out.push(mapped)
+  }
+  return out
+}
 
 const SECOND_LEVEL = new Set([
   'co.uk', 'org.uk', 'ac.uk', 'gov.uk', 'com.au', 'net.au', 'co.nz',
@@ -384,8 +413,10 @@ export function toDeclarativeNetRequest(rules) {
     const condition = isRegex
       ? { regexFilter: rule.pattern.slice(1, -1) }
       : { urlFilter: rule.pattern }
-    if (rule.options.types.length) condition.resourceTypes = rule.options.types
-    if (rule.options.notTypes.length) condition.excludedResourceTypes = rule.options.notTypes
+    const types = toBrowserTypes(rule.options.types)
+    const notTypes = toBrowserTypes(rule.options.notTypes)
+    if (types.length) condition.resourceTypes = types
+    if (notTypes.length) condition.excludedResourceTypes = notTypes
     if (rule.options.thirdParty === true) condition.domainType = 'thirdParty'
     if (rule.options.thirdParty === false) condition.domainType = 'firstParty'
     if (rule.options.includeDomains.length) condition.initiatorDomains = rule.options.includeDomains

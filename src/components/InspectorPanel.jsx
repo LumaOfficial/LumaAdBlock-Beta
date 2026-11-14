@@ -30,6 +30,12 @@ const EXAMPLES = [
     pageHost: 'watch.tubetime.test',
   },
   {
+    label: 'YouTube ad ping',
+    url: 'https://www.youtube.com/api/stats/ads?ver=2',
+    type: 'xmlhttprequest',
+    pageHost: 'www.youtube.com',
+  },
+  {
     label: 'Session recorder',
     url: 'https://static.hotjar.com/c/hotjar.js',
     type: 'script',

@@ -10,7 +10,7 @@ browser extension.
 | Area | Path | What it does |
 | --- | --- | --- |
 | Filter engine | `src/lib/engine.js` | Parses `\|\|domain^`, `@@` exceptions, `$third-party,script` options, `/regex/` filters and `##.selector` element hiding, then screens requests |
-| Bundled lists | `src/lib/blocklists.js` | Luma Core, Tracker Shield, Annoyance Cleaner, Social Widgets |
+| Bundled lists | `src/lib/blocklists.js` | Luma Core (including YouTube ad endpoints), Tracker Shield, Annoyance Cleaner, Social Widgets |
 | Accounts | `src/lib/auth.jsx`, `src/lib/api.js`, `server/index.js` | Sign-up (name, date of birth, email, password, phone, state of residence, Terms/Privacy consent) against the account service; one sign-in works on every device; this device keeps only a sign-in token |
 | Sign-in options | `src/lib/sso.js`, `src/components/SsoButtons.jsx`, `src/pages/Auth.jsx` | Google, Microsoft, GitHub and Apple sign-in, plus a 6-digit code emailed to the address (signs up a new address too) |
 | Account service | `server/index.js` | Dependency-free Node service: AES-256-GCM encrypted profiles and synced settings, HMAC email index, scrypt password hashes, hashed session tokens |
@@ -56,6 +56,11 @@ LUMA_API_URL=https://your-api.example.com npm run build:extension   # rules, hid
 npm run check:extension   # validates the package and the filter decisions
 ```
 
+The extension build compiles the dashboard **unminified**: store reviewers must be able to
+read it, and Opera rejects obfuscated or minified code. The web build stays minified.
+Without `LUMA_API_URL` the package still blocks ads, but its dashboard cannot sign in —
+set it for any build you submit to a store.
+
 `npm run build:extension` writes a loadable extension into `extension/`:
 
 | Path | What it is |
@@ -65,6 +70,7 @@ npm run check:extension   # validates the package and the filter decisions
 | `cosmetic/<list>.css` | Element-hiding stylesheet for that list |
 | `content.js` | Applies the user's own element-hiding rules as a page style |
 | `background.js` | Service worker: enables the chosen rulesets, adds custom and allowlist rules, counts blocks, opens the dashboard |
+| `youtube.js` | Skips, fast-forwards and hides YouTube ads inside the player, including embedded players |
 | `app/` | The dashboard UI, built from `src/` (it renders on the page's hash route) |
 
 Install it with **Developer mode → Load unpacked → `extension/`** (`opera://extensions`,
@@ -89,6 +95,11 @@ those defaults with the settings you choose.
 plus a persistent `DATA_DIR`. Run it with `node server/index.js` (Node 22+) behind HTTPS
 and pass its address to the extension build with `LUMA_API_URL`. In the sandbox it runs
 on port 8000 and the dev server points at it through `VITE_API_URL`.
+
+Throttling identifies clients by the **last** `X-Forwarded-For` hop (the one the
+platform proxy appends) rather than the first, which a caller can forge. Set
+`TRUST_PROXY=0` only when the service is reached without a proxy and the socket
+address is the real client.
 
 ### Sign-in
 

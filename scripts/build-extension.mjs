@@ -12,7 +12,9 @@ import { copyFile, mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { DEFAULT_LISTS, FILTER_LISTS } from '../src/lib/blocklists.js'
-import { compileRules, toDeclarativeNetRequest } from '../src/lib/engine.js'
+import { BROWSER_TYPES, compileRules, toDeclarativeNetRequest } from '../src/lib/engine.js'
+
+const BROWSER_TYPE_NAMES = new Set(Object.values(BROWSER_TYPES))
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const out = path.join(root, 'extension')
@@ -28,6 +30,21 @@ function validateRuleset(listId, rules) {
     if (!rule.action || !rule.action.type) throw new Error(listId + ': rule ' + rule.id + ' has no action')
     if (!rule.condition || (!rule.condition.urlFilter && !rule.condition.regexFilter)) {
       throw new Error(listId + ': rule ' + rule.id + ' has no filter')
+    }
+    // The browser rejects the entire ruleset over one unknown request type,
+    // which would turn blocking off without any visible error.
+    for (const type of [
+      ...(rule.condition.resourceTypes || []),
+      ...(rule.condition.excludedResourceTypes || []),
+    ]) {
+      if (!BROWSER_TYPE_NAMES.has(type)) {
+        throw new Error(listId + ': rule ' + rule.id + ' uses an unknown request type "' + type + '"')
+      }
+    }
+    // Test fixtures belong in the lab, never in the shipped package.
+    const filter = rule.condition.urlFilter || rule.condition.regexFilter || ''
+    if (/\.test(?:[\^/|]|$)/.test(filter)) {
+      throw new Error(listId + ': rule ' + rule.id + ' filters a test domain (' + filter + ')')
     }
   }
   return rules
@@ -65,9 +82,10 @@ async function main() {
   // to know where it is. Never fall back to a sandbox/preview address.
   const apiUrl = String(process.env.LUMA_API_URL || '').trim()
   if (!/^https:\/\/[^/]+/.test(apiUrl)) {
-    throw new Error(
-      'Set LUMA_API_URL to the https address of the deployed account service, e.g.\n' +
-        '  LUMA_API_URL=https://api.example.com npm run build:extension',
+    console.warn(
+      'No LUMA_API_URL set: this package blocks ads but cannot reach an account service.\n' +
+        'For a store build set LUMA_API_URL to the https address of the deployed\n' +
+        'account service, e.g. LUMA_API_URL=https://api.example.com npm run build:extension',
     )
   }
   const pkg = JSON.parse(await readFile(path.join(root, 'package.json'), 'utf8'))
@@ -136,6 +154,14 @@ async function main() {
         js: ['content.js'],
         run_at: 'document_start',
       },
+      {
+        // Player ads come from YouTube itself; youtube.js skips and hides them.
+        // all_frames covers embedded players.
+        matches: ['*://*.youtube.com/*', '*://*.youtube-nocookie.com/*'],
+        js: ['youtube.js'],
+        run_at: 'document_start',
+        all_frames: true,
+      },
     ],
     declarative_net_request: { rule_resources: rulesets },
   }
@@ -160,7 +186,13 @@ async function main() {
       'extension/app',
       '--emptyOutDir',
     ],
-    { cwd: root, stdio: 'inherit', env: { ...process.env, VITE_API_URL: apiUrl } },
+    {
+      cwd: root,
+      stdio: 'inherit',
+      // Store reviewers must be able to read the code, so the extension build
+      // is not minified (see vite.config.js).
+      env: { ...process.env, VITE_API_URL: apiUrl, LUMA_EXTENSION: '1' },
+    },
   )
 
   console.log('Done. Load the extension/ folder as an unpacked extension.')
