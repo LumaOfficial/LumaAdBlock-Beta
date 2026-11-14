@@ -3116,8 +3116,15 @@ h3 {
 .is-panel,
 .is-panel body,
 .is-panel #root {
-  width: 360px;
   min-width: 360px;
+}
+
+/* A popup is only as wide as the panel. Opened as a page instead, the panel
+   sits in the middle rather than hugging the left edge of a wide window. */
+.is-panel body {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .panel {

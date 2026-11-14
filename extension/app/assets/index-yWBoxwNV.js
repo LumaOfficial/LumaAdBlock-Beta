@@ -25670,6 +25670,25 @@ function emptyState() {
     health: null
   };
 }
+function reconcileCounts(state) {
+  const logged = Array.isArray(state.observations) ? state.observations : [];
+  if (!logged.length || state.totals.screened) return state;
+  const totals = { ...state.totals };
+  const daily = { ...state.daily };
+  const domains = { ...state.domains };
+  for (const item of logged) {
+    totals.screened += 1;
+    if (!item.blocked) continue;
+    totals.blocked += 1;
+    totals.megabytes += MEGABYTES_PER_BLOCK;
+    if (item.listId === "tracker-shield") totals.trackers += 1;
+    const at = new Date(item.at);
+    const key = dayKey(Number.isFinite(at.getTime()) ? at : /* @__PURE__ */ new Date());
+    daily[key] = (daily[key] || 0) + 1;
+    if (item.host) domains[item.host] = (domains[item.host] || 0) + 1;
+  }
+  return { ...state, totals, daily, domains };
+}
 function loadState() {
   const fallback = emptyState();
   if (isExtension || typeof window === "undefined") return fallback;
@@ -25677,13 +25696,13 @@ function loadState() {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return fallback;
     const parsed = JSON.parse(raw);
-    return {
+    return reconcileCounts({
       ...fallback,
       ...parsed,
       lists: { ...DEFAULT_LISTS, ...parsed.lists || {} },
       schedule: normalizeSchedule(parsed.schedule, DEFAULT_SCHEDULE),
       totals: { ...fallback.totals, ...parsed.totals || {} }
-    };
+    });
   } catch {
     return fallback;
   }
