@@ -714,6 +714,51 @@ async function handle(req, res) {
     return send(res, 200, { ok: true })
   }
 
+  // ---------- owner console ----------
+
+  function signedInOwner() {
+    const row = db.prepare('SELECT profile FROM accounts WHERE id = ?').get(session.accountId)
+    return Boolean(row && isOwner(open(row.profile).email))
+  }
+
+  if (route === 'GET /api/owner/accounts') {
+    if (!signedInOwner()) return send(res, 403, { error: 'Owner access only' })
+    const rows = db
+      .prepare('SELECT id, profile, settings, created_at FROM accounts ORDER BY created_at ASC')
+      .all()
+    const accounts = rows.map((row) => {
+      const profile = open(row.profile)
+      return {
+        id: row.id,
+        name: profile.name || '',
+        email: profile.email || '',
+        via: profile.via || 'password',
+        owner: isOwner(profile.email),
+        synced: Boolean(row.settings),
+        createdAt: new Date(row.created_at).toISOString(),
+      }
+    })
+    return send(res, 200, { accounts })
+  }
+
+  if (route === 'POST /api/owner/erase') {
+    if (!signedInOwner()) return send(res, 403, { error: 'Owner access only' })
+    const body = await readBody(req)
+    const id = String(body.accountId || '')
+    if (!id) return send(res, 422, { error: 'Choose an account to erase' })
+    if (id === session.accountId) {
+      return send(res, 400, { error: 'You cannot erase the account you are signed in with.' })
+    }
+    if (!db.prepare('SELECT id FROM accounts WHERE id = ?').get(id)) {
+      return send(res, 404, { error: 'That account no longer exists.' })
+    }
+    // The account row holds the encrypted profile and settings, so removing it
+    // erases everything that account stored. Its sessions go with it.
+    db.prepare('DELETE FROM sessions WHERE account_id = ?').run(id)
+    db.prepare('DELETE FROM accounts WHERE id = ?').run(id)
+    return send(res, 200, { ok: true })
+  }
+
   if (route === 'GET /api/settings') {
     const row = db.prepare('SELECT settings FROM accounts WHERE id = ?').get(session.accountId)
     return send(res, 200, { settings: row?.settings ? open(row.settings) : null })

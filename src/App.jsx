@@ -4,6 +4,7 @@ import Auth from './pages/Auth'
 import Dashboard from './pages/Dashboard'
 import Diagnostics from './pages/Diagnostics'
 import Protection from './pages/Protection'
+import Owner from './pages/Owner'
 import { useAuth } from './lib/useAuth'
 
 export default function App() {
@@ -31,6 +32,8 @@ export default function App() {
         <Route path="/inspector" element={<Navigate to="/protection?view=inspector" replace />} />
         {/* Internal console: reachable by URL only, never linked from the app. */}
         <Route path="/diagnostics" element={<Diagnostics />} />
+        {/* Owner console: only owner accounts can read or erase accounts. */}
+        <Route path="/owner" element={<Owner />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>

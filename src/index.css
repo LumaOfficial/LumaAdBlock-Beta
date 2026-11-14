@@ -2761,3 +2761,58 @@ h3 {
     justify-content: center;
   }
 }
+
+/* ---------- owner console ---------- */
+
+.owner-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.owner-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+}
+
+.owner-row:first-child {
+  border-top: 0;
+}
+
+.owner-who {
+  min-width: 0;
+}
+
+.owner-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.owner-meta {
+  margin-top: 3px;
+  color: var(--ink-3);
+  font-size: 12.5px;
+  overflow-wrap: anywhere;
+}
+
+.btn.danger {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn.danger:hover {
+  background: var(--accent-deep);
+}
+
+@media (max-width: 640px) {
+  .owner-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

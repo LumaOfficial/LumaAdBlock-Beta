@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
-import { KeyRound, LogOut } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { KeyRound, LogOut, ShieldCheck } from 'lucide-react'
 import { useAuth } from '../lib/useAuth'
 import PasswordDialog from './PasswordDialog'
 
 export default function AccountMenu() {
   const { user, stateLabel, signOut } = useAuth()
+  const navigate = useNavigate()
   const [open, setOpen] = useState(false)
   const [passwordOpen, setPasswordOpen] = useState(false)
   const rootRef = useRef(null)
@@ -76,6 +78,20 @@ export default function AccountMenu() {
             <KeyRound />
             Change password
           </button>
+          {user.owner ? (
+            <button
+              type="button"
+              className="account-action"
+              role="menuitem"
+              onClick={() => {
+                setOpen(false)
+                navigate('/owner')
+              }}
+            >
+              <ShieldCheck />
+              Owner console
+            </button>
+          ) : null}
           <button type="button" className="account-signout" role="menuitem" onClick={signOut}>
             <LogOut />
             Sign out
