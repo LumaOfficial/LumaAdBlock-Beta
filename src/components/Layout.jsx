@@ -1,27 +1,18 @@
 import { useEffect } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
-import {
-  FlaskConical,
-  Gauge,
-  ListFilter,
-  Search,
-} from 'lucide-react'
+import { Gauge, ShieldCheck } from 'lucide-react'
 import { useApp } from '../lib/store'
 import AccountMenu from './AccountMenu'
 import { Switch } from './ui'
 
 const NAV = [
   { to: '/', label: 'Dashboard', icon: Gauge, end: true },
-  { to: '/lists', label: 'Filter lists', icon: ListFilter },
-  { to: '/lab', label: 'Test lab', icon: FlaskConical },
-  { to: '/inspector', label: 'URL inspector', icon: Search },
+  { to: '/protection', label: 'Protection', icon: ShieldCheck },
 ]
 
 const TITLES = {
   '/': 'Overview',
-  '/lists': 'Filter lists',
-  '/lab': 'Test lab',
-  '/inspector': 'URL inspector',
+  '/protection': 'Protection',
   '/diagnostics': 'Diagnostics',
 }
 

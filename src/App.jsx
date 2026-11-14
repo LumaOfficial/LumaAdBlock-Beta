@@ -3,9 +3,7 @@ import Layout from './components/Layout'
 import Auth from './pages/Auth'
 import Dashboard from './pages/Dashboard'
 import Diagnostics from './pages/Diagnostics'
-import FilterLists from './pages/FilterLists'
-import Lab from './pages/Lab'
-import Inspector from './pages/Inspector'
+import Protection from './pages/Protection'
 import { useAuth } from './lib/auth'
 
 export default function App() {
@@ -26,9 +24,11 @@ export default function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route index element={<Dashboard />} />
-        <Route path="/lists" element={<FilterLists />} />
-        <Route path="/lab" element={<Lab />} />
-        <Route path="/inspector" element={<Inspector />} />
+        <Route path="/protection" element={<Protection />} />
+        {/* Old per-tool pages now live inside Protection. */}
+        <Route path="/lists" element={<Navigate to="/protection?view=lists" replace />} />
+        <Route path="/lab" element={<Navigate to="/protection?view=lab" replace />} />
+        <Route path="/inspector" element={<Navigate to="/protection?view=inspector" replace />} />
         {/* Internal console: reachable by URL only, never linked from the app. */}
         <Route path="/diagnostics" element={<Diagnostics />} />
         <Route path="*" element={<Navigate to="/" replace />} />

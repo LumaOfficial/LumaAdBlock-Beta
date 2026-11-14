@@ -15,8 +15,9 @@ browser extension.
 | Account service | `server/index.js` | Dependency-free Node service: AES-256-GCM encrypted profiles and synced settings, HMAC email index, scrypt password hashes, hashed session tokens |
 | Agreements | `src/lib/legal.js`, `src/components/LegalDialog.jsx` | Terms & Conditions (EULA, Refund Policy) and Privacy Policy shown at sign-up |
 | State | `src/lib/store.jsx` | Protection switch, lists, custom rules, allowlist, counters (kept in `localStorage`) |
-| Test lab | `src/pages/Lab.jsx` | Four simulated sites; every request and ad slot is checked by the engine |
-| Inspector | `src/pages/Inspector.jsx` | Paste a URL and get a plain blocked/allowed verdict |
+| Protection | `src/pages/Protection.jsx` | One page for filter lists, the test lab and the URL inspector, switched by tabs (`/protection?view=…`) |
+| Test lab | `src/components/LabPanel.jsx` | Four simulated sites; every request and ad slot is checked by the engine |
+| Inspector | `src/components/InspectorPanel.jsx` | Paste a URL and get a plain blocked/allowed verdict |
 | Detection | `src/lib/learning.js` | Scores observed requests, adds a host rule for ad-like traffic that slips through, and runs the engine's self-checks |
 | Diagnostics | `src/pages/Diagnostics.jsx` | Internal console at `/diagnostics` (never linked in the app): self-checks, detection feed and learned rules |
 | Extension | `extension/` | The shipped extension: generated rulesets, hiding stylesheets, service worker, content script and the built dashboard |

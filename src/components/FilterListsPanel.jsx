@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { Info, Plus, ShieldCheck, Trash2, X } from 'lucide-react'
+import { Info, Plus, Trash2, X } from 'lucide-react'
 import { FILTER_LISTS } from '../lib/blocklists'
 import { hostnameOf, parseFilter } from '../lib/engine'
 import { useApp } from '../lib/store'
-import { CardHead, PageHead, Switch, useToast } from '../components/ui'
+import { CardHead, Switch, useToast } from './ui'
 
-export default function FilterLists() {
+export default function FilterListsPanel() {
   const {
     state,
     toggleList,
@@ -13,7 +13,6 @@ export default function FilterLists() {
     removeCustomRule,
     addAllow,
     removeAllow,
-    activeListCount,
   } = useApp()
 
   const [ruleDraft, setRuleDraft] = useState('')
@@ -60,17 +59,6 @@ export default function FilterLists() {
 
   return (
     <>
-      <PageHead
-        eyebrow="Protection"
-        title="Filter lists"
-        lede="Lists decide what Luma blocks. Turn on more for a quieter web, or write your own rules."
-      >
-        <span className="badge plain">
-          <ShieldCheck />
-          {activeListCount} active
-        </span>
-      </PageHead>
-
       <section className="grid-2" style={{ alignItems: 'stretch' }}>
         {FILTER_LISTS.map((list) => {
           const on = Boolean(state.lists[list.id])

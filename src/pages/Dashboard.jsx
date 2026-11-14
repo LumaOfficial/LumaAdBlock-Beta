@@ -16,19 +16,19 @@ import { CardHead, PageHead } from '../components/ui'
 
 const ACTIONS = [
   {
-    to: '/lab',
+    to: '/protection?view=lab',
     icon: FlaskConical,
     title: 'Run the test lab',
     text: 'Watch Luma strip ads from four simulated sites.',
   },
   {
-    to: '/lists',
+    to: '/protection?view=lists',
     icon: ShieldCheck,
     title: 'Tune your lists',
     text: 'Add filter lists, custom rules and allowlisted sites.',
   },
   {
-    to: '/inspector',
+    to: '/protection?view=inspector',
     icon: Search,
     title: 'Inspect any request',
     text: 'Paste a URL and see exactly which rule decides.',
@@ -194,7 +194,7 @@ export default function Dashboard() {
       <section className="grid-2">
         <div className="card">
           <CardHead title="Recent activity" sub="The last requests Luma stopped">
-            <Link to="/lab" className="btn sm ghost">
+            <Link to="/protection?view=lab" className="btn sm ghost">
               Live demo
               <ArrowRight />
             </Link>

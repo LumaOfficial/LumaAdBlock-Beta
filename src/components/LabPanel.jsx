@@ -8,8 +8,8 @@ import {
   ShieldCheck,
   XCircle,
 } from 'lucide-react'
-import FakeSite from '../components/FakeSite'
-import { CardHead, PageHead } from '../components/ui'
+import FakeSite from './FakeSite'
+import { CardHead } from './ui'
 import { DEMO_SITES } from '../lib/demoSites'
 import { cosmeticFor, screenRequest } from '../lib/engine'
 import { useApp } from '../lib/store'
@@ -24,7 +24,7 @@ function selectorLabel(selector) {
     .join(' ')
 }
 
-export default function Lab() {
+export default function LabPanel() {
   const { state, setProtection, rules, observe } = useApp()
   const [siteId, setSiteId] = useState(DEMO_SITES[0].id)
   const [checks, setChecks] = useState(null)
@@ -140,17 +140,6 @@ export default function Lab() {
 
   return (
     <>
-      <PageHead
-        eyebrow="Test lab"
-        title="See the engine work."
-        lede="Four simulated sites, one real filter engine. Luma screens every request and hides every ad slot using the rules you have enabled."
-      >
-        <button className="btn primary" type="button" onClick={runChecks}>
-          <FlaskConical />
-          Run checks
-        </button>
-      </PageHead>
-
       <div className="site-switch">
         {DEMO_SITES.map((item) => (
           <button
@@ -229,7 +218,12 @@ export default function Lab() {
           </div>
 
           <div className="card" style={{ padding: 18 }}>
-            <CardHead title="Checks" sub="What every request and ad slot should do" />
+            <CardHead title="Checks" sub="What every request and ad slot should do">
+              <button type="button" className="btn sm ghost" onClick={runChecks}>
+                <FlaskConical />
+                Run checks
+              </button>
+            </CardHead>
             {checks ? (
               <>
                 <div className="verdict" data-ok={passed === checks.length ? 'true' : 'false'}>
