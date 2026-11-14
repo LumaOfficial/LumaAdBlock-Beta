@@ -691,6 +691,29 @@ async function handle(req, res) {
     return send(res, 200, { ok: true })
   }
 
+  if (route === 'POST /api/password') {
+    const body = await readBody(req)
+    const current = String(body.currentPassword || '')
+    const next = String(body.newPassword || '')
+    const row = db.prepare('SELECT password FROM accounts WHERE id = ?').get(session.accountId)
+    // Accounts started with a provider or an emailed code have no password yet,
+    // so the first one can be chosen without proving an old one.
+    if (row?.password && !checkPassword(current, row.password)) {
+      return send(res, 401, { error: 'That current password is not right' })
+    }
+    if (next.length < 8 || next.length > 200) {
+      return send(res, 422, {
+        error: 'Use at least 8 characters',
+        errors: { newPassword: 'Use at least 8 characters' },
+      })
+    }
+    db.prepare('UPDATE accounts SET password = ? WHERE id = ?').run(
+      hashPassword(next),
+      session.accountId,
+    )
+    return send(res, 200, { ok: true })
+  }
+
   if (route === 'GET /api/settings') {
     const row = db.prepare('SELECT settings FROM accounts WHERE id = ?').get(session.accountId)
     return send(res, 200, { settings: row?.settings ? open(row.settings) : null })

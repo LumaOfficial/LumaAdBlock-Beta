@@ -105,7 +105,16 @@ export function AuthProvider({ children }) {
     return data.user
   }, [])
 
+  const changePassword = useCallback(async ({ currentPassword, newPassword }) => {
+    return api('/api/password', {
+      method: 'POST',
+      body: { currentPassword, newPassword },
+    })
+  }, [])
+
   const signOut = useCallback(() => {
+    // Give pending settings a moment to reach the account before the token goes.
+    window.dispatchEvent(new Event('luma:before-signout'))
     api('/api/signout', { method: 'POST' }).catch(() => {})
     clearToken()
     setUser(null)
@@ -120,9 +129,10 @@ export function AuthProvider({ children }) {
       signUp,
       signIn,
       signInWithCode,
+      changePassword,
       signOut,
     }),
-    [user, status, connectionError, signUp, signIn, signInWithCode, signOut],
+    [user, status, connectionError, signUp, signIn, signInWithCode, changePassword, signOut],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

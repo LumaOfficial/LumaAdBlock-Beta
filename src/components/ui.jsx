@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Check } from 'lucide-react'
 
 export function Switch({ on, onChange, label }) {
@@ -44,11 +44,13 @@ export function CardHead({ title, sub, children }) {
 
 export function useToast() {
   const [message, setMessage] = useState(null)
+  const timer = useRef(0)
   const show = useCallback((text) => {
     setMessage(text)
-    window.clearTimeout(show._timer)
-    show._timer = window.setTimeout(() => setMessage(null), 2400)
+    window.clearTimeout(timer.current)
+    timer.current = window.setTimeout(() => setMessage(null), 2400)
   }, [])
+  useEffect(() => () => window.clearTimeout(timer.current), [])
   const node = message ? (
     <div className="toast" role="status">
       <Check />

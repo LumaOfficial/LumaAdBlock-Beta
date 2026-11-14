@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
-import { LogOut } from 'lucide-react'
+import { KeyRound, LogOut } from 'lucide-react'
 import { useAuth } from '../lib/useAuth'
+import PasswordDialog from './PasswordDialog'
 
 export default function AccountMenu() {
   const { user, stateLabel, signOut } = useAuth()
   const [open, setOpen] = useState(false)
+  const [passwordOpen, setPasswordOpen] = useState(false)
   const rootRef = useRef(null)
 
   useEffect(() => {
@@ -62,12 +64,25 @@ export default function AccountMenu() {
             <span>Signed in on this device</span>
             {stateLabel ? <span>{stateLabel}</span> : null}
           </div>
+          <button
+            type="button"
+            className="account-action"
+            role="menuitem"
+            onClick={() => {
+              setOpen(false)
+              setPasswordOpen(true)
+            }}
+          >
+            <KeyRound />
+            Change password
+          </button>
           <button type="button" className="account-signout" role="menuitem" onClick={signOut}>
             <LogOut />
             Sign out
           </button>
         </div>
       ) : null}
+      {passwordOpen ? <PasswordDialog onClose={() => setPasswordOpen(false)} /> : null}
     </div>
   )
 }

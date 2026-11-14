@@ -198,32 +198,57 @@ export function AppProvider({ children }) {
     }
   }, [userId])
 
+  // The latest settings ride in a ref so a save can be flushed the moment the
+  // tab is hidden or the person signs out, instead of being lost with the timer.
+  const settingsSnapshot = useMemo(
+    () => ({
+      protection: state.protection,
+      lists: state.lists,
+      customRules: state.customRules,
+      allowlist: state.allowlist,
+      schedule: state.schedule,
+    }),
+    [state.protection, state.lists, state.customRules, state.allowlist, state.schedule],
+  )
+  const syncRef = useRef({ userId: null, ready: false, settings: null })
+  syncRef.current = { userId: userId || null, ready: accountSynced, settings: settingsSnapshot }
+  const saveTimer = useRef(0)
+
+  const pushSettings = useCallback(() => {
+    const current = syncRef.current
+    if (!current.userId || !current.ready || !current.settings) return
+    api('/api/settings', { method: 'PUT', body: { settings: current.settings } }).catch(() => {})
+  }, [])
+
   useEffect(() => {
     if (!userId || !accountSynced) return undefined
-    const timer = window.setTimeout(() => {
-      api('/api/settings', {
-        method: 'PUT',
-        body: {
-          settings: {
-            protection: state.protection,
-            lists: state.lists,
-            customRules: state.customRules,
-            allowlist: state.allowlist,
-            schedule: state.schedule,
-          },
-        },
-      }).catch(() => {})
-    }, 1200)
-    return () => window.clearTimeout(timer)
-  }, [
-    userId,
-    accountSynced,
-    state.protection,
-    state.lists,
-    state.customRules,
-    state.allowlist,
-    state.schedule,
-  ])
+    const timer = window.setTimeout(pushSettings, 1200)
+    saveTimer.current = timer
+    return () => {
+      window.clearTimeout(timer)
+      if (saveTimer.current === timer) saveTimer.current = 0
+    }
+  }, [userId, accountSynced, settingsSnapshot, pushSettings])
+
+  useEffect(() => {
+    const flush = () => {
+      if (!saveTimer.current) return
+      window.clearTimeout(saveTimer.current)
+      saveTimer.current = 0
+      pushSettings()
+    }
+    const onVisibility = () => {
+      if (document.visibilityState === 'hidden') flush()
+    }
+    window.addEventListener('pagehide', flush)
+    window.addEventListener('luma:before-signout', flush)
+    document.addEventListener('visibilitychange', onVisibility)
+    return () => {
+      window.removeEventListener('pagehide', flush)
+      window.removeEventListener('luma:before-signout', flush)
+      document.removeEventListener('visibilitychange', onVisibility)
+    }
+  }, [pushSettings])
 
   useEffect(() => {
     if (isExtension) return
