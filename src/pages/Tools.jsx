@@ -6,6 +6,8 @@ import { TOOLS, toolById } from '../components/tools/registry'
 export default function Tools() {
   const { view } = useParams()
   const tool = toolById(view)
+  // A few tools live on their own (sidebar shortcut) instead of the grid.
+  const hubTools = TOOLS.filter((item) => !item.hiddenFromHub)
 
   // An address that names no tool goes back to the list.
   if (view && !tool) return <Navigate to="/tools" replace />
@@ -20,12 +22,12 @@ export default function Tools() {
         >
           <span className="badge plain">
             <Wrench />
-            {TOOLS.length} tools
+            {hubTools.length} tools
           </span>
         </PageHead>
 
         <section className="grid-3">
-          {TOOLS.map((item) => {
+          {hubTools.map((item) => {
             const Icon = item.icon
             return (
               <Link key={item.id} to={'/tools/' + item.id} className="card action-tile">
