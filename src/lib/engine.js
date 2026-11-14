@@ -380,7 +380,10 @@ export function toDeclarativeNetRequest(rules) {
   let id = 1
   for (const rule of rules) {
     if (rule.kind !== 'network') continue
-    const condition = { urlFilter: rule.pattern }
+    const isRegex = rule.pattern.length > 2 && rule.pattern.startsWith('/') && rule.pattern.endsWith('/')
+    const condition = isRegex
+      ? { regexFilter: rule.pattern.slice(1, -1) }
+      : { urlFilter: rule.pattern }
     if (rule.options.types.length) condition.resourceTypes = rule.options.types
     if (rule.options.notTypes.length) condition.excludedResourceTypes = rule.options.notTypes
     if (rule.options.thirdParty === true) condition.domainType = 'thirdParty'

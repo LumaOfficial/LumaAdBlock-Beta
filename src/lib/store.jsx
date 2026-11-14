@@ -4,11 +4,22 @@ import {
   useEffect,
   useMemo,
   useReducer,
+  useState,
 } from 'react'
 import { compileRules } from './engine'
 import { DEFAULT_LISTS, FILTER_LISTS } from './blocklists'
+import {
+  buildPayload,
+  isExtension,
+  postSettings,
+  readSettings,
+  readStats,
+  resetStats,
+  subscribeStats,
+} from './platform'
 
-const STORAGE_KEY = 'luma.state.v2'
+// v3: counters now come from the extension instead of the old demo recorder.
+const STORAGE_KEY = 'luma.state.v3'
 
 export function dayKey(date = new Date()) {
   const year = date.getFullYear()
@@ -33,7 +44,9 @@ function emptyState() {
 
 function loadState() {
   const fallback = emptyState()
-  if (typeof window === 'undefined') return fallback
+  // Inside the extension the service worker holds the authoritative settings
+  // (chrome.storage); they arrive a moment later through the hydrate action.
+  if (isExtension || typeof window === 'undefined') return fallback
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY)
     if (!raw) return fallback
@@ -69,31 +82,26 @@ function reducer(state, action) {
       return { ...state, allowlist: [action.host, ...state.allowlist] }
     case 'removeAllow':
       return { ...state, allowlist: state.allowlist.filter((host) => host !== action.host) }
-    case 'record': {
-      const { events = [], screened = 0 } = action
-      const daily = { ...state.daily }
-      const key = dayKey()
-      daily[key] = (daily[key] || 0) + events.length
-      const domains = { ...state.domains }
-      let trackers = 0
-      let megabytes = state.totals.megabytes
-      for (const event of events) {
-        if (event.host) domains[event.host] = (domains[event.host] || 0) + 1
-        if (event.listId === 'tracker-shield') trackers += 1
-        megabytes += 0.04
-      }
+    case 'stats': {
+      // Live counters reported by the extension's service worker.
+      const stats = action.stats || {}
       return {
         ...state,
-        daily,
-        domains,
-        runs: state.runs + 1,
-        totals: {
-          blocked: state.totals.blocked + events.length,
-          trackers: state.totals.trackers + trackers,
-          screened: state.totals.screened + screened,
-          megabytes: Math.round(megabytes * 10) / 10,
-        },
-        activity: [...events, ...state.activity].slice(0, 40),
+        totals: { ...state.totals, ...(stats.totals || {}) },
+        domains: stats.domains || {},
+        daily: stats.daily || {},
+        activity: stats.activity || [],
+        runs: stats.runs || 0,
+      }
+    }
+    case 'hydrate': {
+      const settings = action.settings || {}
+      return {
+        ...state,
+        protection: settings.protection ?? state.protection,
+        lists: { ...DEFAULT_LISTS, ...(settings.lists || {}) },
+        customRules: settings.customRules || [],
+        allowlist: settings.allowlist || [],
       }
     }
     case 'reset':
@@ -108,7 +116,10 @@ const AppContext = createContext(null)
 export function AppProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, undefined, loadState)
 
+  const [hydrated, setHydrated] = useState(!isExtension)
+
   useEffect(() => {
+    if (isExtension) return
     try {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state))
     } catch {
@@ -142,6 +153,43 @@ export function AppProvider({ children }) {
     [state.lists],
   )
 
+  // Settings the browser has to enforce; posted only when they actually change.
+  const settingsPayload = useMemo(
+    () => (isExtension ? buildPayload(state) : null),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [state.protection, state.lists, state.customRules, state.allowlist],
+  )
+
+  useEffect(() => {
+    if (hydrated && settingsPayload) postSettings(settingsPayload)
+  }, [hydrated, settingsPayload])
+
+  useEffect(() => {
+    if (!isExtension) return undefined
+    let alive = true
+    readSettings().then((settings) => {
+      if (!alive) return
+      if (settings) dispatch({ type: 'hydrate', settings })
+      setHydrated(true)
+    })
+    return () => {
+      alive = false
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!isExtension) return undefined
+    let alive = true
+    readStats().then((stats) => {
+      if (alive && stats) dispatch({ type: 'stats', stats })
+    })
+    const unsubscribe = subscribeStats((stats) => dispatch({ type: 'stats', stats }))
+    return () => {
+      alive = false
+      unsubscribe()
+    }
+  }, [])
+
   const value = useMemo(
     () => ({
       state,
@@ -155,8 +203,10 @@ export function AppProvider({ children }) {
       removeCustomRule: (rule) => dispatch({ type: 'removeRule', rule }),
       addAllow: (host) => dispatch({ type: 'addAllow', host }),
       removeAllow: (host) => dispatch({ type: 'removeAllow', host }),
-      recordBlocked: (events, screened) => dispatch({ type: 'record', events, screened }),
-      resetData: () => dispatch({ type: 'reset' }),
+      resetData: () => {
+        resetStats()
+        dispatch({ type: 'reset' })
+      },
     }),
     [state, rules, networkRuleCount, cosmeticRuleCount, activeListCount],
   )

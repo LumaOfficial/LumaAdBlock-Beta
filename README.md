@@ -14,7 +14,8 @@ browser extension.
 | State | `src/lib/store.jsx` | Protection switch, lists, custom rules, allowlist, counters (kept in `localStorage`) |
 | Test lab | `src/pages/Lab.jsx` | Four simulated sites; every request and ad slot is checked by the engine |
 | Inspector | `src/pages/Inspector.jsx` | Paste a URL, see the rule that decides |
-| Extension | `extension/` | MV3 manifest, declarative rules, element hiding CSS |
+| Extension | `extension/` | The shipped extension: generated rulesets, hiding stylesheets, service worker, content script and the built dashboard |
+| Browser bridge | `src/lib/platform.js` | Detects the extension, sends settings to the worker and receives live counters |
 
 ## Development
 
@@ -41,13 +42,33 @@ $third-party,script          narrow a rule by request type or party
 $domain=a.com|~b.com         narrow by the page the request came from
 ```
 
-## Installing the extension
+## Building the extension
 
-The install walkthrough is not part of the public app. The exported rule set lives
-in `extension/`:
+```bash
+npm run build:extension   # rules, hiding stylesheets, manifest, icons and the dashboard
+npm run check:extension   # validates the package and the filter decisions
+```
 
-1. Regenerate `extension/rules.json` from the enabled lists with `toDeclarativeNetRequest`.
-2. Visit `chrome://extensions` (or `opera://extensions`), enable **Developer mode**,
-   choose **Load unpacked** and select the `extension/` folder.
+`npm run build:extension` writes a loadable extension into `extension/`:
+
+| Path | What it is |
+| --- | --- |
+| `manifest.json` | Generated from the bundled lists: one `declarative_net_request` ruleset per list |
+| `rules/<list>.json` | Network rules compiled by `src/lib/engine.js` |
+| `cosmetic/<list>.css` | Element-hiding stylesheet for that list |
+| `content.js` | Applies the user's own element-hiding rules as a page style |
+| `background.js` | Service worker: enables the chosen rulesets, adds custom and allowlist rules, counts blocks, opens the dashboard |
+| `app/` | The dashboard UI, built from `src/` (it renders on the page's hash route) |
+
+Install it with **Developer mode → Load unpacked → `extension/`** (`opera://extensions`,
+`chrome://extensions`). The toolbar icon opens the dashboard, which is the same UI
+as `npm run dev`. Settings live in the extension's `chrome.storage`, so toggles,
+custom rules and the allowlist survive restarts.
+
+Live counters use `declarativeNetRequest.onRuleMatchedDebug`, which browsers only
+expose for unpacked/developer installs. In a store-installed build the dashboard
+still shows the active rule count but the blocked figures stay at zero (the toolbar
+badge keeps counting); drop `declarativeNetRequestFeedback` from the generated
+manifest if a store rejects it.
 
 Every counter in the app stays on the device — Luma uploads nothing.

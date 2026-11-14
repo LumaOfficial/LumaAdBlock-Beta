@@ -2,19 +2,61 @@
   "manifest_version": 3,
   "name": "Luma Ad Blocker",
   "version": "0.1.0",
-  "description": "Blocks ads, trackers and cookie walls with Luma's filter rules.",
-  "permissions": ["declarativeNetRequest", "storage"],
-  "host_permissions": ["<all_urls>"],
-  "declarative_net_request": {
-    "rule_resources": [{ "id": "luma", "enabled": true, "path": "rules.json" }]
+  "description": "Luma — a fast, friendly ad and tracker blocker",
+  "minimum_chrome_version": "102",
+  "permissions": [
+    "declarativeNetRequest",
+    "declarativeNetRequestFeedback",
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
   },
-  "background": { "service_worker": "background.js" },
+  "action": {
+    "default_title": "Luma Ad Blocker"
+  },
+  "options_ui": {
+    "page": "app/index.html",
+    "open_in_tab": true
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "css": ["cosmetic.css"],
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ],
       "run_at": "document_start"
     }
   ],
-  "action": { "default_title": "Luma" }
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "luma-core",
+        "enabled": true,
+        "path": "rules/luma-core.json"
+      },
+      {
+        "id": "tracker-shield",
+        "enabled": true,
+        "path": "rules/tracker-shield.json"
+      },
+      {
+        "id": "social-widgets",
+        "enabled": false,
+        "path": "rules/social-widgets.json"
+      }
+    ]
+  }
 }

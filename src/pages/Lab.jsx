@@ -16,12 +16,11 @@ import { useApp } from '../lib/store'
 import { formatNumber } from '../lib/format'
 
 export default function Lab() {
-  const { state, setProtection, rules, recordBlocked } = useApp()
+  const { state, setProtection, rules } = useApp()
   const [siteId, setSiteId] = useState(DEMO_SITES[0].id)
   const [checks, setChecks] = useState(null)
   const [hiddenCount, setHiddenCount] = useState(0)
   const siteRef = useRef(null)
-  const recorded = useRef(new Set())
 
   const site = DEMO_SITES.find((item) => item.id === siteId) || DEMO_SITES[0]
 
@@ -114,23 +113,6 @@ export default function Lab() {
     }
 
     setChecks(results)
-
-    const blocked = decisions.filter((item) => item.decision.blocked)
-    if (state.protection && blocked.length && !recorded.current.has(site.id)) {
-      recorded.current.add(site.id)
-      recordBlocked(
-        blocked.map((item, index) => ({
-          id: `${site.id}-${Date.now()}-${index}`,
-          host: item.decision.host,
-          url: item.url,
-          rule: item.decision.rule ? item.decision.rule.raw : 'allowlist',
-          listId: item.decision.listId,
-          type: item.type,
-          at: new Date().toISOString(),
-        })),
-        decisions.length,
-      )
-    }
   }
 
   const passed = checks ? checks.filter((check) => check.ok).length : 0

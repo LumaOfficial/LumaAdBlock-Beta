@@ -11,6 +11,7 @@ import {
   Zap,
 } from 'lucide-react'
 import { useApp, lastNDays, useTopDomains, useBlockedToday } from '../lib/store'
+import { isExtension } from '../lib/platform'
 import { formatNumber, formatCompact, formatMegabytes, relativeTime, percent } from '../lib/format'
 import { CardHead, PageHead } from '../components/ui'
 import { ListBadge } from '../components/Layout'
@@ -122,12 +123,25 @@ export default function Dashboard() {
           <div className="stat-foot">No creatives downloaded</div>
         </div>
         <div className="stat">
-          <div className="stat-label">
-            <Zap />
-            Requests screened
-          </div>
-          <div className="stat-value">{formatNumber(state.totals.screened)}</div>
-          <div className="stat-foot">{blockedShare}% blocked</div>
+          {isExtension ? (
+            <>
+              <div className="stat-label">
+                <ShieldCheck />
+                Filter rules active
+              </div>
+              <div className="stat-value">{formatNumber(networkRuleCount)}</div>
+              <div className="stat-foot">Enforced by the browser</div>
+            </>
+          ) : (
+            <>
+              <div className="stat-label">
+                <Zap />
+                Requests screened
+              </div>
+              <div className="stat-value">{formatNumber(state.totals.screened)}</div>
+              <div className="stat-foot">{blockedShare}% blocked</div>
+            </>
+          )}
         </div>
       </section>
 
@@ -187,7 +201,9 @@ export default function Dashboard() {
               </div>
             ))}
             {!domains.length ? (
-              <div className="empty">No blocked domains yet. Run the test lab to see them appear.</div>
+              <div className="empty">
+                No blocked domains yet. They show up here as you browse with protection on.
+              </div>
             ) : null}
           </div>
         </div>
@@ -218,7 +234,7 @@ export default function Dashboard() {
               </div>
             ))}
             {!state.activity.length ? (
-              <div className="empty">Nothing blocked yet. Open the test lab to see Luma in action.</div>
+              <div className="empty">Nothing blocked yet. Every request Luma stops shows up here.</div>
             ) : null}
           </div>
         </div>
