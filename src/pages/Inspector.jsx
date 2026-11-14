@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { AlertTriangle, CheckCircle2, PauseCircle, Search, ShieldCheck, ShieldX } from 'lucide-react'
 import { CardHead, PageHead } from '../components/ui'
 import { hostnameOf, isThirdParty, screenRequest } from '../lib/engine'
@@ -26,18 +26,32 @@ const EXAMPLES = [
     pageHost: 'news.dailybyte.test',
   },
   {
-    label: 'Custom rule',
-    url: 'https://ads.partner-feed.test/pixel.gif',
-    type: 'image',
-    pageHost: 'example.org',
+    label: 'Video ad tag',
+    url: 'https://pubads.g.doubleclick.net/gampad/ads?iu=/1234/preroll',
+    type: 'xmlhttprequest',
+    pageHost: 'watch.tubetime.test',
   },
   {
-    label: 'Allowlisted site',
-    url: 'https://ad.doubleclick.net/ddm/adi/N4821/banner.gif',
-    type: 'image',
-    pageHost: 'bank.example',
+    label: 'Session recorder',
+    url: 'https://static.hotjar.com/c/hotjar.js',
+    type: 'script',
+    pageHost: 'shop.shoply.test',
   },
 ]
+
+/** Turn a simple ||domain^ custom rule into a request the inspector can test. */
+function sampleFromRule(rule) {
+  const body = rule.replace(/^@@/, '').split('$')[0]
+  if (body.includes('##') || body.includes('#@#')) return null
+  const host = body.replace(/^\|\|/, '').replace(/^\|/, '').replace(/\^$/, '')
+  if (!/^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(host)) return null
+  return {
+    label: 'Your custom rule',
+    url: `https://${host}/luma-check.gif`,
+    type: 'image',
+    pageHost: 'example.org',
+  }
+}
 
 const TYPES = ['script', 'image', 'stylesheet', 'xmlhttprequest', 'subdocument', 'document', 'media', 'font', 'ping', 'other']
 
@@ -46,6 +60,27 @@ export default function Inspector() {
   const [url, setUrl] = useState(EXAMPLES[0].url)
   const [type, setType] = useState(EXAMPLES[0].type)
   const [pageHost, setPageHost] = useState(EXAMPLES[0].pageHost)
+
+  // Built-in examples, plus one drawn from the user's own rules when they have them.
+  const examples = useMemo(() => {
+    const dynamic = []
+    for (const rule of state.customRules) {
+      const sample = sampleFromRule(rule)
+      if (sample) {
+        dynamic.push(sample)
+        break
+      }
+    }
+    if (state.allowlist.length) {
+      dynamic.push({
+        label: 'Allowlisted site',
+        url: 'https://ad.doubleclick.net/ddm/adi/N4821/banner.gif',
+        type: 'image',
+        pageHost: state.allowlist[0],
+      })
+    }
+    return [...EXAMPLES, ...dynamic]
+  }, [state.customRules, state.allowlist])
 
   const requestHost = hostnameOf(url)
   const third = isThirdParty(pageHost, requestHost)
@@ -123,7 +158,7 @@ export default function Inspector() {
                 Try an example
               </div>
               <div className="example-chips">
-                {EXAMPLES.map((example) => (
+                {examples.map((example) => (
                   <button
                     key={example.label}
                     type="button"

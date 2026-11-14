@@ -161,14 +161,19 @@ export function parseFilter(rawInput, listId = 'custom') {
     if (!isValidSelector(selector)) {
       return { ...base, kind: 'invalid', note: 'This is not a valid CSS selector' }
     }
+    const domainList = domainText
+      ? domainText.split(',').map((d) => d.trim()).filter(Boolean)
+      : []
     return {
       ...base,
       kind: 'cosmetic',
       exception: cosmeticException,
       selector,
-      domains: domainText
-        ? domainText.split(',').map((d) => d.trim().replace(/^~/, '')).filter(Boolean)
-        : [],
+      domains: domainList.filter((d) => !d.startsWith('~')),
+      options: {
+        ...base.options,
+        excludeDomains: domainList.filter((d) => d.startsWith('~')).map((d) => d.slice(1)),
+      },
       note: cosmeticException ? 'Shows elements again' : 'Hides matching elements',
     }
   }
@@ -319,6 +324,7 @@ export function cosmeticFor(host, rules) {
   const show = []
   for (const rule of rules) {
     if (rule.kind !== 'cosmetic') continue
+    if (rule.options.excludeDomains.some((d) => hostMatches(host, d))) continue
     const applies = rule.domains.length === 0 || rule.domains.some((d) => hostMatches(host, d))
     if (!applies) continue
     ;(rule.exception ? show : hide).push(rule)

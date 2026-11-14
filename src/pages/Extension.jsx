@@ -22,11 +22,20 @@ const MANIFEST = `{
 }`
 
 export default function Extension() {
-  const { rules, networkRuleCount, cosmeticRuleCount } = useApp()
+  const { state, rules, networkRuleCount, cosmeticRuleCount } = useApp()
   const [exported, setExported] = useState(0)
 
   function download() {
     const payload = toDeclarativeNetRequest(rules)
+    // Allowlisted sites: let Chrome load everything those pages ask for.
+    for (const host of state.allowlist) {
+      payload.push({
+        id: payload.length + 1,
+        priority: 100,
+        action: { type: 'allow' },
+        condition: { initiatorDomains: [host] },
+      })
+    }
     const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' })
     const url = URL.createObjectURL(blob)
     const link = document.createElement('a')
@@ -35,7 +44,7 @@ export default function Extension() {
     document.body.appendChild(link)
     link.click()
     link.remove()
-    URL.revokeObjectURL(url)
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000)
     setExported(payload.length)
   }
 
