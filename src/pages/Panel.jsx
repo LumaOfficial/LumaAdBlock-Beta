@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { ArrowUpRight, LayoutGrid, Sparkles } from 'lucide-react'
+import { ArrowUpRight, History, LayoutGrid } from 'lucide-react'
 import { Switch } from '../components/ui'
 import { useApp, useBlockedToday } from '../lib/useApp'
 
@@ -10,7 +10,7 @@ function openPage(route) {
 }
 
 const SHORTCUTS = [
-  { route: '/tools/builder', label: 'Rule builder', sub: 'Say it in plain words', icon: Sparkles },
+  { route: '/activity', label: 'Activity', sub: 'What Luma stopped', icon: History },
   { route: '/tools', label: 'All tools', sub: 'Checks, lists and tidy-up', icon: LayoutGrid },
 ]
 
@@ -86,7 +86,7 @@ export default function Panel() {
         Open Luma
       </button>
 
-      <p className="footer-note">Luma 0.1 beta · Runs on this device</p>
+      <p className="footer-note">Luma v1.0.3 · Runs on this device</p>
     </main>
   )
 }

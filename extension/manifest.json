@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Luma Ad Blocker",
-  "version": "0.1.0",
+  "version": "1.0.3",
   "description": "Luma — a fast, friendly ad and tracker blocker",
   "author": "Luma Official",
   "minimum_chrome_version": "102",

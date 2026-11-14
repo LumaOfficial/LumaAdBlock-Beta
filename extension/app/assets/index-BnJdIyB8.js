@@ -22025,7 +22025,7 @@ const EVERYDAY = [
     title: "Rules without the syntax.",
     lede: "Say what you want in plain words. Luma writes the rule, checks it against the engine, and adds it to your protection.",
     blurb: "Build your own rule in plain words.",
-    // Reachable from the sidebar shortcut; kept off the All tools grid.
+    // Reachable from the rule library; kept off the All tools grid.
     hiddenFromHub: true,
     Panel: RuleBuilder
   },
@@ -22179,7 +22179,7 @@ function Layout() {
           ] }) })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "side-links", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Luma 0.1 beta" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Luma v1.0.3" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "·" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Local data" })
         ] })
@@ -25047,7 +25047,7 @@ function openPage(route) {
   window.open(base + "#" + route, "_blank", "noopener");
 }
 const SHORTCUTS = [
-  { route: "/tools/builder", label: "Rule builder", sub: "Say it in plain words", icon: Sparkles },
+  { route: "/activity", label: "Activity", sub: "What Luma stopped", icon: History },
   { route: "/tools", label: "All tools", sub: "Checks, lists and tidy-up", icon: LayoutGrid }
 ];
 function Panel() {
@@ -25096,7 +25096,7 @@ function Panel() {
       ] }, item.route);
     }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", className: "btn sm ghost", onClick: () => openPage("/"), children: "Open Luma" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Luma 0.1 beta · Runs on this device" })
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Luma v1.0.3 · Runs on this device" })
   ] });
 }
 function Tools() {

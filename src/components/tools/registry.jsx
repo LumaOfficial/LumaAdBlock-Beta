@@ -96,7 +96,7 @@ const EVERYDAY = [
     title: 'Rules without the syntax.',
     lede: 'Say what you want in plain words. Luma writes the rule, checks it against the engine, and adds it to your protection.',
     blurb: 'Build your own rule in plain words.',
-    // Reachable from the sidebar shortcut; kept off the All tools grid.
+    // Reachable from the rule library; kept off the All tools grid.
     hiddenFromHub: true,
     Panel: RuleBuilder,
   },

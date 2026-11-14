@@ -134,7 +134,7 @@ export default function Layout() {
             </p>
           </div>
           <div className="side-links">
-            <span>Luma 0.1 beta</span>
+            <span>Luma v1.0.3</span>
             <span>·</span>
             <span>Local data</span>
           </div>

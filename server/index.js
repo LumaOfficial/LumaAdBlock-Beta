@@ -699,9 +699,11 @@ async function handle(req, res) {
       return send(res, 429, { error: 'Too many codes requested. Wait a few minutes and try again.' })
     }
     noteAttempt(key)
-    // Emailed codes sign in to an account that already exists; they never create one.
+    // Emailed codes sign in to an account that already exists. The one
+    // exception is an owner address: it is a deployment address this service
+    // already trusts, so the account is created on its first code sign-in.
     const known = db.prepare('SELECT id FROM accounts WHERE email_index = ?').get(index)
-    if (!known) {
+    if (!known && !isOwner(email)) {
       return send(res, 404, { error: 'No Luma account uses that email. Create an account first.' })
     }
     const code = String(crypto.randomInt(0, 1000000)).padStart(6, '0')
@@ -740,10 +742,16 @@ async function handle(req, res) {
     emailCodes.delete(index)
     attempts.delete(key)
     const found = db.prepare('SELECT * FROM accounts WHERE email_index = ?').get(index)
-    if (!found) {
+    // The code just proved the address. An owner address may never have signed
+    // in before, so its account is created here; everyone else needs one already.
+    const account = found
+      ? { id: found.id, profile: open(found.profile), createdAt: found.created_at }
+      : isOwner(email)
+        ? externalAccount({ email, via: 'email' })
+        : null
+    if (!account) {
       return send(res, 404, { error: 'No Luma account uses that email. Create an account first.' })
     }
-    const account = { id: found.id, profile: open(found.profile), createdAt: found.created_at }
     const token = startSession(account.id, body.remember !== false)
     return send(res, 200, { token, user: publicProfile(account.id, account.profile, account.createdAt) })
   }
