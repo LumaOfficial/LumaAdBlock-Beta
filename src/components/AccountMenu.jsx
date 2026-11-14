@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { KeyRound, LogOut, ShieldCheck } from 'lucide-react'
+import { KeyRound, LogOut, ShieldCheck, UserRound } from 'lucide-react'
 import { useAuth } from '../lib/useAuth'
 import PasswordDialog from './PasswordDialog'
 
@@ -66,6 +66,18 @@ export default function AccountMenu() {
             <span>Signed in on this device</span>
             {stateLabel ? <span>{stateLabel}</span> : null}
           </div>
+          <button
+            type="button"
+            className="account-action"
+            role="menuitem"
+            onClick={() => {
+              setOpen(false)
+              navigate('/account')
+            }}
+          >
+            <UserRound />
+            Account &amp; settings
+          </button>
           <button
             type="button"
             className="account-action"

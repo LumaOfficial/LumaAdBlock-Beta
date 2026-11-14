@@ -1,18 +1,48 @@
-import { useEffect } from 'react'
-import { NavLink, Outlet, useLocation } from 'react-router-dom'
-import { Gauge, ShieldCheck } from 'lucide-react'
+import { Fragment, useEffect } from 'react'
+import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
+import {
+  FlaskConical,
+  Gauge,
+  History,
+  ListFilter,
+  Search,
+  ShieldCheck,
+  UserRound,
+} from 'lucide-react'
 import { useApp } from '../lib/useApp'
 import AccountMenu from './AccountMenu'
 import { Switch } from './ui'
 
 const NAV = [
-  { to: '/', label: 'Dashboard', icon: Gauge, end: true },
-  { to: '/protection', label: 'Protection', icon: ShieldCheck },
+  {
+    label: 'Overview',
+    items: [{ to: '/', label: 'Dashboard', icon: Gauge, end: true }],
+  },
+  {
+    label: 'Protection',
+    items: [
+      { to: '/protection', label: 'Protection', icon: ShieldCheck },
+      { to: '/activity', label: 'Activity', icon: History },
+    ],
+  },
+  {
+    label: 'Account',
+    items: [{ to: '/account', label: 'Account & settings', icon: UserRound }],
+  },
+]
+
+// Shortcuts into the tools that live inside Protection.
+const TOOLS = [
+  { to: '/protection?view=lab', label: 'Test lab', icon: FlaskConical },
+  { to: '/protection?view=lists', label: 'Filter lists', icon: ListFilter },
+  { to: '/protection?view=inspector', label: 'URL inspector', icon: Search },
 ]
 
 const TITLES = {
   '/': 'Overview',
   '/protection': 'Protection',
+  '/activity': 'Activity',
+  '/account': 'Account',
   '/diagnostics': 'Diagnostics',
 }
 
@@ -38,19 +68,38 @@ export default function Layout() {
         </NavLink>
 
         <nav className="nav" aria-label="Sections">
-          <div className="nav-label">Protection</div>
-          {NAV.map((item) => {
-            const Icon = item.icon
+          {NAV.map((group, index) => (
+            <Fragment key={group.label}>
+              <div className="nav-label" style={{ marginTop: index ? 14 : 0 }}>
+                {group.label}
+              </div>
+              {group.items.map((item) => {
+                const Icon = item.icon
+                return (
+                  <NavLink
+                    key={item.to}
+                    to={item.to}
+                    end={item.end}
+                    className={({ isActive }) => 'nav-link' + (isActive ? ' active' : '')}
+                  >
+                    <Icon />
+                    {item.label}
+                  </NavLink>
+                )
+              })}
+            </Fragment>
+          ))}
+
+          <div className="nav-label" style={{ marginTop: 14 }}>
+            Tools
+          </div>
+          {TOOLS.map((tool) => {
+            const Icon = tool.icon
             return (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                end={item.end}
-                className={({ isActive }) => 'nav-link' + (isActive ? ' active' : '')}
-              >
+              <Link key={tool.to} to={tool.to} className="nav-link">
                 <Icon />
-                {item.label}
-              </NavLink>
+                {tool.label}
+              </Link>
             )
           })}
         </nav>

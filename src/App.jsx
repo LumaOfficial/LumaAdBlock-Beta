@@ -1,5 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Layout from './components/Layout'
+import Account from './pages/Account'
+import Activity from './pages/Activity'
 import Auth from './pages/Auth'
 import Dashboard from './pages/Dashboard'
 import Diagnostics from './pages/Diagnostics'
@@ -26,6 +28,8 @@ export default function App() {
       <Route element={<Layout />}>
         <Route index element={<Dashboard />} />
         <Route path="/protection" element={<Protection />} />
+        <Route path="/activity" element={<Activity />} />
+        <Route path="/account" element={<Account />} />
         {/* Old per-tool pages now live inside Protection. */}
         <Route path="/lists" element={<Navigate to="/protection?view=lists" replace />} />
         <Route path="/lab" element={<Navigate to="/protection?view=lab" replace />} />

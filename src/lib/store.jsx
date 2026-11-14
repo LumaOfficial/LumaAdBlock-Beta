@@ -166,6 +166,17 @@ function reducer(state, action) {
       return { ...state, learned: [], learningSince: Date.now() }
     case 'scan':
       return { ...state, scans: state.scans + 1, lastScan: action.at, health: action.health }
+    case 'resetCounters':
+      // Counters and the activity log only: lists, rules and quiet hours stay.
+      return {
+        ...state,
+        totals: emptyState().totals,
+        domains: {},
+        daily: {},
+        activity: [],
+        observations: [],
+        runs: 0,
+      }
     case 'reset':
       return emptyState()
     default:
@@ -412,6 +423,10 @@ export function AppProvider({ children }) {
       resetData: () => {
         resetStats()
         dispatch({ type: 'reset' })
+      },
+      resetCounters: () => {
+        resetStats()
+        dispatch({ type: 'resetCounters' })
       },
     }),
     [
