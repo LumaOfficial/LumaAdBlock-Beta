@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard'
 import Diagnostics from './pages/Diagnostics'
 import Protection from './pages/Protection'
 import Owner from './pages/Owner'
+import Panel from './pages/Panel'
 import Tools from './pages/Tools'
 import { useAuth } from './lib/useAuth'
 
@@ -26,6 +27,8 @@ export default function App() {
 
   return (
     <Routes>
+      {/* The small browser panel, sized for a popup or Opera side panel. */}
+      <Route path="/panel" element={<Panel />} />
       <Route element={<Layout />}>
         <Route index element={<Dashboard />} />
         <Route path="/protection" element={<Protection />} />

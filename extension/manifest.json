@@ -18,7 +18,8 @@
     "service_worker": "background.js"
   },
   "action": {
-    "default_title": "Luma Ad Blocker"
+    "default_title": "Luma Ad Blocker",
+    "default_popup": "app/index.html#/panel"
   },
   "options_ui": {
     "page": "app/index.html",

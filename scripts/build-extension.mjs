@@ -140,7 +140,11 @@ async function main() {
     permissions: ['alarms', 'declarativeNetRequest', 'storage', 'scripting'],
     host_permissions: ['<all_urls>'],
     background: { service_worker: 'background.js' },
-    action: { default_title: 'Luma Ad Blocker' },
+    action: {
+      default_title: 'Luma Ad Blocker',
+      // The compact panel, sized for a popup or an Opera side panel.
+      default_popup: 'app/index.html#/panel',
+    },
     options_ui: { page: 'app/index.html', open_in_tab: true },
     icons: {
       16: 'icons/icon16.png',

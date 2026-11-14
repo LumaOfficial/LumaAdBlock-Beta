@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { BookOpen, Plus, Trash2 } from 'lucide-react'
 import { CardHead } from '../ui'
 import { useApp } from '../../lib/useApp'
@@ -120,7 +121,8 @@ export default function RuleLibrary() {
       </div>
 
       <p className="footer-note">
-        Added rules appear on Protection with the rest of your setup and sync with your account.
+        Added rules appear on Protection with the rest of your setup and sync with your account.{' '}
+        <Link to="/tools/builder">Nothing here fits? Build your own rule.</Link>
       </p>
     </div>
   )

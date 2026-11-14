@@ -17140,6 +17140,16 @@ const ArrowRight = createLucideIcon("ArrowRight", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
+const ArrowUpRight = createLucideIcon("ArrowUpRight", [
+  ["path", { d: "M7 7h10v10", key: "1tivn9" }],
+  ["path", { d: "M7 17 17 7", key: "1vkiza" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
 const Award = createLucideIcon("Award", [
   [
     "path",
@@ -17156,6 +17166,16 @@ const Award = createLucideIcon("Award", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
+const Ban = createLucideIcon("Ban", [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["path", { d: "m4.9 4.9 14.2 14.2", key: "1m5liu" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
 const BookOpen = createLucideIcon("BookOpen", [
   ["path", { d: "M12 7v14", key: "1akyts" }],
   [
@@ -17165,6 +17185,20 @@ const BookOpen = createLucideIcon("BookOpen", [
       key: "ruj8y"
     }
   ]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const CalendarClock = createLucideIcon("CalendarClock", [
+  ["path", { d: "M21 7.5V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h3.5", key: "1osxxc" }],
+  ["path", { d: "M16 2v4", key: "4m81vk" }],
+  ["path", { d: "M8 2v4", key: "1cmpym" }],
+  ["path", { d: "M3 10h5", key: "r794hk" }],
+  ["path", { d: "M17.5 17.5 16 16.3V14", key: "akvzfd" }],
+  ["circle", { cx: "16", cy: "16", r: "6", key: "qoo3c4" }]
 ]);
 /**
  * @license lucide-react v0.469.0 - ISC
@@ -17211,9 +17245,33 @@ const CircleX = createLucideIcon("CircleX", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
+const Clock3 = createLucideIcon("Clock3", [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["polyline", { points: "12 6 12 12 16.5 12", key: "1aq6pp" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
 const Clock = createLucideIcon("Clock", [
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
   ["polyline", { points: "12 6 12 12 16 14", key: "68esgv" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Cookie = createLucideIcon("Cookie", [
+  ["path", { d: "M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5", key: "laymnq" }],
+  ["path", { d: "M8.5 8.5v.01", key: "ue8clq" }],
+  ["path", { d: "M16 15.5v.01", key: "14dtrp" }],
+  ["path", { d: "M12 12v.01", key: "u5ubse" }],
+  ["path", { d: "M11 17v.01", key: "1hyl5a" }],
+  ["path", { d: "M7 14v.01", key: "uct60s" }]
 ]);
 /**
  * @license lucide-react v0.469.0 - ISC
@@ -17417,6 +17475,18 @@ const Layers = createLucideIcon("Layers", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
+const LayoutGrid = createLucideIcon("LayoutGrid", [
+  ["rect", { width: "7", height: "7", x: "3", y: "3", rx: "1", key: "1g98yp" }],
+  ["rect", { width: "7", height: "7", x: "14", y: "3", rx: "1", key: "6d4xhi" }],
+  ["rect", { width: "7", height: "7", x: "14", y: "14", rx: "1", key: "nxv5o0" }],
+  ["rect", { width: "7", height: "7", x: "3", y: "14", rx: "1", key: "1bb6yr" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
 const ListChecks = createLucideIcon("ListChecks", [
   ["path", { d: "m3 17 2 2 4-4", key: "1jhpwq" }],
   ["path", { d: "m3 7 2 2 4-4", key: "1obspn" }],
@@ -17451,8 +17521,55 @@ const Mail = createLucideIcon("Mail", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
+const Megaphone = createLucideIcon("Megaphone", [
+  ["path", { d: "m3 11 18-5v12L3 14v-3z", key: "n962bs" }],
+  ["path", { d: "M11.6 16.8a3 3 0 1 1-5.8-1.6", key: "1yl0tm" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const MessagesSquare = createLucideIcon("MessagesSquare", [
+  ["path", { d: "M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z", key: "p1xzt8" }],
+  ["path", { d: "M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1", key: "1cx29u" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Minus = createLucideIcon("Minus", [["path", { d: "M5 12h14", key: "1ays0h" }]]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Monitor = createLucideIcon("Monitor", [
+  ["rect", { width: "20", height: "14", x: "2", y: "3", rx: "2", key: "48i651" }],
+  ["line", { x1: "8", x2: "16", y1: "21", y2: "21", key: "1svkeh" }],
+  ["line", { x1: "12", x2: "12", y1: "17", y2: "21", key: "vw1qmm" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
 const Moon = createLucideIcon("Moon", [
   ["path", { d: "M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z", key: "a7tn18" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Play = createLucideIcon("Play", [
+  ["polygon", { points: "6 3 20 12 6 21 6 3", key: "1oa8hb" }]
 ]);
 /**
  * @license lucide-react v0.469.0 - ISC
@@ -17470,11 +17587,50 @@ const Plus = createLucideIcon("Plus", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
+const Radar = createLucideIcon("Radar", [
+  ["path", { d: "M19.07 4.93A10 10 0 0 0 6.99 3.34", key: "z3du51" }],
+  ["path", { d: "M4 6h.01", key: "oypzma" }],
+  ["path", { d: "M2.29 9.62A10 10 0 1 0 21.31 8.35", key: "qzzz0" }],
+  ["path", { d: "M16.24 7.76A6 6 0 1 0 8.23 16.67", key: "1yjesh" }],
+  ["path", { d: "M12 18h.01", key: "mhygvu" }],
+  ["path", { d: "M17.99 11.66A6 6 0 0 1 15.77 16.67", key: "1u2y91" }],
+  ["circle", { cx: "12", cy: "12", r: "2", key: "1c9p78" }],
+  ["path", { d: "m13.41 10.59 5.66-5.66", key: "mhq4k0" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Radio = createLucideIcon("Radio", [
+  ["path", { d: "M4.9 19.1C1 15.2 1 8.8 4.9 4.9", key: "1vaf9d" }],
+  ["path", { d: "M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5", key: "u1ii0m" }],
+  ["circle", { cx: "12", cy: "12", r: "2", key: "1c9p78" }],
+  ["path", { d: "M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5", key: "1j5fej" }],
+  ["path", { d: "M19.1 4.9C23 8.8 23 15.1 19.1 19", key: "10b0cb" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
 const RefreshCw = createLucideIcon("RefreshCw", [
   ["path", { d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8", key: "v9h5vc" }],
   ["path", { d: "M21 3v5h-5", key: "1q7to0" }],
   ["path", { d: "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16", key: "3uifl3" }],
   ["path", { d: "M8 16H3v5", key: "1cv678" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const RotateCcw = createLucideIcon("RotateCcw", [
+  ["path", { d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8", key: "1357e3" }],
+  ["path", { d: "M3 3v5h5", key: "1xhq8a" }]
 ]);
 /**
  * @license lucide-react v0.469.0 - ISC
@@ -17565,6 +17721,52 @@ const ShieldX = createLucideIcon("ShieldX", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
+const Sparkles = createLucideIcon("Sparkles", [
+  [
+    "path",
+    {
+      d: "M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z",
+      key: "4pj2yx"
+    }
+  ],
+  ["path", { d: "M20 3v4", key: "1olli1" }],
+  ["path", { d: "M22 5h-4", key: "1gvqau" }],
+  ["path", { d: "M4 17v2", key: "vumght" }],
+  ["path", { d: "M5 18H3", key: "zchphs" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const SquarePlay = createLucideIcon("SquarePlay", [
+  ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }],
+  ["path", { d: "m9 8 6 4-6 4Z", key: "f1r3lt" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Sun = createLucideIcon("Sun", [
+  ["circle", { cx: "12", cy: "12", r: "4", key: "4exip2" }],
+  ["path", { d: "M12 2v2", key: "tus03m" }],
+  ["path", { d: "M12 20v2", key: "1lh1kg" }],
+  ["path", { d: "m4.93 4.93 1.41 1.41", key: "149t6j" }],
+  ["path", { d: "m17.66 17.66 1.41 1.41", key: "ptbguv" }],
+  ["path", { d: "M2 12h2", key: "1t8f8n" }],
+  ["path", { d: "M20 12h2", key: "1q8mjw" }],
+  ["path", { d: "m6.34 17.66-1.41 1.41", key: "1m8zz5" }],
+  ["path", { d: "m19.07 4.93-1.41 1.41", key: "1shlcs" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
 const Timer = createLucideIcon("Timer", [
   ["line", { x1: "10", x2: "14", y1: "2", y2: "2", key: "14vaq8" }],
   ["line", { x1: "12", x2: "15", y1: "14", y2: "11", key: "17fdiu" }],
@@ -17582,6 +17784,26 @@ const Trash2 = createLucideIcon("Trash2", [
   ["path", { d: "M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2", key: "v07s0e" }],
   ["line", { x1: "10", x2: "10", y1: "11", y2: "17", key: "1uufr5" }],
   ["line", { x1: "14", x2: "14", y1: "11", y2: "17", key: "xtxkd" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const TrendingDown = createLucideIcon("TrendingDown", [
+  ["polyline", { points: "22 17 13.5 8.5 8.5 13.5 2 7", key: "1r2t7k" }],
+  ["polyline", { points: "16 17 22 17 22 11", key: "11uiuu" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const TrendingUp = createLucideIcon("TrendingUp", [
+  ["polyline", { points: "22 7 13.5 15.5 8.5 10.5 2 17", key: "126l90" }],
+  ["polyline", { points: "16 7 22 7 22 13", key: "kwv8wd" }]
 ]);
 /**
  * @license lucide-react v0.469.0 - ISC
@@ -17705,6 +17927,15 @@ function dayKey(date = /* @__PURE__ */ new Date()) {
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
+}
+function windowTotal(state, days = 7, offset = 0) {
+  let total = 0;
+  for (let index = 0; index < days; index += 1) {
+    const date = /* @__PURE__ */ new Date();
+    date.setDate(date.getDate() - offset - index);
+    total += state.daily[dayKey(date)] || 0;
+  }
+  return total;
 }
 function lastNDays(state, n = 7) {
   const series = [];
@@ -17975,6 +18206,54 @@ function AccountMenu() {
     passwordOpen ? /* @__PURE__ */ jsxRuntimeExports.jsx(PasswordDialog, { onClose: () => setPasswordOpen(false) }) : null
   ] });
 }
+function Switch({ on, onChange, label }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    "button",
+    {
+      type: "button",
+      role: "switch",
+      "aria-checked": on,
+      "aria-label": label || "Toggle",
+      className: "switch",
+      "data-on": on ? "true" : "false",
+      onClick: () => onChange(!on)
+    }
+  );
+}
+function PageHead({ eyebrow, title, lede, children }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "page-head", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grow", children: [
+      eyebrow ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "eyebrow", children: eyebrow }) : null,
+      /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "display", style: { marginTop: eyebrow ? 6 : 0 }, children: title }),
+      lede ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "lede", children: lede }) : null
+    ] }),
+    children ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "row", children }) : null
+  ] });
+}
+function CardHead({ title, sub, children }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card-head", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grow", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { children: title }),
+      sub ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: sub }) : null
+    ] }),
+    children
+  ] });
+}
+function useToast() {
+  const [message, setMessage] = reactExports.useState(null);
+  const timer = reactExports.useRef(0);
+  const show = reactExports.useCallback((text) => {
+    setMessage(text);
+    window.clearTimeout(timer.current);
+    timer.current = window.setTimeout(() => setMessage(null), 2400);
+  }, []);
+  reactExports.useEffect(() => () => window.clearTimeout(timer.current), []);
+  const node = message ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "toast", role: "status", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Check, {}),
+    message
+  ] }) : null;
+  return { show, node };
+}
 function DailyByte() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-head", children: [
@@ -18170,54 +18449,6 @@ function FakeSite({ id }) {
   if (id === "tubetime") return /* @__PURE__ */ jsxRuntimeExports.jsx(TubeTime, {});
   if (id === "devnotes") return /* @__PURE__ */ jsxRuntimeExports.jsx(DevNotes, {});
   return /* @__PURE__ */ jsxRuntimeExports.jsx(DailyByte, {});
-}
-function Switch({ on, onChange, label }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(
-    "button",
-    {
-      type: "button",
-      role: "switch",
-      "aria-checked": on,
-      "aria-label": label || "Toggle",
-      className: "switch",
-      "data-on": on ? "true" : "false",
-      onClick: () => onChange(!on)
-    }
-  );
-}
-function PageHead({ eyebrow, title, lede, children }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "page-head", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grow", children: [
-      eyebrow ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "eyebrow", children: eyebrow }) : null,
-      /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "display", style: { marginTop: eyebrow ? 6 : 0 }, children: title }),
-      lede ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "lede", children: lede }) : null
-    ] }),
-    children ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "row", children }) : null
-  ] });
-}
-function CardHead({ title, sub, children }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card-head", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grow", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { children: title }),
-      sub ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: sub }) : null
-    ] }),
-    children
-  ] });
-}
-function useToast() {
-  const [message, setMessage] = reactExports.useState(null);
-  const timer = reactExports.useRef(0);
-  const show = reactExports.useCallback((text) => {
-    setMessage(text);
-    window.clearTimeout(timer.current);
-    timer.current = window.setTimeout(() => setMessage(null), 2400);
-  }, []);
-  reactExports.useEffect(() => () => window.clearTimeout(timer.current), []);
-  const node = message ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "toast", role: "status", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Check, {}),
-    message
-  ] }) : null;
-  return { show, node };
 }
 const DEMO_SITES = [
   {
@@ -18853,6 +19084,490 @@ function LabPanel() {
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Every decision above comes from the protection you have enabled." })
       ] })
+    ] })
+  ] });
+}
+const TILES = 12;
+const ADS = 3;
+const AD_LABELS = ["Sponsored", "Banner ad", "Promo pop-up"];
+const CONTENT_LABELS = ["Article", "Photo", "Video", "Comment", "Recipe", "Review", "Map", "Story", "Profile"];
+function shuffle(items) {
+  const copy = [...items];
+  for (let index = copy.length - 1; index > 0; index -= 1) {
+    const swap = Math.floor(Math.random() * (index + 1));
+    [copy[index], copy[swap]] = [copy[swap], copy[index]];
+  }
+  return copy;
+}
+function makeBoard() {
+  const tiles = [];
+  for (let index = 0; index < TILES; index += 1) {
+    tiles.push({ id: index, ad: index < ADS });
+  }
+  return shuffle(tiles).map((tile, position) => ({
+    ...tile,
+    label: tile.ad ? AD_LABELS[position % AD_LABELS.length] : CONTENT_LABELS[position % CONTENT_LABELS.length]
+  }));
+}
+function AdHunt({ onResult }) {
+  const [board, setBoard] = reactExports.useState(makeBoard);
+  const [phase, setPhase] = reactExports.useState("idle");
+  const [found, setFound] = reactExports.useState([]);
+  const [misses, setMisses] = reactExports.useState(0);
+  const [elapsed, setElapsed] = reactExports.useState(0);
+  const startedAt = reactExports.useRef(0);
+  function start() {
+    setBoard(makeBoard());
+    setFound([]);
+    setMisses(0);
+    setElapsed(0);
+    setPhase("playing");
+    startedAt.current = performance.now();
+  }
+  function hit(tile) {
+    if (phase !== "playing" || found.includes(tile.id)) return;
+    if (!tile.ad) {
+      setMisses((count) => count + 1);
+      return;
+    }
+    const next = [...found, tile.id];
+    setFound(next);
+    if (next.length === ADS) {
+      const ms = Math.round(performance.now() - startedAt.current);
+      setElapsed(ms);
+      setPhase("done");
+      onResult == null ? void 0 : onResult({ value: ms, unit: "ms", label: "Time to clear the board" });
+    }
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "experiment-body", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "experiment-side", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "small muted", children: "Three ads are hiding among twelve page tiles. Click every ad — content tiles cost a miss." }),
+      phase === "idle" ? /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "btn primary", onClick: start, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldCheck, {}),
+        "Start hunting"
+      ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", style: { flexWrap: "wrap" }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
+          found.length,
+          "/",
+          ADS,
+          " ads blocked"
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
+          misses,
+          " misses"
+        ] }),
+        phase === "done" ? /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge good", children: [
+          elapsed,
+          " ms"
+        ] }) : null,
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "btn sm ghost", onClick: start, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(RotateCcw, {}),
+          "New board"
+        ] })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "hunt-grid", children: board.map((tile) => {
+      const blocked = found.includes(tile.id);
+      return /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "button",
+        {
+          type: "button",
+          className: "hunt-tile",
+          "data-ad": tile.ad ? "true" : "false",
+          "data-blocked": blocked ? "true" : "false",
+          onClick: () => hit(tile),
+          disabled: phase !== "playing" || blocked,
+          children: blocked ? "Blocked" : tile.label
+        },
+        tile.id
+      );
+    }) })
+  ] });
+}
+const EXPERIMENTS = [
+  {
+    id: "sites",
+    title: "Simulated sites",
+    blurb: "Four pretend websites, one real filter engine. Watch every request and ad slot get a verdict.",
+    minutes: 2
+  },
+  {
+    id: "ping",
+    title: "Signal chase",
+    blurb: "A reaction game that times how fast a signal reaches the page and comes back — your own ping, in milliseconds.",
+    minutes: 1
+  },
+  {
+    id: "sprint",
+    title: "Ruleset sprint",
+    blurb: "A speed test for the filter engine: thousands of requests screened as fast as it can, measured right here.",
+    minutes: 1
+  },
+  {
+    id: "hunt",
+    title: "Ad hunt",
+    blurb: "A small grid of page tiles. Find the ads as quickly as you can and Luma blocks them for you.",
+    minutes: 1
+  }
+];
+const EPOCH_YEAR = 2026;
+const PER_MONTH = 3;
+const RESULTS_KEY = "luma.experiments.v1";
+const RESULTS_LIMIT = 40;
+function monthKey(date = /* @__PURE__ */ new Date()) {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}`;
+}
+function monthLabel(date = /* @__PURE__ */ new Date()) {
+  return date.toLocaleDateString(void 0, { month: "long", year: "numeric" });
+}
+function nextRotation(date = /* @__PURE__ */ new Date()) {
+  const next = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+  return next.toLocaleDateString(void 0, { month: "long", day: "numeric" });
+}
+function monthlyPreset(date = /* @__PURE__ */ new Date()) {
+  const months = (date.getFullYear() - EPOCH_YEAR) * 12 + date.getMonth();
+  const start = (months % EXPERIMENTS.length + EXPERIMENTS.length) % EXPERIMENTS.length;
+  const picked = [];
+  for (let step = 0; step < PER_MONTH; step += 1) {
+    picked.push(EXPERIMENTS[(start + step) % EXPERIMENTS.length]);
+  }
+  return { key: monthKey(date), label: monthLabel(date), next: nextRotation(date), picked };
+}
+function readResults() {
+  if (typeof window === "undefined") return [];
+  try {
+    const parsed = JSON.parse(window.localStorage.getItem(RESULTS_KEY) || "[]");
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+function saveExperimentResult(experimentId, { value, unit, label, anonymous = false }) {
+  const entry = {
+    id: `${experimentId}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+    experimentId,
+    month: monthKey(),
+    value,
+    unit,
+    label,
+    anonymous: Boolean(anonymous),
+    at: anonymous ? null : (/* @__PURE__ */ new Date()).toISOString()
+  };
+  if (typeof window === "undefined") return entry;
+  try {
+    const next = [entry, ...readResults()].slice(0, RESULTS_LIMIT);
+    window.localStorage.setItem(RESULTS_KEY, JSON.stringify(next));
+  } catch {
+  }
+  return entry;
+}
+function clearExperimentResults() {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.removeItem(RESULTS_KEY);
+  } catch {
+  }
+}
+function buildSprintRequests(rules, count = 1200) {
+  const hosts = [];
+  for (const rule of rules) {
+    if (rule.kind !== "network" || rule.exception) continue;
+    if (!rule.pattern.startsWith("||")) continue;
+    const host = rule.pattern.slice(2).match(/^[a-z0-9.-]+/i);
+    if (host) hosts.push(host[0].toLowerCase());
+    if (hosts.length >= 140) break;
+  }
+  if (!hosts.length) return [];
+  const types = ["script", "image", "xmlhttprequest", "ping", "stylesheet"];
+  const requests = [];
+  for (let index = 0; index < count; index += 1) {
+    requests.push({
+      url: `https://${hosts[index % hosts.length]}/luma-bench-${index}.${index % 3 === 0 ? "gif" : "js"}`,
+      type: types[index % types.length]
+    });
+  }
+  return requests;
+}
+const numberFormat = new Intl.NumberFormat("en-US");
+function formatNumber(value) {
+  return numberFormat.format(Math.round(value || 0));
+}
+function formatCompact(value) {
+  const n = Number(value) || 0;
+  if (n >= 1e6) return (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + "M";
+  if (n >= 1e4) return Math.round(n / 1e3) + "K";
+  if (n >= 1e3) return (n / 1e3).toFixed(1) + "K";
+  return String(Math.round(n));
+}
+function formatMegabytes(megabytes) {
+  const mb = Number(megabytes) || 0;
+  if (mb >= 1024) return { value: (mb / 1024).toFixed(1), unit: "GB" };
+  if (mb > 0 && mb < 10) return { value: mb.toFixed(1), unit: "MB" };
+  return { value: String(Math.round(mb)), unit: "MB" };
+}
+function relativeTime(iso) {
+  const then = new Date(iso).getTime();
+  if (!Number.isFinite(then)) return "just now";
+  const diff = Date.now() - then;
+  const minutes = Math.round(diff / 6e4);
+  if (minutes < 1) return "just now";
+  if (minutes < 60) return `${minutes}m ago`;
+  const hours = Math.round(minutes / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.round(hours / 24);
+  return `${days}d ago`;
+}
+function percent(part, whole) {
+  if (!whole) return "0";
+  return (part / whole * 100).toFixed(1);
+}
+const REQUESTS = 1200;
+function RulesetSprint({ onResult }) {
+  const { rules, state } = useApp();
+  const [running, setRunning] = reactExports.useState(false);
+  const [result, setResult] = reactExports.useState(null);
+  function run() {
+    if (running) return;
+    const requests = buildSprintRequests(rules, REQUESTS);
+    if (!requests.length) {
+      setResult({ error: "Turn on at least one filter list in Protection, then run again." });
+      return;
+    }
+    setRunning(true);
+    setResult(null);
+    window.setTimeout(() => {
+      const started = performance.now();
+      let blocked = 0;
+      for (const request of requests) {
+        const decision = screenRequest(request, {
+          rules,
+          allowlist: state.allowlist,
+          protection: true,
+          pageHost: "speed.luma.test"
+        });
+        if (decision.blocked) blocked += 1;
+      }
+      const elapsed = performance.now() - started;
+      const perSecond = Math.round(requests.length / (elapsed / 1e3));
+      const micros = elapsed * 1e3 / requests.length;
+      setRunning(false);
+      setResult({
+        requests: requests.length,
+        elapsed: Math.round(elapsed),
+        perSecond,
+        micros: Math.round(micros * 10) / 10,
+        blocked
+      });
+      onResult == null ? void 0 : onResult({ value: perSecond, unit: "req/s", label: "Requests per second" });
+    }, 80);
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "experiment-body", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "experiment-side", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "small muted", children: [
+        formatNumber(REQUESTS),
+        " real addresses from your enabled lists, screened once as fast as this browser can."
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "btn primary", onClick: run, disabled: running, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Play, {}),
+        running ? "Screening…" : result ? "Run again" : "Start the sprint"
+      ] }),
+      (result == null ? void 0 : result.error) ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "hint", children: result.error }) : null
+    ] }),
+    result && !result.error ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "experiment-metrics", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: formatNumber(result.perSecond) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "requests per second" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("strong", { children: [
+          result.micros,
+          " µs"
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "per request" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("strong", { children: [
+          formatNumber(result.elapsed),
+          " ms"
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "total time" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: formatNumber(result.blocked) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "blocked" })
+      ] })
+    ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "sprint-track", "data-running": running ? "true" : "false", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", {}),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: running ? "Screening requests…" : "Ready when you are." })
+    ] })
+  ] });
+}
+const ROUNDS = 5;
+function SignalChase({ onResult }) {
+  const [phase, setPhase] = reactExports.useState("idle");
+  const [rounds, setRounds] = reactExports.useState([]);
+  const [message, setMessage] = reactExports.useState("Five rounds. Click the pad the moment it lights up.");
+  const shownAt = reactExports.useRef(0);
+  const timer = reactExports.useRef(0);
+  reactExports.useEffect(() => () => window.clearTimeout(timer.current), []);
+  function beginRound() {
+    window.clearTimeout(timer.current);
+    setPhase("waiting");
+    setMessage("Hold — the signal is on its way.");
+    timer.current = window.setTimeout(() => {
+      shownAt.current = performance.now();
+      setPhase("ready");
+      setMessage("Signal! Click the pad.");
+    }, 900 + Math.random() * 1600);
+  }
+  function start() {
+    setRounds([]);
+    beginRound();
+  }
+  function hit() {
+    if (phase === "waiting") {
+      window.clearTimeout(timer.current);
+      setPhase("idle");
+      setMessage("Too soon — that one does not count. Start again.");
+      return;
+    }
+    if (phase !== "ready") return;
+    const ms = Math.round(performance.now() - shownAt.current);
+    const next = [...rounds, ms];
+    setRounds(next);
+    if (next.length >= ROUNDS) {
+      const average = Math.round(next.reduce((sum, value) => sum + value, 0) / next.length);
+      setPhase("done");
+      setMessage(`Five rounds done — best ${Math.min(...next)} ms, average ${average} ms.`);
+      onResult == null ? void 0 : onResult({ value: average, unit: "ms", label: "Average ping" });
+      return;
+    }
+    beginRound();
+  }
+  const best = rounds.length ? Math.min(...rounds) : null;
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "experiment-body", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      "button",
+      {
+        type: "button",
+        className: "signal-pad",
+        "data-state": phase,
+        onClick: hit,
+        "aria-label": "Signal pad",
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Radio, {}),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: phase === "ready" ? "Click!" : phase === "waiting" ? "Wait…" : phase === "done" ? "Run again" : "Start" })
+        ]
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "experiment-side", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "small muted", children: message }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "row", style: { flexWrap: "wrap", gap: 6 }, children: rounds.map((ms, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
+        ms,
+        " ms"
+      ] }, index)) }),
+      best !== null ? /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "small muted", children: [
+        "Fastest so far: ",
+        best,
+        " ms"
+      ] }) : null,
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "btn sm ghost", onClick: start, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(RotateCcw, {}),
+        phase === "idle" ? "Start" : "Restart"
+      ] })
+    ] })
+  ] });
+}
+const PANELS = {
+  sites: LabPanel,
+  ping: SignalChase,
+  sprint: RulesetSprint,
+  hunt: AdHunt
+};
+function ExperimentsPanel() {
+  const { state } = useApp();
+  const preset = reactExports.useMemo(() => monthlyPreset(), []);
+  const [activeId, setActiveId] = reactExports.useState(preset.picked[0].id);
+  const [results, setResults] = reactExports.useState(readResults);
+  const active = preset.picked.find((experiment) => experiment.id === activeId) || preset.picked[0];
+  const Panel2 = PANELS[active.id];
+  const mine = results.filter((entry) => entry.month === preset.key);
+  function record(result) {
+    saveExperimentResult(active.id, { ...result, anonymous: state.privacy });
+    setResults(readResults());
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "card experiment-banner", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", style: { alignItems: "flex-start", gap: 14 }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "feed-icon", children: /* @__PURE__ */ jsxRuntimeExports.jsx(CalendarClock, {}) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grow", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "eyebrow", children: preset.label }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { style: { fontFamily: "var(--display)", fontSize: 20, marginTop: 4 }, children: "This month's experiments" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "small muted", style: { marginTop: 4 }, children: [
+            "Three rotating checks collect extra diagnostics — games, speed tests and simulations. They refresh on ",
+            preset.next,
+            "."
+          ] })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "site-switch", style: { marginTop: 16 }, children: preset.picked.map((experiment) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "button",
+        {
+          type: "button",
+          className: "site-pill",
+          "data-active": experiment.id === active.id ? "true" : "false",
+          onClick: () => setActiveId(experiment.id),
+          children: experiment.title
+        },
+        experiment.id
+      )) })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "card", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        CardHead,
+        {
+          title: active.title,
+          sub: active.blurb,
+          children: /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Clock3, {}),
+            active.minutes,
+            " min"
+          ] })
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Panel2, { onResult: record })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "card", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "What this month found", sub: "Kept on this device", children: mine.length ? /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "button",
+        {
+          type: "button",
+          className: "btn sm ghost",
+          onClick: () => {
+            clearExperimentResults();
+            setResults(readResults());
+          },
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Trash2, {}),
+            "Clear results"
+          ]
+        }
+      ) : null }),
+      mine.length ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "result-list", children: mine.map((entry) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "result-row", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "feed-icon", children: /* @__PURE__ */ jsxRuntimeExports.jsx(FlaskConical, {}) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grow", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { fontWeight: 600, fontSize: 13 }, children: [
+            entry.value,
+            entry.unit ? ` ${entry.unit}` : ""
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "small muted", children: entry.label })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "small muted", children: entry.at ? relativeTime(entry.at) : "anonymous" })
+      ] }, entry.id)) }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "empty", children: "Run this month's experiments and their results will collect here." }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: state.privacy ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldCheck, { size: 12, style: { verticalAlign: "-2px", marginRight: 4 } }),
+        "Privacy mode is on: results are saved without a date, a site or any device detail."
+      ] }) : "Results stay on this device and are never uploaded." })
     ] })
   ] });
 }
@@ -19717,7 +20432,162 @@ function RuleLibrary() {
         ] }, preset.id);
       }) })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Added rules appear on Protection with the rest of your setup and sync with your account." })
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "footer-note", children: [
+      "Added rules appear on Protection with the rest of your setup and sync with your account.",
+      " ",
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/tools/builder", children: "Nothing here fits? Build your own rule." })
+    ] })
+  ] });
+}
+const MODES = [
+  { id: "block", label: "Block a site", icon: Ban },
+  { id: "allow", label: "Allow a site", icon: ShieldCheck },
+  { id: "hide", label: "Hide something", icon: EyeOff }
+];
+const HIDE_PRESETS = [
+  { id: "promoted", label: "Promoted post", selector: ".promoted-post" },
+  { id: "sponsored", label: "Sponsored card", selector: ".sponsored" },
+  { id: "cookie", label: "Cookie banner", selector: ".cookie-banner" },
+  { id: "newsletter", label: "Newsletter popup", selector: ".newsletter-popup" },
+  { id: "sticky", label: "Sticky subscribe bar", selector: ".sticky-cta" },
+  { id: "chat", label: "Support chat bubble", selector: ".chat-widget" },
+  { id: "slot", label: "Sidebar ad slot", selector: ".ad-slot" }
+];
+const HOST_PATTERN = /^[a-z0-9-]+(\.[a-z0-9-]+)+$/i;
+function RuleBuilder() {
+  const { state, addCustomRule, removeCustomRule } = useApp();
+  const [mode, setMode] = reactExports.useState("block");
+  const [site, setSite] = reactExports.useState("");
+  const [presetId, setPresetId] = reactExports.useState(HIDE_PRESETS[0].id);
+  const toast = useToast();
+  const host = hostnameOf(site);
+  const hostOk = Boolean(host) && HOST_PATTERN.test(host);
+  const siteTyped = site.trim().length > 0;
+  const preset = HIDE_PRESETS.find((item) => item.id === presetId) || HIDE_PRESETS[0];
+  const rule = mode === "hide" ? (hostOk ? host : "") + "##" + preset.selector : (mode === "allow" ? "@@||" : "||") + host + "^";
+  const ready = mode === "hide" ? !siteTyped || hostOk : hostOk;
+  const added = ready && state.customRules.includes(rule);
+  let outcome = null;
+  if (ready) {
+    const parsed = parseFilter(rule, "custom");
+    if (parsed.kind === "invalid") {
+      outcome = { tone: "warn", title: "Luma cannot read that rule", detail: parsed.note };
+    } else if (mode === "block") {
+      const compiled = compileRules([rule], "custom");
+      const decided = evaluateRequest(
+        { url: "https://" + host + "/banner.js", type: "script" },
+        compiled
+      );
+      outcome = decided.blocked ? {
+        tone: "good",
+        title: "Ready to block",
+        detail: `Requests to ${host} will be stopped before they reach the page.`
+      } : {
+        tone: "warn",
+        title: "That address would not be caught",
+        detail: "Check the spelling of the site address."
+      };
+    } else if (mode === "allow") {
+      outcome = {
+        tone: "good",
+        title: "Ready to allow",
+        detail: `Requests to ${host} will load, even where one of your lists blocks them.`
+      };
+    } else {
+      outcome = {
+        tone: "good",
+        title: "Ready to hide",
+        detail: `The ${preset.label.toLowerCase()} will be hidden ${hostOk ? "on " + host : "on every site you visit"}.`
+      };
+    }
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stack", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "grid-2", style: { alignItems: "start" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "What do you want to do?", sub: "Two answers and the rule is written for you" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "builder-mode", children: "Outcome" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "seg", role: "group", "aria-label": "Outcome", id: "builder-mode", children: MODES.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "button",
+            {
+              type: "button",
+              "data-active": item.id === mode ? "true" : "false",
+              "aria-pressed": item.id === mode,
+              onClick: () => setMode(item.id),
+              children: item.label
+            },
+            item.id
+          )) })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field", style: { marginTop: 14 }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "builder-site", children: mode === "hide" ? "Site (leave empty for everywhere)" : "Site address" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "input",
+            {
+              id: "builder-site",
+              className: "input mono",
+              placeholder: "news.example.com",
+              spellCheck: "false",
+              value: site,
+              onChange: (event) => setSite(event.target.value)
+            }
+          )
+        ] }),
+        mode === "hide" ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field", style: { marginTop: 14 }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "builder-preset", children: "What should be hidden?" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "select",
+            {
+              id: "builder-preset",
+              className: "select",
+              value: presetId,
+              onChange: (event) => setPresetId(event.target.value),
+              children: HIDE_PRESETS.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: item.id, children: item.label }, item.id))
+            }
+          )
+        ] }) : null,
+        siteTyped && !hostOk && mode !== "hide" ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "hint", style: { color: "var(--accent-deep)", marginTop: 8 }, children: "That does not look like a site address. Try something like news.example.com." }) : null
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "What this will do", sub: "Checked against your real engine", children: added ? /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge good", children: "In your protection" }) : null }),
+        outcome ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "verdict", "data-ok": outcome.tone === "good" ? "true" : "false", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: outcome.title }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: outcome.detail })
+        ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "empty", children: mode === "hide" ? "Name a site, or leave it empty to hide this on every site." : "Enter a site address to see what the rule would do." }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "row", style: { marginTop: 14 }, children: added ? /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          "button",
+          {
+            type: "button",
+            className: "btn",
+            onClick: () => {
+              removeCustomRule(rule);
+              toast.show("Rule removed");
+            },
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(Trash2, {}),
+              "Remove from protection"
+            ]
+          }
+        ) : /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          "button",
+          {
+            type: "button",
+            className: "btn primary",
+            disabled: !ready || (outcome == null ? void 0 : outcome.tone) !== "good",
+            onClick: () => {
+              addCustomRule(rule);
+              toast.show("Rule added to your protection");
+            },
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(Plus, {}),
+              "Add to my protection"
+            ]
+          }
+        ) })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Built rules appear on Protection with your other rules, follow you to every device signed in to your account, and can be removed here or there." }),
+    toast.node
   ] });
 }
 function sampleFor(pattern) {
@@ -19816,6 +20686,927 @@ function RuleCleanup() {
     /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Nothing is removed on its own — you decide which rules go." })
   ] });
 }
+function ServiceCheck({ service }) {
+  const { rules, state, protectionNow, addCustomRule, removeCustomRule } = useApp();
+  const rule = "||" + service.domain + "^";
+  const added = state.customRules.includes(rule);
+  const checks = service.paths.map((path) => {
+    const url = `https://${service.domain}${path}`;
+    const decision = screenRequest(
+      { url, type: service.type },
+      { rules, allowlist: state.allowlist, protection: protectionNow, pageHost: "news.dailybyte.test" }
+    );
+    return { url, status: decision.status, listId: decision.listId };
+  });
+  const stopped = checks.filter((check) => check.status === "blocked").length;
+  const verdict = !protectionNow ? "Protection is paused" : stopped === checks.length ? "Blocked" : stopped ? "Partly blocked" : "Getting through";
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "grid-2", style: { alignItems: "start" }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: service.label, sub: service.domain, children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge plain", children: verdict }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "small muted", children: service.blurb }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "note", style: { marginTop: 14 }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "eyebrow", children: "What Luma does with it" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stack", style: { gap: 10, marginTop: 8 }, children: checks.map((check) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", style: { justifyContent: "space-between", gap: 10 }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "small mono muted", style: { wordBreak: "break-all" }, children: check.url }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge plain", children: check.status === "blocked" ? "stopped" : check.status })
+        ] }, check.url)) })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "hint", style: { marginTop: 12 }, children: protectionNow ? "Checked against the lists and rules switched on right now." : "Turn protection back on to see what would be stopped." })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stack", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "decision", "data-status": stopped ? "blocked" : "allowed", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "decision-head", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "decision-icon", children: stopped ? /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldX, {}) : /* @__PURE__ */ jsxRuntimeExports.jsx(CircleCheck, {}) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { children: stopped ? "Luma stops it" : "Luma lets it past" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: stopped ? `${stopped} of ${checks.length} ${service.label} requests never leave your browser.` : `${service.label} is not covered by the lists you have on.` })
+        ] })
+      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          CardHead,
+          {
+            title: added ? "This service is blocked" : "Block the whole service",
+            sub: added ? "Added to your own rules" : "Adds one rule for " + service.domain
+          }
+        ),
+        added ? /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "btn ghost", onClick: () => removeCustomRule(rule), children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Trash2, {}),
+          "Remove"
+        ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "btn", onClick: () => addCustomRule(rule), children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Plus, {}),
+          "Stop ",
+          service.label
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", style: { marginTop: 12 }, children: "Your rules stay on this device and apply on every site you visit." })
+      ] })
+    ] })
+  ] });
+}
+const ADVERTISING = [
+  {
+    id: "google-ads",
+    label: "Google Ads",
+    domain: "googlesyndication.com",
+    blurb: "The banner slots Google fills across the web.",
+    type: "script",
+    paths: ["/pagead/show_ads.js", "/pagead/js/adsbygoogle.js"]
+  },
+  {
+    id: "doubleclick",
+    label: "DoubleClick",
+    domain: "doubleclick.net",
+    blurb: "The ad server behind a huge share of display banners.",
+    type: "image",
+    paths: ["/ddm/adi/banner.gif", "/ddm/ad/skippable"]
+  },
+  {
+    id: "amazon-ads",
+    label: "Amazon Ads",
+    domain: "amazon-adsystem.com",
+    blurb: "Amazon ad slots, even on sites that are not Amazon.",
+    type: "script",
+    paths: ["/aax2/apstag.js", "/aax2/getads.js"]
+  },
+  {
+    id: "criteo",
+    label: "Criteo",
+    domain: "criteo.com",
+    blurb: "Retargeting banners that follow you between shops.",
+    type: "script",
+    paths: ["/js/tag.js", "/delivery/rta.js"]
+  },
+  {
+    id: "taboola",
+    label: "Taboola",
+    domain: "taboola.com",
+    blurb: "The sponsored stories under articles.",
+    type: "script",
+    paths: ["/libtrc/loader.js", "/feed/recommendations"]
+  },
+  {
+    id: "outbrain",
+    label: "Outbrain",
+    domain: "outbrain.com",
+    blurb: "Paid recommendations sitting at the end of an article.",
+    type: "script",
+    paths: ["/outbrain.js", "/network/recommend"]
+  },
+  {
+    id: "adroll",
+    label: "AdRoll",
+    domain: "adroll.com",
+    blurb: "Retargeting pixels for smaller shops.",
+    type: "image",
+    paths: ["/r.js", "/a/pixel"]
+  },
+  {
+    id: "media-net",
+    label: "Media.net",
+    domain: "media.net",
+    blurb: "Ad units that look like part of the page.",
+    type: "script",
+    paths: ["/js/adn.js", "/media/getads"]
+  },
+  {
+    id: "pubmatic",
+    label: "PubMatic",
+    domain: "pubmatic.com",
+    blurb: "Auction traffic from a major seller platform.",
+    type: "script",
+    paths: ["/ads.js", "/openrtb/auction"]
+  },
+  {
+    id: "openx",
+    label: "OpenX",
+    domain: "openx.net",
+    blurb: "Bidding calls from the OpenX exchange.",
+    type: "image",
+    paths: ["/w/1.0/arj", "/delivery/js"]
+  },
+  {
+    id: "magnite",
+    label: "Magnite",
+    domain: "rubiconproject.com",
+    blurb: "Rubicon bidding calls for display space.",
+    type: "script",
+    paths: ["/fastlane.js", "/a/auction"]
+  },
+  {
+    id: "index-exchange",
+    label: "Index Exchange",
+    domain: "casalemedia.com",
+    blurb: "Auction calls from Index Exchange.",
+    type: "image",
+    paths: ["/cygnus", "/ads"]
+  },
+  {
+    id: "xandr",
+    label: "Xandr",
+    domain: "adnxs.com",
+    blurb: "AppNexus and Xandr bidding traffic.",
+    type: "image",
+    paths: ["/getuid", "/ab"]
+  },
+  {
+    id: "smart-adserver",
+    label: "Smart AdServer",
+    domain: "smartadserver.com",
+    blurb: "Ad delivery for European publishers.",
+    type: "script",
+    paths: ["/lib.js", "/call.js"]
+  },
+  {
+    id: "teads",
+    label: "Teads",
+    domain: "teads.tv",
+    blurb: "Outstream video ads that play inside articles.",
+    type: "script",
+    paths: ["/inread.js", "/videoad"]
+  },
+  {
+    id: "triplelift",
+    label: "TripleLift",
+    domain: "triplelift.com",
+    blurb: "In-feed native ads sold by TripleLift.",
+    type: "script",
+    paths: ["/tl.js", "/hbag"]
+  },
+  {
+    id: "sharethrough",
+    label: "Sharethrough",
+    domain: "sharethrough.com",
+    blurb: "Native ad slots delivered by Sharethrough.",
+    type: "image",
+    paths: ["/sf.js", "/bids"]
+  },
+  {
+    id: "sovrn",
+    label: "Sovrn",
+    domain: "sovrn.com",
+    blurb: "Bid requests from the Sovrn exchange.",
+    type: "script",
+    paths: ["/api/v1/bid", "/prebid.js"]
+  },
+  {
+    id: "gumgum",
+    label: "GumGum",
+    domain: "gumgum.com",
+    blurb: "Ad tags placed next to article photos.",
+    type: "image",
+    paths: ["/v1/pixel", "/js/gumgum.js"]
+  },
+  {
+    id: "seedtag",
+    label: "Seedtag",
+    domain: "seedtag.com",
+    blurb: "In-image placements from Seedtag.",
+    type: "script",
+    paths: ["/js/seedtag.js", "/tag"]
+  },
+  {
+    id: "ezoic",
+    label: "Ezoic",
+    domain: "ezoic.net",
+    blurb: "The ad scripts Ezoic adds to small blogs.",
+    type: "script",
+    paths: ["/porpoise.js", "/ezoic.js"]
+  },
+  {
+    id: "propellerads",
+    label: "PropellerAds",
+    domain: "propellerads.com",
+    blurb: "Push and pop creatives from an ad network.",
+    type: "script",
+    paths: ["/sw.js", "/push"]
+  },
+  {
+    id: "popads",
+    label: "PopAds",
+    domain: "popads.net",
+    blurb: "Pop-under windows opened by a page.",
+    type: "script",
+    paths: ["/dts.js", "/banner"]
+  },
+  {
+    id: "adcash",
+    label: "AdCash",
+    domain: "adcash.com",
+    blurb: "Pop and interstitial ads from AdCash.",
+    type: "script",
+    paths: ["/js/adcash.js", "/delivery"]
+  },
+  {
+    id: "revcontent",
+    label: "RevContent",
+    domain: "revcontent.com",
+    blurb: "Sponsored content widgets under articles.",
+    type: "script",
+    paths: ["/widget.js", "/feed"]
+  },
+  {
+    id: "mgid",
+    label: "MGID",
+    domain: "mgid.com",
+    blurb: "Paid story widgets on news sites.",
+    type: "script",
+    paths: ["/js/mgid.js", "/feed"]
+  },
+  {
+    id: "bidswitch",
+    label: "BidSwitch",
+    domain: "bidswitch.net",
+    blurb: "Routing traffic between ad exchanges.",
+    type: "image",
+    paths: ["/cs", "/openrtb"]
+  },
+  {
+    id: "smaato",
+    label: "Smaato",
+    domain: "smaato.net",
+    blurb: "Mobile ad requests from Smaato.",
+    type: "image",
+    paths: ["/ad", "/pixel"]
+  },
+  {
+    id: "inmobi",
+    label: "InMobi",
+    domain: "inmobi.com",
+    blurb: "Mobile banners and trackers from InMobi.",
+    type: "image",
+    paths: ["/js/pixel", "/ad"]
+  },
+  {
+    id: "unity-ads",
+    label: "Unity Ads",
+    domain: "unityads.unity3d.com",
+    blurb: "Ad serving inside games built with Unity.",
+    type: "image",
+    paths: ["/webgl/ads", "/pixel"]
+  },
+  {
+    id: "applovin",
+    label: "AppLovin",
+    domain: "applovin.com",
+    blurb: "Ad traffic from a mobile ad network.",
+    type: "image",
+    paths: ["/pixel", "/ad"]
+  },
+  {
+    id: "vungle",
+    label: "Vungle",
+    domain: "vungle.com",
+    blurb: "Video and interstitial calls from Vungle.",
+    type: "image",
+    paths: ["/pixel", "/ad"]
+  },
+  {
+    id: "chartboost",
+    label: "Chartboost",
+    domain: "chartboost.com",
+    blurb: "Mobile ad requests from Chartboost.",
+    type: "image",
+    paths: ["/pixel", "/ad"]
+  },
+  {
+    id: "ironsource",
+    label: "ironSource",
+    domain: "ironsrc.com",
+    blurb: "Ad activity from the ironSource network.",
+    type: "image",
+    paths: ["/pixel", "/ad"]
+  }
+];
+const TRACKING = [
+  {
+    id: "google-analytics",
+    label: "Google Analytics",
+    domain: "google-analytics.com",
+    blurb: "The pageview beacon most sites send.",
+    type: "ping",
+    paths: ["/collect?v=1&t=pageview", "/analytics.js"]
+  },
+  {
+    id: "google-tag-manager",
+    label: "Google Tag Manager",
+    domain: "googletagmanager.com",
+    blurb: "The container that loads other tags.",
+    type: "script",
+    paths: ["/gtm.js?id=GTM-123", "/gtag/js?id=G-123"]
+  },
+  {
+    id: "hotjar",
+    label: "Hotjar",
+    domain: "hotjar.com",
+    blurb: "Session recordings and heatmaps.",
+    type: "script",
+    paths: ["/c/hotjar.js", "/hotjar-123.js"]
+  },
+  {
+    id: "mixpanel",
+    label: "Mixpanel",
+    domain: "mixpanel.com",
+    blurb: "Product analytics event tracking.",
+    type: "script",
+    paths: ["/lib/mixpanel.js", "/track"]
+  },
+  {
+    id: "segment",
+    label: "Segment",
+    domain: "segment.com",
+    blurb: "The pipeline that forwards events to other tools.",
+    type: "script",
+    paths: ["/analytics.js/v1/key.js", "/v1/track"]
+  },
+  {
+    id: "amplitude",
+    label: "Amplitude",
+    domain: "amplitude.com",
+    blurb: "Event tracking for product analytics.",
+    type: "script",
+    paths: ["/libs/amplitude.js", "/2/httpapi"]
+  },
+  {
+    id: "heap",
+    label: "Heap",
+    domain: "heapanalytics.com",
+    blurb: "Automatic click and page capture.",
+    type: "script",
+    paths: ["/js/heap.js", "/h"]
+  },
+  {
+    id: "fullstory",
+    label: "FullStory",
+    domain: "fullstory.com",
+    blurb: "Full session replay scripts.",
+    type: "script",
+    paths: ["/s/fs.js", "/rec"]
+  },
+  {
+    id: "clarity",
+    label: "Microsoft Clarity",
+    domain: "clarity.ms",
+    blurb: "Session replay and heatmaps from Microsoft.",
+    type: "script",
+    paths: ["/tag/123", "/collect"]
+  },
+  {
+    id: "crazy-egg",
+    label: "Crazy Egg",
+    domain: "crazyegg.com",
+    blurb: "Heatmaps and click recordings.",
+    type: "script",
+    paths: ["/js/123.js", "/record"]
+  },
+  {
+    id: "lucky-orange",
+    label: "Lucky Orange",
+    domain: "luckyorange.com",
+    blurb: "Recordings and visitor analytics.",
+    type: "script",
+    paths: ["/js/123", "/record"]
+  },
+  {
+    id: "new-relic",
+    label: "New Relic",
+    domain: "nr-data.net",
+    blurb: "Browser performance beacons.",
+    type: "ping",
+    paths: ["/browser_timing", "/js-agent"]
+  },
+  {
+    id: "sentry",
+    label: "Sentry",
+    domain: "sentry.io",
+    blurb: "Error reports sent from the browser.",
+    type: "ping",
+    paths: ["/api/1/envelope", "/browser-agent"]
+  },
+  {
+    id: "datadog",
+    label: "Datadog RUM",
+    domain: "datadoghq-browser-agent.com",
+    blurb: "Real-user monitoring from Datadog.",
+    type: "script",
+    paths: ["/datadog-rum.js", "/rum"]
+  },
+  {
+    id: "logrocket",
+    label: "LogRocket",
+    domain: "logrocket.io",
+    blurb: "Session replay for web apps.",
+    type: "script",
+    paths: ["/logger.min.js", "/ingest"]
+  },
+  {
+    id: "matomo",
+    label: "Matomo",
+    domain: "matomo.cloud",
+    blurb: "Independent analytics beacons.",
+    type: "ping",
+    paths: ["/matomo.js", "/piwik.php"]
+  },
+  {
+    id: "snowplow",
+    label: "Snowplow",
+    domain: "snowplowanalytics.com",
+    blurb: "Event collection built for data teams.",
+    type: "ping",
+    paths: ["/tp2", "/sp.js"]
+  },
+  {
+    id: "tealium",
+    label: "Tealium",
+    domain: "tiqcdn.com",
+    blurb: "A tag manager that fans events out.",
+    type: "script",
+    paths: ["/utag.js", "/utag/sync"]
+  },
+  {
+    id: "adobe-analytics",
+    label: "Adobe Analytics",
+    domain: "omtrdc.net",
+    blurb: "Adobe measurement beacons.",
+    type: "image",
+    paths: ["/b/ss/123", "/id"]
+  },
+  {
+    id: "braze",
+    label: "Braze",
+    domain: "braze.com",
+    blurb: "Messaging and engagement tracking.",
+    type: "image",
+    paths: ["/api/v3", "/pixel"]
+  },
+  {
+    id: "iterable",
+    label: "Iterable",
+    domain: "iterable.com",
+    blurb: "Email open and campaign tracking.",
+    type: "image",
+    paths: ["/a/123", "/pixel"]
+  },
+  {
+    id: "klaviyo",
+    label: "Klaviyo",
+    domain: "klaviyo.com",
+    blurb: "Shop tracking and onsite popups.",
+    type: "script",
+    paths: ["/onsite/js/klaviyo.js", "/track"]
+  },
+  {
+    id: "mailchimp",
+    label: "Mailchimp",
+    domain: "mailchimp.com",
+    blurb: "Email open pixels and link tracking.",
+    type: "image",
+    paths: ["/track/open.php", "/pixel"]
+  },
+  {
+    id: "hubspot",
+    label: "HubSpot",
+    domain: "hubspot.com",
+    blurb: "Marketing automation tracking.",
+    type: "script",
+    paths: ["/hs-scripts/123.js", "/analytics"]
+  },
+  {
+    id: "marketo",
+    label: "Marketo",
+    domain: "mktoweb.com",
+    blurb: "Lead tracking from Marketo.",
+    type: "script",
+    paths: ["/munchkin.js", "/track"]
+  },
+  {
+    id: "branch",
+    label: "Branch",
+    domain: "branch.io",
+    blurb: "Mobile attribution and deep links.",
+    type: "script",
+    paths: ["/s/123", "/v1/open"]
+  },
+  {
+    id: "appsflyer",
+    label: "AppsFlyer",
+    domain: "appsflyer.com",
+    blurb: "App install attribution.",
+    type: "image",
+    paths: ["/pixel", "/api"]
+  },
+  {
+    id: "adjust",
+    label: "Adjust",
+    domain: "adjust.com",
+    blurb: "Mobile attribution tracking.",
+    type: "image",
+    paths: ["/pixel", "/track"]
+  },
+  {
+    id: "kochava",
+    label: "Kochava",
+    domain: "kochava.com",
+    blurb: "Install attribution beacons.",
+    type: "image",
+    paths: ["/pixel", "/track"]
+  },
+  {
+    id: "singular",
+    label: "Singular",
+    domain: "singular.net",
+    blurb: "Marketing attribution beacons.",
+    type: "image",
+    paths: ["/pixel", "/track"]
+  },
+  {
+    id: "liveramp",
+    label: "LiveRamp",
+    domain: "liveramp.com",
+    blurb: "Identity matching across sites.",
+    type: "image",
+    paths: ["/pixel", "/id"]
+  },
+  {
+    id: "lotame",
+    label: "Lotame",
+    domain: "lotame.com",
+    blurb: "Audience segments and cookie syncs.",
+    type: "image",
+    paths: ["/pixel", "/sync"]
+  },
+  {
+    id: "bluekai",
+    label: "Oracle BlueKai",
+    domain: "bluekai.com",
+    blurb: "Oracle audience data collection.",
+    type: "image",
+    paths: ["/pixel", "/sync"]
+  },
+  {
+    id: "tapad",
+    label: "Tapad",
+    domain: "tapad.com",
+    blurb: "Cross-device identity matching.",
+    type: "image",
+    paths: ["/sync", "/pixel"]
+  }
+];
+const SOCIAL = [
+  {
+    id: "facebook-pixel",
+    label: "Facebook Pixel",
+    domain: "connect.facebook.net",
+    blurb: "The Meta pixel on shop and signup pages.",
+    type: "script",
+    paths: ["/en_US/fbevents.js", "/tr?id=123"]
+  },
+  {
+    id: "meta-audience",
+    label: "Meta Audience Network",
+    domain: "an.facebook.com",
+    blurb: "Meta ads served inside other apps.",
+    type: "image",
+    paths: ["/ads", "/pixel"]
+  },
+  {
+    id: "instagram-ads",
+    label: "Instagram ads",
+    domain: "instagram.com",
+    blurb: "The sponsored posts inside a feed.",
+    type: "image",
+    paths: ["/ads/pixel", "/tr"]
+  },
+  {
+    id: "tiktok-pixel",
+    label: "TikTok Pixel",
+    domain: "analytics.tiktok.com",
+    blurb: "TikTok conversion tracking.",
+    type: "script",
+    paths: ["/i18n/pixel/events.js", "/pixel"]
+  },
+  {
+    id: "tiktok-ads",
+    label: "TikTok Ads",
+    domain: "ads.tiktok.com",
+    blurb: "Promoted video delivery from TikTok.",
+    type: "script",
+    paths: ["/js/sdk.js", "/pixel"]
+  },
+  {
+    id: "linkedin-insight",
+    label: "LinkedIn Insight Tag",
+    domain: "snap.licdn.com",
+    blurb: "LinkedIn conversion tracking.",
+    type: "script",
+    paths: ["/li/track", "/insight.js"]
+  },
+  {
+    id: "linkedin-ads",
+    label: "LinkedIn Ads",
+    domain: "ads.linkedin.com",
+    blurb: "Sponsored posts and ad delivery.",
+    type: "image",
+    paths: ["/ads", "/pixel"]
+  },
+  {
+    id: "x-pixel",
+    label: "X Pixel",
+    domain: "static.ads-twitter.com",
+    blurb: "Conversion tracking for X campaigns.",
+    type: "script",
+    paths: ["/uwt.js", "/1/i/adsct"]
+  },
+  {
+    id: "x-ads",
+    label: "X Ads",
+    domain: "ads-twitter.com",
+    blurb: "Promoted posts delivered by X.",
+    type: "image",
+    paths: ["/ads", "/pixel"]
+  },
+  {
+    id: "pinterest-tag",
+    label: "Pinterest Tag",
+    domain: "ct.pinterest.com",
+    blurb: "Pinterest conversion tracking.",
+    type: "image",
+    paths: ["/v3/", "/user/"]
+  },
+  {
+    id: "pinterest-ads",
+    label: "Pinterest Ads",
+    domain: "ads.pinterest.com",
+    blurb: "Promoted pins delivered by Pinterest.",
+    type: "image",
+    paths: ["/ads", "/pixel"]
+  },
+  {
+    id: "snap-pixel",
+    label: "Snap Pixel",
+    domain: "sc-static.net",
+    blurb: "Snapchat conversion tracking.",
+    type: "script",
+    paths: ["/scevent.min.js", "/tr"]
+  },
+  {
+    id: "snap-ads",
+    label: "Snap Ads",
+    domain: "tr.snapchat.com",
+    blurb: "Snapchat ad delivery and measurement.",
+    type: "image",
+    paths: ["/ads", "/pixel"]
+  },
+  {
+    id: "reddit-pixel",
+    label: "Reddit Pixel",
+    domain: "redditstatic.com",
+    blurb: "Reddit conversion tracking.",
+    type: "script",
+    paths: ["/ads/pixel.js", "/rp.gif"]
+  },
+  {
+    id: "reddit-ads",
+    label: "Reddit Ads",
+    domain: "ads.reddit.com",
+    blurb: "Promoted posts from Reddit.",
+    type: "image",
+    paths: ["/ads", "/pixel"]
+  },
+  {
+    id: "quora-pixel",
+    label: "Quora Pixel",
+    domain: "quora.com",
+    blurb: "Quora conversion tracking.",
+    type: "image",
+    paths: ["/qevents", "/static/pixel.js"]
+  },
+  {
+    id: "quora-ads",
+    label: "Quora Ads",
+    domain: "ads.quora.com",
+    blurb: "Promoted answers from Quora.",
+    type: "image",
+    paths: ["/ads", "/pixel"]
+  },
+  {
+    id: "nextdoor-ads",
+    label: "Nextdoor Ads",
+    domain: "ads.nextdoor.com",
+    blurb: "Local promoted posts.",
+    type: "image",
+    paths: ["/ads", "/pixel"]
+  },
+  {
+    id: "microsoft-ads",
+    label: "Microsoft Ads",
+    domain: "bat.bing.com",
+    blurb: "Bing measurement and remarketing.",
+    type: "script",
+    paths: ["/bat.js", "/action"]
+  },
+  {
+    id: "yahoo-ads",
+    label: "Yahoo Ads",
+    domain: "ads.yahoo.com",
+    blurb: "Display ads from Yahoo.",
+    type: "image",
+    paths: ["/ads", "/pixel"]
+  },
+  {
+    id: "youtube-ads",
+    label: "YouTube ads",
+    domain: "youtube.com",
+    blurb: "The ad pings behind a YouTube pre-roll.",
+    type: "xmlhttprequest",
+    paths: ["/api/stats/ads", "/pagead/interaction"]
+  },
+  {
+    id: "youtube-preroll",
+    label: "YouTube pre-roll",
+    domain: "googlevideo.com",
+    blurb: "The video ad stream before a clip.",
+    type: "media",
+    paths: ["/videoplayback?ad=1"]
+  }
+];
+const CONSENT = [
+  {
+    id: "onetrust",
+    label: "OneTrust",
+    domain: "onetrust.com",
+    blurb: "The cookie banner that holds the page until you answer.",
+    type: "script",
+    paths: ["/consent/123/otnotice.js", "/geo"]
+  },
+  {
+    id: "cookiebot",
+    label: "Cookiebot",
+    domain: "cookiebot.com",
+    blurb: "Consent banners that gate other scripts.",
+    type: "script",
+    paths: ["/uc.js", "/ccm"]
+  },
+  {
+    id: "trustarc",
+    label: "TrustArc",
+    domain: "trustarc.com",
+    blurb: "Consent management banners.",
+    type: "script",
+    paths: ["/consent/123.js", "/truste"]
+  },
+  {
+    id: "quantcast-choice",
+    label: "Quantcast Choice",
+    domain: "quantcast.com",
+    blurb: "A consent banner that also measures you.",
+    type: "script",
+    paths: ["/choice.js", "/consent"]
+  },
+  {
+    id: "osano",
+    label: "Osano",
+    domain: "osano.com",
+    blurb: "Consent popups and cookie scanning.",
+    type: "script",
+    paths: ["/js/osano.js", "/consent"]
+  },
+  {
+    id: "termly",
+    label: "Termly",
+    domain: "termly.io",
+    blurb: "Cookie banners and policy widgets.",
+    type: "script",
+    paths: ["/embed/consent.js", "/consent"]
+  },
+  {
+    id: "usercentrics",
+    label: "Usercentrics",
+    domain: "usercentrics.eu",
+    blurb: "Consent dialogs that gate everything else.",
+    type: "script",
+    paths: ["/settings/123.js", "/consent"]
+  },
+  {
+    id: "didomi",
+    label: "Didomi",
+    domain: "didomi.io",
+    blurb: "Consent notices across European sites.",
+    type: "script",
+    paths: ["/consent/123.js", "/consent"]
+  }
+];
+const CHAT = [
+  {
+    id: "intercom",
+    label: "Intercom",
+    domain: "intercom.io",
+    blurb: "The chat bubble in the corner of a page.",
+    type: "script",
+    paths: ["/messenger.js", "/widget"]
+  },
+  {
+    id: "drift",
+    label: "Drift",
+    domain: "drift.com",
+    blurb: "Chat widgets and sales popups.",
+    type: "script",
+    paths: ["/include.js", "/track"]
+  },
+  {
+    id: "olark",
+    label: "Olark",
+    domain: "olark.com",
+    blurb: "Support chat widget scripts.",
+    type: "script",
+    paths: ["/chat.js", "/track"]
+  },
+  {
+    id: "livechat",
+    label: "LiveChat",
+    domain: "livechatinc.com",
+    blurb: "Live chat widget scripts.",
+    type: "script",
+    paths: ["/tracking.js", "/chat"]
+  },
+  {
+    id: "zendesk-chat",
+    label: "Zendesk Chat",
+    domain: "zopim.com",
+    blurb: "The Zendesk chat widget.",
+    type: "script",
+    paths: ["/chat.min.js", "/track"]
+  },
+  {
+    id: "tawk",
+    label: "Tawk.to",
+    domain: "tawk.to",
+    blurb: "Free chat widget scripts.",
+    type: "script",
+    paths: ["/chat.js", "/track"]
+  },
+  {
+    id: "onesignal",
+    label: "OneSignal",
+    domain: "onesignal.com",
+    blurb: "Push notification prompts and scripts.",
+    type: "script",
+    paths: ["/sdks/onesignal.js", "/push"]
+  },
+  {
+    id: "pushwoosh",
+    label: "Pushwoosh",
+    domain: "pushwoosh.com",
+    blurb: "Web push subscription requests.",
+    type: "script",
+    paths: ["/js/push.js", "/push"]
+  }
+];
+const SERVICE_CHECKS = [
+  ...ADVERTISING.map((service) => ({ ...service, section: "Advertising" })),
+  ...TRACKING.map((service) => ({ ...service, section: "Tracking" })),
+  ...SOCIAL.map((service) => ({ ...service, section: "Social & video" })),
+  ...CONSENT.map((service) => ({ ...service, section: "Consent & popups" })),
+  ...CHAT.map((service) => ({ ...service, section: "Chat & push" }))
+];
 function TrustedSites() {
   const { state, removeAllow } = useApp();
   const [needle, setNeedle] = reactExports.useState("");
@@ -19856,39 +21647,6 @@ function TrustedSites() {
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "A trusted site is left exactly as it is, ads included. Removing one brings protection back." })
   ] });
-}
-const numberFormat = new Intl.NumberFormat("en-US");
-function formatNumber(value) {
-  return numberFormat.format(Math.round(value || 0));
-}
-function formatCompact(value) {
-  const n = Number(value) || 0;
-  if (n >= 1e6) return (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + "M";
-  if (n >= 1e4) return Math.round(n / 1e3) + "K";
-  if (n >= 1e3) return (n / 1e3).toFixed(1) + "K";
-  return String(Math.round(n));
-}
-function formatMegabytes(megabytes) {
-  const mb = Number(megabytes) || 0;
-  if (mb >= 1024) return { value: (mb / 1024).toFixed(1), unit: "GB" };
-  if (mb > 0 && mb < 10) return { value: mb.toFixed(1), unit: "MB" };
-  return { value: String(Math.round(mb)), unit: "MB" };
-}
-function relativeTime(iso) {
-  const then = new Date(iso).getTime();
-  if (!Number.isFinite(then)) return "just now";
-  const diff = Date.now() - then;
-  const minutes = Math.round(diff / 6e4);
-  if (minutes < 1) return "just now";
-  if (minutes < 60) return `${minutes}m ago`;
-  const hours = Math.round(minutes / 60);
-  if (hours < 24) return `${hours}h ago`;
-  const days = Math.round(hours / 24);
-  return `${days}d ago`;
-}
-function percent(part, whole) {
-  if (!whole) return "0";
-  return (part / whole * 100).toFixed(1);
 }
 const MEGABYTES_PER_AD = 0.09;
 function SavingsCalculator() {
@@ -20205,7 +21963,7 @@ function ProtectionScore() {
     ] })
   ] }) });
 }
-const TOOLS$1 = [
+const EVERYDAY = [
   {
     id: "score",
     label: "Protection score",
@@ -20216,13 +21974,13 @@ const TOOLS$1 = [
     Panel: ProtectionScore
   },
   {
-    id: "lab",
-    label: "Test lab",
+    id: "experiments",
+    label: "Experiments",
     icon: FlaskConical,
-    title: "See the engine work.",
-    lede: "Four simulated sites, one real filter engine. Luma screens every request and hides every ad slot using the rules you have enabled.",
-    blurb: "Watch Luma strip ads from four simulated sites.",
-    Panel: LabPanel
+    title: "This month in the lab.",
+    lede: "Three rotating experiments collect extra diagnostics — games, speed tests and simulations. The set changes every month, and every result stays on this device.",
+    blurb: "Play this month’s diagnostics: games, speed tests and more.",
+    Panel: ExperimentsPanel
   },
   {
     id: "inspector",
@@ -20261,6 +22019,17 @@ const TOOLS$1 = [
     Panel: RuleLibrary
   },
   {
+    id: "builder",
+    label: "Rule builder",
+    icon: Sparkles,
+    title: "Rules without the syntax.",
+    lede: "Say what you want in plain words. Luma writes the rule, checks it against the engine, and adds it to your protection.",
+    blurb: "Build your own rule in plain words.",
+    // Reachable from the sidebar shortcut; kept off the All tools grid.
+    hiddenFromHub: true,
+    Panel: RuleBuilder
+  },
+  {
     id: "cleanup",
     label: "Rule clean-up",
     icon: Eraser,
@@ -20297,6 +22066,24 @@ const TOOLS$1 = [
     Panel: SpeedCheck
   }
 ];
+const SECTION_ICONS = {
+  Advertising: Megaphone,
+  Tracking: Radar,
+  "Social & video": SquarePlay,
+  "Consent & popups": Cookie,
+  "Chat & push": MessagesSquare
+};
+const SERVICE_TOOLS = SERVICE_CHECKS.map((service) => ({
+  id: service.id,
+  label: service.label,
+  icon: SECTION_ICONS[service.section] || Radar,
+  section: service.section,
+  title: `Does Luma block ${service.label}?`,
+  lede: `See what happens to ${service.label} with the protection you have on, and stop the whole service in one tap.`,
+  blurb: service.blurb,
+  Panel: () => /* @__PURE__ */ jsxRuntimeExports.jsx(ServiceCheck, { service })
+}));
+const TOOLS$1 = [...EVERYDAY, ...SERVICE_TOOLS];
 function toolById(id) {
   return TOOLS$1.find((tool) => tool.id === id) || null;
 }
@@ -20311,29 +22098,25 @@ const NAV = [
       { to: "/protection", label: "Protection", icon: ShieldCheck },
       { to: "/activity", label: "Activity", icon: History }
     ]
-  },
-  {
-    label: "Account",
-    items: [{ to: "/account", label: "Account & settings", icon: UserRound }]
   }
 ];
 const TOOLS = [
   { to: "/tools", label: "All tools", icon: Wrench, end: true },
-  { to: "/tools/lab", label: "Test lab", icon: FlaskConical },
-  { to: "/tools/inspector", label: "URL inspector", icon: Search }
+  { to: "/tools/experiments", label: "Experiments", icon: FlaskConical },
+  { to: "/account", label: "Account & settings", icon: UserRound }
 ];
 const TITLES = {
   "/": "Overview",
   "/protection": "Protection",
   "/activity": "Activity",
-  "/account": "Account",
+  "/account": "Account & settings",
   "/tools": "Tools",
   "/diagnostics": "Diagnostics",
   "/owner": "Owner console"
 };
 function Layout() {
   var _a;
-  const { state, setProtection } = useApp();
+  const { state, setProtection, setPrivacy, protectionNow } = useApp();
   const location = useLocation();
   reactExports.useEffect(() => {
     window.scrollTo(0, 0);
@@ -20382,14 +22165,18 @@ function Layout() {
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "sidebar-foot", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "side-status", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "status-line", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: state.protection ? "dot" : "dot off" }),
-            state.protection ? "Protected" : "Paused"
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: protectionNow ? "dot" : "dot off" }),
+            state.privacy ? "Privacy mode" : protectionNow ? "Protected" : "Paused"
           ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: state.privacy ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+            "Blocking is off. Diagnostics",
+            /* @__PURE__ */ jsxRuntimeExports.jsx("br", {}),
+            "continue, without your details"
+          ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
             "Ads, trackers and annoyances",
             /* @__PURE__ */ jsxRuntimeExports.jsx("br", {}),
             "filtered before they load"
-          ] })
+          ] }) })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "side-links", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Luma 0.1 beta" }),
@@ -20402,10 +22189,17 @@ function Layout() {
       /* @__PURE__ */ jsxRuntimeExports.jsxs("header", { className: "topbar", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "topbar-title", children: title }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "topbar-right", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge " + (state.protection ? "good" : "plain"), children: state.protection ? "On" : "Paused" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge " + (state.privacy ? "warn" : state.protection ? "good" : "plain"), children: state.privacy ? "Private" : state.protection ? "On" : "Paused" }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "quick-toggle", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: state.protection ? "Protection on" : "Protection off" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Switch, { on: state.protection, onChange: setProtection, label: "Toggle protection" })
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: state.privacy ? "Privacy mode" : state.protection ? "Protection on" : "Protection off" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              Switch,
+              {
+                on: state.privacy ? false : state.protection,
+                onChange: (next) => state.privacy ? setPrivacy(false) : setProtection(next),
+                label: "Toggle protection"
+              }
+            )
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(AccountMenu, {})
         ] })
@@ -20548,6 +22342,8 @@ function buildBackup(state) {
     version: VERSION,
     exportedAt: (/* @__PURE__ */ new Date()).toISOString(),
     protection: Boolean(state.protection),
+    theme: state.theme === "light" || state.theme === "dark" ? state.theme : "system",
+    privacy: Boolean(state.privacy),
     lists: { ...DEFAULT_LISTS, ...state.lists || {} },
     customRules: [...state.customRules || []],
     allowlist: [...state.allowlist || []],
@@ -20628,6 +22424,8 @@ function readBackup(text) {
     ok: true,
     settings: {
       protection: typeof parsed.protection === "boolean" ? parsed.protection : true,
+      theme: parsed.theme === "light" || parsed.theme === "dark" ? parsed.theme : "system",
+      privacy: parsed.privacy === true,
       lists,
       customRules,
       allowlist,
@@ -20720,6 +22518,11 @@ function BackupCard() {
     toast.node
   ] });
 }
+const THEMES = [
+  { id: "system", label: "System", icon: Monitor },
+  { id: "light", label: "Light", icon: Sun },
+  { id: "dark", label: "Dark", icon: Moon }
+];
 function methodLabel$1(via) {
   if (via === "code") return "email code";
   if (via === "password") return "password";
@@ -20731,7 +22534,7 @@ function joined$1(value) {
 }
 function Account() {
   const { user, stateLabel, signOut } = useAuth();
-  const { state, resetCounters } = useApp();
+  const { state, resetCounters, setTheme, setPrivacy } = useApp();
   const [passwordOpen, setPasswordOpen] = reactExports.useState(false);
   const [confirmReset, setConfirmReset] = reactExports.useState(false);
   const initials = ((user == null ? void 0 : user.name) || "").split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join("").toUpperCase();
@@ -20741,7 +22544,7 @@ function Account() {
       {
         eyebrow: "Account",
         title: "Your account and settings.",
-        lede: "The account your protection settings sync to, and the few things that stay on this device."
+        lede: "The account your protection settings sync to, plus the look and privacy choices that follow you."
       }
     ),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "grid-2", children: [
@@ -20791,6 +22594,41 @@ function Account() {
       ] })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "grid-2", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Theme", sub: "How Luma looks, on every device you sign in to" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "theme-options", role: "group", "aria-label": "Theme", children: THEMES.map((option) => {
+          const Icon2 = option.icon;
+          return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "button",
+            {
+              type: "button",
+              className: "theme-option",
+              "data-active": state.theme === option.id ? "true" : "false",
+              "aria-pressed": state.theme === option.id,
+              onClick: () => setTheme(option.id),
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, {}),
+                option.label
+              ]
+            },
+            option.id
+          );
+        }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "System follows your device's light or dark setting and switches with it." })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Privacy mode", sub: "No blocking, anonymous diagnostics", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Switch, { on: state.privacy, onChange: setPrivacy, label: "Privacy mode" }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "small muted", children: "Turns every block off and pauses anything that could identify you. Diagnostics keep running, but they forget the who: no site names, no addresses and no activity log." }),
+        state.privacy ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "note", style: { marginTop: 12 }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", style: { gap: 8 }, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(EyeOff, { width: 14, height: 14 }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Private browsing is on." })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "small muted", style: { marginTop: 4 }, children: "Ads are loading, and the pages you visit are not recorded. Anything collected before now stays on this device until you reset counters." })
+        ] }) : null
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "grid-2", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(ScheduleCard, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsx(BackupCard, {})
     ] }),
@@ -20828,6 +22666,11 @@ function Account() {
     passwordOpen ? /* @__PURE__ */ jsxRuntimeExports.jsx(PasswordDialog, { onClose: () => setPasswordOpen(false) }) : null
   ] });
 }
+const FILTERS = [
+  { id: "all", label: "Everything" },
+  { id: "blocked", label: "Stopped" },
+  { id: "allowed", label: "Allowed" }
+];
 function logRows(state) {
   const rows = [];
   const seen = /* @__PURE__ */ new Set();
@@ -20843,13 +22686,34 @@ function logRows(state) {
   }
   return rows.sort((a, b) => Date.parse(b.at) - Date.parse(a.at)).slice(0, 200);
 }
+function saveLog(rows) {
+  const lines = ["when,site,outcome"];
+  for (const row of rows) {
+    const when = new Date(row.at);
+    const stamp2 = Number.isFinite(when.getTime()) ? when.toISOString() : "";
+    lines.push([stamp2, row.host, row.blocked ? "stopped" : "allowed"].join(","));
+  }
+  const blob = new Blob([lines.join("\n") + "\n"], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "luma-activity-" + dayKey() + ".csv";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
 function Activity() {
-  const { state } = useApp();
+  const { state, addCustomRule } = useApp();
   const blockedToday = useBlockedToday();
   const [query, setQuery] = reactExports.useState("");
+  const [filter, setFilter] = reactExports.useState("all");
+  const toast = useToast();
   const rows = reactExports.useMemo(() => logRows(state), [state]);
+  const stopped = rows.filter((row) => row.blocked).length;
+  const allowed = rows.length - stopped;
   const needle = query.trim().toLowerCase();
-  const visible = needle ? rows.filter((row) => row.host.toLowerCase().includes(needle)) : rows;
+  const visible = rows.filter((row) => filter === "all" ? true : filter === "blocked" ? row.blocked : !row.blocked).filter((row) => needle ? row.host.toLowerCase().includes(needle) : true);
   const blockedShare = percent(state.totals.blocked, state.totals.screened);
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -20865,6 +22729,10 @@ function Activity() {
         ] })
       }
     ),
+    state.privacy ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "note", style: { marginBottom: 18 }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Privacy mode is on." }),
+      " New entries are not recorded: no site names, no addresses. Anything collected before now is still below until you reset counters."
+    ] }) : null,
     /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "stat-grid", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat-label", children: [
@@ -20903,37 +22771,90 @@ function Activity() {
       ] })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "card", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Request log", sub: "The last 200 entries, newest first" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "inline-form", style: { marginBottom: 4 }, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "activity-filter", children: "Filter by site" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(
-          "input",
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Request log", sub: "The last 200 entries, newest first", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "button",
+        {
+          type: "button",
+          className: "btn sm ghost",
+          disabled: !visible.length,
+          onClick: () => {
+            saveLog(visible);
+            toast.show("Log saved to this device");
+          },
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Download, {}),
+            "Save log"
+          ]
+        }
+      ) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "inline-form", style: { marginBottom: 4 }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "activity-filter", children: "Filter by site" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "input",
+            {
+              id: "activity-filter",
+              className: "input",
+              value: query,
+              placeholder: "news.example",
+              onChange: (event) => setQuery(event.target.value)
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "seg", role: "group", "aria-label": "Show", children: FILTERS.map((option) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          "button",
           {
-            id: "activity-filter",
-            className: "input",
-            value: query,
-            placeholder: "news.example",
-            onChange: (event) => setQuery(event.target.value)
-          }
-        )
-      ] }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed", children: [
-        visible.map((row) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-row", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "feed-icon", children: row.blocked ? /* @__PURE__ */ jsxRuntimeExports.jsx(EyeOff, {}) : /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldCheck, {}) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-main", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "host", children: row.host }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "rule", children: row.blocked ? "Stopped before it loaded" : "Allowed to load" })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "feed-side", children: /* @__PURE__ */ jsxRuntimeExports.jsx("time", { children: relativeTime(row.at) }) })
-        ] }, row.id)),
-        !visible.length ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "empty", children: needle ? "No request from a site matching that filter." : "Nothing logged yet. Run the test lab to watch the engine work, or install the extension for live activity." }) : null
+            type: "button",
+            "data-active": option.id === filter ? "true" : "false",
+            "aria-pressed": option.id === filter,
+            onClick: () => setFilter(option.id),
+            children: [
+              option.label,
+              " ",
+              option.id === "all" ? rows.length : option.id === "blocked" ? stopped : allowed
+            ]
+          },
+          option.id
+        )) })
       ] }),
-      !needle && !rows.length ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "row", style: { marginTop: 14 }, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: "/tools/lab", className: "btn sm", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed", children: [
+        visible.map((row) => {
+          const allowRule2 = "@@||" + row.host + "^";
+          const allowedAlready = state.customRules.includes(allowRule2);
+          return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-row", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "feed-icon", children: row.blocked ? /* @__PURE__ */ jsxRuntimeExports.jsx(EyeOff, {}) : /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldCheck, {}) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-main", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "host", children: row.host }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "rule", children: row.blocked ? "Stopped before it loaded" : "Allowed to load" })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-side", children: [
+              row.blocked ? allowedAlready ? /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge good", children: "Allowed" }) : /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "button",
+                {
+                  type: "button",
+                  className: "icon-btn",
+                  title: "Always allow requests to " + row.host,
+                  "aria-label": "Always allow requests to " + row.host,
+                  onClick: () => {
+                    addCustomRule(allowRule2);
+                    toast.show(row.host + " allowed");
+                  },
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(Undo2, {})
+                }
+              ) : null,
+              /* @__PURE__ */ jsxRuntimeExports.jsx("time", { children: relativeTime(row.at) })
+            ] })
+          ] }, row.id);
+        }),
+        !visible.length ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "empty", children: needle || filter !== "all" ? "No request in the log matches that." : "Nothing logged yet. Run an experiment to watch the engine work, or install the extension for live activity." }) : null
+      ] }),
+      !needle && filter === "all" && !rows.length ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "row", style: { marginTop: 14 }, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: "/tools/experiments", className: "btn sm", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(FlaskConical, {}),
-        "Run the test lab"
+        "Run an experiment"
       ] }) }) : null
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "This log never leaves your device." })
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "This log never leaves your device unless you save a copy." }),
+    toast.node
   ] });
 }
 const SUPPORT_EMAIL = "lumasupport@tidio.xyz";
@@ -22244,6 +24165,49 @@ function TrendChart() {
     ] })
   ] });
 }
+function WeeklyRecap() {
+  const { state } = useApp();
+  const series = reactExports.useMemo(() => lastNDays(state, 7), [state]);
+  const thisWeek = series.reduce((sum, day) => sum + day.count, 0);
+  const lastWeek = reactExports.useMemo(() => windowTotal(state, 7, 7), [state]);
+  const busiest = series.reduce((best, day) => day.count > best.count ? day : best, series[0]);
+  const top = Object.entries(state.domains).sort((a, b) => b[1] - a[1])[0];
+  const change = lastWeek ? Math.round((thisWeek - lastWeek) / lastWeek * 100) : null;
+  const trend = change === null || change === 0 ? "flat" : change > 0 ? "up" : "down";
+  const TrendIcon = trend === "up" ? TrendingUp : trend === "down" ? TrendingDown : Minus;
+  const sentence = !thisWeek ? "Nothing has been stopped in the last seven days. Run an experiment, or keep browsing with Luma on, and this fills in." : change === null ? `Luma stopped ${formatNumber(thisWeek)} requests in the last seven days — the first week of activity here.` : change === 0 ? `Luma stopped ${formatNumber(thisWeek)} requests this week, exactly as many as the week before.` : `Luma stopped ${formatNumber(thisWeek)} requests this week, ${Math.abs(change)}% ${change > 0 ? "more" : "fewer"} than the week before.`;
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "This week", sub: "The last seven days against the week before", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge " + (trend === "up" ? "good" : "plain"), children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(TrendIcon, { width: 12, height: 12 }),
+      change === null ? "New" : change === 0 ? "Steady" : `${change > 0 ? "+" : ""}${change}%`
+    ] }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "small", style: { color: "var(--ink-2)" }, children: sentence }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mini-stats", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Seven-day total" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: formatNumber(thisWeek) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("small", { children: [
+          formatNumber(lastWeek),
+          " the week before"
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Per day" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: formatNumber(Math.round(thisWeek / 7)) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("small", { children: "average this week" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Busiest day" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: formatNumber(thisWeek ? busiest.count : 0) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("small", { children: thisWeek ? busiest.label : "Nothing blocked yet" })
+      ] })
+    ] }),
+    top ? /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "footer-note", style: { marginTop: 12 }, children: [
+      "Most blocked site so far: ",
+      top[0]
+    ] }) : null
+  ] });
+}
 function BreakdownCard() {
   const { state } = useApp();
   const blocked = state.totals.blocked || 0;
@@ -22418,10 +24382,10 @@ function SiteControls() {
 }
 const ACTIONS = [
   {
-    to: "/tools/lab",
+    to: "/tools/experiments",
     icon: FlaskConical,
-    title: "Run the test lab",
-    text: "Watch Luma strip ads from four simulated sites."
+    title: "Run this month’s experiments",
+    text: "Games, speed tests and simulated sites that collect extra diagnostics."
   },
   {
     to: "/protection",
@@ -22444,14 +24408,14 @@ function greeting() {
 }
 function Dashboard() {
   var _a;
-  const { state, setProtection, protectionNow, pausedBySchedule } = useApp();
+  const { state, setProtection, setPrivacy, protectionNow, pausedBySchedule } = useApp();
   const { user } = useAuth();
   const firstName = (_a = user == null ? void 0 : user.name) == null ? void 0 : _a.split(/\s+/)[0];
   const blockedToday = useBlockedToday();
   const data = formatMegabytes(state.totals.megabytes);
   const blockedShare = percent(state.totals.blocked, state.totals.screened);
-  const title = pausedBySchedule ? "Quiet hours are on." : protectionNow ? "The web, quiet again." : "Protection is paused.";
-  const lede = pausedBySchedule ? `Luma is taking a break until ${clockLabel(state.schedule.to)}. Everything resumes on its own.` : protectionNow ? "Ads, trackers and annoyances are filtered before they ever reach the page." : "Ads and trackers are loading everywhere while Luma is off. Flip it back on when you are ready.";
+  const title = state.privacy ? "Privacy mode is on." : pausedBySchedule ? "Quiet hours are on." : protectionNow ? "The web, quiet again." : "Protection is paused.";
+  const lede = state.privacy ? "Nothing is blocked and nothing about your browsing is recorded. Diagnostics keep running without your details." : pausedBySchedule ? `Luma is taking a break until ${clockLabel(state.schedule.to)}. Everything resumes on its own.` : protectionNow ? "Ads, trackers and annoyances are filtered before they ever reach the page." : "Ads and trackers are loading everywhere while Luma is off. Flip it back on when you are ready.";
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(PageHead, { eyebrow: firstName ? `${greeting()}, ${firstName}` : greeting(), title, lede }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "card hero-card", children: [
@@ -22471,15 +24435,15 @@ function Dashboard() {
             type: "button",
             className: "switch",
             role: "switch",
-            "aria-checked": state.protection,
+            "aria-checked": state.privacy ? false : state.protection,
             "aria-label": "Protection",
-            "data-on": state.protection ? "true" : "false",
-            onClick: () => setProtection(!state.protection)
+            "data-on": (state.privacy ? false : state.protection) ? "true" : "false",
+            onClick: () => state.privacy ? setPrivacy(false) : setProtection(!state.protection)
           }
         ),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "state", children: [
-          state.protection ? "Protection on" : "Protection off",
-          /* @__PURE__ */ jsxRuntimeExports.jsx("small", { children: pausedBySchedule ? "Quiet hours, resumes on its own" : state.protection ? "All engines running" : "Tap to resume blocking" })
+          state.privacy ? "Privacy mode" : state.protection ? "Protection on" : "Protection off",
+          /* @__PURE__ */ jsxRuntimeExports.jsx("small", { children: state.privacy ? "Nothing blocked, nothing recorded" : pausedBySchedule ? "Quiet hours, resumes on its own" : state.protection ? "All engines running" : "Tap to resume blocking" })
         ] })
       ] })
     ] }),
@@ -22527,6 +24491,7 @@ function Dashboard() {
         ] })
       ] })
     ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(WeeklyRecap, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "grid-2", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(TrendChart, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsx(BreakdownCard, {})
@@ -22534,7 +24499,7 @@ function Dashboard() {
     /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "grid-2", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(SiteControls, {}),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Recent activity", sub: "The last requests Luma stopped", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: "/tools/lab", className: "btn sm ghost", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Recent activity", sub: "The last requests Luma stopped", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: "/tools/experiments", className: "btn sm ghost", children: [
           "Live demo",
           /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowRight, {})
         ] }) }),
@@ -22664,7 +24629,7 @@ function Diagnostics() {
             },
             item.id
           )),
-          !observations.length ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "empty", children: "Nothing observed yet. Open the test lab or the inspector and Luma starts watching." }) : null
+          !observations.length ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "empty", children: "Nothing observed yet. Run an experiment or open the URL inspector and Luma starts watching." }) : null
         ] })
       ] })
     ] }),
@@ -22699,6 +24664,52 @@ function Diagnostics() {
         !state.learned.length ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "empty", children: "No patterns learned yet. When a request gets past every rule and still looks like an ad, Luma writes a rule for its host automatically." }) : null
       ] })
     ] })
+  ] });
+}
+function DetectionCard() {
+  const { state, setDeep, clearLearned } = useApp();
+  const toast = useToast();
+  const learned = state.learned.length;
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Self-improvement", sub: "When an ad slips past your lists, Luma writes the rule that stops it next time", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Sparkles, {}),
+      formatNumber(learned),
+      " learned"
+    ] }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", style: { justifyContent: "space-between", alignItems: "flex-start", gap: 16 }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grow", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { fontWeight: 600, fontSize: 13 }, children: "Look harder for ads" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "small muted", children: "Also watches a site’s own ad servers, not just the outside ones. More coverage — and the odd thing you wanted may get hidden." })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Switch, { on: state.deep, onChange: setDeep, label: "Look harder for ads" })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      "div",
+      {
+        className: "row",
+        style: { justifyContent: "space-between", alignItems: "center", gap: 12, marginTop: 14 },
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "hint", style: { margin: 0 }, children: learned ? `${formatNumber(learned)} rule${learned === 1 ? "" : "s"} written here. They stay on this device.` : "Nothing learned yet. Rules appear here as soon as something gets past your lists." }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "button",
+            {
+              className: "btn sm ghost",
+              type: "button",
+              disabled: !learned,
+              onClick: () => {
+                clearLearned();
+                toast.show("Learned rules cleared");
+              },
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(RotateCcw, {}),
+                "Forget learned rules"
+              ]
+            }
+          )
+        ]
+      }
+    ),
+    toast.node
   ] });
 }
 function FilterListsPanel() {
@@ -22764,7 +24775,14 @@ function FilterListsPanel() {
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsx(Switch, { on, onChange: () => toggleList(list.id), label: "Toggle " + list.name })
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "list-meta", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Updated weekly" }) })
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "list-meta", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: list.rules.filter((line) => line && !line.startsWith("!")).length }),
+            " ",
+            "rules"
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Updated weekly" })
+        ] })
       ] }, list.id);
     }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "grid-2", style: { alignItems: "start" }, children: [
@@ -22903,7 +24921,8 @@ function Protection() {
         ] })
       }
     ),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(FilterListsPanel, {})
+    /* @__PURE__ */ jsxRuntimeExports.jsx(FilterListsPanel, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(DetectionCard, {})
   ] });
 }
 async function fetchAccounts() {
@@ -23023,11 +25042,82 @@ function Owner() {
     ] })
   ] });
 }
+function openPage(route) {
+  const base = window.location.href.split("#")[0];
+  window.open(base + "#" + route, "_blank", "noopener");
+}
+const SHORTCUTS = [
+  { route: "/tools/builder", label: "Rule builder", sub: "Say it in plain words", icon: Sparkles },
+  { route: "/tools", label: "All tools", sub: "Checks, lists and tidy-up", icon: LayoutGrid }
+];
+function Panel() {
+  const { state, protectionNow, setProtection, setPrivacy } = useApp();
+  const blockedToday = useBlockedToday();
+  reactExports.useEffect(() => {
+    document.documentElement.classList.add("is-panel");
+    return () => document.documentElement.classList.remove("is-panel");
+  }, []);
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("main", { className: "panel", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("header", { className: "panel-head", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "brand-mark" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "brand-name", children: [
+        "Luma",
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Ad blocker" })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "panel-stat", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "eyebrow", children: "Stopped today" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: blockedToday.toLocaleString() }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "small muted", children: "ads, trackers and annoyances" })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "panel-row", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { fontWeight: 600, fontSize: 13 }, children: state.privacy ? "Privacy mode" : protectionNow ? "Protection on" : "Protection off" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "small muted", children: state.privacy ? "Blocking is off, diagnostics are anonymised" : protectionNow ? "Filtering before anything loads" : "Nothing is being filtered" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Switch,
+        {
+          on: state.privacy ? false : state.protection,
+          onChange: (next) => state.privacy ? setPrivacy(false) : setProtection(next),
+          label: "Toggle protection"
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "panel-links", children: SHORTCUTS.map((item) => {
+      const Icon2 = item.icon;
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "panel-link", onClick: () => openPage(item.route), children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "feed-icon", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, {}) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "grow", style: { textAlign: "left" }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { display: "block", fontWeight: 600, fontSize: 13 }, children: item.label }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "small muted", children: item.sub })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowUpRight, { width: 15, height: 15 })
+      ] }, item.route);
+    }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", className: "btn sm ghost", onClick: () => openPage("/"), children: "Open Luma" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Luma 0.1 beta · Runs on this device" })
+  ] });
+}
 function Tools() {
   const { view } = useParams();
   const tool = toolById(view);
+  const [query, setQuery] = reactExports.useState("");
+  const hubTools = TOOLS$1.filter((item) => !item.hiddenFromHub);
   if (view && !tool) return /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/tools", replace: true });
   if (!tool) {
+    const needle = query.trim().toLowerCase();
+    const matches = needle ? hubTools.filter((item) => (item.label + " " + item.blurb).toLowerCase().includes(needle)) : hubTools;
+    const groups = [];
+    for (const item of matches) {
+      const name = item.section || "Everyday";
+      let group = groups.find((entry) => entry.name === name);
+      if (!group) {
+        group = { name, tools: [] };
+        groups.push(group);
+      }
+      group.tools.push(item);
+    }
     return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         PageHead,
@@ -23037,32 +25127,54 @@ function Tools() {
           lede: "Look at what Luma does, test it against your own setup, and tidy the rules you keep. All of it runs on this device.",
           children: /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(Wrench, {}),
-            TOOLS$1.length,
+            hubTools.length,
             " tools"
           ] })
         }
       ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "grid-3", children: TOOLS$1.map((item) => {
-        const Icon2 = item.icon;
-        return /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: "/tools/" + item.id, className: "card action-tile", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "feed-icon", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, {}) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grow", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { fontWeight: 600, fontSize: 13 }, children: item.label }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "small muted", children: item.blurb })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowRight, { width: 15, height: 15 })
-        ] }, item.id);
-      }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field", style: { maxWidth: 360, marginBottom: 6 }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "tool-search", children: "Find a tool" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "input",
+          {
+            id: "tool-search",
+            className: "input",
+            value: query,
+            onChange: (event) => setQuery(event.target.value),
+            placeholder: "Search a service or a task",
+            spellCheck: "false"
+          }
+        )
+      ] }),
+      !matches.length ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "hint", style: { marginTop: 12 }, children: "No tools match that yet." }) : null,
+      groups.map((group) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "eyebrow", style: { margin: "20px 0 10px" }, children: [
+          group.name,
+          " · ",
+          group.tools.length
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "grid-3", children: group.tools.map((item) => {
+          const Icon2 = item.icon;
+          return /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: "/tools/" + item.id, className: "card action-tile", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "feed-icon", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, {}) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grow", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { fontWeight: 600, fontSize: 13 }, children: item.label }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "small muted", children: item.blurb })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowRight, { width: 15, height: 15 })
+          ] }, item.id);
+        }) })
+      ] }, group.name)),
       /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Nothing here leaves your device unless you ask it to." })
     ] });
   }
-  const Panel = tool.Panel;
+  const Panel2 = tool.Panel;
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(PageHead, { eyebrow: "Tools", title: tool.title, lede: tool.lede, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: "/tools", className: "btn sm ghost", children: [
       "All tools",
       /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowRight, {})
     ] }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Panel, {})
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Panel2, {})
   ] });
 }
 function App() {
@@ -23071,20 +25183,24 @@ function App() {
     return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "auth-shell", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "brand-mark", "aria-label": "Loading" }) });
   }
   if (!user) return /* @__PURE__ */ jsxRuntimeExports.jsx(Auth, {});
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(Routes, { children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Route, { element: /* @__PURE__ */ jsxRuntimeExports.jsx(Layout, {}), children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { index: true, element: /* @__PURE__ */ jsxRuntimeExports.jsx(Dashboard, {}) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/protection", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Protection, {}) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/activity", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Activity, {}) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/account", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Account, {}) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/tools", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Tools, {}) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/tools/:view", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Tools, {}) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/lists", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/protection", replace: true }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/lab", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/tools/lab", replace: true }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/inspector", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/tools/inspector", replace: true }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/diagnostics", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Diagnostics, {}) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/owner", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Owner, {}) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "*", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/", replace: true }) })
-  ] }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Routes, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/panel", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Panel, {}) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(Route, { element: /* @__PURE__ */ jsxRuntimeExports.jsx(Layout, {}), children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { index: true, element: /* @__PURE__ */ jsxRuntimeExports.jsx(Dashboard, {}) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/protection", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Protection, {}) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/activity", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Activity, {}) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/account", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Account, {}) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/tools", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Tools, {}) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/tools/:view", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Tools, {}) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/lists", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/protection", replace: true }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/lab", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/tools/experiments", replace: true }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/tools/lab", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/tools/experiments", replace: true }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/inspector", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/tools/inspector", replace: true }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/diagnostics", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Diagnostics, {}) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/owner", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Owner, {}) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "*", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/", replace: true }) })
+    ] })
+  ] });
 }
 const LEGACY_KEYS = ["luma.accounts.v1", "luma.session.v1", "luma.device.last-email.v1"];
 function clearLegacyData() {
@@ -23280,17 +25396,18 @@ function coveredByHostRule(host, rules) {
   });
 }
 function learnCandidate(observation, context) {
-  const { rules = [], allowlist = [], protection = true } = context || {};
+  const { rules = [], allowlist = [], protection = true, deep = false } = context || {};
   if (!protection || !observation || observation.blocked) return null;
   const url = String(observation.url || "");
   const host = hostnameOf(url);
   if (!host) return null;
   const pageHost = observation.pageHost || "";
   if (pageHost && allowlist.some((entry) => hostMatches(pageHost, entry))) return null;
-  if (pageHost && isThirdParty(pageHost, host) === false) return null;
+  const sameSite = Boolean(pageHost) && isThirdParty(pageHost, host) === false;
+  if (sameSite && (!deep || host === pageHost)) return null;
   if (rules.some((rule) => rule.exception && rule.regex && rule.regex.test(url))) return null;
   const signals = adSignals(url);
-  if (!signals.strong) return null;
+  if (!signals.strong && !(deep && signals.score >= 1)) return null;
   if (coveredByHostRule(host, rules)) return null;
   return {
     rule: "||" + host + "^",
@@ -23481,6 +25598,9 @@ function buildPayload(state, protectionNow = state.protection) {
     cosmeticSelectors,
     dashboard: {
       protection: state.protection,
+      deep: Boolean(state.deep),
+      theme: state.theme,
+      privacy: Boolean(state.privacy),
       lists: state.lists,
       customRules: state.customRules,
       allowlist,
@@ -23495,6 +25615,11 @@ const MAX_ACTIVITY = 200;
 function emptyState() {
   return {
     protection: true,
+    deep: false,
+    // "system" follows the operating system; light and dark pin a theme.
+    theme: "system",
+    // Privacy mode stops blocking and keeps diagnostics anonymous.
+    privacy: false,
     lists: { ...DEFAULT_LISTS },
     customRules: [],
     allowlist: [],
@@ -23534,6 +25659,12 @@ function reducer(state, action) {
   switch (action.type) {
     case "protection":
       return { ...state, protection: action.value };
+    case "deep":
+      return { ...state, deep: action.value };
+    case "theme":
+      return { ...state, theme: action.value };
+    case "privacy":
+      return { ...state, privacy: action.value };
     case "toggleList":
       return {
         ...state,
@@ -23557,6 +25688,9 @@ function reducer(state, action) {
       return {
         ...state,
         protection: typeof settings.protection === "boolean" ? settings.protection : state.protection,
+        deep: typeof settings.deep === "boolean" ? settings.deep : state.deep,
+        theme: settings.theme === "light" || settings.theme === "dark" ? settings.theme : state.theme,
+        privacy: typeof settings.privacy === "boolean" ? settings.privacy : state.privacy,
         lists: { ...DEFAULT_LISTS, ...settings.lists || {} },
         customRules: Array.isArray(settings.customRules) ? settings.customRules : state.customRules,
         allowlist: Array.isArray(settings.allowlist) ? settings.allowlist : state.allowlist,
@@ -23579,6 +25713,9 @@ function reducer(state, action) {
       return {
         ...state,
         protection: settings.protection ?? state.protection,
+        deep: settings.deep ?? state.deep,
+        theme: settings.theme ?? state.theme,
+        privacy: settings.privacy ?? state.privacy,
         lists: { ...DEFAULT_LISTS, ...settings.lists || {} },
         customRules: settings.customRules || [],
         allowlist: settings.allowlist || [],
@@ -23591,6 +25728,9 @@ function reducer(state, action) {
       return {
         ...state,
         protection: settings.protection ?? state.protection,
+        deep: settings.deep ?? state.deep,
+        theme: settings.theme ?? state.theme,
+        privacy: settings.privacy ?? state.privacy,
         lists: { ...DEFAULT_LISTS, ...settings.lists || {} },
         customRules: settings.customRules || [],
         allowlist: settings.allowlist || [],
@@ -23614,7 +25754,7 @@ function reducer(state, action) {
         });
       }
       if (!fresh.length) return state;
-      const nextObservations = [...fresh, ...state.observations].slice(0, MAX_OBSERVATIONS);
+      const nextObservations = state.privacy ? state.observations : [...fresh, ...state.observations].slice(0, MAX_OBSERVATIONS);
       if (isExtension) return { ...state, observations: nextObservations };
       const totals = { ...state.totals };
       const daily = { ...state.daily };
@@ -23628,6 +25768,7 @@ function reducer(state, action) {
         totals.megabytes += MEGABYTES_PER_BLOCK;
         if (item.listId === "tracker-shield") totals.trackers += 1;
         daily[today] = (daily[today] || 0) + 1;
+        if (state.privacy) continue;
         domains[item.host] = (domains[item.host] || 0) + 1;
         activity.unshift({ id: item.id, host: item.host, at: item.at });
       }
@@ -23694,12 +25835,24 @@ function AppProvider({ children }) {
   const settingsSnapshot = reactExports.useMemo(
     () => ({
       protection: state.protection,
+      deep: state.deep,
+      theme: state.theme,
+      privacy: state.privacy,
       lists: state.lists,
       customRules: state.customRules,
       allowlist: state.allowlist,
       schedule: state.schedule
     }),
-    [state.protection, state.lists, state.customRules, state.allowlist, state.schedule]
+    [
+      state.protection,
+      state.deep,
+      state.theme,
+      state.privacy,
+      state.lists,
+      state.customRules,
+      state.allowlist,
+      state.schedule
+    ]
   );
   const syncRef = reactExports.useRef({ userId: null, ready: false, settings: null });
   syncRef.current = { userId: userId || null, ready: accountSynced, settings: settingsSnapshot };
@@ -23780,7 +25933,20 @@ function AppProvider({ children }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [state.protection, state.schedule, clockTick]
   );
-  const protectionNow = state.protection && !pausedBySchedule;
+  const protectionNow = state.protection && !pausedBySchedule && !state.privacy;
+  reactExports.useEffect(() => {
+    const root = document.documentElement;
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    const apply = () => {
+      const dark = state.theme === "dark" || state.theme === "system" && media.matches;
+      root.dataset.theme = dark ? "dark" : "light";
+      root.style.colorScheme = dark ? "dark" : "light";
+    };
+    apply();
+    if (state.theme !== "system") return void 0;
+    media.addEventListener("change", apply);
+    return () => media.removeEventListener("change", apply);
+  }, [state.theme]);
   const settingsPayload = reactExports.useMemo(
     () => isExtension ? buildPayload(state, protectionNow) : null,
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -23791,6 +25957,7 @@ function AppProvider({ children }) {
       state.allowlist,
       state.schedule,
       state.learned,
+      state.privacy,
       protectionNow
     ]
   );
@@ -23833,7 +26000,8 @@ function AppProvider({ children }) {
       const candidate = learnCandidate(observation, {
         rules,
         allowlist: state.allowlist,
-        protection: protectionNow
+        protection: protectionNow,
+        deep: state.deep
       });
       if (candidate && !known.has(candidate.rule)) {
         known.add(candidate.rule);
@@ -23846,6 +26014,7 @@ function AppProvider({ children }) {
     state.learned,
     state.learningSince,
     state.allowlist,
+    state.deep,
     protectionNow,
     rules
   ]);
@@ -23867,6 +26036,9 @@ function AppProvider({ children }) {
       cosmeticRuleCount,
       activeListCount,
       setProtection: (value2) => dispatch({ type: "protection", value: value2 }),
+      setDeep: (value2) => dispatch({ type: "deep", value: value2 }),
+      setTheme: (theme) => dispatch({ type: "theme", value: theme }),
+      setPrivacy: (value2) => dispatch({ type: "privacy", value: value2 }),
       toggleList: (id) => dispatch({ type: "toggleList", id }),
       addCustomRule: (rule) => dispatch({ type: "addRule", rule }),
       removeCustomRule: (rule) => dispatch({ type: "removeRule", rule }),

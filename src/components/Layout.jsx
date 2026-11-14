@@ -5,7 +5,6 @@ import {
   Gauge,
   History,
   ShieldCheck,
-  Sparkles,
   UserRound,
   Wrench,
 } from 'lucide-react'
@@ -34,7 +33,6 @@ const TOOLS = [
   { to: '/tools', label: 'All tools', icon: Wrench, end: true },
   { to: '/tools/experiments', label: 'Experiments', icon: FlaskConical },
   { to: '/account', label: 'Account & settings', icon: UserRound },
-  { to: '/tools/builder', label: 'Rule builder', icon: Sparkles },
 ]
 
 const TITLES = {
