@@ -147,6 +147,7 @@ export function buildPayload(state, protectionNow = state.protection) {
     cosmeticSelectors,
     dashboard: {
       protection: state.protection,
+      deep: Boolean(state.deep),
       lists: state.lists,
       customRules: state.customRules,
       allowlist,

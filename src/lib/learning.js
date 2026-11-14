@@ -72,10 +72,11 @@ function coveredByHostRule(host, rules) {
  *
  * Only requests Luma let through are considered: an existing block needs no
  * new rule, while a missed ad is exactly what learning is for. Requests the
- * user allowlisted, and anything first-party, are left alone.
+ * user allowlisted, and anything first-party, are left alone — unless the
+ * person asked Luma to look harder, which also watches a site's own servers.
  */
 export function learnCandidate(observation, context) {
-  const { rules = [], allowlist = [], protection = true } = context || {}
+  const { rules = [], allowlist = [], protection = true, deep = false } = context || {}
   if (!protection || !observation || observation.blocked) return null
 
   const url = String(observation.url || '')
@@ -84,11 +85,14 @@ export function learnCandidate(observation, context) {
 
   const pageHost = observation.pageHost || ''
   if (pageHost && allowlist.some((entry) => hostMatches(pageHost, entry))) return null
-  if (pageHost && isThirdParty(pageHost, host) === false) return null
+  const sameSite = Boolean(pageHost) && isThirdParty(pageHost, host) === false
+  // Deep detection watches the site's own ad servers too, but never the page
+  // itself: a rule for the page host would block the site outright.
+  if (sameSite && (!deep || host === pageHost)) return null
   if (rules.some((rule) => rule.exception && rule.regex && rule.regex.test(url))) return null
 
   const signals = adSignals(url)
-  if (!signals.strong) return null
+  if (!signals.strong && !(deep && signals.score >= 1)) return null
   if (coveredByHostRule(host, rules)) return null
 
   return {

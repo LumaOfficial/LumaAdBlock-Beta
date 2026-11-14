@@ -16,6 +16,7 @@ import { formatNumber, formatMegabytes, relativeTime, percent } from '../lib/for
 import { clockLabel } from '../lib/schedule'
 import { CardHead, PageHead } from '../components/ui'
 import TrendChart from '../components/dashboard/TrendChart'
+import WeeklyRecap from '../components/dashboard/WeeklyRecap'
 import BreakdownCard from '../components/dashboard/BreakdownCard'
 import SiteControls from '../components/dashboard/SiteControls'
 import ScheduleCard from '../components/dashboard/ScheduleCard'
@@ -149,6 +150,8 @@ export default function Dashboard() {
           <div className="stat-foot">{blockedShare}% blocked</div>
         </div>
       </section>
+
+      <WeeklyRecap />
 
       <section className="grid-2">
         <TrendChart />

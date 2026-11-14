@@ -27,6 +27,7 @@ const MAX_ACTIVITY = 200
 function emptyState() {
   return {
     protection: true,
+    deep: false,
     lists: { ...DEFAULT_LISTS },
     customRules: [],
     allowlist: [],
@@ -70,6 +71,8 @@ function reducer(state, action) {
   switch (action.type) {
     case 'protection':
       return { ...state, protection: action.value }
+    case 'deep':
+      return { ...state, deep: action.value }
     case 'toggleList':
       return {
         ...state,
@@ -94,6 +97,7 @@ function reducer(state, action) {
       return {
         ...state,
         protection: typeof settings.protection === 'boolean' ? settings.protection : state.protection,
+        deep: typeof settings.deep === 'boolean' ? settings.deep : state.deep,
         lists: { ...DEFAULT_LISTS, ...(settings.lists || {}) },
         customRules: Array.isArray(settings.customRules) ? settings.customRules : state.customRules,
         allowlist: Array.isArray(settings.allowlist) ? settings.allowlist : state.allowlist,
@@ -117,6 +121,7 @@ function reducer(state, action) {
       return {
         ...state,
         protection: settings.protection ?? state.protection,
+        deep: settings.deep ?? state.deep,
         lists: { ...DEFAULT_LISTS, ...(settings.lists || {}) },
         customRules: settings.customRules || [],
         allowlist: settings.allowlist || [],
@@ -130,6 +135,7 @@ function reducer(state, action) {
       return {
         ...state,
         protection: settings.protection ?? state.protection,
+        deep: settings.deep ?? state.deep,
         lists: { ...DEFAULT_LISTS, ...(settings.lists || {}) },
         customRules: settings.customRules || [],
         allowlist: settings.allowlist || [],
@@ -247,12 +253,13 @@ export function AppProvider({ children }) {
   const settingsSnapshot = useMemo(
     () => ({
       protection: state.protection,
+      deep: state.deep,
       lists: state.lists,
       customRules: state.customRules,
       allowlist: state.allowlist,
       schedule: state.schedule,
     }),
-    [state.protection, state.lists, state.customRules, state.allowlist, state.schedule],
+    [state.protection, state.deep, state.lists, state.customRules, state.allowlist, state.schedule],
   )
   const syncRef = useRef({ userId: null, ready: false, settings: null })
   syncRef.current = { userId: userId || null, ready: accountSynced, settings: settingsSnapshot }
@@ -407,6 +414,7 @@ export function AppProvider({ children }) {
         rules,
         allowlist: state.allowlist,
         protection: protectionNow,
+        deep: state.deep,
       })
       if (candidate && !known.has(candidate.rule)) {
         known.add(candidate.rule)
@@ -419,6 +427,7 @@ export function AppProvider({ children }) {
     state.learned,
     state.learningSince,
     state.allowlist,
+    state.deep,
     protectionNow,
     rules,
   ])
@@ -442,6 +451,7 @@ export function AppProvider({ children }) {
       cosmeticRuleCount,
       activeListCount,
       setProtection: (value) => dispatch({ type: 'protection', value }),
+      setDeep: (value) => dispatch({ type: 'deep', value }),
       toggleList: (id) => dispatch({ type: 'toggleList', id }),
       addCustomRule: (rule) => dispatch({ type: 'addRule', rule }),
       removeCustomRule: (rule) => dispatch({ type: 'removeRule', rule }),

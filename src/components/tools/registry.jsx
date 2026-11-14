@@ -6,6 +6,7 @@ import {
   Layers,
   ListChecks,
   Search,
+  Sparkles,
   Timer,
   UserCheck,
   Wallet,
@@ -15,6 +16,7 @@ import InspectorPanel from '../InspectorPanel'
 import BulkCheck from './BulkCheck'
 import ListCoverage from './ListCoverage'
 import RuleLibrary from './RuleLibrary'
+import RuleBuilder from './RuleBuilder'
 import RuleCleanup from './RuleCleanup'
 import TrustedSites from './TrustedSites'
 import SavingsCalculator from './SavingsCalculator'
@@ -79,6 +81,15 @@ export const TOOLS = [
     lede: 'Ready-made rules for the annoyances you keep running into. Add one and it joins your setup everywhere.',
     blurb: 'Quiet a specific annoyance without learning syntax.',
     Panel: RuleLibrary,
+  },
+  {
+    id: 'builder',
+    label: 'Rule builder',
+    icon: Sparkles,
+    title: 'Rules without the syntax.',
+    lede: 'Say what you want in plain words. Luma writes the rule, checks it against the engine, and adds it to your protection.',
+    blurb: 'Build your own rule in plain words.',
+    Panel: RuleBuilder,
   },
   {
     id: 'cleanup',

@@ -76,6 +76,10 @@ export default function FilterListsPanel() {
                 <Switch on={on} onChange={() => toggleList(list.id)} label={'Toggle ' + list.name} />
               </div>
               <div className="list-meta">
+                <span>
+                  <strong>{list.rules.filter((line) => line && !line.startsWith('!')).length}</strong>{' '}
+                  rules
+                </span>
                 <span>Updated weekly</span>
               </div>
             </div>

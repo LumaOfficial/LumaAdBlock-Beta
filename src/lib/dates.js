@@ -11,6 +11,17 @@ export function dayKey(date = new Date()) {
   return `${year}-${month}-${day}`
 }
 
+/** Blocked requests across a window that ends `offset` days before today. */
+export function windowTotal(state, days = 7, offset = 0) {
+  let total = 0
+  for (let index = 0; index < days; index += 1) {
+    const date = new Date()
+    date.setDate(date.getDate() - offset - index)
+    total += state.daily[dayKey(date)] || 0
+  }
+  return total
+}
+
 export function lastNDays(state, n = 7) {
   const series = []
   for (let offset = n - 1; offset >= 0; offset -= 1) {

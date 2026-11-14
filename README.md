@@ -17,10 +17,11 @@ browser extension.
 | Agreements | `src/lib/legal.js`, `src/components/LegalDialog.jsx` | Terms & Conditions (EULA, Refund Policy) and Privacy Policy shown at sign-up |
 | State | `src/lib/store.jsx` | Protection switch, lists, custom rules, allowlist, counters (kept in `localStorage`; the web build counts the requests the test lab and inspector really screen) |
 | Protection | `src/pages/Protection.jsx` | The settings that decide what gets blocked: filter lists, custom rules and trusted sites, at `/protection` |
-| Tools | `src/pages/Tools.jsx`, `src/components/tools/` | Ten device-local tools at `/tools`: protection score, test lab, URL inspector, bulk check, list coverage, rule library, rule clean-up, trusted sites, savings calculator and speed check |
+| Tools | `src/pages/Tools.jsx`, `src/components/tools/` | Eleven device-local tools at `/tools`: protection score, test lab, URL inspector, bulk check, list coverage, rule library, rule builder, rule clean-up, trusted sites, savings calculator and speed check |
+| Activity | `src/pages/Activity.jsx` | Everything screened on this device, filterable by outcome and site, with a spreadsheet copy you can save |
 | Test lab | `src/components/LabPanel.jsx` | Four simulated sites; every request and ad slot is checked by the engine |
 | Inspector | `src/components/InspectorPanel.jsx` | Paste a URL and get a plain blocked/allowed verdict |
-| Detection | `src/lib/learning.js` | Scores observed requests, adds a host rule for ad-like traffic that slips through, and runs the engine's self-checks |
+| Detection | `src/lib/learning.js`, `src/components/DetectionCard.jsx` | Scores observed requests, adds a host rule for ad-like traffic that slips through (and, with "Look harder" on, a site's own ad servers too), and runs the engine's self-checks |
 | Diagnostics | `src/pages/Diagnostics.jsx` | Internal console at `/diagnostics` (never linked in the app): self-checks, detection feed and learned rules |
 | Extension | `extension/` | The shipped extension: generated rulesets, hiding stylesheets, service worker, content script and the built dashboard |
 | Browser bridge | `src/lib/platform.js` | Detects the extension, sends settings to the worker and receives live counters |
