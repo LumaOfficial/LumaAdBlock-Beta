@@ -43,9 +43,11 @@ $domain=a.com|~b.com         narrow by the page the request came from
 
 ## Installing the extension
 
-1. Open the app, go to **Get the app** and press **Export rules.json**.
-2. Save it over `extension/rules.json`.
-3. Visit `chrome://extensions`, enable **Developer mode**, choose **Load unpacked**
-   and select the `extension/` folder.
+The install walkthrough is not part of the public app. The exported rule set lives
+in `extension/`:
+
+1. Regenerate `extension/rules.json` from the enabled lists with `toDeclarativeNetRequest`.
+2. Visit `chrome://extensions` (or `opera://extensions`), enable **Developer mode**,
+   choose **Load unpacked** and select the `extension/` folder.
 
 Every counter in the app stays on the device — Luma uploads nothing.

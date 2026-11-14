@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import {
-  Chrome,
   FlaskConical,
   Gauge,
   ListFilter,
@@ -15,7 +14,6 @@ const NAV = [
   { to: '/lists', label: 'Filter lists', icon: ListFilter },
   { to: '/lab', label: 'Test lab', icon: FlaskConical },
   { to: '/inspector', label: 'URL inspector', icon: Search },
-  { to: '/extension', label: 'Get the app', icon: Chrome },
 ]
 
 const TITLES = {
@@ -23,7 +21,6 @@ const TITLES = {
   '/lists': 'Filter lists',
   '/lab': 'Test lab',
   '/inspector': 'URL inspector',
-  '/extension': 'Get the app',
 }
 
 export default function Layout() {

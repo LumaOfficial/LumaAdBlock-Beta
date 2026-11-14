@@ -261,8 +261,8 @@ export default function Lab() {
           </div>
 
           <p className="footer-note">
-            {formatNumber(rules.length)} compiled rules are loaded right now. Every decision above comes
-            from that rule set — nothing is hard-coded per site.
+            {formatNumber(rules.length)} filter rules are active right now — every decision above comes
+            from the lists you have enabled.
           </p>
         </div>
       </section>

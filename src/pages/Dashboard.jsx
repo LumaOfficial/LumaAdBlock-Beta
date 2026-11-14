@@ -65,12 +65,7 @@ export default function Dashboard() {
             ? `${activeListCount} filter lists and ${formatNumber(networkRuleCount)} rules are standing between you and the noise.`
             : 'Ads and trackers are loading everywhere while Luma is off. Flip it back on when you are ready.'
         }
-      >
-        <Link to="/extension" className="btn primary">
-          Get Luma for Chrome
-          <ArrowRight />
-        </Link>
-      </PageHead>
+      />
 
       <section className={'card hero-card'}>
         <div className="hero-copy">
