@@ -21,6 +21,8 @@ export function buildBackup(state) {
     version: VERSION,
     exportedAt: new Date().toISOString(),
     protection: Boolean(state.protection),
+    theme: state.theme === 'light' || state.theme === 'dark' ? state.theme : 'system',
+    privacy: Boolean(state.privacy),
     lists: { ...DEFAULT_LISTS, ...(state.lists || {}) },
     customRules: [...(state.customRules || [])],
     allowlist: [...(state.allowlist || [])],
@@ -113,6 +115,8 @@ export function readBackup(text) {
     ok: true,
     settings: {
       protection: typeof parsed.protection === 'boolean' ? parsed.protection : true,
+      theme: parsed.theme === 'light' || parsed.theme === 'dark' ? parsed.theme : 'system',
+      privacy: parsed.privacy === true,
       lists,
       customRules,
       allowlist,

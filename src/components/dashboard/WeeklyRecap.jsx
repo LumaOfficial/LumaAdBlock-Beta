@@ -22,7 +22,7 @@ export default function WeeklyRecap() {
   const TrendIcon = trend === 'up' ? TrendingUp : trend === 'down' ? TrendingDown : Minus
 
   const sentence = !thisWeek
-    ? 'Nothing has been stopped in the last seven days. Run the test lab, or keep browsing with Luma on, and this fills in.'
+    ? 'Nothing has been stopped in the last seven days. Run an experiment, or keep browsing with Luma on, and this fills in.'
     : change === null
       ? `Luma stopped ${formatNumber(thisWeek)} requests in the last seven days — the first week of activity here.`
       : change === 0

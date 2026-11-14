@@ -108,7 +108,8 @@ export default function Diagnostics() {
             ))}
             {!observations.length ? (
               <div className="empty">
-                Nothing observed yet. Open the test lab or the inspector and Luma starts watching.
+                Nothing observed yet. Run an experiment or open the URL inspector and Luma starts
+                watching.
               </div>
             ) : null}
           </div>

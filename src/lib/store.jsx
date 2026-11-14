@@ -28,6 +28,10 @@ function emptyState() {
   return {
     protection: true,
     deep: false,
+    // "system" follows the operating system; light and dark pin a theme.
+    theme: 'system',
+    // Privacy mode stops blocking and keeps diagnostics anonymous.
+    privacy: false,
     lists: { ...DEFAULT_LISTS },
     customRules: [],
     allowlist: [],
@@ -73,6 +77,10 @@ function reducer(state, action) {
       return { ...state, protection: action.value }
     case 'deep':
       return { ...state, deep: action.value }
+    case 'theme':
+      return { ...state, theme: action.value }
+    case 'privacy':
+      return { ...state, privacy: action.value }
     case 'toggleList':
       return {
         ...state,
@@ -98,6 +106,8 @@ function reducer(state, action) {
         ...state,
         protection: typeof settings.protection === 'boolean' ? settings.protection : state.protection,
         deep: typeof settings.deep === 'boolean' ? settings.deep : state.deep,
+        theme: settings.theme === 'light' || settings.theme === 'dark' ? settings.theme : state.theme,
+        privacy: typeof settings.privacy === 'boolean' ? settings.privacy : state.privacy,
         lists: { ...DEFAULT_LISTS, ...(settings.lists || {}) },
         customRules: Array.isArray(settings.customRules) ? settings.customRules : state.customRules,
         allowlist: Array.isArray(settings.allowlist) ? settings.allowlist : state.allowlist,
@@ -122,6 +132,8 @@ function reducer(state, action) {
         ...state,
         protection: settings.protection ?? state.protection,
         deep: settings.deep ?? state.deep,
+        theme: settings.theme ?? state.theme,
+        privacy: settings.privacy ?? state.privacy,
         lists: { ...DEFAULT_LISTS, ...(settings.lists || {}) },
         customRules: settings.customRules || [],
         allowlist: settings.allowlist || [],
@@ -136,6 +148,8 @@ function reducer(state, action) {
         ...state,
         protection: settings.protection ?? state.protection,
         deep: settings.deep ?? state.deep,
+        theme: settings.theme ?? state.theme,
+        privacy: settings.privacy ?? state.privacy,
         lists: { ...DEFAULT_LISTS, ...(settings.lists || {}) },
         customRules: settings.customRules || [],
         allowlist: settings.allowlist || [],
@@ -159,10 +173,14 @@ function reducer(state, action) {
         })
       }
       if (!fresh.length) return state
-      const nextObservations = [...fresh, ...state.observations].slice(0, MAX_OBSERVATIONS)
+      // Privacy mode keeps counts but forgets what was seen: no addresses, no
+      // per-site history, nothing the learning engine could hold onto.
+      const nextObservations = state.privacy
+        ? state.observations
+        : [...fresh, ...state.observations].slice(0, MAX_OBSERVATIONS)
       // The packed extension counts its own blocks in the service worker. The
       // web build has no browser to watch, so the requests the engine really
-      // screened here (test lab, inspector) are what the counters report.
+      // screened here (experiments, inspector) are what the counters report.
       if (isExtension) return { ...state, observations: nextObservations }
 
       const totals = { ...state.totals }
@@ -177,6 +195,7 @@ function reducer(state, action) {
         totals.megabytes += MEGABYTES_PER_BLOCK
         if (item.listId === 'tracker-shield') totals.trackers += 1
         daily[today] = (daily[today] || 0) + 1
+        if (state.privacy) continue
         domains[item.host] = (domains[item.host] || 0) + 1
         activity.unshift({ id: item.id, host: item.host, at: item.at })
       }
@@ -254,12 +273,23 @@ export function AppProvider({ children }) {
     () => ({
       protection: state.protection,
       deep: state.deep,
+      theme: state.theme,
+      privacy: state.privacy,
       lists: state.lists,
       customRules: state.customRules,
       allowlist: state.allowlist,
       schedule: state.schedule,
     }),
-    [state.protection, state.deep, state.lists, state.customRules, state.allowlist, state.schedule],
+    [
+      state.protection,
+      state.deep,
+      state.theme,
+      state.privacy,
+      state.lists,
+      state.customRules,
+      state.allowlist,
+      state.schedule,
+    ],
   )
   const syncRef = useRef({ userId: null, ready: false, settings: null })
   syncRef.current = { userId: userId || null, ready: accountSynced, settings: settingsSnapshot }
@@ -352,7 +382,22 @@ export function AppProvider({ children }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [state.protection, state.schedule, clockTick],
   )
-  const protectionNow = state.protection && !pausedBySchedule
+  const protectionNow = state.protection && !pausedBySchedule && !state.privacy
+
+  // Theme lives on the document so every page (and the dialogs) picks it up.
+  useEffect(() => {
+    const root = document.documentElement
+    const media = window.matchMedia('(prefers-color-scheme: dark)')
+    const apply = () => {
+      const dark = state.theme === 'dark' || (state.theme === 'system' && media.matches)
+      root.dataset.theme = dark ? 'dark' : 'light'
+      root.style.colorScheme = dark ? 'dark' : 'light'
+    }
+    apply()
+    if (state.theme !== 'system') return undefined
+    media.addEventListener('change', apply)
+    return () => media.removeEventListener('change', apply)
+  }, [state.theme])
 
   // Settings the browser has to enforce; posted only when they actually change.
   const settingsPayload = useMemo(
@@ -365,6 +410,7 @@ export function AppProvider({ children }) {
       state.allowlist,
       state.schedule,
       state.learned,
+      state.privacy,
       protectionNow,
     ],
   )
@@ -452,6 +498,8 @@ export function AppProvider({ children }) {
       activeListCount,
       setProtection: (value) => dispatch({ type: 'protection', value }),
       setDeep: (value) => dispatch({ type: 'deep', value }),
+      setTheme: (theme) => dispatch({ type: 'theme', value: theme }),
+      setPrivacy: (value) => dispatch({ type: 'privacy', value }),
       toggleList: (id) => dispatch({ type: 'toggleList', id }),
       addCustomRule: (rule) => dispatch({ type: 'addRule', rule }),
       removeCustomRule: (rule) => dispatch({ type: 'removeRule', rule }),

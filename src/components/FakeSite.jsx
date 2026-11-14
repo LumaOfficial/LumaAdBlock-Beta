@@ -1,4 +1,4 @@
-/** Simulated pages rendered inside the test lab browser frame. */
+/** Simulated pages rendered inside the experiments browser frame. */
 
 function DailyByte() {
   return (

@@ -4,7 +4,6 @@ import {
   FlaskConical,
   Gauge,
   History,
-  Search,
   ShieldCheck,
   Sparkles,
   UserRound,
@@ -27,17 +26,14 @@ const NAV = [
       { to: '/activity', label: 'Activity', icon: History },
     ],
   },
-  {
-    label: 'Account',
-    items: [{ to: '/account', label: 'Account & settings', icon: UserRound }],
-  },
 ]
 
 // Ways to look at protection working — kept out of the protection settings.
+// The URL inspector lives inside All tools, next to the rest of them.
 const TOOLS = [
   { to: '/tools', label: 'All tools', icon: Wrench, end: true },
-  { to: '/tools/lab', label: 'Test lab', icon: FlaskConical },
-  { to: '/tools/inspector', label: 'URL inspector', icon: Search },
+  { to: '/tools/experiments', label: 'Experiments', icon: FlaskConical },
+  { to: '/account', label: 'Account & settings', icon: UserRound },
   { to: '/tools/builder', label: 'Rule builder', icon: Sparkles },
 ]
 
@@ -45,14 +41,14 @@ const TITLES = {
   '/': 'Overview',
   '/protection': 'Protection',
   '/activity': 'Activity',
-  '/account': 'Account',
+  '/account': 'Account & settings',
   '/tools': 'Tools',
   '/diagnostics': 'Diagnostics',
   '/owner': 'Owner console',
 }
 
 export default function Layout() {
-  const { state, setProtection } = useApp()
+  const { state, setProtection, setPrivacy, protectionNow } = useApp()
   const location = useLocation()
 
   useEffect(() => {
@@ -97,7 +93,7 @@ export default function Layout() {
           </div>
           {TOOLS.map((tool) => {
             const Icon = tool.icon
-            // Any other tool page keeps "All tools" lit; the two shortcuts light themselves.
+            // Any other tool page keeps "All tools" lit; the shortcuts light themselves.
             const active =
               tool.to === '/tools'
                 ? location.pathname.startsWith('/tools') &&
@@ -120,13 +116,23 @@ export default function Layout() {
         <div className="sidebar-foot">
           <div className="side-status">
             <div className="status-line">
-              <span className={state.protection ? 'dot' : 'dot off'} />
-              {state.protection ? 'Protected' : 'Paused'}
+              <span className={protectionNow ? 'dot' : 'dot off'} />
+              {state.privacy ? 'Privacy mode' : protectionNow ? 'Protected' : 'Paused'}
             </div>
             <p>
-              Ads, trackers and annoyances
-              <br />
-              filtered before they load
+              {state.privacy ? (
+                <>
+                  Blocking is off. Diagnostics
+                  <br />
+                  continue, without your details
+                </>
+              ) : (
+                <>
+                  Ads, trackers and annoyances
+                  <br />
+                  filtered before they load
+                </>
+              )}
             </p>
           </div>
           <div className="side-links">
@@ -141,12 +147,18 @@ export default function Layout() {
         <header className="topbar">
           <span className="topbar-title">{title}</span>
           <div className="topbar-right">
-            <span className={'badge ' + (state.protection ? 'good' : 'plain')}>
-              {state.protection ? 'On' : 'Paused'}
+            <span className={'badge ' + (state.privacy ? 'warn' : state.protection ? 'good' : 'plain')}>
+              {state.privacy ? 'Private' : state.protection ? 'On' : 'Paused'}
             </span>
             <div className="quick-toggle">
-              <span>{state.protection ? 'Protection on' : 'Protection off'}</span>
-              <Switch on={state.protection} onChange={setProtection} label="Toggle protection" />
+              <span>
+                {state.privacy ? 'Privacy mode' : state.protection ? 'Protection on' : 'Protection off'}
+              </span>
+              <Switch
+                on={state.privacy ? false : state.protection}
+                onChange={(next) => (state.privacy ? setPrivacy(false) : setProtection(next))}
+                label="Toggle protection"
+              />
             </div>
             <AccountMenu />
           </div>

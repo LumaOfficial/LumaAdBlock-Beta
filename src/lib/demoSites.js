@@ -1,5 +1,5 @@
 /**
- * Simulated sites used by the test lab. Each request declares the decision the
+ * Simulated sites used by the experiments. Each request declares the decision the
  * engine should reach; selectors list what should be hidden or left visible.
  */
 

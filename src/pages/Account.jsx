@@ -1,12 +1,18 @@
 import { useState } from 'react'
-import { KeyRound, LogOut, Trash2 } from 'lucide-react'
-import { CardHead, PageHead } from '../components/ui'
+import { EyeOff, KeyRound, LogOut, Monitor, Moon, Sun, Trash2 } from 'lucide-react'
+import { CardHead, PageHead, Switch } from '../components/ui'
 import PasswordDialog from '../components/PasswordDialog'
 import ScheduleCard from '../components/dashboard/ScheduleCard'
 import BackupCard from '../components/dashboard/BackupCard'
 import { useApp } from '../lib/useApp'
 import { useAuth } from '../lib/useAuth'
 import { formatNumber } from '../lib/format'
+
+const THEMES = [
+  { id: 'system', label: 'System', icon: Monitor },
+  { id: 'light', label: 'Light', icon: Sun },
+  { id: 'dark', label: 'Dark', icon: Moon },
+]
 
 function methodLabel(via) {
   if (via === 'code') return 'email code'
@@ -23,7 +29,7 @@ function joined(value) {
 
 export default function Account() {
   const { user, stateLabel, signOut } = useAuth()
-  const { state, resetCounters } = useApp()
+  const { state, resetCounters, setTheme, setPrivacy } = useApp()
   const [passwordOpen, setPasswordOpen] = useState(false)
   const [confirmReset, setConfirmReset] = useState(false)
 
@@ -40,7 +46,7 @@ export default function Account() {
       <PageHead
         eyebrow="Account"
         title="Your account and settings."
-        lede="The account your protection settings sync to, and the few things that stay on this device."
+        lede="The account your protection settings sync to, plus the look and privacy choices that follow you."
       />
 
       <section className="grid-2">
@@ -96,6 +102,55 @@ export default function Account() {
           <p className="footer-note">
             Your password is stored only as a hash on the account service — never in this browser.
           </p>
+        </div>
+      </section>
+
+      <section className="grid-2">
+        <div className="card">
+          <CardHead title="Theme" sub="How Luma looks, on every device you sign in to" />
+          <div className="theme-options" role="group" aria-label="Theme">
+            {THEMES.map((option) => {
+              const Icon = option.icon
+              return (
+                <button
+                  key={option.id}
+                  type="button"
+                  className="theme-option"
+                  data-active={state.theme === option.id ? 'true' : 'false'}
+                  aria-pressed={state.theme === option.id}
+                  onClick={() => setTheme(option.id)}
+                >
+                  <Icon />
+                  {option.label}
+                </button>
+              )
+            })}
+          </div>
+          <p className="footer-note">
+            System follows your device&apos;s light or dark setting and switches with it.
+          </p>
+        </div>
+
+        <div className="card">
+          <CardHead title="Privacy mode" sub="No blocking, anonymous diagnostics">
+            <Switch on={state.privacy} onChange={setPrivacy} label="Privacy mode" />
+          </CardHead>
+          <p className="small muted">
+            Turns every block off and pauses anything that could identify you. Diagnostics keep
+            running, but they forget the who: no site names, no addresses and no activity log.
+          </p>
+          {state.privacy ? (
+            <div className="note" style={{ marginTop: 12 }}>
+              <div className="row" style={{ gap: 8 }}>
+                <EyeOff width={14} height={14} />
+                <strong>Private browsing is on.</strong>
+              </div>
+              <p className="small muted" style={{ marginTop: 4 }}>
+                Ads are loading, and the pages you visit are not recorded. Anything collected before
+                now stays on this device until you reset counters.
+              </p>
+            </div>
+          ) : null}
         </div>
       </section>
 

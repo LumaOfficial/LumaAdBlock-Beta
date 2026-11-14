@@ -14,7 +14,7 @@ const FILTERS = [
 
 /**
  * One log out of two sources: the blocks the extension reported, plus the
- * requests the engine screened here (the test lab records those), newest first.
+ * requests the engine screened here (the experiments record those), newest first.
  */
 function logRows(state) {
   const rows = []
@@ -79,6 +79,13 @@ export default function Activity() {
           {formatNumber(rows.length)} logged
         </span>
       </PageHead>
+
+      {state.privacy ? (
+        <div className="note" style={{ marginBottom: 18 }}>
+          <strong>Privacy mode is on.</strong> New entries are not recorded: no site names, no
+          addresses. Anything collected before now is still below until you reset counters.
+        </div>
+      ) : null}
 
       <section className="stat-grid">
         <div className="stat">
@@ -196,16 +203,16 @@ export default function Activity() {
             <div className="empty">
               {needle || filter !== 'all'
                 ? 'No request in the log matches that.'
-                : 'Nothing logged yet. Run the test lab to watch the engine work, or install the extension for live activity.'}
+                : 'Nothing logged yet. Run an experiment to watch the engine work, or install the extension for live activity.'}
             </div>
           ) : null}
         </div>
 
         {!needle && filter === 'all' && !rows.length ? (
           <div className="row" style={{ marginTop: 14 }}>
-            <Link to="/tools/lab" className="btn sm">
+            <Link to="/tools/experiments" className="btn sm">
               <FlaskConical />
-              Run the test lab
+              Run an experiment
             </Link>
           </div>
         ) : null}

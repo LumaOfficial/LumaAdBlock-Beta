@@ -1,9 +1,9 @@
 # Luma
 
 A fast, friendly ad and tracker blocker. Luma ships with a real Adblock Plus
-syntax filter engine, a dashboard that tracks what was stopped, a test lab that
-runs the engine against simulated sites, a request inspector, and a Manifest V3
-browser extension.
+syntax filter engine, a dashboard that tracks what was stopped, monthly
+experiments that run the engine against simulated sites and small diagnostics,
+a request inspector, and a Manifest V3 browser extension.
 
 ## What's inside
 
@@ -15,12 +15,12 @@ browser extension.
 | Sign-in options | `src/lib/sso.js`, `src/components/SsoButtons.jsx`, `src/pages/Auth.jsx` | Google, Microsoft, GitHub and Apple sign-in, plus a 6-digit code emailed to the address (signs up a new address too) |
 | Account service | `server/index.js` | Dependency-free Node service: AES-256-GCM encrypted profiles and synced settings, HMAC email index, scrypt password hashes, hashed session tokens |
 | Agreements | `src/lib/legal.js`, `src/components/LegalDialog.jsx` | Terms & Conditions (EULA, Refund Policy) and Privacy Policy shown at sign-up |
-| State | `src/lib/store.jsx` | Protection switch, lists, custom rules, allowlist, counters (kept in `localStorage`; the web build counts the requests the test lab and inspector really screen) |
+| State | `src/lib/store.jsx` | Protection switch, theme, privacy mode, lists, custom rules, allowlist, counters (kept in `localStorage`; the web build counts the requests the experiments and inspector really screen) |
 | Protection | `src/pages/Protection.jsx` | The settings that decide what gets blocked: filter lists, custom rules and trusted sites, at `/protection` |
-| Tools | `src/pages/Tools.jsx`, `src/components/tools/` | Eleven device-local tools at `/tools`: protection score, test lab, URL inspector, bulk check, list coverage, rule library, rule builder, rule clean-up, trusted sites, savings calculator and speed check |
+| Tools | `src/pages/Tools.jsx`, `src/components/tools/` | Eleven device-local tools at `/tools`: protection score, experiments, URL inspector, bulk check, list coverage, rule library, rule builder, rule clean-up, trusted sites, savings calculator and speed check |
 | Activity | `src/pages/Activity.jsx` | Everything screened on this device, filterable by outcome and site, with a spreadsheet copy you can save |
-| Test lab | `src/components/LabPanel.jsx` | Four simulated sites; every request and ad slot is checked by the engine |
-| Inspector | `src/components/InspectorPanel.jsx` | Paste a URL and get a plain blocked/allowed verdict |
+| Experiments | `src/components/experiments/`, `src/lib/experiments.js` | Three rotating monthly diagnostics at `/tools/experiments` — simulated sites, a ping reaction game, a ruleset speed test and an ad-finding game — with results kept on this device |
+| Inspector | `src/components/InspectorPanel.jsx` | Paste a URL and get a plain blocked/allowed verdict; lives inside All tools |
 | Detection | `src/lib/learning.js`, `src/components/DetectionCard.jsx` | Scores observed requests, adds a host rule for ad-like traffic that slips through (and, with "Look harder" on, a site's own ad servers too), and runs the engine's self-checks |
 | Diagnostics | `src/pages/Diagnostics.jsx` | Internal console at `/diagnostics` (never linked in the app): self-checks, detection feed and learned rules |
 | Extension | `extension/` | The shipped extension: generated rulesets, hiding stylesheets, service worker, content script and the built dashboard |

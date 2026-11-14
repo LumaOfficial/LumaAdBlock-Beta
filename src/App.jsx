@@ -36,7 +36,8 @@ export default function App() {
         <Route path="/tools/:view" element={<Tools />} />
         {/* Old addresses for the tools and the lists. */}
         <Route path="/lists" element={<Navigate to="/protection" replace />} />
-        <Route path="/lab" element={<Navigate to="/tools/lab" replace />} />
+        <Route path="/lab" element={<Navigate to="/tools/experiments" replace />} />
+        <Route path="/tools/lab" element={<Navigate to="/tools/experiments" replace />} />
         <Route path="/inspector" element={<Navigate to="/tools/inspector" replace />} />
         {/* Internal console: reachable by URL only, never linked from the app. */}
         <Route path="/diagnostics" element={<Diagnostics />} />

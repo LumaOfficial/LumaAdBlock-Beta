@@ -868,6 +868,8 @@ async function handle(req, res) {
     const settings = {
       protection: input.protection !== false,
       deep: input.deep === true,
+      theme: input.theme === 'dark' || input.theme === 'light' ? input.theme : 'system',
+      privacy: input.privacy === true,
       lists: input.lists && typeof input.lists === 'object' ? input.lists : {},
       customRules: Array.isArray(input.customRules)
         ? [...new Set(input.customRules.map(ruleText).filter(Boolean))].slice(0, 500)

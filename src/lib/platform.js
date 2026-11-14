@@ -148,6 +148,8 @@ export function buildPayload(state, protectionNow = state.protection) {
     dashboard: {
       protection: state.protection,
       deep: Boolean(state.deep),
+      theme: state.theme,
+      privacy: Boolean(state.privacy),
       lists: state.lists,
       customRules: state.customRules,
       allowlist,

@@ -24,10 +24,10 @@ import BackupCard from '../components/dashboard/BackupCard'
 
 const ACTIONS = [
   {
-    to: '/tools/lab',
+    to: '/tools/experiments',
     icon: FlaskConical,
-    title: 'Run the test lab',
-    text: 'Watch Luma strip ads from four simulated sites.',
+    title: 'Run this month’s experiments',
+    text: 'Games, speed tests and simulated sites that collect extra diagnostics.',
   },
   {
     to: '/protection',
@@ -51,23 +51,27 @@ function greeting() {
 }
 
 export default function Dashboard() {
-  const { state, setProtection, protectionNow, pausedBySchedule } = useApp()
+  const { state, setProtection, setPrivacy, protectionNow, pausedBySchedule } = useApp()
   const { user } = useAuth()
   const firstName = user?.name?.split(/\s+/)[0]
   const blockedToday = useBlockedToday()
   const data = formatMegabytes(state.totals.megabytes)
   const blockedShare = percent(state.totals.blocked, state.totals.screened)
 
-  const title = pausedBySchedule
-    ? 'Quiet hours are on.'
-    : protectionNow
-      ? 'The web, quiet again.'
-      : 'Protection is paused.'
-  const lede = pausedBySchedule
-    ? `Luma is taking a break until ${clockLabel(state.schedule.to)}. Everything resumes on its own.`
-    : protectionNow
-      ? 'Ads, trackers and annoyances are filtered before they ever reach the page.'
-      : 'Ads and trackers are loading everywhere while Luma is off. Flip it back on when you are ready.'
+  const title = state.privacy
+    ? 'Privacy mode is on.'
+    : pausedBySchedule
+      ? 'Quiet hours are on.'
+      : protectionNow
+        ? 'The web, quiet again.'
+        : 'Protection is paused.'
+  const lede = state.privacy
+    ? 'Nothing is blocked and nothing about your browsing is recorded. Diagnostics keep running without your details.'
+    : pausedBySchedule
+      ? `Luma is taking a break until ${clockLabel(state.schedule.to)}. Everything resumes on its own.`
+      : protectionNow
+        ? 'Ads, trackers and annoyances are filtered before they ever reach the page.'
+        : 'Ads and trackers are loading everywhere while Luma is off. Flip it back on when you are ready.'
 
   return (
     <>
@@ -95,19 +99,21 @@ export default function Dashboard() {
             type="button"
             className="switch"
             role="switch"
-            aria-checked={state.protection}
+            aria-checked={state.privacy ? false : state.protection}
             aria-label="Protection"
-            data-on={state.protection ? 'true' : 'false'}
-            onClick={() => setProtection(!state.protection)}
+            data-on={(state.privacy ? false : state.protection) ? 'true' : 'false'}
+            onClick={() => (state.privacy ? setPrivacy(false) : setProtection(!state.protection))}
           />
           <div className="state">
-            {state.protection ? 'Protection on' : 'Protection off'}
+            {state.privacy ? 'Privacy mode' : state.protection ? 'Protection on' : 'Protection off'}
             <small>
-              {pausedBySchedule
-                ? 'Quiet hours, resumes on its own'
-                : state.protection
-                  ? 'All engines running'
-                  : 'Tap to resume blocking'}
+              {state.privacy
+                ? 'Nothing blocked, nothing recorded'
+                : pausedBySchedule
+                  ? 'Quiet hours, resumes on its own'
+                  : state.protection
+                    ? 'All engines running'
+                    : 'Tap to resume blocking'}
             </small>
           </div>
         </div>
@@ -163,7 +169,7 @@ export default function Dashboard() {
 
         <div className="card">
           <CardHead title="Recent activity" sub="The last requests Luma stopped">
-            <Link to="/tools/lab" className="btn sm ghost">
+            <Link to="/tools/experiments" className="btn sm ghost">
               Live demo
               <ArrowRight />
             </Link>

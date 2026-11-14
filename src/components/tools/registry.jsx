@@ -11,7 +11,7 @@ import {
   UserCheck,
   Wallet,
 } from 'lucide-react'
-import LabPanel from '../LabPanel'
+import ExperimentsPanel from '../experiments/ExperimentsPanel'
 import InspectorPanel from '../InspectorPanel'
 import BulkCheck from './BulkCheck'
 import ListCoverage from './ListCoverage'
@@ -38,13 +38,13 @@ export const TOOLS = [
     Panel: ProtectionScore,
   },
   {
-    id: 'lab',
-    label: 'Test lab',
+    id: 'experiments',
+    label: 'Experiments',
     icon: FlaskConical,
-    title: 'See the engine work.',
-    lede: 'Four simulated sites, one real filter engine. Luma screens every request and hides every ad slot using the rules you have enabled.',
-    blurb: 'Watch Luma strip ads from four simulated sites.',
-    Panel: LabPanel,
+    title: 'This month in the lab.',
+    lede: 'Three rotating experiments collect extra diagnostics — games, speed tests and simulations. The set changes every month, and every result stays on this device.',
+    blurb: 'Play this month’s diagnostics: games, speed tests and more.',
+    Panel: ExperimentsPanel,
   },
   {
     id: 'inspector',
