@@ -17140,6 +17140,38 @@ const ArrowRight = createLucideIcon("ArrowRight", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
+const Award = createLucideIcon("Award", [
+  [
+    "path",
+    {
+      d: "m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526",
+      key: "1yiouv"
+    }
+  ],
+  ["circle", { cx: "12", cy: "8", r: "6", key: "1vp47v" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const BookOpen = createLucideIcon("BookOpen", [
+  ["path", { d: "M12 7v14", key: "1akyts" }],
+  [
+    "path",
+    {
+      d: "M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z",
+      key: "ruj8y"
+    }
+  ]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
 const Check = createLucideIcon("Check", [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]]);
 /**
  * @license lucide-react v0.469.0 - ISC
@@ -17204,6 +17236,23 @@ const Download = createLucideIcon("Download", [
   ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }],
   ["polyline", { points: "7 10 12 15 17 10", key: "2ggqvy" }],
   ["line", { x1: "12", x2: "12", y1: "15", y2: "3", key: "1vk2je" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Eraser = createLucideIcon("Eraser", [
+  [
+    "path",
+    {
+      d: "m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21",
+      key: "182aya"
+    }
+  ],
+  ["path", { d: "M22 21H7", key: "t4ddhn" }],
+  ["path", { d: "m5 11 9 9", key: "1mo9qw" }]
 ]);
 /**
  * @license lucide-react v0.469.0 - ISC
@@ -17332,6 +17381,48 @@ const KeyRound = createLucideIcon("KeyRound", [
     }
   ],
   ["circle", { cx: "16.5", cy: "7.5", r: ".5", fill: "currentColor", key: "w0ekpg" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Layers = createLucideIcon("Layers", [
+  [
+    "path",
+    {
+      d: "M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z",
+      key: "zw3jo"
+    }
+  ],
+  [
+    "path",
+    {
+      d: "M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12",
+      key: "1wduqc"
+    }
+  ],
+  [
+    "path",
+    {
+      d: "M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17",
+      key: "kqbvx6"
+    }
+  ]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const ListChecks = createLucideIcon("ListChecks", [
+  ["path", { d: "m3 17 2 2 4-4", key: "1jhpwq" }],
+  ["path", { d: "m3 7 2 2 4-4", key: "1obspn" }],
+  ["path", { d: "M13 6h8", key: "15sg57" }],
+  ["path", { d: "M13 12h8", key: "h98zly" }],
+  ["path", { d: "M13 18h8", key: "oe0vm4" }]
 ]);
 /**
  * @license lucide-react v0.469.0 - ISC
@@ -17474,6 +17565,17 @@ const ShieldX = createLucideIcon("ShieldX", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
+const Timer = createLucideIcon("Timer", [
+  ["line", { x1: "10", x2: "14", y1: "2", y2: "2", key: "14vaq8" }],
+  ["line", { x1: "12", x2: "15", y1: "14", y2: "11", key: "17fdiu" }],
+  ["circle", { cx: "12", cy: "14", r: "8", key: "1e1u0o" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
 const Trash2 = createLucideIcon("Trash2", [
   ["path", { d: "M3 6h18", key: "d0wm0j" }],
   ["path", { d: "M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6", key: "4alrt4" }],
@@ -17514,6 +17616,17 @@ const Undo2 = createLucideIcon("Undo2", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
+const UserCheck = createLucideIcon("UserCheck", [
+  ["path", { d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2", key: "1yyitq" }],
+  ["circle", { cx: "9", cy: "7", r: "4", key: "nufk8" }],
+  ["polyline", { points: "16 11 18 13 22 9", key: "1pwet4" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
 const UserRound = createLucideIcon("UserRound", [
   ["circle", { cx: "12", cy: "8", r: "5", key: "1hypcn" }],
   ["path", { d: "M20 21a8 8 0 0 0-16 0", key: "rfgkzh" }]
@@ -17529,6 +17642,37 @@ const UserX = createLucideIcon("UserX", [
   ["circle", { cx: "9", cy: "7", r: "4", key: "nufk8" }],
   ["line", { x1: "17", x2: "22", y1: "8", y2: "13", key: "3nzzx3" }],
   ["line", { x1: "22", x2: "17", y1: "8", y2: "13", key: "1swrse" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Wallet = createLucideIcon("Wallet", [
+  [
+    "path",
+    {
+      d: "M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1",
+      key: "18etb6"
+    }
+  ],
+  ["path", { d: "M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4", key: "xoc0q4" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Wrench = createLucideIcon("Wrench", [
+  [
+    "path",
+    {
+      d: "M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z",
+      key: "cbrjhi"
+    }
+  ]
 ]);
 /**
  * @license lucide-react v0.469.0 - ISC
@@ -17831,6 +17975,202 @@ function AccountMenu() {
     passwordOpen ? /* @__PURE__ */ jsxRuntimeExports.jsx(PasswordDialog, { onClose: () => setPasswordOpen(false) }) : null
   ] });
 }
+function DailyByte() {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-head", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fakesite-logo", children: "The Daily Byte" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-nav", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "World" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Business" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Culture" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Opinion" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", className: "mini-btn", style: { marginLeft: "auto" }, children: "Subscribe" })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-body", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fake-ad leaderboard ad-leaderboard", children: [
+        "Advertisement",
+        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Lead the morning — 40% off your first year" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fakesite-hero-title", children: "The quiet return of the night train" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fakesite-dek", children: "Sleeper carriages are back on the menu across Europe, and travellers are booking earlier than ever." })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "hero-image" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-columns", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-copy article-body", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "At nine in the evening the platform at Gare de l’Est is busier than it has been in a decade. Porters stack luggage, a conductor checks a paper list, and somewhere down the track a sleeper train waits to leave." }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Operators say bookings have doubled since spring, driven by travellers who would rather wake up in another country than spend a morning at an airport." }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fake-ad inline ad-slot", children: [
+            "Sponsored",
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Open a smarter savings account" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "The economics are still delicate — carriages are costly to maintain — but the mood on the platform is hard to mistake for anything other than optimism." })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-side", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fake-ad tall sponsored-rail", children: [
+            "Sponsored",
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Is your VPN slowing you down?" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "newsletter-popup", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Get the Byte in your inbox" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("br", {}),
+            "One email, every morning.",
+            /* @__PURE__ */ jsxRuntimeExports.jsx("br", {}),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", className: "mini-btn", style: { marginTop: 8 }, children: "Sign up" })
+          ] })
+        ] })
+      ] })
+    ] })
+  ] });
+}
+function Shoply() {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-head", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fakesite-logo", children: "Shoply" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-nav", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Furniture" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Lighting" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Outdoor" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Sale" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", className: "mini-btn", style: { marginLeft: "auto" }, children: "Cart · 2" })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-body", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fake-ad leaderboard ad-slot", children: [
+        "Advertisement",
+        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "You looked at a chair. Here are 40 more chairs." })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fakesite-hero-title", children: "Small rooms, big ideas" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fakesite-dek", children: "Twelve pieces that make a 28 m² apartment feel generous." })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "product-grid", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fake-product product-card", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "thumb" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "meta", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Oak stool" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "$89" })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fake-product product-card", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "thumb" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "meta", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Paper lamp" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "$54" })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fake-product product-card", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "thumb" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "meta", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Linen throw" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "$120" })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fake-product sponsored sponsored-card", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "thumb", style: { background: "linear-gradient(140deg,#ffe6a6,#fff2cc)" } }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "meta", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Sponsored: 3-seat sofa" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "$1,499 · partner" })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fake-product product-card", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "thumb" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "meta", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Ceramic vase" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "$42" })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fake-product product-card", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "thumb" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "meta", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Wall mirror" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "$210" })
+          ] })
+        ] })
+      ] })
+    ] })
+  ] });
+}
+function TubeTime() {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-head", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fakesite-logo", children: "TubeTime" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-nav", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Home" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Shorts" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Subscriptions" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", className: "mini-btn", style: { marginLeft: "auto" }, children: "Sign in" })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-body", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "video-frame player", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "pre-roll-ad fake-ad", style: { width: "78%", minHeight: 120 }, children: [
+        "Pre-roll advertisement",
+        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Your video starts after this message" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { marginTop: 6, textTransform: "none", letterSpacing: 0 }, children: "Skip in 5 seconds" })
+      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "video-meta", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "video-title", children: "A 20-minute weeknight ramen, from scratch" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge plain", children: "12:04" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-columns", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-copy", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Tonight we are making a weeknight ramen that does not taste like compromise: a quick broth, a jammy egg, and whatever greens are in the fridge." }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fake-ad inline companion-ad", children: [
+            "Advertisement",
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Meal kits — $4.50 per serving" })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fakesite-side", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "sticky-social fake-ad", style: { background: "#f7f7f5", borderColor: "#ddd" }, children: [
+          "Follow us everywhere",
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { textTransform: "none", letterSpacing: 0 }, children: "@tubetime · 4.2M followers" })
+        ] }) })
+      ] })
+    ] })
+  ] });
+}
+function DevNotes() {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-head", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fakesite-logo", children: "DevNotes" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-nav", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Archive" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "About" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "RSS" })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-body", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "cookie-banner", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "We value your privacy. We and our 412 partners may store cookies on your device." }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", className: "mini-btn", children: "Accept all" })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fakesite-hero-title", children: "A tiny parser, explained" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fakesite-dek", children: "How a filter engine turns text rules into a decision in microseconds." })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-columns", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-copy post-body", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Most blocking engines are, at heart, a very fast string matcher. Rules arrive as text, get compiled once, and are then tested against every outgoing request." }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "code-block", children: `if (rule.regex.test(url)) {
+  return decision('block', rule)
+}` }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "The interesting part is the edge cases: exceptions, request types, and the difference between a first-party and a third-party request." })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fakesite-side", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "taboola-widget", style: { border: "1px dashed #e0c68a", borderRadius: 6, padding: 10 }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { fontSize: 9.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "#9a7b2a" }, children: "From around the web" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { fontSize: 11.5, marginTop: 6, color: "#444" }, children: "10 things your smart home knows about you" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { fontSize: 11.5, marginTop: 6, color: "#444" }, children: "This one trick made developers furious" })
+        ] }) })
+      ] })
+    ] })
+  ] });
+}
+function FakeSite({ id }) {
+  if (id === "shoply") return /* @__PURE__ */ jsxRuntimeExports.jsx(Shoply, {});
+  if (id === "tubetime") return /* @__PURE__ */ jsxRuntimeExports.jsx(TubeTime, {});
+  if (id === "devnotes") return /* @__PURE__ */ jsxRuntimeExports.jsx(DevNotes, {});
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(DailyByte, {});
+}
 function Switch({ on, onChange, label }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     "button",
@@ -17879,230 +18219,833 @@ function useToast() {
   ] }) : null;
   return { show, node };
 }
-const NAV = [
+const DEMO_SITES = [
   {
-    label: "Overview",
-    items: [{ to: "/", label: "Dashboard", icon: Gauge, end: true }]
+    id: "dailybyte",
+    name: "The Daily Byte",
+    category: "News",
+    host: "news.dailybyte.test",
+    blurb: "A busy newsroom: sponsored rail, leaderboard and a newsletter takeover.",
+    requests: [
+      { label: "Article feed", url: "https://news.dailybyte.test/api/feed.json", type: "xmlhttprequest", expect: "allowed" },
+      { label: "Hero photo", url: "https://news.dailybyte.test/img/city-hero.jpg", type: "image", expect: "allowed" },
+      { label: "Text face", url: "https://news.dailybyte.test/fonts/editorial.woff2", type: "font", expect: "allowed" },
+      { label: "Ad loader", url: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js", type: "script", expect: "blocked" },
+      { label: "Leaderboard creative", url: "https://ad.doubleclick.net/ddm/adi/N4821/banner.gif", type: "image", expect: "blocked" },
+      { label: "Taboola feed", url: "https://cdn.taboola.com/libtrc/network/loader.js", type: "script", expect: "blocked" },
+      { label: "Tag manager", url: "https://www.googletagmanager.com/gtm.js?id=GTM-42X", type: "script", expect: "blocked" },
+      { label: "Analytics beacon", url: "https://www.google-analytics.com/collect?v=1&t=pageview", type: "ping", expect: "blocked" }
+    ],
+    hide: [".ad-leaderboard", ".sponsored-rail", ".newsletter-popup"],
+    keep: [".article-body", ".hero-image"]
   },
   {
-    label: "Protection",
-    items: [
-      { to: "/protection", label: "Protection", icon: ShieldCheck },
-      { to: "/activity", label: "Activity", icon: History }
-    ]
+    id: "shoply",
+    name: "Shoply",
+    category: "Shopping",
+    host: "shop.shoply.test",
+    blurb: "A retailer retargeting you across the web from every product page.",
+    requests: [
+      { label: "Product feed", url: "https://shop.shoply.test/api/products?sort=new", type: "xmlhttprequest", expect: "allowed" },
+      { label: "Product image", url: "https://cdn.shoply.test/img/chair-01.webp", type: "image", expect: "allowed" },
+      { label: "Recommendations", url: "https://static.criteo.net/js/ld/publishertag.prebid.js", type: "script", expect: "blocked" },
+      { label: "Retargeting pixel", url: "https://www.facebook.com/tr?id=99812&ev=ViewContent", type: "image", expect: "blocked" },
+      { label: "Bid request", url: "https://match.adsrvr.org/track/rid?ttd_pid=77", type: "xmlhttprequest", expect: "blocked" },
+      { label: "Affiliate cookie sync", url: "https://cm.adform.net/cookie?redirect_url=x", type: "image", expect: "blocked" }
+    ],
+    hide: [".sponsored-card", ".ad-slot"],
+    keep: [".product-card", ".product-grid"]
   },
   {
-    label: "Account",
-    items: [{ to: "/account", label: "Account & settings", icon: UserRound }]
+    id: "tubetime",
+    name: "TubeTime",
+    category: "Video",
+    host: "watch.tubetime.test",
+    blurb: "A video player that would love a thirty-second pre-roll before the recipe.",
+    requests: [
+      { label: "Video segment", url: "https://cdn.watch.tubetime.test/hls/recipe-720p-003.ts", type: "media", expect: "allowed" },
+      { label: "Player bundle", url: "https://watch.tubetime.test/assets/player.js", type: "script", expect: "allowed" },
+      { label: "Pre-roll VAST", url: "https://search.spotxchange.com/vast/2.0/12345", type: "xmlhttprequest", expect: "blocked" },
+      { label: "Ad tag", url: "https://pubads.g.doubleclick.net/gampad/ads?iu=/1234/preroll", type: "xmlhttprequest", expect: "blocked" },
+      { label: "Session tracking", url: "https://www.google-analytics.com/collect?t=timing", type: "ping", expect: "blocked" },
+      { label: "Thumbnail", url: "https://cdn.watch.tubetime.test/img/recipe-thumb.jpg", type: "image", expect: "allowed" }
+    ],
+    hide: [".pre-roll-ad", ".companion-ad", ".sticky-social"],
+    keep: [".player", ".video-title"]
+  },
+  {
+    id: "devnotes",
+    name: "DevNotes",
+    category: "Blog",
+    host: "devnotes.test",
+    blurb: "A technical blog with a cookie wall and one very persistent reading list.",
+    requests: [
+      { label: "Post data", url: "https://devnotes.test/api/posts/42", type: "xmlhttprequest", expect: "allowed" },
+      { label: "Avatar", url: "https://avatars.githubusercontent.com/u/1024", type: "image", expect: "allowed" },
+      { label: "Code font", url: "https://devnotes.test/fonts/mono.woff2", type: "font", expect: "allowed" },
+      { label: "Sponsored reads", url: "https://widgets.outbrain.com/outbrain.js", type: "script", expect: "blocked" },
+      { label: "Bounce tracking", url: "https://www.google-analytics.com/collect?t=event", type: "ping", expect: "blocked" },
+      { label: "Facebook pixel", url: "https://connect.facebook.net/en_US/fbevents.js", type: "script", expect: "blocked" }
+    ],
+    hide: [".cookie-banner", ".taboola-widget"],
+    keep: [".post-body", ".code-block"]
   }
 ];
-const TOOLS = [
-  { to: "/tools/lab", label: "Test lab", icon: FlaskConical },
-  { to: "/tools/inspector", label: "URL inspector", icon: Search }
+const RESOURCE_TYPES = [
+  "document",
+  "subdocument",
+  "script",
+  "image",
+  "stylesheet",
+  "media",
+  "font",
+  "object",
+  "xmlhttprequest",
+  "websocket",
+  "ping",
+  "other"
 ];
-const TITLES = {
-  "/": "Overview",
-  "/protection": "Protection",
-  "/activity": "Activity",
-  "/account": "Account",
-  "/tools/lab": "Test lab",
-  "/tools/inspector": "URL inspector",
-  "/diagnostics": "Diagnostics",
-  "/owner": "Owner console"
+const TYPE_SET = new Set(RESOURCE_TYPES);
+const BROWSER_TYPES = {
+  document: "main_frame",
+  subdocument: "sub_frame",
+  script: "script",
+  image: "image",
+  stylesheet: "stylesheet",
+  media: "media",
+  font: "font",
+  object: "object",
+  xmlhttprequest: "xmlhttprequest",
+  websocket: "websocket",
+  ping: "ping",
+  other: "other"
 };
-function Layout() {
-  const { state, setProtection } = useApp();
-  const location = useLocation();
+function toBrowserTypes(types) {
+  const out = [];
+  for (const type of types || []) {
+    const mapped = BROWSER_TYPES[type];
+    if (mapped && !out.includes(mapped)) out.push(mapped);
+  }
+  return out;
+}
+const SECOND_LEVEL = /* @__PURE__ */ new Set([
+  "co.uk",
+  "org.uk",
+  "ac.uk",
+  "gov.uk",
+  "com.au",
+  "net.au",
+  "co.nz",
+  "co.jp",
+  "co.in",
+  "com.br",
+  "com.mx",
+  "co.za",
+  "com.tr",
+  "com.cn"
+]);
+const RE_SPECIAL = /[.+?^${}()|[\]\\]/g;
+const OPTION_RE = /^(.*)\$((?:~?[a-z][a-z0-9-]*(?:=[^,]*)?)(?:,(?:~?[a-z][a-z0-9-]*(?:=[^,]*)?))*)$/i;
+const sourceCache = /* @__PURE__ */ new Map();
+function hostnameOf(input) {
+  if (!input) return "";
+  const value = String(input).trim();
+  try {
+    const parsed = new URL(/^[a-z][a-z0-9+.-]*:\/\//i.test(value) ? value : "http://" + value);
+    return parsed.hostname.toLowerCase();
+  } catch {
+    return "";
+  }
+}
+function siteOf(host) {
+  const labels = String(host || "").toLowerCase().split(".").filter(Boolean);
+  if (labels.length <= 2) return labels.join(".");
+  const lastTwo = labels.slice(-2).join(".");
+  if (SECOND_LEVEL.has(lastTwo) && labels.length >= 3) return labels.slice(-3).join(".");
+  return lastTwo;
+}
+function hostMatches(host, domain) {
+  const h = String(host || "").toLowerCase();
+  const d = String(domain || "").toLowerCase().replace(/^\./, "");
+  if (!h || !d) return false;
+  return h === d || h.endsWith("." + d);
+}
+function isThirdParty(pageHost, requestHost) {
+  if (!pageHost || !requestHost) return void 0;
+  return siteOf(pageHost) !== siteOf(requestHost);
+}
+function patternToSource(pattern) {
+  const cached = sourceCache.get(pattern);
+  if (cached) return cached;
+  let rest = pattern;
+  let source = "";
+  if (rest.startsWith("||")) {
+    source += "^[a-z][a-z0-9+.-]*:\\/\\/(?:[^\\/?#]*\\.)?";
+    rest = rest.slice(2);
+  } else if (rest.startsWith("|")) {
+    source += "^";
+    rest = rest.slice(1);
+  }
+  let endAnchor = false;
+  if (rest.endsWith("|")) {
+    endAnchor = true;
+    rest = rest.slice(0, -1);
+  }
+  for (const char of rest) {
+    if (char === "*") source += ".*";
+    else if (char === "^") source += "(?:[^a-zA-Z0-9_\\-.%]|$)";
+    else source += char.replace(RE_SPECIAL, "\\$&");
+  }
+  if (endAnchor) source += "$";
+  sourceCache.set(pattern, source);
+  return source;
+}
+function defaultOptions() {
+  return {
+    thirdParty: void 0,
+    types: [],
+    notTypes: [],
+    includeDomains: [],
+    excludeDomains: [],
+    important: false
+  };
+}
+function parseFilter(rawInput, listId = "custom") {
+  const raw = String(rawInput ?? "").trim();
+  const base = {
+    raw,
+    listId,
+    kind: "network",
+    exception: false,
+    regex: null,
+    pattern: "",
+    selector: null,
+    domains: [],
+    options: defaultOptions(),
+    note: ""
+  };
+  if (!raw) return { ...base, kind: "invalid", note: "Empty rule" };
+  if (raw.startsWith("!") || raw.startsWith("[")) return { ...base, kind: "comment" };
+  let body = raw;
+  let exception = false;
+  if (body.startsWith("@@")) {
+    exception = true;
+    body = body.slice(2).trim();
+  }
+  const hideIdx = body.indexOf("##");
+  const hideExcIdx = body.indexOf("#@#");
+  let cosmeticIdx = -1;
+  let cosmeticException = false;
+  if (hideExcIdx >= 0 && (hideIdx < 0 || hideExcIdx <= hideIdx)) {
+    cosmeticIdx = hideExcIdx;
+    cosmeticException = true;
+  } else if (hideIdx >= 0) {
+    cosmeticIdx = hideIdx;
+  }
+  if (cosmeticIdx >= 0) {
+    const selector = body.slice(cosmeticIdx + (cosmeticException ? 3 : 2)).trim();
+    const domainText = body.slice(0, cosmeticIdx).trim();
+    if (!selector) return { ...base, kind: "invalid", note: "Cosmetic rule needs a selector" };
+    if (!isValidSelector(selector)) {
+      return { ...base, kind: "invalid", note: "This is not a valid CSS selector" };
+    }
+    const domainList = domainText ? domainText.split(",").map((d) => d.trim()).filter(Boolean) : [];
+    return {
+      ...base,
+      kind: "cosmetic",
+      exception: cosmeticException,
+      selector,
+      domains: domainList.filter((d) => !d.startsWith("~")),
+      options: {
+        ...base.options,
+        excludeDomains: domainList.filter((d) => d.startsWith("~")).map((d) => d.slice(1))
+      },
+      note: cosmeticException ? "Shows elements again" : "Hides matching elements"
+    };
+  }
+  let pattern = body;
+  let optionText = "";
+  const optionSplit = body.match(OPTION_RE);
+  if (optionSplit) {
+    pattern = optionSplit[1];
+    optionText = optionSplit[2];
+  }
+  if (!pattern) return { ...base, kind: "invalid", note: "This rule has no pattern" };
+  const options = defaultOptions();
+  for (const token of optionText ? optionText.split(",") : []) {
+    const trimmed = token.trim();
+    if (!trimmed) continue;
+    const negated = trimmed.startsWith("~");
+    const name = (negated ? trimmed.slice(1) : trimmed).toLowerCase();
+    if (name === "third-party") options.thirdParty = !negated;
+    else if (name === "first-party") options.thirdParty = negated;
+    else if (name === "important") options.important = true;
+    else if (name.startsWith("domain=")) {
+      for (const entry of name.slice("domain=".length).split("|")) {
+        const value = entry.trim();
+        if (!value) continue;
+        if (value.startsWith("~")) options.excludeDomains.push(value.slice(1));
+        else options.includeDomains.push(value);
+      }
+    } else if (TYPE_SET.has(name)) {
+      (negated ? options.notTypes : options.types).push(name);
+    }
+  }
+  let regex;
+  try {
+    if (pattern.length > 2 && pattern.startsWith("/") && pattern.endsWith("/")) {
+      regex = new RegExp(pattern.slice(1, -1), "i");
+    } else {
+      regex = new RegExp(patternToSource(pattern), "i");
+    }
+  } catch {
+    return { ...base, kind: "invalid", note: "This pattern could not be compiled" };
+  }
+  return {
+    ...base,
+    exception,
+    pattern,
+    regex,
+    options,
+    note: exception ? "Allows matching requests" : "Blocks matching requests"
+  };
+}
+function isValidSelector(selector) {
+  if (typeof document === "undefined") return true;
+  try {
+    document.createDocumentFragment().querySelector(selector);
+    return true;
+  } catch {
+    return false;
+  }
+}
+const parseCache = /* @__PURE__ */ new Map();
+function compileRules(lines, listId) {
+  return lines.map((line) => {
+    const key = listId + "::" + line;
+    if (parseCache.has(key)) return parseCache.get(key);
+    const parsed = parseFilter(line, listId);
+    const usable = parsed.kind === "network" || parsed.kind === "cosmetic" ? parsed : null;
+    parseCache.set(key, usable);
+    return usable;
+  }).filter(Boolean);
+}
+function requestFrom(input, pageHost) {
+  return {
+    url: input.url,
+    type: input.type || "script",
+    pageHost: input.pageHost ?? pageHost ?? ""
+  };
+}
+function ruleMatchesRequest(rule, request) {
+  if (!rule.regex || !rule.regex.test(request.url)) return false;
+  const opts = rule.options;
+  if (opts.types.length && !opts.types.includes(request.type)) return false;
+  if (opts.notTypes.includes(request.type)) return false;
+  if (opts.thirdParty !== void 0) {
+    const third = isThirdParty(request.pageHost, hostnameOf(request.url));
+    if (third !== void 0 && third !== opts.thirdParty) return false;
+  }
+  if (opts.includeDomains.length) {
+    const ok = opts.includeDomains.some((d) => hostMatches(request.pageHost, d));
+    if (!ok) return false;
+  }
+  if (opts.excludeDomains.some((d) => hostMatches(request.pageHost, d))) return false;
+  return true;
+}
+function evaluateRequest(input, rules, pageHost = "") {
+  const request = requestFrom(input, pageHost);
+  const matches = [];
+  for (const rule of rules) {
+    if (rule.kind !== "network") continue;
+    if (ruleMatchesRequest(rule, request)) matches.push(rule);
+  }
+  const blocks = matches.filter((r) => !r.exception);
+  const allows = matches.filter((r) => r.exception);
+  const important = blocks.find((r) => r.options.important);
+  let winner = null;
+  if (important) winner = important;
+  else if (allows.length) winner = allows[0];
+  else if (blocks.length) winner = blocks[0];
+  const blocked = Boolean(important) || !allows.length && blocks.length > 0;
+  return {
+    blocked,
+    rule: winner,
+    matches,
+    request,
+    reason: !winner ? "No rule matched this request" : winner.exception ? "An exception rule allows this request" : "A block rule matched this request"
+  };
+}
+function cosmeticFor(host, rules) {
+  const hide = [];
+  const show = [];
+  for (const rule of rules) {
+    if (rule.kind !== "cosmetic") continue;
+    if (rule.options.excludeDomains.some((d) => hostMatches(host, d))) continue;
+    const applies = rule.domains.length === 0 || rule.domains.some((d) => hostMatches(host, d));
+    if (!applies) continue;
+    (rule.exception ? show : hide).push(rule);
+  }
+  return { hide, show };
+}
+function screenRequest(input, context) {
+  const { rules = [], allowlist = [], protection = true, pageHost = "" } = context || {};
+  const host = hostnameOf(input.url);
+  if (!protection) {
+    return {
+      blocked: false,
+      status: "paused",
+      reason: "Protection is paused",
+      rule: null,
+      matches: [],
+      host,
+      listId: null
+    };
+  }
+  const siteAllowed = allowlist.some((entry) => hostMatches(pageHost, entry));
+  if (siteAllowed) {
+    return {
+      blocked: false,
+      status: "allowlisted",
+      reason: "This site is on your allowlist",
+      rule: null,
+      matches: [],
+      host,
+      listId: null
+    };
+  }
+  const result = evaluateRequest(input, rules, pageHost);
+  return {
+    ...result,
+    status: result.blocked ? "blocked" : "allowed",
+    host,
+    listId: result.rule ? result.rule.listId : null
+  };
+}
+function toDeclarativeNetRequest(rules) {
+  const output = [];
+  let id = 1;
+  for (const rule of rules) {
+    if (rule.kind !== "network") continue;
+    const isRegex = rule.pattern.length > 2 && rule.pattern.startsWith("/") && rule.pattern.endsWith("/");
+    const condition = isRegex ? { regexFilter: rule.pattern.slice(1, -1) } : { urlFilter: rule.pattern };
+    const types = toBrowserTypes(rule.options.types);
+    const notTypes = toBrowserTypes(rule.options.notTypes);
+    if (types.length) condition.resourceTypes = types;
+    if (notTypes.length) condition.excludedResourceTypes = notTypes;
+    if (rule.options.thirdParty === true) condition.domainType = "thirdParty";
+    if (rule.options.thirdParty === false) condition.domainType = "firstParty";
+    if (rule.options.includeDomains.length) condition.initiatorDomains = rule.options.includeDomains;
+    if (rule.options.excludeDomains.length) {
+      condition.excludedInitiatorDomains = rule.options.excludeDomains;
+    }
+    output.push({
+      id: id++,
+      priority: rule.exception ? 10 : rule.options.important ? 20 : 1,
+      action: { type: rule.exception ? "allow" : "block" },
+      condition
+    });
+  }
+  return output;
+}
+function selectorLabel(selector) {
+  const simple = selector.match(/^\.([a-z0-9-]+)$/i);
+  if (!simple) return "Page element";
+  return simple[1].split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
+}
+function LabPanel() {
+  const { state, setProtection, rules, observe, protectionNow } = useApp();
+  const [siteId, setSiteId] = reactExports.useState(DEMO_SITES[0].id);
+  const [checks, setChecks] = reactExports.useState(null);
+  const [hiddenCount, setHiddenCount] = reactExports.useState(0);
+  const siteRef = reactExports.useRef(null);
+  const site = DEMO_SITES.find((item) => item.id === siteId) || DEMO_SITES[0];
+  const decisions = reactExports.useMemo(
+    () => site.requests.map((request) => ({
+      ...request,
+      decision: screenRequest(request, {
+        rules,
+        allowlist: state.allowlist,
+        protection: protectionNow,
+        pageHost: site.host
+      })
+    })),
+    [site, rules, state.allowlist, protectionNow]
+  );
+  const cosmetic = reactExports.useMemo(() => cosmeticFor(site.host, rules), [rules, site.host]);
+  const blockedCount = decisions.filter((item) => item.decision.blocked).length;
   reactExports.useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
-  const title = TITLES[location.pathname] || "Overview";
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "shell", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("aside", { className: "sidebar", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(NavLink, { to: "/", className: "brand", "aria-label": "Luma home", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "brand-mark" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "brand-name", children: [
-          "Luma",
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Ad blocker" })
+    observe(
+      decisions.map((item) => ({
+        url: item.url,
+        type: item.type,
+        pageHost: site.host,
+        blocked: item.decision.blocked,
+        listId: item.decision.listId
+      }))
+    );
+  }, [decisions, site.host, observe]);
+  reactExports.useEffect(() => {
+    setChecks(null);
+    const root = siteRef.current;
+    if (!root) return;
+    root.querySelectorAll("[data-luma-hidden]").forEach((node) => node.removeAttribute("data-luma-hidden"));
+    if (!protectionNow) {
+      setHiddenCount(0);
+      return;
+    }
+    const touched = /* @__PURE__ */ new Set();
+    for (const rule of cosmetic.hide) {
+      try {
+        root.querySelectorAll(rule.selector).forEach((node) => {
+          node.setAttribute("data-luma-hidden", "true");
+          touched.add(node);
+        });
+      } catch {
+      }
+    }
+    for (const rule of cosmetic.show) {
+      try {
+        root.querySelectorAll(rule.selector).forEach((node) => {
+          node.removeAttribute("data-luma-hidden");
+          touched.delete(node);
+        });
+      } catch {
+      }
+    }
+    setHiddenCount(touched.size);
+  }, [cosmetic, protectionNow, siteId]);
+  function runChecks() {
+    const root = siteRef.current;
+    if (!root) return;
+    const results = [];
+    for (const item of decisions) {
+      results.push({
+        key: item.url,
+        label: item.label,
+        detail: item.expect === "blocked" ? "should be blocked" : "should be allowed",
+        ok: item.decision.blocked === (item.expect === "blocked")
+      });
+    }
+    for (const selector of site.hide) {
+      const nodes = Array.from(root.querySelectorAll(selector));
+      results.push({
+        key: "hide:" + selector,
+        label: selectorLabel(selector),
+        detail: `${nodes.length} element${nodes.length === 1 ? "" : "s"} hidden`,
+        ok: nodes.length > 0 && nodes.every((node) => node.getAttribute("data-luma-hidden") === "true")
+      });
+    }
+    for (const selector of site.keep) {
+      const nodes = Array.from(root.querySelectorAll(selector));
+      results.push({
+        key: "keep:" + selector,
+        label: selectorLabel(selector),
+        detail: "should stay visible",
+        ok: nodes.length > 0 && nodes.every((node) => node.getAttribute("data-luma-hidden") !== "true")
+      });
+    }
+    setChecks(results);
+  }
+  const passed = checks ? checks.filter((check) => check.ok).length : 0;
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "site-switch", children: DEMO_SITES.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "button",
+      {
+        type: "button",
+        className: "site-pill",
+        "data-active": item.id === site.id ? "true" : "false",
+        onClick: () => setSiteId(item.id),
+        children: item.name
+      },
+      item.id
+    )) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "small muted", style: { marginTop: -8 }, children: site.blurb }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "lab-grid", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stack", style: { gap: 14 }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "browser", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "browser-bar", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "browser-dots", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("i", {}),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("i", {}),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("i", {})
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "browser-url", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(Globe, {}),
+              site.host
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "browser-shield", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldCheck, {}),
+              protectionNow ? `${blockedCount} blocked` : "paused"
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "browser-viewport", ref: siteRef, children: /* @__PURE__ */ jsxRuntimeExports.jsx(FakeSite, { id: site.id }) })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", style: { flexWrap: "wrap" }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "button",
+            {
+              type: "button",
+              className: "btn",
+              onClick: () => setProtection(!state.protection),
+              children: [
+                state.protection ? /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldCheck, {}) : /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldOff, {}),
+                state.protection ? "Pause protection" : "Resume protection"
+              ]
+            }
+          ),
+          state.protection && !protectionNow ? /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge warn", children: "Quiet hours" }) : null,
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
+            protectionNow ? hiddenCount : 0,
+            " ad elements hidden"
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
+            blockedCount,
+            " of ",
+            decisions.length,
+            " requests blocked"
+          ] })
         ] })
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("nav", { className: "nav", "aria-label": "Sections", children: [
-        NAV.map((group, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Fragment, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "nav-label", style: { marginTop: index ? 14 : 0 }, children: group.label }),
-          group.items.map((item) => {
-            const Icon2 = item.icon;
-            return /* @__PURE__ */ jsxRuntimeExports.jsxs(NavLink, { to: item.to, end: item.end, className: "nav-link", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, {}),
-              item.label
-            ] }, item.to);
-          })
-        ] }, group.label)),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "nav-label", style: { marginTop: 14 }, children: "Tools" }),
-        TOOLS.map((tool) => {
-          const Icon2 = tool.icon;
-          return /* @__PURE__ */ jsxRuntimeExports.jsxs(NavLink, { to: tool.to, className: "nav-link", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, {}),
-            tool.label
-          ] }, tool.to);
-        })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "sidebar-foot", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "side-status", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "status-line", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: state.protection ? "dot" : "dot off" }),
-            state.protection ? "Protected" : "Paused"
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
-            "Ads, trackers and annoyances",
-            /* @__PURE__ */ jsxRuntimeExports.jsx("br", {}),
-            "filtered before they load"
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stack", style: { gap: 14 }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", style: { padding: 18 }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Requests", sub: "Live decisions from the filter engine" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "request-table", children: decisions.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "request-row", "data-status": item.decision.status, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "req-main", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "req-label", children: item.label }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "req-url", children: item.decision.blocked ? "Recognized ad or tracker" : "Nothing to block" })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "req-state " + (protectionNow ? item.decision.status : "paused"), children: protectionNow ? item.decision.blocked ? "blocked" : "allowed" : "paused" })
+          ] }, item.url)) })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", style: { padding: 18 }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Checks", sub: "What every request and ad slot should do", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "btn sm ghost", onClick: runChecks, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(FlaskConical, {}),
+            "Run checks"
+          ] }) }),
+          checks ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "verdict", "data-ok": passed === checks.length ? "true" : "false", children: [
+              passed === checks.length ? /* @__PURE__ */ jsxRuntimeExports.jsx(CircleCheck, {}) : /* @__PURE__ */ jsxRuntimeExports.jsx(TriangleAlert, {}),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("strong", { children: [
+                  passed,
+                  " / ",
+                  checks.length
+                ] }),
+                " ",
+                "checks passed",
+                !protectionNow ? " — protection is paused" : ""
+              ] })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "check-list", style: { marginTop: 10 }, children: checks.map((check) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "check", "data-ok": check.ok ? "true" : "false", children: [
+              check.ok ? /* @__PURE__ */ jsxRuntimeExports.jsx(CircleCheck, {}) : /* @__PURE__ */ jsxRuntimeExports.jsx(CircleX, {}),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "grow", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { fontWeight: 500 }, children: check.label }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("br", {}),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "small muted", children: check.detail })
+              ] })
+            ] }, check.key)) })
+          ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "empty", children: [
+            "Press ",
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Run checks" }),
+            " to screen every request on this page and confirm each ad slot is hidden."
           ] })
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "side-links", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Luma 0.1 beta" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "·" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Local data" })
-        ] })
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "main", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("header", { className: "topbar", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "topbar-title", children: title }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "topbar-right", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge " + (state.protection ? "good" : "plain"), children: state.protection ? "On" : "Paused" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "quick-toggle", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: state.protection ? "Protection on" : "Protection off" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Switch, { on: state.protection, onChange: setProtection, label: "Toggle protection" })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(AccountMenu, {})
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("main", { className: "page", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "beta-note", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge accent", children: "Beta" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "This is the Luma beta. Diagnostics are monitored continuously so blocking problems get found and fixed quickly." })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Outlet, {})
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Every decision above comes from the protection you have enabled." })
       ] })
     ] })
   ] });
 }
-const DEFAULT_SCHEDULE = { enabled: false, from: "22:00", to: "07:00" };
-function parseClock(value) {
-  const match = /^([01]\d|2[0-3]):([0-5]\d)$/.exec(String(value || ""));
-  return match ? Number(match[1]) * 60 + Number(match[2]) : null;
-}
-function normalizeSchedule(input, fallback = DEFAULT_SCHEDULE) {
-  const next = { ...fallback, ...input && typeof input === "object" ? input : {} };
+const EXAMPLES = [
+  {
+    label: "DoubleClick banner",
+    url: "https://ad.doubleclick.net/ddm/adi/N4821/banner.gif",
+    type: "image",
+    pageHost: "news.dailybyte.test"
+  },
+  {
+    label: "Analytics beacon",
+    url: "https://www.google-analytics.com/collect?v=1&t=pageview",
+    type: "ping",
+    pageHost: "news.dailybyte.test"
+  },
+  {
+    label: "First-party script",
+    url: "https://news.dailybyte.test/assets/app.js",
+    type: "script",
+    pageHost: "news.dailybyte.test"
+  },
+  {
+    label: "Video ad tag",
+    url: "https://pubads.g.doubleclick.net/gampad/ads?iu=/1234/preroll",
+    type: "xmlhttprequest",
+    pageHost: "watch.tubetime.test"
+  },
+  {
+    label: "YouTube ad ping",
+    url: "https://www.youtube.com/api/stats/ads?ver=2",
+    type: "xmlhttprequest",
+    pageHost: "www.youtube.com"
+  },
+  {
+    label: "Session recorder",
+    url: "https://static.hotjar.com/c/hotjar.js",
+    type: "script",
+    pageHost: "shop.shoply.test"
+  }
+];
+function sampleFromRule(rule) {
+  const body = rule.replace(/^@@/, "").split("$")[0];
+  if (body.includes("##") || body.includes("#@#")) return null;
+  const host = body.replace(/^\|\|/, "").replace(/^\|/, "").replace(/\^$/, "");
+  if (!/^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(host)) return null;
   return {
-    enabled: Boolean(next.enabled),
-    from: parseClock(next.from) === null ? fallback.from : next.from,
-    to: parseClock(next.to) === null ? fallback.to : next.to
+    label: "Your custom rule",
+    url: `https://${host}/luma-check.gif`,
+    type: "image",
+    pageHost: "example.org"
   };
 }
-function isQuietNow(schedule, date = /* @__PURE__ */ new Date()) {
-  if (!(schedule == null ? void 0 : schedule.enabled)) return false;
-  const from = parseClock(schedule.from);
-  const to = parseClock(schedule.to);
-  if (from === null || to === null || from === to) return false;
-  const now = date.getHours() * 60 + date.getMinutes();
-  if (from < to) return now >= from && now < to;
-  return now >= from || now < to;
-}
-function clockLabel(value) {
-  const minutes = parseClock(value);
-  if (minutes === null) return value;
-  const date = new Date(2e3, 0, 1, Math.floor(minutes / 60), minutes % 60);
-  return date.toLocaleTimeString(void 0, { hour: "numeric", minute: "2-digit" });
-}
-function scheduleLabel(schedule) {
-  return clockLabel(schedule.from) + " – " + clockLabel(schedule.to);
-}
-function TimeField({ id, label, value, onChange }) {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: id, children: label }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      "input",
-      {
-        id,
-        className: "input",
-        type: "time",
-        value,
-        onChange: (event) => {
-          if (/^\d{2}:\d{2}$/.test(event.target.value)) onChange(event.target.value);
-        }
+const TYPES$2 = ["script", "image", "stylesheet", "xmlhttprequest", "subdocument", "document", "media", "font", "ping", "other"];
+function InspectorPanel() {
+  const { rules, state, observe, protectionNow } = useApp();
+  const [url, setUrl] = reactExports.useState(EXAMPLES[0].url);
+  const [type, setType] = reactExports.useState(EXAMPLES[0].type);
+  const [pageHost, setPageHost] = reactExports.useState(EXAMPLES[0].pageHost);
+  const examples = reactExports.useMemo(() => {
+    const dynamic = [];
+    for (const rule of state.customRules) {
+      const sample = sampleFromRule(rule);
+      if (sample) {
+        dynamic.push(sample);
+        break;
       }
-    )
-  ] });
-}
-function ScheduleCard() {
-  const { state, setSchedule, pausedBySchedule } = useApp();
-  const schedule = state.schedule;
-  function update(patch) {
-    setSchedule({ ...schedule, ...patch });
-  }
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      CardHead,
-      {
-        title: "Quiet hours",
-        sub: "Let protection step aside on a schedule, every day",
-        children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-          Switch,
-          {
-            on: schedule.enabled,
-            onChange: (enabled) => update({ enabled }),
-            label: "Quiet hours"
-          }
-        )
-      }
-    ),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "schedule-grid", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        TimeField,
-        {
-          id: "quiet-from",
-          label: "Pause at",
-          value: schedule.from,
-          onChange: (from) => update({ from })
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        TimeField,
-        {
-          id: "quiet-to",
-          label: "Resume at",
-          value: schedule.to,
-          onChange: (to) => update({ to })
-        }
-      )
+    }
+    if (state.allowlist.length) {
+      dynamic.push({
+        label: "Allowlisted site",
+        url: "https://ad.doubleclick.net/ddm/adi/N4821/banner.gif",
+        type: "image",
+        pageHost: state.allowlist[0]
+      });
+    }
+    return [...EXAMPLES, ...dynamic];
+  }, [state.customRules, state.allowlist]);
+  const requestHost = hostnameOf(url);
+  const third = isThirdParty(pageHost, requestHost);
+  const decision = screenRequest(
+    { url, type },
+    { rules, allowlist: state.allowlist, protection: protectionNow, pageHost }
+  );
+  const status = decision.status;
+  const listId = decision.listId;
+  reactExports.useEffect(() => {
+    if (!requestHost.includes(".")) return void 0;
+    const timer = window.setTimeout(() => {
+      observe([{ url, type, pageHost, blocked: status === "blocked", listId }]);
+    }, 600);
+    return () => window.clearTimeout(timer);
+  }, [url, type, pageHost, status, requestHost, listId, observe]);
+  const titles = {
+    blocked: "Blocked",
+    allowed: "Allowed",
+    allowlisted: "Allowed — site is allowlisted",
+    paused: "Allowed — protection is paused"
+  };
+  const reasons = {
+    blocked: "Recognized as an ad or tracker",
+    allowed: "Nothing suspicious found",
+    allowlisted: "You allowlisted this site",
+    paused: "Protection is paused"
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "grid-2", style: { alignItems: "start" }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Request", sub: "Nothing leaves your device" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stack", style: { gap: 14 }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "url", children: "Request URL" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "input",
+            {
+              id: "url",
+              className: "input mono",
+              value: url,
+              onChange: (event) => setUrl(event.target.value),
+              spellCheck: "false",
+              placeholder: "https://ads.example.com/banner.js"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", style: { alignItems: "flex-end", gap: 12, flexWrap: "wrap" }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field grow", style: { minWidth: 180 }, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "page", children: "Page you are on" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "input",
+              {
+                id: "page",
+                className: "input mono",
+                value: pageHost,
+                onChange: (event) => setPageHost(event.target.value),
+                spellCheck: "false",
+                placeholder: "example.com"
+              }
+            )
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field", style: { minWidth: 150 }, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "type", children: "Resource type" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("select", { id: "type", className: "select", value: type, onChange: (event) => setType(event.target.value), children: TYPES$2.map((option) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: option, children: option }, option)) })
+          ] })
+        ] }),
+        !requestHost ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "hint", style: { color: "var(--accent-deep)" }, children: "That does not look like a URL yet — try something like https://ads.example.com/banner.js" }) : null,
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "eyebrow", style: { marginBottom: 8 }, children: "Try an example" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "example-chips", children: examples.map((example) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "button",
+            {
+              type: "button",
+              className: "example",
+              onClick: () => {
+                setUrl(example.url);
+                setType(example.type);
+                setPageHost(example.pageHost);
+              },
+              children: example.label
+            },
+            example.label
+          )) })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "note", style: { marginTop: 16 }, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", style: { gap: 8, flexWrap: "wrap" }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
+          "host: ",
+          requestHost || "—"
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge plain", children: third === void 0 ? "party: unknown" : third ? "third-party" : "first-party" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
+          "type: ",
+          type
+        ] })
+      ] }) })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "schedule-state", "data-on": schedule.enabled ? "true" : "false", children: schedule.enabled ? pausedBySchedule ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Moon, { width: 14, height: 14 }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
-        "Quiet hours are on right now — protection resumes at",
-        " ",
-        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: clockLabel(schedule.to) }),
-        "."
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stack", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "decision", "data-status": status, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "decision-head", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "decision-icon", children: status === "blocked" ? /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldX, {}) : status === "paused" ? /* @__PURE__ */ jsxRuntimeExports.jsx(CirclePause, {}) : /* @__PURE__ */ jsxRuntimeExports.jsx(CircleCheck, {}) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { children: titles[status] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: reasons[status] })
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "match-list", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "eyebrow", children: "Why" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "small muted", style: { marginTop: 6 }, children: status === "blocked" ? "Luma recognizes this as an ad or tracker and stops it before it loads." : status === "allowlisted" ? "You allowlisted this site, so Luma stays out of the way here." : status === "paused" ? "Protection is paused, so nothing is blocked right now." : "This does not look like an ad or tracker Luma knows, so it is allowed." })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "footer-note", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Search, { size: 12, style: { verticalAlign: "-2px", marginRight: 4 } }),
+        "Luma checks this against the protection you have enabled."
       ] })
-    ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Clock, { width: 14, height: 14 }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
-        "Protection is active. It pauses at ",
-        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: clockLabel(schedule.from) }),
-        " and resumes at ",
-        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: clockLabel(schedule.to) }),
-        "."
-      ] })
-    ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Clock, { width: 14, height: 14 }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
-        "Off — protection runs around the clock (",
-        scheduleLabel(schedule),
-        " is saved)."
-      ] })
-    ] }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Quiet hours only pause blocking; your lists, rules and trusted sites stay exactly as they are." })
+    ] })
   ] });
 }
 const FILTER_LISTS = [
@@ -18496,6 +19439,1105 @@ const DEFAULT_LISTS = {
   "annoyance-cleaner": true,
   "social-widgets": false
 };
+const SAMPLE = [
+  "https://ad.doubleclick.net/ddm/ad/banner.gif",
+  "https://www.google-analytics.com/collect?v=1&t=pageview",
+  "https://static.hotjar.com/c/hotjar.js",
+  "https://news.dailybyte.test/assets/app.js"
+].join("\n");
+const TYPES$1 = ["image", "script", "xmlhttprequest", "ping", "subdocument", "stylesheet", "media", "font"];
+const MAX_LINES = 40;
+function sourceName(id) {
+  var _a;
+  if (id === "custom") return "Your own rule";
+  if (id === "learned") return "Picked up by Luma";
+  return ((_a = FILTER_LISTS.find((list) => list.id === id)) == null ? void 0 : _a.name) || "A rule";
+}
+function BulkCheck() {
+  const { rules, state, protectionNow } = useApp();
+  const [text, setText] = reactExports.useState(SAMPLE);
+  const [type, setType] = reactExports.useState("image");
+  const rows = reactExports.useMemo(() => {
+    const lines = text.split("\n").map((line) => line.trim()).filter(Boolean).slice(0, MAX_LINES);
+    return lines.map((url) => {
+      const decision = screenRequest(
+        { url, type },
+        { rules, allowlist: state.allowlist, protection: protectionNow, pageHost: "" }
+      );
+      return {
+        url,
+        host: hostnameOf(url) || url.slice(0, 40),
+        status: decision.status,
+        by: decision.listId ? sourceName(decision.listId) : ""
+      };
+    });
+  }, [text, type, rules, state.allowlist, protectionNow]);
+  const blocked = rows.filter((row) => row.status === "blocked").length;
+  const overLimit = text.split("\n").filter((line) => line.trim()).length > MAX_LINES;
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "grid-2", style: { alignItems: "start" }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Addresses to check", sub: "One per line, up to 40" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stack", style: { gap: 12 }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "bulk-urls", children: "Links" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "textarea",
+            {
+              id: "bulk-urls",
+              className: "textarea mono",
+              rows: 8,
+              value: text,
+              spellCheck: "false",
+              onChange: (event) => setText(event.target.value)
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "bulk-type", children: "Treat them as" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "select",
+            {
+              id: "bulk-type",
+              className: "select",
+              value: type,
+              onChange: (event) => setType(event.target.value),
+              children: TYPES$1.map((option) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: option, children: option }, option))
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", style: { gap: 8, flexWrap: "wrap" }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
+            rows.length,
+            " checked"
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge warn", children: [
+            blocked,
+            " blocked"
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge good", children: [
+            rows.length - blocked,
+            " allowed"
+          ] })
+        ] }),
+        overLimit ? /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "hint", children: [
+          "Only the first ",
+          MAX_LINES,
+          " addresses are checked at a time."
+        ] }) : null
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Results", sub: "Nothing leaves your device" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed", children: [
+        rows.map((row, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-row", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-main", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "host", children: row.host }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "rule", children: row.status === "blocked" ? row.by : row.status === "allowlisted" ? "This site is trusted" : row.status === "paused" ? "Protection is paused" : "Nothing matched" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "feed-side", children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge " + (row.status === "blocked" ? "warn" : "plain"), children: row.status === "blocked" ? "Blocked" : "Allowed" }) })
+        ] }, row.url + index)),
+        !rows.length ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "empty", children: "Add a few links on the left to check them." }) : null
+      ] })
+    ] })
+  ] });
+}
+const TYPES = ["image", "script", "xmlhttprequest", "ping", "subdocument", "stylesheet", "media", "font"];
+function ListCoverage() {
+  const { state } = useApp();
+  const [url, setUrl] = reactExports.useState("https://ad.doubleclick.net/ddm/ad/banner.gif");
+  const [type, setType] = reactExports.useState("image");
+  const rows = reactExports.useMemo(
+    () => FILTER_LISTS.map((list) => {
+      const compiled = compileRules(list.rules, list.id);
+      return {
+        list,
+        on: Boolean(state.lists[list.id]),
+        blocked: evaluateRequest({ url, type }, compiled).blocked
+      };
+    }),
+    [url, type, state.lists]
+  );
+  const hits = rows.filter((row) => row.blocked).length;
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "grid-2", style: { alignItems: "start" }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "The address", sub: "Compare it against every list" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stack", style: { gap: 12 }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "coverage-url", children: "Link" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "input",
+            {
+              id: "coverage-url",
+              className: "input mono",
+              value: url,
+              spellCheck: "false",
+              onChange: (event) => setUrl(event.target.value),
+              placeholder: "https://ads.example.com/banner.js"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "coverage-type", children: "Treat it as" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "select",
+            {
+              id: "coverage-type",
+              className: "select",
+              value: type,
+              onChange: (event) => setType(event.target.value),
+              children: TYPES.map((option) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: option, children: option }, option))
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "hint", children: hits ? `${hits} of your lists ${hits === 1 ? "catches" : "catch"} this address.` : "None of your lists know this address." })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Lists", sub: "On or off, and whether it would catch this" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "feed", children: rows.map((row) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-row", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-main", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "host", children: row.list.name }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "rule", children: row.list.description })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-side", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge " + (row.on ? "good" : "plain"), children: row.on ? "On" : "Off" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge " + (row.blocked ? "warn" : "plain"), children: row.blocked ? "Catches it" : "Misses it" })
+        ] })
+      ] }, row.list.id)) })
+    ] })
+  ] });
+}
+const PRESETS = [
+  {
+    id: "reddit-promoted",
+    label: "Promoted posts on Reddit",
+    site: "reddit.com",
+    text: "Removes the sponsored posts that appear in your feed.",
+    rule: "reddit.com##shreddit-ad-post"
+  },
+  {
+    id: "youtube-promoted",
+    label: "Promoted videos on YouTube",
+    site: "youtube.com",
+    text: "Hides the paid video suggestions below a player.",
+    rule: "youtube.com##ytd-promoted-sparkles-web-renderer"
+  },
+  {
+    id: "amazon-sponsored",
+    label: "Sponsored products on Amazon",
+    site: "amazon.com",
+    text: "Hides the sponsored slots that sit between search results.",
+    rule: 'amazon.com##[data-component-type="sp-sponsored-result"]'
+  },
+  {
+    id: "linkedin-sponsored",
+    label: "Sponsored posts on LinkedIn",
+    site: "linkedin.com",
+    text: "Clears the promoted entries out of your feed.",
+    rule: "linkedin.com##.feed-shared-update-v2--sponsored"
+  },
+  {
+    id: "x-promoted",
+    label: "Promoted posts on X",
+    site: "x.com",
+    text: "Hides the promoted posts that interrupt the timeline.",
+    rule: 'x.com##[data-testid="placementTracking"]'
+  },
+  {
+    id: "promoted-cards",
+    label: "Promoted cards anywhere",
+    site: "Every site",
+    text: "Hides blocks marked as promoted or sponsored by the page itself.",
+    rule: "##.promoted-post"
+  },
+  {
+    id: "sticky-cta",
+    label: "Sticky subscribe bars",
+    site: "Every site",
+    text: "Removes the bar that follows you down the page asking you to subscribe.",
+    rule: "##.sticky-cta"
+  },
+  {
+    id: "chat-bubble",
+    label: "Support chat bubbles",
+    site: "Every site",
+    text: "Hides the floating chat button that covers the corner of the page.",
+    rule: "##.chat-widget"
+  }
+];
+function RuleLibrary() {
+  const { state, addCustomRule, removeCustomRule } = useApp();
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stack", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        CardHead,
+        {
+          title: "Add a rule",
+          sub: "One click, one annoyance gone — no filter syntax to learn",
+          children: /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(BookOpen, {}),
+            PRESETS.length,
+            " ready"
+          ] })
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid-2", children: PRESETS.map((preset) => {
+        const added = state.customRules.includes(preset.rule);
+        return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "note", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", style: { justifyContent: "space-between", gap: 10 }, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { fontWeight: 600, fontSize: 13 }, children: preset.label }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "small muted", children: preset.site })
+            ] }),
+            added ? /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              "button",
+              {
+                type: "button",
+                className: "btn sm ghost",
+                onClick: () => removeCustomRule(preset.rule),
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(Trash2, {}),
+                  "Remove"
+                ]
+              }
+            ) : /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              "button",
+              {
+                type: "button",
+                className: "btn sm",
+                onClick: () => addCustomRule(preset.rule),
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(Plus, {}),
+                  "Add"
+                ]
+              }
+            )
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "small muted", style: { marginTop: 8 }, children: preset.text })
+        ] }, preset.id);
+      }) })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Added rules appear on Protection with the rest of your setup and sync with your account." })
+  ] });
+}
+function sampleFor(pattern) {
+  const body = String(pattern || "").replace(/^@@/, "").replace(/^\|\|/, "").replace(/^\|/, "").replace(/\^$/, "");
+  if (!body) return null;
+  const host = body.split("/")[0];
+  if (!/^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(host)) return null;
+  return { url: `https://${host}/luma-check.gif`, type: "image" };
+}
+function RuleCleanup() {
+  const { state, removeCustomRule } = useApp();
+  const bundled = reactExports.useMemo(
+    () => FILTER_LISTS.filter((list) => state.lists[list.id]).flatMap(
+      (list) => compileRules(list.rules, list.id)
+    ),
+    [state.lists]
+  );
+  const findings = reactExports.useMemo(() => {
+    var _a;
+    const out = [];
+    for (const rule of state.customRules) {
+      const parsed = parseFilter(rule, "custom");
+      if (parsed.kind === "invalid") {
+        out.push({ rule, kind: "broken", reason: parsed.note || "Luma cannot read this rule" });
+        continue;
+      }
+      if (parsed.kind !== "network" || parsed.exception) continue;
+      const sample = sampleFor(parsed.pattern);
+      if (!sample) continue;
+      const coveredBy = evaluateRequest(sample, bundled).rule;
+      if (coveredBy) {
+        const name = ((_a = FILTER_LISTS.find((list) => list.id === coveredBy.listId)) == null ? void 0 : _a.name) || "a list";
+        out.push({ rule, kind: "covered", reason: `${name} already blocks this` });
+        continue;
+      }
+      const host = sample.url.replace("https://", "").split("/")[0];
+      if (state.allowlist.some((entry) => host === entry || host.endsWith("." + entry))) {
+        out.push({ rule, kind: "trusted", reason: "You trust this site, so this rule never runs" });
+      }
+    }
+    return out;
+  }, [state.customRules, state.allowlist, bundled]);
+  const removable = findings.filter((item) => item.kind === "covered");
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stack", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Rules you can drop", sub: "Checked against the lists you have on", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Eraser, {}),
+        findings.length,
+        " found"
+      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed", children: [
+        findings.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-row", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-main", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "host", children: item.reason }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "rule", style: { wordBreak: "break-all" }, children: item.rule })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-side", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "span",
+              {
+                className: "badge " + (item.kind === "broken" ? "warn" : "plain"),
+                children: item.kind === "broken" ? "Broken" : item.kind === "trusted" ? "Trusted site" : "Covered"
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              "button",
+              {
+                type: "button",
+                className: "btn sm ghost",
+                onClick: () => removeCustomRule(item.rule),
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(Trash2, {}),
+                  "Remove"
+                ]
+              }
+            )
+          ] })
+        ] }, item.rule)),
+        !findings.length ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "empty", children: "Nothing to clean up — every rule you added is doing something the lists do not." }) : null
+      ] }),
+      removable.length > 1 ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "row", style: { marginTop: 12 }, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "button",
+        {
+          type: "button",
+          className: "btn",
+          onClick: () => removable.forEach((item) => removeCustomRule(item.rule)),
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Trash2, {}),
+            "Remove the ",
+            removable.length,
+            " covered rules"
+          ]
+        }
+      ) }) : null
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Nothing is removed on its own — you decide which rules go." })
+  ] });
+}
+function TrustedSites() {
+  const { state, removeAllow } = useApp();
+  const [needle, setNeedle] = reactExports.useState("");
+  const rows = reactExports.useMemo(() => {
+    const query = needle.trim().toLowerCase();
+    return state.allowlist.filter((host) => !query || host.includes(query)).sort((a, b) => a.localeCompare(b));
+  }, [state.allowlist, needle]);
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "card", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Trusted sites", sub: "Luma stays out of the way here", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(UserCheck, {}),
+      state.allowlist.length
+    ] }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field", style: { marginBottom: 14 }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "trusted-search", children: "Search" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "input",
+        {
+          id: "trusted-search",
+          className: "input",
+          value: needle,
+          onChange: (event) => setNeedle(event.target.value),
+          placeholder: "news.example.com"
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed", children: [
+      rows.map((host) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-row", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-main", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "host", children: host }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "rule", children: "Nothing is blocked or hidden on this site" })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "feed-side", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "btn sm ghost", onClick: () => removeAllow(host), children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Trash2, {}),
+          "Stop trusting"
+        ] }) })
+      ] }, host)),
+      !rows.length ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "empty", children: state.allowlist.length ? "No trusted site matches that search." : "No trusted sites yet. Trust one from the dashboard when a site breaks." }) : null
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "A trusted site is left exactly as it is, ads included. Removing one brings protection back." })
+  ] });
+}
+const numberFormat = new Intl.NumberFormat("en-US");
+function formatNumber(value) {
+  return numberFormat.format(Math.round(value || 0));
+}
+function formatCompact(value) {
+  const n = Number(value) || 0;
+  if (n >= 1e6) return (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + "M";
+  if (n >= 1e4) return Math.round(n / 1e3) + "K";
+  if (n >= 1e3) return (n / 1e3).toFixed(1) + "K";
+  return String(Math.round(n));
+}
+function formatMegabytes(megabytes) {
+  const mb = Number(megabytes) || 0;
+  if (mb >= 1024) return { value: (mb / 1024).toFixed(1), unit: "GB" };
+  if (mb > 0 && mb < 10) return { value: mb.toFixed(1), unit: "MB" };
+  return { value: String(Math.round(mb)), unit: "MB" };
+}
+function relativeTime(iso) {
+  const then = new Date(iso).getTime();
+  if (!Number.isFinite(then)) return "just now";
+  const diff = Date.now() - then;
+  const minutes = Math.round(diff / 6e4);
+  if (minutes < 1) return "just now";
+  if (minutes < 60) return `${minutes}m ago`;
+  const hours = Math.round(minutes / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.round(hours / 24);
+  return `${days}d ago`;
+}
+function percent(part, whole) {
+  if (!whole) return "0";
+  return (part / whole * 100).toFixed(1);
+}
+const MEGABYTES_PER_AD = 0.09;
+function SavingsCalculator() {
+  const [pages, setPages] = reactExports.useState(40);
+  const [ads, setAds] = reactExports.useState(8);
+  const totals = reactExports.useMemo(() => {
+    const perDay = Math.max(0, pages) * Math.max(0, ads);
+    const month = perDay * 30;
+    const megabytes = month * MEGABYTES_PER_AD;
+    const data = formatMegabytes(megabytes);
+    return {
+      perDay,
+      month,
+      year: month * 12,
+      dataValue: data.value,
+      dataUnit: data.unit,
+      yearValue: formatMegabytes(megabytes * 12).value,
+      yearUnit: formatMegabytes(megabytes * 12).unit
+    };
+  }, [pages, ads]);
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stack", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "grid-2", style: { alignItems: "start" }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Your browsing", sub: "Rough numbers are enough" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", style: { gap: 12, flexWrap: "wrap" }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field grow", style: { minWidth: 140 }, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "pages", children: "Pages a day" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "input",
+              {
+                id: "pages",
+                className: "input",
+                type: "number",
+                min: "0",
+                max: "500",
+                value: pages,
+                onChange: (event) => setPages(Number(event.target.value) || 0)
+              }
+            )
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field grow", style: { minWidth: 140 }, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "ads", children: "Ads per page" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "input",
+              {
+                id: "ads",
+                className: "input",
+                type: "number",
+                min: "0",
+                max: "60",
+                value: ads,
+                onChange: (event) => setAds(Number(event.target.value) || 0)
+              }
+            )
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "hint", style: { marginTop: 12 }, children: "One blocked ad plus the trackers that follow it is about 0.09 MB." })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "What that saves", sub: "Nothing is measured or sent anywhere" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat-grid", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-label", children: "Stopped a day" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-value", children: formatNumber(totals.perDay) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-foot", children: "ads and trackers" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-label", children: "Stopped a month" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-value", children: formatNumber(totals.month) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-foot", children: "on your usual browsing" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-label", children: "Data a month" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat-value", children: [
+              totals.dataValue,
+              /* @__PURE__ */ jsxRuntimeExports.jsx("small", { children: totals.dataUnit })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-foot", children: "never downloaded" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-label", children: "Data a year" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat-value", children: [
+              totals.yearValue,
+              /* @__PURE__ */ jsxRuntimeExports.jsx("small", { children: totals.yearUnit })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat-foot", children: [
+              formatNumber(totals.year),
+              " ads stopped"
+            ] })
+          ] })
+        ] })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "footer-note", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Wallet, { size: 12, style: { verticalAlign: "-2px", marginRight: 4 } }),
+      "An estimate for context, not a bill. Your real numbers are on the dashboard."
+    ] })
+  ] });
+}
+const BATCH = 2e3;
+function hostsFrom(rules) {
+  const hosts = /* @__PURE__ */ new Set();
+  for (const rule of rules) {
+    if (rule.kind !== "network") continue;
+    const host = String(rule.pattern || "").replace(/^@@/, "").replace(/^\|\|/, "").replace(/^\|/, "").replace(/\^$/, "").split("/")[0];
+    if (/^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(host)) hosts.add(host);
+  }
+  return [...hosts];
+}
+function SpeedCheck() {
+  const { rules } = useApp();
+  const [result, setResult] = reactExports.useState(null);
+  function run() {
+    const hosts = hostsFrom(rules);
+    const pool = hosts.length ? hosts : ["ad.doubleclick.net"];
+    const requests = [];
+    for (let i = 0; i < BATCH; i += 1) {
+      requests.push({
+        url: `https://${pool[i % pool.length]}/media/${i}.gif`,
+        type: i % 3 === 0 ? "script" : "image"
+      });
+    }
+    const started = performance.now();
+    let blocked = 0;
+    for (const request of requests) {
+      if (evaluateRequest(request, rules, "example.org").blocked) blocked += 1;
+    }
+    const ms = performance.now() - started;
+    setResult({
+      count: requests.length,
+      ms,
+      perMicro: ms * 1e3 / requests.length,
+      blocked,
+      rules: rules.length,
+      hosts: hosts.length
+    });
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "grid-2", style: { alignItems: "start" }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Run a speed check", sub: "Your rules, a batch of requests" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "small muted", children: [
+        "Luma builds ",
+        formatNumber(BATCH),
+        " requests from the addresses your rules cover and asks the engine about every one. It runs here in your browser, so nothing is downloaded."
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "row", style: { marginTop: 14 }, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "btn primary", onClick: run, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Timer, {}),
+        "Start the check"
+      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Results appear on the right. Nothing is saved or shared." })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Results", sub: result ? "Measured in this browser" : "Not run yet" }),
+      result ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat-grid", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-label", children: "Whole batch" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat-value", children: [
+            result.ms.toFixed(1),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("small", { children: "ms" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat-foot", children: [
+            formatNumber(result.count),
+            " requests"
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-label", children: "Per request" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat-value", children: [
+            result.perMicro.toFixed(1),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("small", { children: "µs" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-foot", children: "time to decide" })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-label", children: "Rules loaded" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-value", children: formatNumber(result.rules) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat-foot", children: [
+            "across ",
+            formatNumber(result.hosts),
+            " addresses"
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-label", children: "Blocked" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-value", children: formatNumber(result.blocked) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stat-foot", children: [
+            "of ",
+            formatNumber(result.count),
+            " sampled"
+          ] })
+        ] })
+      ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "empty", children: "Press start to time your setup." })
+    ] })
+  ] });
+}
+const RECOMMENDED = FILTER_LISTS.filter((list) => list.recommended);
+function grade(score) {
+  if (score >= 90) return "Excellent";
+  if (score >= 75) return "Strong";
+  if (score >= 55) return "Fair";
+  return "Needs work";
+}
+function ProtectionScore() {
+  const { state, networkRuleCount } = useApp();
+  const recommendedOn = RECOMMENDED.filter((list) => state.lists[list.id]).length;
+  const parts = {
+    switchOn: state.protection ? 35 : 0,
+    lists: recommendedOn * 12 + (state.lists["social-widgets"] ? 9 : 0),
+    rules: state.customRules.length ? 10 : 0,
+    quietHours: state.schedule.enabled ? 10 : 0
+  };
+  const score = parts.switchOn + parts.lists + parts.rules + parts.quietHours;
+  const suggestions = [];
+  if (!state.protection) {
+    suggestions.push({ text: "Protection is off, so nothing is being blocked.", to: "/", label: "Turn it on" });
+  }
+  const missing = RECOMMENDED.filter((list) => !state.lists[list.id]);
+  if (missing.length) {
+    suggestions.push({
+      text: `${missing.map((list) => list.name).join(" and ")} ${missing.length === 1 ? "is" : "are"} off.`,
+      to: "/protection",
+      label: "Turn on"
+    });
+  }
+  if (!state.customRules.length) {
+    suggestions.push({
+      text: "One-click rules can quiet a specific annoyance you keep seeing.",
+      to: "/tools/library",
+      label: "Open the library"
+    });
+  }
+  if (!state.schedule.enabled) {
+    suggestions.push({
+      text: "Quiet hours let protection step aside on a schedule you choose.",
+      to: "/account",
+      label: "Set quiet hours"
+    });
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stack", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "grid-2", style: { alignItems: "start" }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Protection score", sub: "How much of Luma is working for you" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", style: { alignItems: "baseline", gap: 10 }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "stat-value", style: { fontSize: 56, lineHeight: 1 }, children: score }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge accent", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Award, {}),
+          grade(score)
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed", style: { marginTop: 16 }, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-row", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-main", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "host", children: "Protection switch" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "rule", children: state.protection ? "On" : "Off" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "feed-side", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge " + (parts.switchOn ? "good" : "plain"), children: [
+            parts.switchOn,
+            "/35"
+          ] }) })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-row", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-main", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "host", children: "Filter lists" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "rule", children: [
+              recommendedOn,
+              " of ",
+              RECOMMENDED.length,
+              " recommended lists on"
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "feed-side", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
+            parts.lists,
+            "/45"
+          ] }) })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-row", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-main", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "host", children: "Your own rules" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "rule", children: [
+              state.customRules.length,
+              " added"
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "feed-side", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
+            parts.rules,
+            "/10"
+          ] }) })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-row", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-main", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "host", children: "Quiet hours" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "rule", children: state.schedule.enabled ? "Scheduled" : "Not used" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "feed-side", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
+            parts.quietHours,
+            "/10"
+          ] }) })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "footer-note", children: [
+        networkRuleCount.toLocaleString(),
+        " rules are loaded from what you have on."
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Worth a look", sub: suggestions.length ? "Small changes, real difference" : "Nothing to fix" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stack", style: { gap: 10 }, children: [
+        suggestions.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: item.to, className: "card action-tile", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grow", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "small", children: item.text }) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "small muted", children: item.label }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowRight, { width: 15, height: 15 })
+        ] }, item.text)),
+        !suggestions.length ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "empty", children: "Everything Luma can turn on for you is on. The score grows with your own rules." }) : null
+      ] })
+    ] })
+  ] }) });
+}
+const TOOLS$1 = [
+  {
+    id: "score",
+    label: "Protection score",
+    icon: Award,
+    title: "How protected are you?",
+    lede: "One number for your setup, and the few changes that lift it.",
+    blurb: "See how much of Luma is working for you.",
+    Panel: ProtectionScore
+  },
+  {
+    id: "lab",
+    label: "Test lab",
+    icon: FlaskConical,
+    title: "See the engine work.",
+    lede: "Four simulated sites, one real filter engine. Luma screens every request and hides every ad slot using the rules you have enabled.",
+    blurb: "Watch Luma strip ads from four simulated sites.",
+    Panel: LabPanel
+  },
+  {
+    id: "inspector",
+    label: "URL inspector",
+    icon: Search,
+    title: "Why was that blocked?",
+    lede: "Paste any request and Luma will check it against your protection, then tell you what it would do.",
+    blurb: "Paste a link and see exactly which rule decides.",
+    Panel: InspectorPanel
+  },
+  {
+    id: "bulk",
+    label: "Bulk check",
+    icon: ListChecks,
+    title: "Check a list of links at once.",
+    lede: "Paste a handful of addresses and Luma gives you a verdict for each one in a single pass.",
+    blurb: "Paste many links, get a verdict for each.",
+    Panel: BulkCheck
+  },
+  {
+    id: "coverage",
+    label: "List coverage",
+    icon: Layers,
+    title: "Which list catches it?",
+    lede: "Compare one address against every list you have, and see which ones would stop it.",
+    blurb: "Compare one link against each of your lists.",
+    Panel: ListCoverage
+  },
+  {
+    id: "library",
+    label: "Rule library",
+    icon: BookOpen,
+    title: "One-click rules.",
+    lede: "Ready-made rules for the annoyances you keep running into. Add one and it joins your setup everywhere.",
+    blurb: "Quiet a specific annoyance without learning syntax.",
+    Panel: RuleLibrary
+  },
+  {
+    id: "cleanup",
+    label: "Rule clean-up",
+    icon: Eraser,
+    title: "Tidy your own rules.",
+    lede: "Finds the rules you added that are already covered by a list, cannot be read, or never run.",
+    blurb: "Find rules that are covered, broken or never run.",
+    Panel: RuleCleanup
+  },
+  {
+    id: "trusted",
+    label: "Trusted sites",
+    icon: UserCheck,
+    title: "Sites Luma leaves alone.",
+    lede: "Every site you have trusted, in one list. Remove one and protection comes back.",
+    blurb: "Review and remove the sites you trust.",
+    Panel: TrustedSites
+  },
+  {
+    id: "savings",
+    label: "Savings calculator",
+    icon: Wallet,
+    title: "What blocking saves you.",
+    lede: "Turn a rough idea of your browsing into the ads and data Luma keeps off your connection.",
+    blurb: "Turn your browsing into data and ads saved.",
+    Panel: SavingsCalculator
+  },
+  {
+    id: "speed",
+    label: "Speed check",
+    icon: Timer,
+    title: "How fast is the engine?",
+    lede: "Times your ruleset against a batch of requests, right here in this browser.",
+    blurb: "Time your ruleset against a batch of requests.",
+    Panel: SpeedCheck
+  }
+];
+function toolById(id) {
+  return TOOLS$1.find((tool) => tool.id === id) || null;
+}
+const NAV = [
+  {
+    label: "Overview",
+    items: [{ to: "/", label: "Dashboard", icon: Gauge, end: true }]
+  },
+  {
+    label: "Protection",
+    items: [
+      { to: "/protection", label: "Protection", icon: ShieldCheck },
+      { to: "/activity", label: "Activity", icon: History }
+    ]
+  },
+  {
+    label: "Account",
+    items: [{ to: "/account", label: "Account & settings", icon: UserRound }]
+  }
+];
+const TOOLS = [
+  { to: "/tools", label: "All tools", icon: Wrench, end: true },
+  { to: "/tools/lab", label: "Test lab", icon: FlaskConical },
+  { to: "/tools/inspector", label: "URL inspector", icon: Search }
+];
+const TITLES = {
+  "/": "Overview",
+  "/protection": "Protection",
+  "/activity": "Activity",
+  "/account": "Account",
+  "/tools": "Tools",
+  "/diagnostics": "Diagnostics",
+  "/owner": "Owner console"
+};
+function Layout() {
+  var _a;
+  const { state, setProtection } = useApp();
+  const location = useLocation();
+  reactExports.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+  const toolId = location.pathname.startsWith("/tools/") ? location.pathname.slice("/tools/".length) : "";
+  const title = TITLES[location.pathname] || (toolId ? (_a = toolById(toolId)) == null ? void 0 : _a.label : "") || "Overview";
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "shell", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("aside", { className: "sidebar", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(NavLink, { to: "/", className: "brand", "aria-label": "Luma home", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "brand-mark" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "brand-name", children: [
+          "Luma",
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Ad blocker" })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("nav", { className: "nav", "aria-label": "Sections", children: [
+        NAV.map((group, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs(reactExports.Fragment, { children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "nav-label", style: { marginTop: index ? 14 : 0 }, children: group.label }),
+          group.items.map((item) => {
+            const Icon2 = item.icon;
+            return /* @__PURE__ */ jsxRuntimeExports.jsxs(NavLink, { to: item.to, end: item.end, className: "nav-link", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, {}),
+              item.label
+            ] }, item.to);
+          })
+        ] }, group.label)),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "nav-label", style: { marginTop: 14 }, children: "Tools" }),
+        TOOLS.map((tool) => {
+          const Icon2 = tool.icon;
+          const active = tool.to === "/tools" ? location.pathname.startsWith("/tools") && !TOOLS.some((other) => other.to !== "/tools" && other.to === location.pathname) : location.pathname === tool.to;
+          return /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            NavLink,
+            {
+              to: tool.to,
+              end: tool.end,
+              className: "nav-link" + (active ? " active" : ""),
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, {}),
+                tool.label
+              ]
+            },
+            tool.to
+          );
+        })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "sidebar-foot", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "side-status", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "status-line", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: state.protection ? "dot" : "dot off" }),
+            state.protection ? "Protected" : "Paused"
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
+            "Ads, trackers and annoyances",
+            /* @__PURE__ */ jsxRuntimeExports.jsx("br", {}),
+            "filtered before they load"
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "side-links", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Luma 0.1 beta" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "·" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Local data" })
+        ] })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "main", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("header", { className: "topbar", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "topbar-title", children: title }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "topbar-right", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge " + (state.protection ? "good" : "plain"), children: state.protection ? "On" : "Paused" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "quick-toggle", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: state.protection ? "Protection on" : "Protection off" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Switch, { on: state.protection, onChange: setProtection, label: "Toggle protection" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(AccountMenu, {})
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("main", { className: "page", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "beta-note", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge accent", children: "Beta" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "This is the Luma beta. Diagnostics are monitored continuously so blocking problems get found and fixed quickly." })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Outlet, {})
+      ] })
+    ] })
+  ] });
+}
+const DEFAULT_SCHEDULE = { enabled: false, from: "22:00", to: "07:00" };
+function parseClock(value) {
+  const match = /^([01]\d|2[0-3]):([0-5]\d)$/.exec(String(value || ""));
+  return match ? Number(match[1]) * 60 + Number(match[2]) : null;
+}
+function normalizeSchedule(input, fallback = DEFAULT_SCHEDULE) {
+  const next = { ...fallback, ...input && typeof input === "object" ? input : {} };
+  return {
+    enabled: Boolean(next.enabled),
+    from: parseClock(next.from) === null ? fallback.from : next.from,
+    to: parseClock(next.to) === null ? fallback.to : next.to
+  };
+}
+function isQuietNow(schedule, date = /* @__PURE__ */ new Date()) {
+  if (!(schedule == null ? void 0 : schedule.enabled)) return false;
+  const from = parseClock(schedule.from);
+  const to = parseClock(schedule.to);
+  if (from === null || to === null || from === to) return false;
+  const now = date.getHours() * 60 + date.getMinutes();
+  if (from < to) return now >= from && now < to;
+  return now >= from || now < to;
+}
+function clockLabel(value) {
+  const minutes = parseClock(value);
+  if (minutes === null) return value;
+  const date = new Date(2e3, 0, 1, Math.floor(minutes / 60), minutes % 60);
+  return date.toLocaleTimeString(void 0, { hour: "numeric", minute: "2-digit" });
+}
+function scheduleLabel(schedule) {
+  return clockLabel(schedule.from) + " – " + clockLabel(schedule.to);
+}
+function TimeField({ id, label, value, onChange }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: id, children: label }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "input",
+      {
+        id,
+        className: "input",
+        type: "time",
+        value,
+        onChange: (event) => {
+          if (/^\d{2}:\d{2}$/.test(event.target.value)) onChange(event.target.value);
+        }
+      }
+    )
+  ] });
+}
+function ScheduleCard() {
+  const { state, setSchedule, pausedBySchedule } = useApp();
+  const schedule = state.schedule;
+  function update(patch) {
+    setSchedule({ ...schedule, ...patch });
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      CardHead,
+      {
+        title: "Quiet hours",
+        sub: "Let protection step aside on a schedule, every day",
+        children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+          Switch,
+          {
+            on: schedule.enabled,
+            onChange: (enabled) => update({ enabled }),
+            label: "Quiet hours"
+          }
+        )
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "schedule-grid", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        TimeField,
+        {
+          id: "quiet-from",
+          label: "Pause at",
+          value: schedule.from,
+          onChange: (from) => update({ from })
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        TimeField,
+        {
+          id: "quiet-to",
+          label: "Resume at",
+          value: schedule.to,
+          onChange: (to) => update({ to })
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "schedule-state", "data-on": schedule.enabled ? "true" : "false", children: schedule.enabled ? pausedBySchedule ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Moon, { width: 14, height: 14 }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
+        "Quiet hours are on right now — protection resumes at",
+        " ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: clockLabel(schedule.to) }),
+        "."
+      ] })
+    ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Clock, { width: 14, height: 14 }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
+        "Protection is active. It pauses at ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: clockLabel(schedule.from) }),
+        " and resumes at ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: clockLabel(schedule.to) }),
+        "."
+      ] })
+    ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Clock, { width: 14, height: 14 }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
+        "Off — protection runs around the clock (",
+        scheduleLabel(schedule),
+        " is saved)."
+      ] })
+    ] }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Quiet hours only pause blocking; your lists, rules and trusted sites stay exactly as they are." })
+  ] });
+}
 const APP = "luma";
 const VERSION = 1;
 const SEAL = "LUMA1";
@@ -18677,39 +20719,6 @@ function BackupCard() {
     /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Your export is sealed, so it is safe to share: nobody can read or edit the settings inside it, and a changed file is refused on import. Counters and browsing history never leave this device." }),
     toast.node
   ] });
-}
-const numberFormat = new Intl.NumberFormat("en-US");
-function formatNumber(value) {
-  return numberFormat.format(Math.round(value || 0));
-}
-function formatCompact(value) {
-  const n = Number(value) || 0;
-  if (n >= 1e6) return (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + "M";
-  if (n >= 1e4) return Math.round(n / 1e3) + "K";
-  if (n >= 1e3) return (n / 1e3).toFixed(1) + "K";
-  return String(Math.round(n));
-}
-function formatMegabytes(megabytes) {
-  const mb = Number(megabytes) || 0;
-  if (mb >= 1024) return { value: (mb / 1024).toFixed(1), unit: "GB" };
-  if (mb > 0 && mb < 10) return { value: mb.toFixed(1), unit: "MB" };
-  return { value: String(Math.round(mb)), unit: "MB" };
-}
-function relativeTime(iso) {
-  const then = new Date(iso).getTime();
-  if (!Number.isFinite(then)) return "just now";
-  const diff = Date.now() - then;
-  const minutes = Math.round(diff / 6e4);
-  if (minutes < 1) return "just now";
-  if (minutes < 60) return `${minutes}m ago`;
-  const hours = Math.round(minutes / 60);
-  if (hours < 24) return `${hours}h ago`;
-  const days = Math.round(hours / 24);
-  return `${days}d ago`;
-}
-function percent(part, whole) {
-  if (!whole) return "0";
-  return (part / whole * 100).toFixed(1);
 }
 function methodLabel$1(via) {
   if (via === "code") return "email code";
@@ -20301,363 +22310,6 @@ function BreakdownCard() {
     ] })
   ] });
 }
-const RESOURCE_TYPES = [
-  "document",
-  "subdocument",
-  "script",
-  "image",
-  "stylesheet",
-  "media",
-  "font",
-  "object",
-  "xmlhttprequest",
-  "websocket",
-  "ping",
-  "other"
-];
-const TYPE_SET = new Set(RESOURCE_TYPES);
-const BROWSER_TYPES = {
-  document: "main_frame",
-  subdocument: "sub_frame",
-  script: "script",
-  image: "image",
-  stylesheet: "stylesheet",
-  media: "media",
-  font: "font",
-  object: "object",
-  xmlhttprequest: "xmlhttprequest",
-  websocket: "websocket",
-  ping: "ping",
-  other: "other"
-};
-function toBrowserTypes(types) {
-  const out = [];
-  for (const type of types || []) {
-    const mapped = BROWSER_TYPES[type];
-    if (mapped && !out.includes(mapped)) out.push(mapped);
-  }
-  return out;
-}
-const SECOND_LEVEL = /* @__PURE__ */ new Set([
-  "co.uk",
-  "org.uk",
-  "ac.uk",
-  "gov.uk",
-  "com.au",
-  "net.au",
-  "co.nz",
-  "co.jp",
-  "co.in",
-  "com.br",
-  "com.mx",
-  "co.za",
-  "com.tr",
-  "com.cn"
-]);
-const RE_SPECIAL = /[.+?^${}()|[\]\\]/g;
-const OPTION_RE = /^(.*)\$((?:~?[a-z][a-z0-9-]*(?:=[^,]*)?)(?:,(?:~?[a-z][a-z0-9-]*(?:=[^,]*)?))*)$/i;
-const sourceCache = /* @__PURE__ */ new Map();
-function hostnameOf(input) {
-  if (!input) return "";
-  const value = String(input).trim();
-  try {
-    const parsed = new URL(/^[a-z][a-z0-9+.-]*:\/\//i.test(value) ? value : "http://" + value);
-    return parsed.hostname.toLowerCase();
-  } catch {
-    return "";
-  }
-}
-function siteOf(host) {
-  const labels = String(host || "").toLowerCase().split(".").filter(Boolean);
-  if (labels.length <= 2) return labels.join(".");
-  const lastTwo = labels.slice(-2).join(".");
-  if (SECOND_LEVEL.has(lastTwo) && labels.length >= 3) return labels.slice(-3).join(".");
-  return lastTwo;
-}
-function hostMatches(host, domain) {
-  const h = String(host || "").toLowerCase();
-  const d = String(domain || "").toLowerCase().replace(/^\./, "");
-  if (!h || !d) return false;
-  return h === d || h.endsWith("." + d);
-}
-function isThirdParty(pageHost, requestHost) {
-  if (!pageHost || !requestHost) return void 0;
-  return siteOf(pageHost) !== siteOf(requestHost);
-}
-function patternToSource(pattern) {
-  const cached = sourceCache.get(pattern);
-  if (cached) return cached;
-  let rest = pattern;
-  let source = "";
-  if (rest.startsWith("||")) {
-    source += "^[a-z][a-z0-9+.-]*:\\/\\/(?:[^\\/?#]*\\.)?";
-    rest = rest.slice(2);
-  } else if (rest.startsWith("|")) {
-    source += "^";
-    rest = rest.slice(1);
-  }
-  let endAnchor = false;
-  if (rest.endsWith("|")) {
-    endAnchor = true;
-    rest = rest.slice(0, -1);
-  }
-  for (const char of rest) {
-    if (char === "*") source += ".*";
-    else if (char === "^") source += "(?:[^a-zA-Z0-9_\\-.%]|$)";
-    else source += char.replace(RE_SPECIAL, "\\$&");
-  }
-  if (endAnchor) source += "$";
-  sourceCache.set(pattern, source);
-  return source;
-}
-function defaultOptions() {
-  return {
-    thirdParty: void 0,
-    types: [],
-    notTypes: [],
-    includeDomains: [],
-    excludeDomains: [],
-    important: false
-  };
-}
-function parseFilter(rawInput, listId = "custom") {
-  const raw = String(rawInput ?? "").trim();
-  const base = {
-    raw,
-    listId,
-    kind: "network",
-    exception: false,
-    regex: null,
-    pattern: "",
-    selector: null,
-    domains: [],
-    options: defaultOptions(),
-    note: ""
-  };
-  if (!raw) return { ...base, kind: "invalid", note: "Empty rule" };
-  if (raw.startsWith("!") || raw.startsWith("[")) return { ...base, kind: "comment" };
-  let body = raw;
-  let exception = false;
-  if (body.startsWith("@@")) {
-    exception = true;
-    body = body.slice(2).trim();
-  }
-  const hideIdx = body.indexOf("##");
-  const hideExcIdx = body.indexOf("#@#");
-  let cosmeticIdx = -1;
-  let cosmeticException = false;
-  if (hideExcIdx >= 0 && (hideIdx < 0 || hideExcIdx <= hideIdx)) {
-    cosmeticIdx = hideExcIdx;
-    cosmeticException = true;
-  } else if (hideIdx >= 0) {
-    cosmeticIdx = hideIdx;
-  }
-  if (cosmeticIdx >= 0) {
-    const selector = body.slice(cosmeticIdx + (cosmeticException ? 3 : 2)).trim();
-    const domainText = body.slice(0, cosmeticIdx).trim();
-    if (!selector) return { ...base, kind: "invalid", note: "Cosmetic rule needs a selector" };
-    if (!isValidSelector(selector)) {
-      return { ...base, kind: "invalid", note: "This is not a valid CSS selector" };
-    }
-    const domainList = domainText ? domainText.split(",").map((d) => d.trim()).filter(Boolean) : [];
-    return {
-      ...base,
-      kind: "cosmetic",
-      exception: cosmeticException,
-      selector,
-      domains: domainList.filter((d) => !d.startsWith("~")),
-      options: {
-        ...base.options,
-        excludeDomains: domainList.filter((d) => d.startsWith("~")).map((d) => d.slice(1))
-      },
-      note: cosmeticException ? "Shows elements again" : "Hides matching elements"
-    };
-  }
-  let pattern = body;
-  let optionText = "";
-  const optionSplit = body.match(OPTION_RE);
-  if (optionSplit) {
-    pattern = optionSplit[1];
-    optionText = optionSplit[2];
-  }
-  if (!pattern) return { ...base, kind: "invalid", note: "This rule has no pattern" };
-  const options = defaultOptions();
-  for (const token of optionText ? optionText.split(",") : []) {
-    const trimmed = token.trim();
-    if (!trimmed) continue;
-    const negated = trimmed.startsWith("~");
-    const name = (negated ? trimmed.slice(1) : trimmed).toLowerCase();
-    if (name === "third-party") options.thirdParty = !negated;
-    else if (name === "first-party") options.thirdParty = negated;
-    else if (name === "important") options.important = true;
-    else if (name.startsWith("domain=")) {
-      for (const entry of name.slice("domain=".length).split("|")) {
-        const value = entry.trim();
-        if (!value) continue;
-        if (value.startsWith("~")) options.excludeDomains.push(value.slice(1));
-        else options.includeDomains.push(value);
-      }
-    } else if (TYPE_SET.has(name)) {
-      (negated ? options.notTypes : options.types).push(name);
-    }
-  }
-  let regex;
-  try {
-    if (pattern.length > 2 && pattern.startsWith("/") && pattern.endsWith("/")) {
-      regex = new RegExp(pattern.slice(1, -1), "i");
-    } else {
-      regex = new RegExp(patternToSource(pattern), "i");
-    }
-  } catch {
-    return { ...base, kind: "invalid", note: "This pattern could not be compiled" };
-  }
-  return {
-    ...base,
-    exception,
-    pattern,
-    regex,
-    options,
-    note: exception ? "Allows matching requests" : "Blocks matching requests"
-  };
-}
-function isValidSelector(selector) {
-  if (typeof document === "undefined") return true;
-  try {
-    document.createDocumentFragment().querySelector(selector);
-    return true;
-  } catch {
-    return false;
-  }
-}
-const parseCache = /* @__PURE__ */ new Map();
-function compileRules(lines, listId) {
-  return lines.map((line) => {
-    const key = listId + "::" + line;
-    if (parseCache.has(key)) return parseCache.get(key);
-    const parsed = parseFilter(line, listId);
-    const usable = parsed.kind === "network" || parsed.kind === "cosmetic" ? parsed : null;
-    parseCache.set(key, usable);
-    return usable;
-  }).filter(Boolean);
-}
-function requestFrom(input, pageHost) {
-  return {
-    url: input.url,
-    type: input.type || "script",
-    pageHost: input.pageHost ?? pageHost ?? ""
-  };
-}
-function ruleMatchesRequest(rule, request) {
-  if (!rule.regex || !rule.regex.test(request.url)) return false;
-  const opts = rule.options;
-  if (opts.types.length && !opts.types.includes(request.type)) return false;
-  if (opts.notTypes.includes(request.type)) return false;
-  if (opts.thirdParty !== void 0) {
-    const third = isThirdParty(request.pageHost, hostnameOf(request.url));
-    if (third !== void 0 && third !== opts.thirdParty) return false;
-  }
-  if (opts.includeDomains.length) {
-    const ok = opts.includeDomains.some((d) => hostMatches(request.pageHost, d));
-    if (!ok) return false;
-  }
-  if (opts.excludeDomains.some((d) => hostMatches(request.pageHost, d))) return false;
-  return true;
-}
-function evaluateRequest(input, rules, pageHost = "") {
-  const request = requestFrom(input, pageHost);
-  const matches = [];
-  for (const rule of rules) {
-    if (rule.kind !== "network") continue;
-    if (ruleMatchesRequest(rule, request)) matches.push(rule);
-  }
-  const blocks = matches.filter((r) => !r.exception);
-  const allows = matches.filter((r) => r.exception);
-  const important = blocks.find((r) => r.options.important);
-  let winner = null;
-  if (important) winner = important;
-  else if (allows.length) winner = allows[0];
-  else if (blocks.length) winner = blocks[0];
-  const blocked = Boolean(important) || !allows.length && blocks.length > 0;
-  return {
-    blocked,
-    rule: winner,
-    matches,
-    request,
-    reason: !winner ? "No rule matched this request" : winner.exception ? "An exception rule allows this request" : "A block rule matched this request"
-  };
-}
-function cosmeticFor(host, rules) {
-  const hide = [];
-  const show = [];
-  for (const rule of rules) {
-    if (rule.kind !== "cosmetic") continue;
-    if (rule.options.excludeDomains.some((d) => hostMatches(host, d))) continue;
-    const applies = rule.domains.length === 0 || rule.domains.some((d) => hostMatches(host, d));
-    if (!applies) continue;
-    (rule.exception ? show : hide).push(rule);
-  }
-  return { hide, show };
-}
-function screenRequest(input, context) {
-  const { rules = [], allowlist = [], protection = true, pageHost = "" } = context || {};
-  const host = hostnameOf(input.url);
-  if (!protection) {
-    return {
-      blocked: false,
-      status: "paused",
-      reason: "Protection is paused",
-      rule: null,
-      matches: [],
-      host,
-      listId: null
-    };
-  }
-  const siteAllowed = allowlist.some((entry) => hostMatches(pageHost, entry));
-  if (siteAllowed) {
-    return {
-      blocked: false,
-      status: "allowlisted",
-      reason: "This site is on your allowlist",
-      rule: null,
-      matches: [],
-      host,
-      listId: null
-    };
-  }
-  const result = evaluateRequest(input, rules, pageHost);
-  return {
-    ...result,
-    status: result.blocked ? "blocked" : "allowed",
-    host,
-    listId: result.rule ? result.rule.listId : null
-  };
-}
-function toDeclarativeNetRequest(rules) {
-  const output = [];
-  let id = 1;
-  for (const rule of rules) {
-    if (rule.kind !== "network") continue;
-    const isRegex = rule.pattern.length > 2 && rule.pattern.startsWith("/") && rule.pattern.endsWith("/");
-    const condition = isRegex ? { regexFilter: rule.pattern.slice(1, -1) } : { urlFilter: rule.pattern };
-    const types = toBrowserTypes(rule.options.types);
-    const notTypes = toBrowserTypes(rule.options.notTypes);
-    if (types.length) condition.resourceTypes = types;
-    if (notTypes.length) condition.excludedResourceTypes = notTypes;
-    if (rule.options.thirdParty === true) condition.domainType = "thirdParty";
-    if (rule.options.thirdParty === false) condition.domainType = "firstParty";
-    if (rule.options.includeDomains.length) condition.initiatorDomains = rule.options.includeDomains;
-    if (rule.options.excludeDomains.length) {
-      condition.excludedInitiatorDomains = rule.options.excludeDomains;
-    }
-    output.push({
-      id: id++,
-      priority: rule.exception ? 10 : rule.options.important ? 20 : 1,
-      action: { type: rule.exception ? "allow" : "block" },
-      condition
-    });
-  }
-  return output;
-}
 function allowRule(host) {
   return "@@||" + host + "^";
 }
@@ -21371,719 +23023,45 @@ function Owner() {
     ] })
   ] });
 }
-const EXAMPLES = [
-  {
-    label: "DoubleClick banner",
-    url: "https://ad.doubleclick.net/ddm/adi/N4821/banner.gif",
-    type: "image",
-    pageHost: "news.dailybyte.test"
-  },
-  {
-    label: "Analytics beacon",
-    url: "https://www.google-analytics.com/collect?v=1&t=pageview",
-    type: "ping",
-    pageHost: "news.dailybyte.test"
-  },
-  {
-    label: "First-party script",
-    url: "https://news.dailybyte.test/assets/app.js",
-    type: "script",
-    pageHost: "news.dailybyte.test"
-  },
-  {
-    label: "Video ad tag",
-    url: "https://pubads.g.doubleclick.net/gampad/ads?iu=/1234/preroll",
-    type: "xmlhttprequest",
-    pageHost: "watch.tubetime.test"
-  },
-  {
-    label: "YouTube ad ping",
-    url: "https://www.youtube.com/api/stats/ads?ver=2",
-    type: "xmlhttprequest",
-    pageHost: "www.youtube.com"
-  },
-  {
-    label: "Session recorder",
-    url: "https://static.hotjar.com/c/hotjar.js",
-    type: "script",
-    pageHost: "shop.shoply.test"
-  }
-];
-function sampleFromRule(rule) {
-  const body = rule.replace(/^@@/, "").split("$")[0];
-  if (body.includes("##") || body.includes("#@#")) return null;
-  const host = body.replace(/^\|\|/, "").replace(/^\|/, "").replace(/\^$/, "");
-  if (!/^[a-z0-9-]+(\.[a-z0-9-]+)+$/i.test(host)) return null;
-  return {
-    label: "Your custom rule",
-    url: `https://${host}/luma-check.gif`,
-    type: "image",
-    pageHost: "example.org"
-  };
-}
-const TYPES = ["script", "image", "stylesheet", "xmlhttprequest", "subdocument", "document", "media", "font", "ping", "other"];
-function InspectorPanel() {
-  const { rules, state, observe, protectionNow } = useApp();
-  const [url, setUrl] = reactExports.useState(EXAMPLES[0].url);
-  const [type, setType] = reactExports.useState(EXAMPLES[0].type);
-  const [pageHost, setPageHost] = reactExports.useState(EXAMPLES[0].pageHost);
-  const examples = reactExports.useMemo(() => {
-    const dynamic = [];
-    for (const rule of state.customRules) {
-      const sample = sampleFromRule(rule);
-      if (sample) {
-        dynamic.push(sample);
-        break;
-      }
-    }
-    if (state.allowlist.length) {
-      dynamic.push({
-        label: "Allowlisted site",
-        url: "https://ad.doubleclick.net/ddm/adi/N4821/banner.gif",
-        type: "image",
-        pageHost: state.allowlist[0]
-      });
-    }
-    return [...EXAMPLES, ...dynamic];
-  }, [state.customRules, state.allowlist]);
-  const requestHost = hostnameOf(url);
-  const third = isThirdParty(pageHost, requestHost);
-  const decision = screenRequest(
-    { url, type },
-    { rules, allowlist: state.allowlist, protection: protectionNow, pageHost }
-  );
-  const status = decision.status;
-  const listId = decision.listId;
-  reactExports.useEffect(() => {
-    if (!requestHost.includes(".")) return void 0;
-    const timer = window.setTimeout(() => {
-      observe([{ url, type, pageHost, blocked: status === "blocked", listId }]);
-    }, 600);
-    return () => window.clearTimeout(timer);
-  }, [url, type, pageHost, status, requestHost, listId, observe]);
-  const titles = {
-    blocked: "Blocked",
-    allowed: "Allowed",
-    allowlisted: "Allowed — site is allowlisted",
-    paused: "Allowed — protection is paused"
-  };
-  const reasons = {
-    blocked: "Recognized as an ad or tracker",
-    allowed: "Nothing suspicious found",
-    allowlisted: "You allowlisted this site",
-    paused: "Protection is paused"
-  };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "grid-2", style: { alignItems: "start" }, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Request", sub: "Nothing leaves your device" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stack", style: { gap: 14 }, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "url", children: "Request URL" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "input",
-            {
-              id: "url",
-              className: "input mono",
-              value: url,
-              onChange: (event) => setUrl(event.target.value),
-              spellCheck: "false",
-              placeholder: "https://ads.example.com/banner.js"
-            }
-          )
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", style: { alignItems: "flex-end", gap: 12, flexWrap: "wrap" }, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field grow", style: { minWidth: 180 }, children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "page", children: "Page you are on" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              "input",
-              {
-                id: "page",
-                className: "input mono",
-                value: pageHost,
-                onChange: (event) => setPageHost(event.target.value),
-                spellCheck: "false",
-                placeholder: "example.com"
-              }
-            )
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field", style: { minWidth: 150 }, children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "type", children: "Resource type" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("select", { id: "type", className: "select", value: type, onChange: (event) => setType(event.target.value), children: TYPES.map((option) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: option, children: option }, option)) })
-          ] })
-        ] }),
-        !requestHost ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "hint", style: { color: "var(--accent-deep)" }, children: "That does not look like a URL yet — try something like https://ads.example.com/banner.js" }) : null,
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "eyebrow", style: { marginBottom: 8 }, children: "Try an example" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "example-chips", children: examples.map((example) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-            "button",
-            {
-              type: "button",
-              className: "example",
-              onClick: () => {
-                setUrl(example.url);
-                setType(example.type);
-                setPageHost(example.pageHost);
-              },
-              children: example.label
-            },
-            example.label
-          )) })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "note", style: { marginTop: 16 }, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", style: { gap: 8, flexWrap: "wrap" }, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
-          "host: ",
-          requestHost || "—"
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge plain", children: third === void 0 ? "party: unknown" : third ? "third-party" : "first-party" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
-          "type: ",
-          type
-        ] })
-      ] }) })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stack", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "decision", "data-status": status, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "decision-head", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "decision-icon", children: status === "blocked" ? /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldX, {}) : status === "paused" ? /* @__PURE__ */ jsxRuntimeExports.jsx(CirclePause, {}) : /* @__PURE__ */ jsxRuntimeExports.jsx(CircleCheck, {}) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { children: titles[status] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: reasons[status] })
-          ] })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "match-list", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "eyebrow", children: "Why" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "small muted", style: { marginTop: 6 }, children: status === "blocked" ? "Luma recognizes this as an ad or tracker and stops it before it loads." : status === "allowlisted" ? "You allowlisted this site, so Luma stays out of the way here." : status === "paused" ? "Protection is paused, so nothing is blocked right now." : "This does not look like an ad or tracker Luma knows, so it is allowed." })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "footer-note", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx(Search, { size: 12, style: { verticalAlign: "-2px", marginRight: 4 } }),
-        "Luma checks this against the protection you have enabled."
-      ] })
-    ] })
-  ] });
-}
-function DailyByte() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-head", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fakesite-logo", children: "The Daily Byte" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-nav", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "World" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Business" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Culture" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Opinion" })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", className: "mini-btn", style: { marginLeft: "auto" }, children: "Subscribe" })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-body", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fake-ad leaderboard ad-leaderboard", children: [
-        "Advertisement",
-        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Lead the morning — 40% off your first year" })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fakesite-hero-title", children: "The quiet return of the night train" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fakesite-dek", children: "Sleeper carriages are back on the menu across Europe, and travellers are booking earlier than ever." })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "hero-image" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-columns", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-copy article-body", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "At nine in the evening the platform at Gare de l’Est is busier than it has been in a decade. Porters stack luggage, a conductor checks a paper list, and somewhere down the track a sleeper train waits to leave." }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Operators say bookings have doubled since spring, driven by travellers who would rather wake up in another country than spend a morning at an airport." }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fake-ad inline ad-slot", children: [
-            "Sponsored",
-            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Open a smarter savings account" })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "The economics are still delicate — carriages are costly to maintain — but the mood on the platform is hard to mistake for anything other than optimism." })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-side", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fake-ad tall sponsored-rail", children: [
-            "Sponsored",
-            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Is your VPN slowing you down?" })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "newsletter-popup", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Get the Byte in your inbox" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("br", {}),
-            "One email, every morning.",
-            /* @__PURE__ */ jsxRuntimeExports.jsx("br", {}),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", className: "mini-btn", style: { marginTop: 8 }, children: "Sign up" })
-          ] })
-        ] })
-      ] })
-    ] })
-  ] });
-}
-function Shoply() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-head", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fakesite-logo", children: "Shoply" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-nav", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Furniture" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Lighting" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Outdoor" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Sale" })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", className: "mini-btn", style: { marginLeft: "auto" }, children: "Cart · 2" })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-body", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fake-ad leaderboard ad-slot", children: [
-        "Advertisement",
-        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "You looked at a chair. Here are 40 more chairs." })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fakesite-hero-title", children: "Small rooms, big ideas" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fakesite-dek", children: "Twelve pieces that make a 28 m² apartment feel generous." })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "product-grid", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fake-product product-card", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "thumb" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "meta", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Oak stool" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "$89" })
-          ] })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fake-product product-card", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "thumb" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "meta", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Paper lamp" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "$54" })
-          ] })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fake-product product-card", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "thumb" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "meta", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Linen throw" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "$120" })
-          ] })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fake-product sponsored sponsored-card", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "thumb", style: { background: "linear-gradient(140deg,#ffe6a6,#fff2cc)" } }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "meta", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Sponsored: 3-seat sofa" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "$1,499 · partner" })
-          ] })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fake-product product-card", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "thumb" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "meta", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Ceramic vase" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "$42" })
-          ] })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fake-product product-card", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "thumb" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "meta", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Wall mirror" }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "$210" })
-          ] })
-        ] })
-      ] })
-    ] })
-  ] });
-}
-function TubeTime() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-head", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fakesite-logo", children: "TubeTime" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-nav", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Home" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Shorts" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Subscriptions" })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", className: "mini-btn", style: { marginLeft: "auto" }, children: "Sign in" })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-body", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "video-frame player", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "pre-roll-ad fake-ad", style: { width: "78%", minHeight: 120 }, children: [
-        "Pre-roll advertisement",
-        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Your video starts after this message" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { marginTop: 6, textTransform: "none", letterSpacing: 0 }, children: "Skip in 5 seconds" })
-      ] }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "video-meta", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "video-title", children: "A 20-minute weeknight ramen, from scratch" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge plain", children: "12:04" })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-columns", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-copy", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Tonight we are making a weeknight ramen that does not taste like compromise: a quick broth, a jammy egg, and whatever greens are in the fridge." }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fake-ad inline companion-ad", children: [
-            "Advertisement",
-            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Meal kits — $4.50 per serving" })
-          ] })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fakesite-side", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "sticky-social fake-ad", style: { background: "#f7f7f5", borderColor: "#ddd" }, children: [
-          "Follow us everywhere",
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { textTransform: "none", letterSpacing: 0 }, children: "@tubetime · 4.2M followers" })
-        ] }) })
-      ] })
-    ] })
-  ] });
-}
-function DevNotes() {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-head", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fakesite-logo", children: "DevNotes" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-nav", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Archive" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "About" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "RSS" })
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-body", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "cookie-banner", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "We value your privacy. We and our 412 partners may store cookies on your device." }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", className: "mini-btn", children: "Accept all" })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fakesite-hero-title", children: "A tiny parser, explained" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fakesite-dek", children: "How a filter engine turns text rules into a decision in microseconds." })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-columns", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-copy post-body", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Most blocking engines are, at heart, a very fast string matcher. Rules arrive as text, get compiled once, and are then tested against every outgoing request." }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "code-block", children: `if (rule.regex.test(url)) {
-  return decision('block', rule)
-}` }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "The interesting part is the edge cases: exceptions, request types, and the difference between a first-party and a third-party request." })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fakesite-side", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "taboola-widget", style: { border: "1px dashed #e0c68a", borderRadius: 6, padding: 10 }, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { fontSize: 9.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "#9a7b2a" }, children: "From around the web" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { fontSize: 11.5, marginTop: 6, color: "#444" }, children: "10 things your smart home knows about you" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { fontSize: 11.5, marginTop: 6, color: "#444" }, children: "This one trick made developers furious" })
-        ] }) })
-      ] })
-    ] })
-  ] });
-}
-function FakeSite({ id }) {
-  if (id === "shoply") return /* @__PURE__ */ jsxRuntimeExports.jsx(Shoply, {});
-  if (id === "tubetime") return /* @__PURE__ */ jsxRuntimeExports.jsx(TubeTime, {});
-  if (id === "devnotes") return /* @__PURE__ */ jsxRuntimeExports.jsx(DevNotes, {});
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(DailyByte, {});
-}
-const DEMO_SITES = [
-  {
-    id: "dailybyte",
-    name: "The Daily Byte",
-    category: "News",
-    host: "news.dailybyte.test",
-    blurb: "A busy newsroom: sponsored rail, leaderboard and a newsletter takeover.",
-    requests: [
-      { label: "Article feed", url: "https://news.dailybyte.test/api/feed.json", type: "xmlhttprequest", expect: "allowed" },
-      { label: "Hero photo", url: "https://news.dailybyte.test/img/city-hero.jpg", type: "image", expect: "allowed" },
-      { label: "Text face", url: "https://news.dailybyte.test/fonts/editorial.woff2", type: "font", expect: "allowed" },
-      { label: "Ad loader", url: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js", type: "script", expect: "blocked" },
-      { label: "Leaderboard creative", url: "https://ad.doubleclick.net/ddm/adi/N4821/banner.gif", type: "image", expect: "blocked" },
-      { label: "Taboola feed", url: "https://cdn.taboola.com/libtrc/network/loader.js", type: "script", expect: "blocked" },
-      { label: "Tag manager", url: "https://www.googletagmanager.com/gtm.js?id=GTM-42X", type: "script", expect: "blocked" },
-      { label: "Analytics beacon", url: "https://www.google-analytics.com/collect?v=1&t=pageview", type: "ping", expect: "blocked" }
-    ],
-    hide: [".ad-leaderboard", ".sponsored-rail", ".newsletter-popup"],
-    keep: [".article-body", ".hero-image"]
-  },
-  {
-    id: "shoply",
-    name: "Shoply",
-    category: "Shopping",
-    host: "shop.shoply.test",
-    blurb: "A retailer retargeting you across the web from every product page.",
-    requests: [
-      { label: "Product feed", url: "https://shop.shoply.test/api/products?sort=new", type: "xmlhttprequest", expect: "allowed" },
-      { label: "Product image", url: "https://cdn.shoply.test/img/chair-01.webp", type: "image", expect: "allowed" },
-      { label: "Recommendations", url: "https://static.criteo.net/js/ld/publishertag.prebid.js", type: "script", expect: "blocked" },
-      { label: "Retargeting pixel", url: "https://www.facebook.com/tr?id=99812&ev=ViewContent", type: "image", expect: "blocked" },
-      { label: "Bid request", url: "https://match.adsrvr.org/track/rid?ttd_pid=77", type: "xmlhttprequest", expect: "blocked" },
-      { label: "Affiliate cookie sync", url: "https://cm.adform.net/cookie?redirect_url=x", type: "image", expect: "blocked" }
-    ],
-    hide: [".sponsored-card", ".ad-slot"],
-    keep: [".product-card", ".product-grid"]
-  },
-  {
-    id: "tubetime",
-    name: "TubeTime",
-    category: "Video",
-    host: "watch.tubetime.test",
-    blurb: "A video player that would love a thirty-second pre-roll before the recipe.",
-    requests: [
-      { label: "Video segment", url: "https://cdn.watch.tubetime.test/hls/recipe-720p-003.ts", type: "media", expect: "allowed" },
-      { label: "Player bundle", url: "https://watch.tubetime.test/assets/player.js", type: "script", expect: "allowed" },
-      { label: "Pre-roll VAST", url: "https://search.spotxchange.com/vast/2.0/12345", type: "xmlhttprequest", expect: "blocked" },
-      { label: "Ad tag", url: "https://pubads.g.doubleclick.net/gampad/ads?iu=/1234/preroll", type: "xmlhttprequest", expect: "blocked" },
-      { label: "Session tracking", url: "https://www.google-analytics.com/collect?t=timing", type: "ping", expect: "blocked" },
-      { label: "Thumbnail", url: "https://cdn.watch.tubetime.test/img/recipe-thumb.jpg", type: "image", expect: "allowed" }
-    ],
-    hide: [".pre-roll-ad", ".companion-ad", ".sticky-social"],
-    keep: [".player", ".video-title"]
-  },
-  {
-    id: "devnotes",
-    name: "DevNotes",
-    category: "Blog",
-    host: "devnotes.test",
-    blurb: "A technical blog with a cookie wall and one very persistent reading list.",
-    requests: [
-      { label: "Post data", url: "https://devnotes.test/api/posts/42", type: "xmlhttprequest", expect: "allowed" },
-      { label: "Avatar", url: "https://avatars.githubusercontent.com/u/1024", type: "image", expect: "allowed" },
-      { label: "Code font", url: "https://devnotes.test/fonts/mono.woff2", type: "font", expect: "allowed" },
-      { label: "Sponsored reads", url: "https://widgets.outbrain.com/outbrain.js", type: "script", expect: "blocked" },
-      { label: "Bounce tracking", url: "https://www.google-analytics.com/collect?t=event", type: "ping", expect: "blocked" },
-      { label: "Facebook pixel", url: "https://connect.facebook.net/en_US/fbevents.js", type: "script", expect: "blocked" }
-    ],
-    hide: [".cookie-banner", ".taboola-widget"],
-    keep: [".post-body", ".code-block"]
-  }
-];
-function selectorLabel(selector) {
-  const simple = selector.match(/^\.([a-z0-9-]+)$/i);
-  if (!simple) return "Page element";
-  return simple[1].split("-").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
-}
-function LabPanel() {
-  const { state, setProtection, rules, observe, protectionNow } = useApp();
-  const [siteId, setSiteId] = reactExports.useState(DEMO_SITES[0].id);
-  const [checks, setChecks] = reactExports.useState(null);
-  const [hiddenCount, setHiddenCount] = reactExports.useState(0);
-  const siteRef = reactExports.useRef(null);
-  const site = DEMO_SITES.find((item) => item.id === siteId) || DEMO_SITES[0];
-  const decisions = reactExports.useMemo(
-    () => site.requests.map((request) => ({
-      ...request,
-      decision: screenRequest(request, {
-        rules,
-        allowlist: state.allowlist,
-        protection: protectionNow,
-        pageHost: site.host
-      })
-    })),
-    [site, rules, state.allowlist, protectionNow]
-  );
-  const cosmetic = reactExports.useMemo(() => cosmeticFor(site.host, rules), [rules, site.host]);
-  const blockedCount = decisions.filter((item) => item.decision.blocked).length;
-  reactExports.useEffect(() => {
-    observe(
-      decisions.map((item) => ({
-        url: item.url,
-        type: item.type,
-        pageHost: site.host,
-        blocked: item.decision.blocked,
-        listId: item.decision.listId
-      }))
-    );
-  }, [decisions, site.host, observe]);
-  reactExports.useEffect(() => {
-    setChecks(null);
-    const root = siteRef.current;
-    if (!root) return;
-    root.querySelectorAll("[data-luma-hidden]").forEach((node) => node.removeAttribute("data-luma-hidden"));
-    if (!protectionNow) {
-      setHiddenCount(0);
-      return;
-    }
-    const touched = /* @__PURE__ */ new Set();
-    for (const rule of cosmetic.hide) {
-      try {
-        root.querySelectorAll(rule.selector).forEach((node) => {
-          node.setAttribute("data-luma-hidden", "true");
-          touched.add(node);
-        });
-      } catch {
-      }
-    }
-    for (const rule of cosmetic.show) {
-      try {
-        root.querySelectorAll(rule.selector).forEach((node) => {
-          node.removeAttribute("data-luma-hidden");
-          touched.delete(node);
-        });
-      } catch {
-      }
-    }
-    setHiddenCount(touched.size);
-  }, [cosmetic, protectionNow, siteId]);
-  function runChecks() {
-    const root = siteRef.current;
-    if (!root) return;
-    const results = [];
-    for (const item of decisions) {
-      results.push({
-        key: item.url,
-        label: item.label,
-        detail: item.expect === "blocked" ? "should be blocked" : "should be allowed",
-        ok: item.decision.blocked === (item.expect === "blocked")
-      });
-    }
-    for (const selector of site.hide) {
-      const nodes = Array.from(root.querySelectorAll(selector));
-      results.push({
-        key: "hide:" + selector,
-        label: selectorLabel(selector),
-        detail: `${nodes.length} element${nodes.length === 1 ? "" : "s"} hidden`,
-        ok: nodes.length > 0 && nodes.every((node) => node.getAttribute("data-luma-hidden") === "true")
-      });
-    }
-    for (const selector of site.keep) {
-      const nodes = Array.from(root.querySelectorAll(selector));
-      results.push({
-        key: "keep:" + selector,
-        label: selectorLabel(selector),
-        detail: "should stay visible",
-        ok: nodes.length > 0 && nodes.every((node) => node.getAttribute("data-luma-hidden") !== "true")
-      });
-    }
-    setChecks(results);
-  }
-  const passed = checks ? checks.filter((check) => check.ok).length : 0;
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "site-switch", children: DEMO_SITES.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsx(
-      "button",
-      {
-        type: "button",
-        className: "site-pill",
-        "data-active": item.id === site.id ? "true" : "false",
-        onClick: () => setSiteId(item.id),
-        children: item.name
-      },
-      item.id
-    )) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "small muted", style: { marginTop: -8 }, children: site.blurb }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "lab-grid", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stack", style: { gap: 14 }, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "browser", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "browser-bar", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "browser-dots", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("i", {}),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("i", {}),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("i", {})
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "browser-url", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(Globe, {}),
-              site.host
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "browser-shield", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldCheck, {}),
-              protectionNow ? `${blockedCount} blocked` : "paused"
-            ] })
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "browser-viewport", ref: siteRef, children: /* @__PURE__ */ jsxRuntimeExports.jsx(FakeSite, { id: site.id }) })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", style: { flexWrap: "wrap" }, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsxs(
-            "button",
-            {
-              type: "button",
-              className: "btn",
-              onClick: () => setProtection(!state.protection),
-              children: [
-                state.protection ? /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldCheck, {}) : /* @__PURE__ */ jsxRuntimeExports.jsx(ShieldOff, {}),
-                state.protection ? "Pause protection" : "Resume protection"
-              ]
-            }
-          ),
-          state.protection && !protectionNow ? /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge warn", children: "Quiet hours" }) : null,
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
-            protectionNow ? hiddenCount : 0,
-            " ad elements hidden"
-          ] }),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
-            blockedCount,
-            " of ",
-            decisions.length,
-            " requests blocked"
-          ] })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stack", style: { gap: 14 }, children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", style: { padding: 18 }, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Requests", sub: "Live decisions from the filter engine" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "request-table", children: decisions.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "request-row", "data-status": item.decision.status, children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "req-main", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "req-label", children: item.label }),
-              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "req-url", children: item.decision.blocked ? "Recognized ad or tracker" : "Nothing to block" })
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "req-state " + (protectionNow ? item.decision.status : "paused"), children: protectionNow ? item.decision.blocked ? "blocked" : "allowed" : "paused" })
-          ] }, item.url)) })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", style: { padding: 18 }, children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Checks", sub: "What every request and ad slot should do", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "btn sm ghost", onClick: runChecks, children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(FlaskConical, {}),
-            "Run checks"
-          ] }) }),
-          checks ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "verdict", "data-ok": passed === checks.length ? "true" : "false", children: [
-              passed === checks.length ? /* @__PURE__ */ jsxRuntimeExports.jsx(CircleCheck, {}) : /* @__PURE__ */ jsxRuntimeExports.jsx(TriangleAlert, {}),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsxs("strong", { children: [
-                  passed,
-                  " / ",
-                  checks.length
-                ] }),
-                " ",
-                "checks passed",
-                !protectionNow ? " — protection is paused" : ""
-              ] })
-            ] }),
-            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "check-list", style: { marginTop: 10 }, children: checks.map((check) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "check", "data-ok": check.ok ? "true" : "false", children: [
-              check.ok ? /* @__PURE__ */ jsxRuntimeExports.jsx(CircleCheck, {}) : /* @__PURE__ */ jsxRuntimeExports.jsx(CircleX, {}),
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "grow", children: [
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { fontWeight: 500 }, children: check.label }),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("br", {}),
-                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "small muted", children: check.detail })
-              ] })
-            ] }, check.key)) })
-          ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "empty", children: [
-            "Press ",
-            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Run checks" }),
-            " to screen every request on this page and confirm each ad slot is hidden."
-          ] })
-        ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Every decision above comes from the protection you have enabled." })
-      ] })
-    ] })
-  ] });
-}
-const VIEWS = [
-  {
-    id: "lab",
-    label: "Test lab",
-    icon: FlaskConical,
-    title: "See the engine work.",
-    lede: "Four simulated sites, one real filter engine. Luma screens every request and hides every ad slot using the rules you have enabled.",
-    Panel: LabPanel
-  },
-  {
-    id: "inspector",
-    label: "URL inspector",
-    icon: Search,
-    title: "Why was that blocked?",
-    lede: "Paste any request and Luma will check it against your protection, then tell you what it would do.",
-    Panel: InspectorPanel
-  }
-];
 function Tools() {
-  const { view: requested } = useParams();
-  const navigate = useNavigate();
-  const view = VIEWS.find((item) => item.id === requested);
-  if (!view) return /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/tools/lab", replace: true });
-  const { Panel } = view;
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(PageHead, { eyebrow: "Tools", title: view.title, lede: view.lede }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "view-tabs", role: "tablist", "aria-label": "Tools", children: VIEWS.map((item) => {
-      const Icon2 = item.icon;
-      return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        "button",
+  const { view } = useParams();
+  const tool = toolById(view);
+  if (view && !tool) return /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/tools", replace: true });
+  if (!tool) {
+    return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        PageHead,
         {
-          type: "button",
-          role: "tab",
-          "aria-selected": item.id === view.id,
-          "data-active": item.id === view.id ? "true" : "false",
-          className: "view-tab",
-          onClick: () => navigate("/tools/" + item.id, { replace: true }),
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, {}),
-            item.label
-          ]
-        },
-        item.id
-      );
-    }) }),
+          eyebrow: "Tools",
+          title: "Everything to check the work.",
+          lede: "Look at what Luma does, test it against your own setup, and tidy the rules you keep. All of it runs on this device.",
+          children: /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Wrench, {}),
+            TOOLS$1.length,
+            " tools"
+          ] })
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("section", { className: "grid-3", children: TOOLS$1.map((item) => {
+        const Icon2 = item.icon;
+        return /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: "/tools/" + item.id, className: "card action-tile", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "feed-icon", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Icon2, {}) }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grow", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { fontWeight: 600, fontSize: 13 }, children: item.label }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "small muted", children: item.blurb })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowRight, { width: 15, height: 15 })
+        ] }, item.id);
+      }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Nothing here leaves your device unless you ask it to." })
+    ] });
+  }
+  const Panel = tool.Panel;
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(PageHead, { eyebrow: "Tools", title: tool.title, lede: tool.lede, children: /* @__PURE__ */ jsxRuntimeExports.jsxs(Link, { to: "/tools", className: "btn sm ghost", children: [
+      "All tools",
+      /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowRight, {})
+    ] }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Panel, {})
   ] });
 }
@@ -22098,7 +23076,7 @@ function App() {
     /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/protection", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Protection, {}) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/activity", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Activity, {}) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/account", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Account, {}) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/tools", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/tools/lab", replace: true }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/tools", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Tools, {}) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/tools/:view", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Tools, {}) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/lists", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/protection", replace: true }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Route, { path: "/lab", element: /* @__PURE__ */ jsxRuntimeExports.jsx(Navigate, { to: "/tools/lab", replace: true }) }),

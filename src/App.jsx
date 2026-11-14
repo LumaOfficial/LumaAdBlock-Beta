@@ -32,7 +32,7 @@ export default function App() {
         <Route path="/activity" element={<Activity />} />
         <Route path="/account" element={<Account />} />
         {/* Tools sit apart from the protection settings they inspect. */}
-        <Route path="/tools" element={<Navigate to="/tools/lab" replace />} />
+        <Route path="/tools" element={<Tools />} />
         <Route path="/tools/:view" element={<Tools />} />
         {/* Old addresses for the tools and the lists. */}
         <Route path="/lists" element={<Navigate to="/protection" replace />} />

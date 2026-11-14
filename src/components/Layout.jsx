@@ -7,9 +7,11 @@ import {
   Search,
   ShieldCheck,
   UserRound,
+  Wrench,
 } from 'lucide-react'
 import { useApp } from '../lib/useApp'
 import AccountMenu from './AccountMenu'
+import { toolById } from './tools/registry'
 import { Switch } from './ui'
 
 const NAV = [
@@ -32,6 +34,7 @@ const NAV = [
 
 // Ways to look at protection working — kept out of the protection settings.
 const TOOLS = [
+  { to: '/tools', label: 'All tools', icon: Wrench, end: true },
   { to: '/tools/lab', label: 'Test lab', icon: FlaskConical },
   { to: '/tools/inspector', label: 'URL inspector', icon: Search },
 ]
@@ -41,8 +44,7 @@ const TITLES = {
   '/protection': 'Protection',
   '/activity': 'Activity',
   '/account': 'Account',
-  '/tools/lab': 'Test lab',
-  '/tools/inspector': 'URL inspector',
+  '/tools': 'Tools',
   '/diagnostics': 'Diagnostics',
   '/owner': 'Owner console',
 }
@@ -55,7 +57,9 @@ export default function Layout() {
     window.scrollTo(0, 0)
   }, [location.pathname])
 
-  const title = TITLES[location.pathname] || 'Overview'
+  // Tool pages name themselves: /tools/<id> takes the tool's label.
+  const toolId = location.pathname.startsWith('/tools/') ? location.pathname.slice('/tools/'.length) : ''
+  const title = TITLES[location.pathname] || (toolId ? toolById(toolId)?.label : '') || 'Overview'
 
   return (
     <div className="shell">
@@ -91,8 +95,19 @@ export default function Layout() {
           </div>
           {TOOLS.map((tool) => {
             const Icon = tool.icon
+            // Any other tool page keeps "All tools" lit; the two shortcuts light themselves.
+            const active =
+              tool.to === '/tools'
+                ? location.pathname.startsWith('/tools') &&
+                  !TOOLS.some((other) => other.to !== '/tools' && other.to === location.pathname)
+                : location.pathname === tool.to
             return (
-              <NavLink key={tool.to} to={tool.to} className="nav-link">
+              <NavLink
+                key={tool.to}
+                to={tool.to}
+                end={tool.end}
+                className={'nav-link' + (active ? ' active' : '')}
+              >
                 <Icon />
                 {tool.label}
               </NavLink>

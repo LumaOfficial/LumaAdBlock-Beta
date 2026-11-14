@@ -17,7 +17,7 @@ browser extension.
 | Agreements | `src/lib/legal.js`, `src/components/LegalDialog.jsx` | Terms & Conditions (EULA, Refund Policy) and Privacy Policy shown at sign-up |
 | State | `src/lib/store.jsx` | Protection switch, lists, custom rules, allowlist, counters (kept in `localStorage`; the web build counts the requests the test lab and inspector really screen) |
 | Protection | `src/pages/Protection.jsx` | The settings that decide what gets blocked: filter lists, custom rules and trusted sites, at `/protection` |
-| Tools | `src/pages/Tools.jsx` | The test lab and the URL inspector, kept separate from protection at `/tools/lab` and `/tools/inspector` |
+| Tools | `src/pages/Tools.jsx`, `src/components/tools/` | Ten device-local tools at `/tools`: protection score, test lab, URL inspector, bulk check, list coverage, rule library, rule clean-up, trusted sites, savings calculator and speed check |
 | Test lab | `src/components/LabPanel.jsx` | Four simulated sites; every request and ad slot is checked by the engine |
 | Inspector | `src/components/InspectorPanel.jsx` | Paste a URL and get a plain blocked/allowed verdict |
 | Detection | `src/lib/learning.js` | Scores observed requests, adds a host rule for ad-like traffic that slips through, and runs the engine's self-checks |

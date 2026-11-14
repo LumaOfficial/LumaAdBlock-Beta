@@ -1,61 +1,62 @@
-import { Navigate, useNavigate, useParams } from 'react-router-dom'
-import { FlaskConical, Search } from 'lucide-react'
-import InspectorPanel from '../components/InspectorPanel'
-import LabPanel from '../components/LabPanel'
+import { Link, Navigate, useParams } from 'react-router-dom'
+import { ArrowRight, Wrench } from 'lucide-react'
 import { PageHead } from '../components/ui'
-
-// Things you use to look at protection working, kept apart from the settings
-// that decide what gets blocked.
-const VIEWS = [
-  {
-    id: 'lab',
-    label: 'Test lab',
-    icon: FlaskConical,
-    title: 'See the engine work.',
-    lede: 'Four simulated sites, one real filter engine. Luma screens every request and hides every ad slot using the rules you have enabled.',
-    Panel: LabPanel,
-  },
-  {
-    id: 'inspector',
-    label: 'URL inspector',
-    icon: Search,
-    title: 'Why was that blocked?',
-    lede: 'Paste any request and Luma will check it against your protection, then tell you what it would do.',
-    Panel: InspectorPanel,
-  },
-]
+import { TOOLS, toolById } from '../components/tools/registry'
 
 export default function Tools() {
-  const { view: requested } = useParams()
-  const navigate = useNavigate()
-  const view = VIEWS.find((item) => item.id === requested)
+  const { view } = useParams()
+  const tool = toolById(view)
 
-  if (!view) return <Navigate to="/tools/lab" replace />
-  const { Panel } = view
+  // An address that names no tool goes back to the list.
+  if (view && !tool) return <Navigate to="/tools" replace />
+
+  if (!tool) {
+    return (
+      <>
+        <PageHead
+          eyebrow="Tools"
+          title="Everything to check the work."
+          lede="Look at what Luma does, test it against your own setup, and tidy the rules you keep. All of it runs on this device."
+        >
+          <span className="badge plain">
+            <Wrench />
+            {TOOLS.length} tools
+          </span>
+        </PageHead>
+
+        <section className="grid-3">
+          {TOOLS.map((item) => {
+            const Icon = item.icon
+            return (
+              <Link key={item.id} to={'/tools/' + item.id} className="card action-tile">
+                <span className="feed-icon">
+                  <Icon />
+                </span>
+                <div className="grow">
+                  <div style={{ fontWeight: 600, fontSize: 13 }}>{item.label}</div>
+                  <div className="small muted">{item.blurb}</div>
+                </div>
+                <ArrowRight width={15} height={15} />
+              </Link>
+            )
+          })}
+        </section>
+
+        <p className="footer-note">Nothing here leaves your device unless you ask it to.</p>
+      </>
+    )
+  }
+
+  const Panel = tool.Panel
 
   return (
     <>
-      <PageHead eyebrow="Tools" title={view.title} lede={view.lede} />
-
-      <div className="view-tabs" role="tablist" aria-label="Tools">
-        {VIEWS.map((item) => {
-          const Icon = item.icon
-          return (
-            <button
-              key={item.id}
-              type="button"
-              role="tab"
-              aria-selected={item.id === view.id}
-              data-active={item.id === view.id ? 'true' : 'false'}
-              className="view-tab"
-              onClick={() => navigate('/tools/' + item.id, { replace: true })}
-            >
-              <Icon />
-              {item.label}
-            </button>
-          )
-        })}
-      </div>
+      <PageHead eyebrow="Tools" title={tool.title} lede={tool.lede}>
+        <Link to="/tools" className="btn sm ghost">
+          All tools
+          <ArrowRight />
+        </Link>
+      </PageHead>
 
       <Panel />
     </>
