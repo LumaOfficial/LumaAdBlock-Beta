@@ -1,10 +1,15 @@
 import {
   Award,
   BookOpen,
+  Cookie,
   Eraser,
   FlaskConical,
   Layers,
   ListChecks,
+  Megaphone,
+  MessagesSquare,
+  PlaySquare,
+  Radar,
   Search,
   Sparkles,
   Timer,
@@ -18,6 +23,8 @@ import ListCoverage from './ListCoverage'
 import RuleLibrary from './RuleLibrary'
 import RuleBuilder from './RuleBuilder'
 import RuleCleanup from './RuleCleanup'
+import ServiceCheck from './ServiceCheck'
+import { SERVICE_CHECKS } from './catalog'
 import TrustedSites from './TrustedSites'
 import SavingsCalculator from './SavingsCalculator'
 import SpeedCheck from './SpeedCheck'
@@ -27,7 +34,7 @@ import ProtectionScore from './ProtectionScore'
  * Every tool the app offers. The order here is the order on the Tools page:
  * the everyday ones first, the tidy-up ones after.
  */
-export const TOOLS = [
+const EVERYDAY = [
   {
     id: 'score',
     label: 'Protection score',
@@ -130,6 +137,31 @@ export const TOOLS = [
     Panel: SpeedCheck,
   },
 ]
+
+const SECTION_ICONS = {
+  Advertising: Megaphone,
+  Tracking: Radar,
+  'Social & video': PlaySquare,
+  'Consent & popups': Cookie,
+  'Chat & push': MessagesSquare,
+}
+
+/**
+ * One checker per service Luma meets in the wild. They share a single panel,
+ * so adding a service is a line of data rather than a new page.
+ */
+const SERVICE_TOOLS = SERVICE_CHECKS.map((service) => ({
+  id: service.id,
+  label: service.label,
+  icon: SECTION_ICONS[service.section] || Radar,
+  section: service.section,
+  title: `Does Luma block ${service.label}?`,
+  lede: `See what happens to ${service.label} with the protection you have on, and stop the whole service in one tap.`,
+  blurb: service.blurb,
+  Panel: () => <ServiceCheck service={service} />,
+}))
+
+export const TOOLS = [...EVERYDAY, ...SERVICE_TOOLS]
 
 export function toolById(id) {
   return TOOLS.find((tool) => tool.id === id) || null
