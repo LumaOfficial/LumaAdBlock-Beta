@@ -21,6 +21,7 @@ const REQUIRED = [
   'manifest.json',
   'background.js',
   'content.js',
+  'picker.js',
   'youtube.js',
   'luma-defaults.json',
   'app/index.html',

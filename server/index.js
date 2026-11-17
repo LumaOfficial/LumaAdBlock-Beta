@@ -904,7 +904,9 @@ async function handle(req, res) {
   }
 
   if (route === 'PUT /api/settings') {
-    const body = await readBody(req)
+    // Subscribed lists travel with the settings, so this route accepts a
+    // larger body than the rest of the service.
+    const body = await readBody(req, 2 * 1024 * 1024)
     const input = body.settings
     if (!input || typeof input !== 'object' || Array.isArray(input)) {
       return send(res, 422, { error: 'Invalid settings' })
@@ -951,6 +953,49 @@ async function handle(req, res) {
         0,
         200,
       )
+    }
+    // Elements picked by hand with the click-to-block tool, grouped by site.
+    if (input.pickerRules && typeof input.pickerRules === 'object' && !Array.isArray(input.pickerRules)) {
+      const pickerRules = {}
+      let sites = 0
+      for (const [domain, list] of Object.entries(input.pickerRules)) {
+        if (sites >= 200) break
+        const host = hostname(domain)
+        if (!host || !Array.isArray(list)) continue
+        const selectors = [...new Set(list.map(ruleText).filter(Boolean))].slice(0, 200)
+        if (!selectors.length) continue
+        pickerRules[host] = selectors
+        sites += 1
+      }
+      settings.pickerRules = pickerRules
+    }
+    // Subscribed filter lists: the address, whether it is on, and the rules
+    // last downloaded from it. Old clients that never send it keep theirs.
+    if (Array.isArray(input.subscriptions)) {
+      settings.subscriptions = input.subscriptions
+        .filter(
+          (item) =>
+            item &&
+            typeof item.url === 'string' &&
+            /^https?:\/\/[^\s]+$/i.test(item.url.trim()),
+        )
+        .slice(0, 6)
+        .map((item) => ({
+          id: String(item.id || item.url).slice(0, 200),
+          url: item.url.trim().slice(0, 500),
+          title: String(item.title || '').slice(0, 120),
+          description: String(item.description || '').slice(0, 240),
+          enabled: item.enabled !== false,
+          lines: Array.isArray(item.lines)
+            ? item.lines
+                .map((line) => String(line || '').trim().slice(0, 400))
+                .filter(Boolean)
+                .slice(0, 2000)
+            : [],
+          network: Number(item.network) || 0,
+          cosmetic: Number(item.cosmetic) || 0,
+          updatedAt: item.updatedAt ? String(item.updatedAt).slice(0, 40) : null,
+        }))
     }
 
     const row = db

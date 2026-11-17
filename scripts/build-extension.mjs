@@ -150,7 +150,7 @@ async function main() {
     description: pkg.description,
     author: 'Luma Official',
     minimum_chrome_version: '102',
-    permissions: ['alarms', 'declarativeNetRequest', 'storage', 'scripting'],
+    permissions: ['alarms', 'contextMenus', 'declarativeNetRequest', 'storage', 'scripting'],
     host_permissions: ['<all_urls>'],
     // The content script reads the same selectors the stylesheets are built
     // from. A packaged file can only be read from a page when it is listed
@@ -185,7 +185,28 @@ async function main() {
         run_at: 'document_start',
         all_frames: true,
       },
+      {
+        // Click-to-block: outlines an element and hides the one picked. It
+        // waits for a message, so an idle page pays nothing for it.
+        matches: ['<all_urls>'],
+        js: ['picker.js'],
+        run_at: 'document_idle',
+      },
     ],
+    commands: {
+      _execute_action: {
+        suggested_key: { default: 'Alt+Shift+L' },
+        description: 'Open the Luma panel',
+      },
+      'toggle-protection': {
+        suggested_key: { default: 'Alt+Shift+P' },
+        description: 'Turn protection on or off',
+      },
+      'pick-element': {
+        suggested_key: { default: 'Alt+Shift+E' },
+        description: 'Block an element on this page',
+      },
+    },
     declarative_net_request: { rule_resources: rulesets },
   }
   await writeFile(path.join(out, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n')

@@ -17265,6 +17265,29 @@ const Clock = createLucideIcon("Clock", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
+const CloudOff = createLucideIcon("CloudOff", [
+  ["path", { d: "m2 2 20 20", key: "1ooewy" }],
+  ["path", { d: "M5.782 5.782A7 7 0 0 0 9 19h8.5a4.5 4.5 0 0 0 1.307-.193", key: "yfwify" }],
+  [
+    "path",
+    { d: "M21.532 16.5A4.5 4.5 0 0 0 17.5 10h-1.79A7.008 7.008 0 0 0 10 5.07", key: "jlfiyv" }
+  ]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Cloud = createLucideIcon("Cloud", [
+  ["path", { d: "M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z", key: "p7xjir" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
 const Cookie = createLucideIcon("Cookie", [
   ["path", { d: "M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5", key: "laymnq" }],
   ["path", { d: "M8.5 8.5v.01", key: "ue8clq" }],
@@ -17584,6 +17607,35 @@ const Moon = createLucideIcon("Moon", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
+const MousePointerClick = createLucideIcon("MousePointerClick", [
+  ["path", { d: "M14 4.1 12 6", key: "ita8i4" }],
+  ["path", { d: "m5.1 8-2.9-.8", key: "1go3kf" }],
+  ["path", { d: "m6 12-1.9 2", key: "mnht97" }],
+  ["path", { d: "M7.2 2.2 8 5.1", key: "1cfko1" }],
+  [
+    "path",
+    {
+      d: "M9.037 9.69a.498.498 0 0 1 .653-.653l11 4.5a.5.5 0 0 1-.074.949l-4.349 1.041a1 1 0 0 0-.74.739l-1.04 4.35a.5.5 0 0 1-.95.074z",
+      key: "s0h3yz"
+    }
+  ]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Pause = createLucideIcon("Pause", [
+  ["rect", { x: "14", y: "4", width: "4", height: "16", rx: "1", key: "zuxfzm" }],
+  ["rect", { x: "6", y: "4", width: "4", height: "16", rx: "1", key: "1okwgv" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
 const Play = createLucideIcon("Play", [
   ["polygon", { points: "6 3 20 12 6 21 6 3", key: "1oa8hb" }]
 ]);
@@ -17647,6 +17699,34 @@ const RefreshCw = createLucideIcon("RefreshCw", [
 const RotateCcw = createLucideIcon("RotateCcw", [
   ["path", { d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8", key: "1357e3" }],
   ["path", { d: "M3 3v5h5", key: "1xhq8a" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Rss = createLucideIcon("Rss", [
+  ["path", { d: "M4 11a9 9 0 0 1 9 9", key: "pv89mb" }],
+  ["path", { d: "M4 4a16 16 0 0 1 16 16", key: "k0647b" }],
+  ["circle", { cx: "5", cy: "19", r: "1", key: "bfqh0e" }]
+]);
+/**
+ * @license lucide-react v0.469.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const Save = createLucideIcon("Save", [
+  [
+    "path",
+    {
+      d: "M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z",
+      key: "1c8476"
+    }
+  ],
+  ["path", { d: "M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7", key: "1ydtos" }],
+  ["path", { d: "M7 3v4a1 1 0 0 0 1 1h7", key: "t51u73" }]
 ]);
 /**
  * @license lucide-react v0.469.0 - ISC
@@ -18222,6 +18302,104 @@ function AccountMenu() {
     passwordOpen ? /* @__PURE__ */ jsxRuntimeExports.jsx(PasswordDialog, { onClose: () => setPasswordOpen(false) }) : null
   ] });
 }
+const API_BASE = String("").replace(/\/$/, "");
+const TOKEN_KEY = "luma.token.v2";
+class ApiError extends Error {
+  constructor(message, status, errors, data) {
+    super(message);
+    this.status = status;
+    this.errors = errors || {};
+    this.data = data || null;
+  }
+}
+function getToken() {
+  try {
+    return window.localStorage.getItem(TOKEN_KEY) || window.sessionStorage.getItem(TOKEN_KEY) || "";
+  } catch {
+    return "";
+  }
+}
+function setToken(token, remember) {
+  clearToken();
+  try {
+    ;
+    (remember ? window.localStorage : window.sessionStorage).setItem(TOKEN_KEY, token);
+  } catch {
+  }
+}
+function clearToken() {
+  try {
+    window.localStorage.removeItem(TOKEN_KEY);
+    window.sessionStorage.removeItem(TOKEN_KEY);
+  } catch {
+  }
+}
+async function api(path, { method = "GET", body, auth = true } = {}) {
+  const headers = {};
+  if (body !== void 0) headers["Content-Type"] = "application/json";
+  const token = auth ? getToken() : "";
+  if (token) headers.Authorization = "Bearer " + token;
+  let response;
+  try {
+    response = await fetch(API_BASE + path, {
+      method,
+      headers,
+      body: body === void 0 ? void 0 : JSON.stringify(body)
+    });
+  } catch {
+    throw new ApiError("Luma could not reach its servers. Check your connection and try again.", 0);
+  }
+  let data = null;
+  try {
+    data = await response.json();
+  } catch {
+    throw new ApiError("Luma could not reach its accounts service. Check your connection and try again.", 0);
+  }
+  if (!response.ok) {
+    throw new ApiError((data == null ? void 0 : data.error) || "Something went wrong. Try again.", response.status, data == null ? void 0 : data.errors, data);
+  }
+  return data;
+}
+const STATES = {
+  "signed-out": { text: "Saved on this device only", tone: "plain" },
+  syncing: { text: "Syncing…", tone: "plain" },
+  synced: { text: "Synced to your account", tone: "good" },
+  offline: { text: "Offline — changes stay on this device", tone: "warn" },
+  error: { text: "Sync problem", tone: "warn" }
+};
+function when(value) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return date.toLocaleTimeString(void 0, { hour: "numeric", minute: "2-digit" });
+}
+function SyncStatus({ compact = false }) {
+  const { sync, retrySync } = useApp();
+  const { user } = useAuth();
+  if (!API_BASE) return null;
+  const info = STATES[sync == null ? void 0 : sync.status] || STATES["signed-out"];
+  const offline = (sync == null ? void 0 : sync.status) === "offline" || (sync == null ? void 0 : sync.status) === "error";
+  if (compact) {
+    return /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "sync-line", "data-status": (sync == null ? void 0 : sync.status) || "signed-out", children: [
+      offline ? /* @__PURE__ */ jsxRuntimeExports.jsx(CloudOff, { width: 12, height: 12 }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Cloud, { width: 12, height: 12 }),
+      user ? info.text : "Not signed in"
+    ] });
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "sync-block", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", style: { gap: 8 }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge " + info.tone, children: info.text }),
+      (sync == null ? void 0 : sync.status) === "synced" && sync.at ? /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "small muted", children: [
+        "last saved ",
+        when(sync.at)
+      ] }) : null,
+      offline ? /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "btn sm ghost", onClick: () => retrySync(), children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(RefreshCw, { width: 13, height: 13 }),
+        "Try again"
+      ] }) : null
+    ] }),
+    (sync == null ? void 0 : sync.message) ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "small muted", style: { marginTop: 6 }, children: sync.message }) : null
+  ] });
+}
 function Switch({ on, onChange, label }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(
     "button",
@@ -18399,11 +18577,17 @@ function TubeTime() {
       /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", className: "mini-btn", style: { marginLeft: "auto" }, children: "Sign in" })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fakesite-body", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "video-frame player", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "pre-roll-ad fake-ad", style: { width: "78%", minHeight: 120 }, children: [
-        "Pre-roll advertisement",
-        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Your video starts after this message" }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { marginTop: 6, textTransform: "none", letterSpacing: 0 }, children: "Skip in 5 seconds" })
-      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "video-frame player", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "video-surface", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "play", children: "▶" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { children: "Now playing · the recipe starts" })
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "pre-roll-ad fake-ad", children: [
+          "Pre-roll advertisement",
+          /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Your video starts after this message" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { style: { marginTop: 6, textTransform: "none", letterSpacing: 0 }, children: "Skip in 5 seconds" })
+        ] })
+      ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "video-meta", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "video-title", children: "A 20-minute weeknight ramen, from scratch" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge plain", children: "12:04" })
@@ -20272,6 +20456,266 @@ function BulkCheck() {
     ] })
   ] });
 }
+const isExtension = typeof chrome !== "undefined" && Boolean(chrome.runtime && chrome.runtime.id);
+function safeSend(message) {
+  if (!isExtension) return Promise.resolve(null);
+  try {
+    return chrome.runtime.sendMessage(message).catch(() => null);
+  } catch {
+    return Promise.resolve(null);
+  }
+}
+function postSettings(payload) {
+  return safeSend({ type: "luma:settings", payload });
+}
+async function readSettings() {
+  const reply = await safeSend({ type: "luma:settings:read" });
+  return (reply == null ? void 0 : reply.settings) || null;
+}
+async function readStats() {
+  const reply = await safeSend({ type: "luma:stats:read" });
+  return (reply == null ? void 0 : reply.stats) || null;
+}
+async function readPageBlocks() {
+  const reply = await safeSend({ type: "luma:page:read" });
+  return Number(reply == null ? void 0 : reply.blocked) || 0;
+}
+async function readActiveSite() {
+  const reply = await safeSend({ type: "luma:site:read" });
+  return (reply == null ? void 0 : reply.host) || "";
+}
+function subscribeStats(handler) {
+  if (!isExtension) return () => {
+  };
+  const listener = (message) => {
+    if ((message == null ? void 0 : message.type) === "luma:stats" && message.stats) handler(message.stats);
+  };
+  chrome.runtime.onMessage.addListener(listener);
+  return () => chrome.runtime.onMessage.removeListener(listener);
+}
+function subscribePicked(handler) {
+  if (!isExtension) return () => {
+  };
+  const listener = (message) => {
+    if ((message == null ? void 0 : message.type) === "luma:picked" && message.selector) {
+      handler({ host: message.host, selector: message.selector });
+    }
+  };
+  chrome.runtime.onMessage.addListener(listener);
+  return () => chrome.runtime.onMessage.removeListener(listener);
+}
+function subscribeSettings(handler) {
+  if (!isExtension) return () => {
+  };
+  const listener = (message) => {
+    if ((message == null ? void 0 : message.type) === "luma:settings:changed" && message.settings) handler(message.settings);
+  };
+  chrome.runtime.onMessage.addListener(listener);
+  return () => chrome.runtime.onMessage.removeListener(listener);
+}
+function startPicker() {
+  return safeSend({ type: "luma:pick:start" });
+}
+function resetStats() {
+  return safeSend({ type: "luma:stats:reset" });
+}
+function allowlistHost(value) {
+  const text = String(value || "").trim().toLowerCase();
+  if (!text) return "";
+  try {
+    const parsed = new URL(/^[a-z][a-z0-9+.-]*:\/\//.test(text) ? text : "http://" + text);
+    return /^[a-z0-9.-]+$/.test(parsed.hostname) ? parsed.hostname : "";
+  } catch {
+    return "";
+  }
+}
+const DYNAMIC_RULE_BUDGET = 4500;
+const MAX_GENERIC_COSMETIC = 2500;
+function buildPayload(state, protectionNow = state.protection) {
+  const enabledLists = FILTER_LISTS.filter((list) => state.lists[list.id]).map((list) => list.id);
+  const ruleIndex = {};
+  const dynamicRules = [];
+  const allowlist = [...new Set((state.allowlist || []).map(allowlistHost).filter(Boolean))];
+  const paused = [...new Set((state.pausedSites || []).map(allowlistHost).filter(Boolean))];
+  let nextId = 1;
+  if (protectionNow) {
+    for (const list of FILTER_LISTS) {
+      if (!enabledLists.includes(list.id)) continue;
+      const compiled = compileRules(list.rules, list.id).filter((rule) => rule.kind === "network");
+      toDeclarativeNetRequest(compiled).forEach((rule, index) => {
+        ruleIndex[list.id + ":" + rule.id] = { listId: list.id, raw: compiled[index].raw };
+      });
+    }
+    const customNetwork = compileRules(state.customRules, "custom").filter(
+      (rule) => rule.kind === "network"
+    );
+    for (const rule of toDeclarativeNetRequest(customNetwork)) {
+      rule.id = nextId;
+      ruleIndex["_dynamic:" + rule.id] = {
+        listId: "custom",
+        raw: customNetwork[nextId - 1].raw
+      };
+      dynamicRules.push(rule);
+      nextId += 1;
+    }
+    const learnedNetwork = compileRules(
+      (state.learned || []).map((item) => item.rule),
+      "learned"
+    ).filter((rule) => rule.kind === "network");
+    toDeclarativeNetRequest(learnedNetwork).forEach((rule, index) => {
+      rule.id = nextId;
+      ruleIndex["_dynamic:" + rule.id] = { listId: "learned", raw: learnedNetwork[index].raw };
+      dynamicRules.push(rule);
+      nextId += 1;
+    });
+    const subscribed = (state.subscriptions || []).filter((subscription) => subscription.enabled).flatMap((subscription) => compileRules(subscription.lines || [], subscription.id)).filter((rule) => rule.kind === "network");
+    toDeclarativeNetRequest(subscribed).forEach((rule, index) => {
+      if (nextId >= DYNAMIC_RULE_BUDGET) return;
+      rule.id = nextId;
+      ruleIndex["_dynamic:" + rule.id] = {
+        listId: subscribed[index].listId,
+        raw: subscribed[index].raw
+      };
+      dynamicRules.push(rule);
+      nextId += 1;
+    });
+    for (const host of allowlist) {
+      dynamicRules.push({
+        id: nextId,
+        priority: 200,
+        action: { type: "allow" },
+        condition: { initiatorDomains: [host] }
+      });
+      nextId += 1;
+    }
+    for (const host of paused) {
+      dynamicRules.push({
+        id: nextId,
+        priority: 300,
+        action: { type: "allowAllRequests" },
+        condition: { requestDomains: [host], resourceTypes: ["main_frame"] }
+      });
+      nextId += 1;
+    }
+  }
+  const cosmeticSelectors = { generic: [], site: {} };
+  for (const rule of compileRules(state.customRules, "custom")) {
+    if (rule.kind !== "cosmetic") continue;
+    if (rule.exception) continue;
+    if (rule.domains.length) {
+      for (const domain of rule.domains) {
+        cosmeticSelectors.site[domain] = cosmeticSelectors.site[domain] || [];
+        cosmeticSelectors.site[domain].push(rule.selector);
+      }
+    } else {
+      cosmeticSelectors.generic.push(rule.selector);
+    }
+  }
+  for (const subscription of state.subscriptions || []) {
+    if (!subscription.enabled) continue;
+    for (const rule of compileRules(subscription.lines || [], subscription.id)) {
+      if (rule.kind !== "cosmetic" || rule.exception) continue;
+      if (rule.domains.length) {
+        for (const domain of rule.domains) {
+          cosmeticSelectors.site[domain] = cosmeticSelectors.site[domain] || [];
+          cosmeticSelectors.site[domain].push(rule.selector);
+        }
+      } else if (cosmeticSelectors.generic.length < MAX_GENERIC_COSMETIC) {
+        cosmeticSelectors.generic.push(rule.selector);
+      }
+    }
+  }
+  cosmeticSelectors.generic = [...new Set(cosmeticSelectors.generic)];
+  for (const domain of Object.keys(cosmeticSelectors.site)) {
+    cosmeticSelectors.site[domain] = [...new Set(cosmeticSelectors.site[domain])];
+  }
+  return {
+    protection: protectionNow,
+    enabledLists,
+    dynamicRules,
+    ruleIndex,
+    cosmeticSelectors,
+    dashboard: {
+      protection: state.protection,
+      deep: Boolean(state.deep),
+      theme: state.theme,
+      // How the content script shows a removal: silent or outlined.
+      feedback: state.feedback === "visual" ? "visual" : "hidden",
+      privacy: Boolean(state.privacy),
+      lists: state.lists,
+      customRules: state.customRules,
+      // Elements picked by hand, and the lists downloaded from a URL. Both
+      // must survive a page reload, so the worker keeps them too.
+      pickerRules: state.pickerRules || {},
+      subscriptions: state.subscriptions || [],
+      allowlist,
+      paused: protectionNow && !state.privacy ? paused : [],
+      pausedSites: paused,
+      schedule: state.schedule,
+      learned: state.learned || []
+    }
+  };
+}
+function friendly(selector) {
+  const text = String(selector || "");
+  const name = (/\.([a-zA-Z][\w-]{1,39})/.exec(text) || /#([a-zA-Z][\w-]{1,39})/.exec(text) || [])[1];
+  if (!name) return "Element";
+  const words = name.replace(/[_-]+/g, " ").replace(/([a-z])([A-Z])/g, "$1 $2").trim();
+  if (!words) return "Element";
+  return words.charAt(0).toUpperCase() + words.slice(1);
+}
+function ElementPicker() {
+  const { state, removePickerRule } = useApp();
+  const sites = reactExports.useMemo(
+    () => Object.entries(state.pickerRules || {}).map(([host, selectors]) => [host, [...selectors].sort()]).sort((a, b) => a[0].localeCompare(b[0])),
+    [state.pickerRules]
+  );
+  const total = sites.reduce((sum, [, selectors]) => sum + selectors.length, 0);
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stack", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "card", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Point and block", sub: "Remove one thing on a page, for good", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(MousePointerClick, {}),
+        total
+      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "small muted", style: { marginTop: -4 }, children: [
+        "Open the Luma panel on the page you are on and press ",
+        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Block an element" }),
+        ", then click the thing you never want to see again. Right-clicking a page offers the same action, and",
+        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: " Alt+Shift+E" }),
+        " starts it without the panel."
+      ] }),
+      !isExtension ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "hint", children: "Picking happens in the browser extension. This page lists the elements you have already blocked, and lets you undo them." }) : null
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "card", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Blocked elements", sub: "Only on the site you picked them" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed", children: [
+        sites.map(([host, selectors]) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stack", style: { gap: 8 }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "eyebrow", children: host }),
+          selectors.map((selector) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-row", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-main", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "host", children: friendly(selector) }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "rule", children: "Never shown on this site" })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "feed-side", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              "button",
+              {
+                type: "button",
+                className: "btn sm ghost",
+                onClick: () => removePickerRule(host, selector),
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(Trash2, {}),
+                  "Stop blocking"
+                ]
+              }
+            ) })
+          ] }, selector))
+        ] }, host)),
+        !sites.length ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "empty", children: "Nothing picked by hand yet. Everything you block with the picker appears here, grouped by site." }) : null
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Picked elements are hidden on the site you chose them on, and travel with your settings to your other devices." })
+    ] })
+  ] });
+}
 const TYPES = ["image", "script", "xmlhttprequest", "ping", "subdocument", "stylesheet", "media", "font"];
 function ListCoverage() {
   const { state } = useApp();
@@ -20335,6 +20779,252 @@ function ListCoverage() {
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge " + (row.blocked ? "warn" : "plain"), children: row.blocked ? "Catches it" : "Misses it" })
         ] })
       ] }, row.list.id)) })
+    ] })
+  ] });
+}
+const MAX_NETWORK_LINES = 1200;
+const MAX_COSMETIC_LINES = 600;
+const MAX_SUBSCRIPTIONS = 6;
+const PRESET_SUBSCRIPTIONS = [
+  {
+    id: "easylist-adservers",
+    title: "EasyList · ad servers",
+    description: "The ad-server hosts EasyList maintains, on top of Luma Core.",
+    url: "https://raw.githubusercontent.com/easylist/easylist/master/easylist/easylist_adservers.txt"
+  },
+  {
+    id: "ublock-privacy",
+    title: "uBlock · privacy",
+    description: "Trackers and analytics endpoints beyond the ones Luma ships.",
+    url: "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/privacy.txt"
+  },
+  {
+    id: "ublock-badware",
+    title: "uBlock · badware risks",
+    description: "Sites and scripts flagged for malware and online scams.",
+    url: "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/badware.txt"
+  },
+  {
+    id: "ublock-annoyances",
+    title: "uBlock · annoyances",
+    description: "Pop-ups, chat widgets and other page clutter.",
+    url: "https://raw.githubusercontent.com/uBlockOrigin/uAssets/master/filters/annoyances-others.txt"
+  }
+];
+function isHttpUrl(value) {
+  try {
+    const url = new URL(String(value || "").trim());
+    return url.protocol === "https:" || url.protocol === "http:";
+  } catch {
+    return false;
+  }
+}
+function subscriptionLabel(url) {
+  try {
+    const parsed = new URL(String(url || "").trim());
+    const file = parsed.pathname.split("/").filter(Boolean).pop() || "";
+    const name = file.replace(/\.(txt|json)$/i, "").replace(/[_-]+/g, " ").trim();
+    return name ? name + " · " + parsed.hostname : parsed.hostname;
+  } catch {
+    return String(url || "");
+  }
+}
+function isCosmetic(line) {
+  return line.includes("##") || line.includes("#@#");
+}
+function isScriptlet(line) {
+  return !isCosmetic(line) && /#[$?%]#/.test(line);
+}
+const SUPPORTED_OPTIONS = /* @__PURE__ */ new Set([
+  "third-party",
+  "first-party",
+  "important",
+  "domain",
+  ...RESOURCE_TYPES
+]);
+function supportedNetworkLine(line) {
+  const marker = line.lastIndexOf("$");
+  if (marker < 0) return true;
+  for (const token of line.slice(marker + 1).split(",")) {
+    const name = token.trim().replace(/^~/, "").toLowerCase();
+    if (!name) return false;
+    if (!SUPPORTED_OPTIONS.has(name) && !name.startsWith("domain=")) return false;
+  }
+  return true;
+}
+function parseSubscriptionText(text) {
+  const network = [];
+  const cosmetic = [];
+  for (const raw of String(text || "").split(/\r?\n/)) {
+    const line = raw.trim();
+    if (!line || line.startsWith("!") || line.startsWith("[")) continue;
+    if (/^(title|homepage|expires|version|last modified|checksum):/i.test(line)) continue;
+    if (isScriptlet(line)) continue;
+    if (isCosmetic(line)) {
+      if (cosmetic.length < MAX_COSMETIC_LINES) cosmetic.push(line);
+    } else if (supportedNetworkLine(line) && network.length < MAX_NETWORK_LINES) {
+      network.push(line);
+    }
+  }
+  return { lines: [...network, ...cosmetic], network: network.length, cosmetic: cosmetic.length };
+}
+async function fetchSubscription(url) {
+  const response = await fetch(url, { credentials: "omit", cache: "no-cache" });
+  if (!response.ok) throw new Error("The list could not be downloaded (" + response.status + ").");
+  const parsed = parseSubscriptionText(await response.text());
+  if (!parsed.lines.length) throw new Error("That address did not return any filter rules.");
+  return parsed;
+}
+function newSubscription({ id, url, title, description }) {
+  return {
+    id,
+    url,
+    title: title || subscriptionLabel(url),
+    description: description || "",
+    enabled: true,
+    lines: [],
+    network: 0,
+    cosmetic: 0,
+    updatedAt: null
+  };
+}
+function Subscriptions() {
+  const {
+    state,
+    addSubscription,
+    updateSubscription,
+    toggleSubscription,
+    removeSubscription
+  } = useApp();
+  const [url, setUrl] = reactExports.useState("");
+  const [busy, setBusy] = reactExports.useState("");
+  const [error, setError] = reactExports.useState("");
+  const subscriptions = state.subscriptions || [];
+  const known = new Set(subscriptions.map((item) => item.url));
+  const activeRules = subscriptions.filter((item) => item.enabled).reduce((sum, item) => sum + (item.network || 0) + (item.cosmetic || 0), 0);
+  async function download(subscription) {
+    setBusy(subscription.id);
+    setError("");
+    try {
+      const parsed = await fetchSubscription(subscription.url);
+      updateSubscription(subscription.id, { ...parsed, updatedAt: (/* @__PURE__ */ new Date()).toISOString() });
+    } catch (err) {
+      setError((err == null ? void 0 : err.message) || "The list could not be downloaded.");
+    } finally {
+      setBusy("");
+    }
+  }
+  async function add(event) {
+    event.preventDefault();
+    const target = url.trim();
+    if (!isHttpUrl(target)) {
+      setError("Paste the full address of a filter list, starting with https://");
+      return;
+    }
+    if (known.has(target)) {
+      setError("That list is already subscribed.");
+      return;
+    }
+    const subscription = newSubscription({
+      id: "sub-" + target.replace(/[^a-z0-9]+/gi, "-").slice(-48),
+      url: target
+    });
+    addSubscription(subscription);
+    setUrl("");
+    await download(subscription);
+  }
+  async function addPreset(preset) {
+    const subscription = newSubscription(preset);
+    addSubscription(subscription);
+    await download(subscription);
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "stack", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "card", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Ready-made lists", sub: "Beyond what Luma already ships", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Rss, {}),
+        subscriptions.length,
+        "/",
+        6
+      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid-2", children: PRESET_SUBSCRIPTIONS.map((preset) => {
+        const added = known.has(preset.url);
+        const working = busy === preset.id;
+        return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "note", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { style: { fontWeight: 600 }, children: preset.title }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "small muted", style: { marginTop: 4 }, children: preset.description }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            "button",
+            {
+              type: "button",
+              className: "btn sm",
+              style: { marginTop: 10 },
+              disabled: added || working,
+              onClick: () => addPreset(preset),
+              children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Download, {}),
+                added ? "Added" : working ? "Downloading…" : "Add"
+              ]
+            }
+          )
+        ] }, preset.id);
+      }) })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("section", { className: "card", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Your subscriptions", sub: "Downloaded here, applied everywhere", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "badge plain", children: [
+        activeRules.toLocaleString(),
+        " rules on"
+      ] }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("form", { className: "row", style: { gap: 8, flexWrap: "wrap", marginBottom: 14 }, onSubmit: add, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field grow", style: { minWidth: 220 }, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "subscription-url", children: "List address" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "input",
+            {
+              id: "subscription-url",
+              className: "input",
+              value: url,
+              onChange: (event) => setUrl(event.target.value),
+              placeholder: "https://example.com/filters.txt",
+              spellCheck: "false"
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "submit", className: "btn", disabled: Boolean(busy), children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Download, {}),
+          "Subscribe"
+        ] })
+      ] }),
+      error ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "hint", style: { color: "var(--danger, #b42318)" }, children: error }) : null,
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed", children: [
+        subscriptions.map((item) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-row", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-main", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "host", children: item.title }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "rule", children: item.lines.length ? `${item.network.toLocaleString()} blocking · ${item.cosmetic.toLocaleString()} hiding · ${item.updatedAt ? "updated " + relativeTime(item.updatedAt) : "not downloaded"}` : "Not downloaded yet" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "feed-side", style: { flexWrap: "wrap", gap: 6 }, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+              "button",
+              {
+                type: "button",
+                className: "btn sm ghost",
+                disabled: busy === item.id,
+                onClick: () => download(item),
+                children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(RefreshCw, {}),
+                  busy === item.id ? "Downloading…" : "Refresh"
+                ]
+              }
+            ),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", className: "btn sm ghost", onClick: () => toggleSubscription(item.id), children: item.enabled ? "Pause" : "Turn on" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "btn sm ghost", onClick: () => removeSubscription(item.id), children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(Trash2, {}),
+              "Remove"
+            ] })
+          ] })
+        ] }, item.id)),
+        !subscriptions.length ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "empty", children: "No subscriptions yet. Add one above, or start with a ready-made list." }) : null
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Lists are downloaded from the address you see when you add or refresh them. One list is capped at 1,200 blocking and 600 hiding rules, so a very long list cannot crowd out the rest." })
     ] })
   ] });
 }
@@ -22026,6 +22716,24 @@ const EVERYDAY = [
     Panel: ListCoverage
   },
   {
+    id: "picker",
+    label: "Element picker",
+    icon: MousePointerClick,
+    title: "Point, click, gone.",
+    lede: "Start the picker on any page, click the thing that annoys you, and Luma hides it there from then on.",
+    blurb: "Block one element on any page, by clicking it.",
+    Panel: ElementPicker
+  },
+  {
+    id: "subscriptions",
+    label: "Filter subscriptions",
+    icon: Rss,
+    title: "Borrow another list.",
+    lede: "Subscribe to a filter list by address. Its rules join your protection and can be refreshed whenever you like.",
+    blurb: "Add filter lists from a URL and refresh them.",
+    Panel: Subscriptions
+  },
+  {
     id: "library",
     label: "Rule library",
     icon: BookOpen,
@@ -22194,6 +22902,7 @@ function Layout() {
             "filtered before they load"
           ] }) })
         ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(SyncStatus, { compact: true }),
         /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "side-links", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Luma v1.0.3" }),
           /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "·" }),
@@ -22899,63 +23608,6 @@ function LegalDialog({ initial = "terms", onClose }) {
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "legal-foot", children: /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", className: "btn primary", onClick: onClose, children: "Close" }) })
   ] }) });
 }
-const API_BASE = String("").replace(/\/$/, "");
-const TOKEN_KEY = "luma.token.v2";
-class ApiError extends Error {
-  constructor(message, status, errors) {
-    super(message);
-    this.status = status;
-    this.errors = errors || {};
-  }
-}
-function getToken() {
-  try {
-    return window.localStorage.getItem(TOKEN_KEY) || window.sessionStorage.getItem(TOKEN_KEY) || "";
-  } catch {
-    return "";
-  }
-}
-function setToken(token, remember) {
-  clearToken();
-  try {
-    ;
-    (remember ? window.localStorage : window.sessionStorage).setItem(TOKEN_KEY, token);
-  } catch {
-  }
-}
-function clearToken() {
-  try {
-    window.localStorage.removeItem(TOKEN_KEY);
-    window.sessionStorage.removeItem(TOKEN_KEY);
-  } catch {
-  }
-}
-async function api(path, { method = "GET", body, auth = true } = {}) {
-  const headers = {};
-  if (body !== void 0) headers["Content-Type"] = "application/json";
-  const token = auth ? getToken() : "";
-  if (token) headers.Authorization = "Bearer " + token;
-  let response;
-  try {
-    response = await fetch(API_BASE + path, {
-      method,
-      headers,
-      body: body === void 0 ? void 0 : JSON.stringify(body)
-    });
-  } catch {
-    throw new ApiError("Luma could not reach its servers. Check your connection and try again.", 0);
-  }
-  let data = null;
-  try {
-    data = await response.json();
-  } catch {
-    throw new ApiError("Luma could not reach its accounts service. Check your connection and try again.", 0);
-  }
-  if (!response.ok) {
-    throw new ApiError((data == null ? void 0 : data.error) || "Something went wrong. Try again.", response.status, data == null ? void 0 : data.errors);
-  }
-  return data;
-}
 const SSO_PROVIDERS = [
   { id: "google", label: "Google" },
   { id: "microsoft", label: "Microsoft" },
@@ -23483,6 +24135,93 @@ function Auth() {
     legal ? /* @__PURE__ */ jsxRuntimeExports.jsx(LegalDialog, { initial: legal, onClose: () => setLegal(null) }) : null
   ] });
 }
+function ProfileEditor({ user }) {
+  const { updateProfile } = useAuth();
+  const [values, setValues] = reactExports.useState({
+    name: (user == null ? void 0 : user.name) || "",
+    state: (user == null ? void 0 : user.state) || "",
+    phone: (user == null ? void 0 : user.phone) || ""
+  });
+  const [errors, setErrors] = reactExports.useState({});
+  const [saving, setSaving] = reactExports.useState(false);
+  const [saved, setSaved] = reactExports.useState(false);
+  const update = (key, value) => {
+    setValues((current) => ({ ...current, [key]: value }));
+    setErrors((current) => ({ ...current, [key]: "" }));
+    setSaved(false);
+  };
+  const dirty = values.name !== ((user == null ? void 0 : user.name) || "") || values.state !== ((user == null ? void 0 : user.state) || "") || values.phone !== ((user == null ? void 0 : user.phone) || "");
+  async function submit(event) {
+    event.preventDefault();
+    if (saving) return;
+    setSaving(true);
+    setErrors({});
+    try {
+      await updateProfile(values);
+      setSaved(true);
+    } catch (error) {
+      setErrors({ ...error.errors || {}, form: error.message });
+    } finally {
+      setSaving(false);
+    }
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("form", { onSubmit: submit, style: { marginTop: 12 }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "profile-name", children: "Name" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "input",
+        {
+          id: "profile-name",
+          className: "input",
+          autoComplete: "name",
+          value: values.name,
+          onChange: (event) => update("name", event.target.value)
+        }
+      ),
+      errors.name ? /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "field-error", children: errors.name }) : null
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field", style: { marginTop: 10 }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "profile-state", children: "Region" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs(
+        "select",
+        {
+          id: "profile-state",
+          className: "select",
+          value: values.state,
+          onChange: (event) => update("state", event.target.value),
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "", children: "Not set" }),
+            US_STATES.map((state) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: state.code, children: state.name }, state.code))
+          ]
+        }
+      ),
+      errors.state ? /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "field-error", children: errors.state }) : null
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field", style: { marginTop: 10 }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "profile-phone", children: "Phone" }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "input",
+        {
+          id: "profile-phone",
+          className: "input",
+          inputMode: "tel",
+          autoComplete: "tel",
+          value: values.phone,
+          onChange: (event) => update("phone", event.target.value)
+        }
+      ),
+      errors.phone ? /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "field-error", children: errors.phone }) : null
+    ] }),
+    errors.form ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "field-error", style: { marginTop: 8 }, children: errors.form }) : null,
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", style: { marginTop: 12 }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { className: "btn primary", type: "submit", disabled: saving || !dirty, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Save, {}),
+        saving ? "Saving…" : "Save profile"
+      ] }),
+      saved && !dirty ? /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "small muted", children: "Saved to your account" }) : null
+    ] })
+  ] });
+}
 const DEFAULT_SCHEDULE = { enabled: false, from: "22:00", to: "07:00" };
 function parseClock(value) {
   const match = /^([01]\d|2[0-3]):([0-5]\d)$/.exec(String(value || ""));
@@ -23802,7 +24541,7 @@ function joined$1(value) {
   return Number.isNaN(date.getTime()) ? "—" : date.toLocaleDateString(void 0, { month: "short", day: "numeric", year: "numeric" });
 }
 function Account() {
-  const { user, stateLabel, signOut } = useAuth();
+  const { user, signOut } = useAuth();
   const { state, resetCounters, setTheme, setPrivacy } = useApp();
   const [passwordOpen, setPasswordOpen] = reactExports.useState(false);
   const [confirmReset, setConfirmReset] = reactExports.useState(false);
@@ -23835,22 +24574,26 @@ function Account() {
             joined$1(user == null ? void 0 : user.createdAt)
           ] })
         ] }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "owner-row", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "owner-who", children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "owner-name", children: "Region" }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "owner-meta", children: stateLabel || "Not set" })
-        ] }) }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "owner-row", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "owner-who", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(ProfileEditor, { user }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "owner-row", style: { marginTop: 4 }, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "owner-who", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "owner-name", children: "Settings sync" }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "owner-meta", children: [
             formatNumber(Object.values(state.lists).filter(Boolean).length),
             " lists,",
             " ",
             formatNumber(state.customRules.length),
-            " custom rules and",
+            " custom rules,",
             " ",
             formatNumber(state.allowlist.length),
-            " trusted sites saved to this account"
+            " trusted sites and",
+            " ",
+            formatNumber(state.pausedSites.length),
+            " paused sites"
           ] })
+        ] }) }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "owner-row", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "owner-who grow", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "owner-name", children: "Sync status" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(SyncStatus, {})
         ] }) })
       ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
@@ -23959,8 +24702,8 @@ function logRows(state) {
 function saveLog(rows) {
   const lines = ["when,site,outcome"];
   for (const row of rows) {
-    const when = new Date(row.at);
-    const stamp2 = Number.isFinite(when.getTime()) ? when.toISOString() : "";
+    const when2 = new Date(row.at);
+    const stamp2 = Number.isFinite(when2.getTime()) ? when2.toISOString() : "";
     lines.push([stamp2, row.host, row.blocked ? "stopped" : "allowed"].join(","));
   }
   const blob = new Blob([lines.join("\n") + "\n"], { type: "text/csv" });
@@ -24309,22 +25052,50 @@ function BreakdownCard() {
     ] })
   ] });
 }
+function PausedSites() {
+  const { state, setSitePaused } = useApp();
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { style: { marginTop: 14 }, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mini-label", children: "Paused sites" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "chips", style: { marginTop: 8 }, children: [
+      state.pausedSites.map((host) => /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "chip", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CirclePause, { width: 12, height: 12 }),
+        host,
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "button",
+          {
+            type: "button",
+            "aria-label": "Resume protection on " + host,
+            title: "Resume protection on " + host,
+            onClick: () => setSitePaused(host, false),
+            children: /* @__PURE__ */ jsxRuntimeExports.jsx(Play, {})
+          }
+        )
+      ] }, host)),
+      !state.pausedSites.length ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "empty", children: "Nothing is paused. Use “Pause on this site” in the panel to stop filtering one site without touching the rest." }) : null
+    ] })
+  ] });
+}
 function allowRule(host) {
   return "@@||" + host + "^";
 }
 function SiteControls() {
-  const { state, addAllow, removeAllow, addCustomRule, removeCustomRule } = useApp();
+  const { state, addAllow, removeAllow, addCustomRule, removeCustomRule, setSitePaused } = useApp();
   const [draft, setDraft] = reactExports.useState("");
   const [error, setError] = reactExports.useState("");
   const domains = useTopDomains(5);
   const topMax = domains.length ? domains[0].count : 1;
-  function submit(event) {
-    event.preventDefault();
+  function siteInDraft() {
     const host = siteOf(hostnameOf(draft));
     if (!host || !host.includes(".")) {
       setError("That does not look like a website address.");
-      return;
+      return "";
     }
+    return host;
+  }
+  function submit(event) {
+    event.preventDefault();
+    const host = siteInDraft();
+    if (!host) return;
     if (state.allowlist.includes(host)) {
       setError(host + " is already trusted.");
       return;
@@ -24333,11 +25104,24 @@ function SiteControls() {
     setDraft("");
     setError("");
   }
+  function pause() {
+    const host = siteInDraft();
+    if (!host) return;
+    setSitePaused(host, true);
+    setDraft("");
+    setError("");
+  }
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(CardHead, { title: "Sites you control", sub: "Trust a site, or let one blocked domain through" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      CardHead,
+      {
+        title: "Sites you control",
+        sub: "Trust one site, pause one site, or let a blocked domain through"
+      }
+    ),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("form", { className: "inline-form", onSubmit: submit, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "field grow", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "trust-site", children: "Trust a site" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: "trust-site", children: "Site address" }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           "input",
           {
@@ -24355,6 +25139,10 @@ function SiteControls() {
       /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { className: "btn primary", type: "submit", children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(Plus, {}),
         "Trust"
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { className: "btn", type: "button", onClick: pause, children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CirclePause, {}),
+        "Pause"
       ] })
     ] }),
     error ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "hint", style: { color: "var(--accent-deep)", marginTop: 8 }, children: error }) : null,
@@ -24366,6 +25154,7 @@ function SiteControls() {
       ] }, host)),
       !state.allowlist.length ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "empty", children: "No trusted sites yet. Everything is filtered." }) : null
     ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(PausedSites, {}),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "site-list", style: { marginTop: 14 }, children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mini-label", children: "Top blocked domains" }),
       domains.map((domain) => {
@@ -24412,7 +25201,7 @@ function SiteControls() {
       }),
       !domains.length ? /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "empty", children: "Nothing blocked on this device yet, so there is nothing to allow." }) : null
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "A trusted site is left alone completely. Allowing a domain only stops Luma from blocking that one domain everywhere." })
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "A trusted site is left alone completely. A paused site keeps its place in the lists and stops being filtered until you resume it. Allowing a domain only stops Luma from blocking that one domain everywhere." })
   ] });
 }
 const ACTIONS = [
@@ -25117,131 +25906,59 @@ function Owner() {
     ] })
   ] });
 }
-const isExtension = typeof chrome !== "undefined" && Boolean(chrome.runtime && chrome.runtime.id);
-function safeSend(message) {
-  if (!isExtension) return Promise.resolve(null);
-  try {
-    return chrome.runtime.sendMessage(message).catch(() => null);
-  } catch {
-    return Promise.resolve(null);
-  }
+function siteHost(value) {
+  return hostnameOf(String(value || "").trim());
 }
-function postSettings(payload) {
-  return safeSend({ type: "luma:settings", payload });
+function isSitePaused(pausedSites, host) {
+  const h = String(host || "").toLowerCase();
+  if (!h) return false;
+  return (pausedSites || []).some((entry) => hostMatches(h, entry));
 }
-async function readSettings() {
-  const reply = await safeSend({ type: "luma:settings:read" });
-  return (reply == null ? void 0 : reply.settings) || null;
+function siteMode(settings, host) {
+  if (!host) return "protected";
+  if (isSitePaused(settings == null ? void 0 : settings.allowlist, host)) return "trusted";
+  if (isSitePaused(settings == null ? void 0 : settings.pausedSites, host)) return "paused";
+  return "protected";
 }
-async function readStats() {
-  const reply = await safeSend({ type: "luma:stats:read" });
-  return (reply == null ? void 0 : reply.stats) || null;
-}
-async function readPageBlocks() {
-  const reply = await safeSend({ type: "luma:page:read" });
-  return Number(reply == null ? void 0 : reply.blocked) || 0;
-}
-function subscribeStats(handler) {
-  if (!isExtension) return () => {
-  };
-  const listener = (message) => {
-    if ((message == null ? void 0 : message.type) === "luma:stats" && message.stats) handler(message.stats);
-  };
-  chrome.runtime.onMessage.addListener(listener);
-  return () => chrome.runtime.onMessage.removeListener(listener);
-}
-function resetStats() {
-  return safeSend({ type: "luma:stats:reset" });
-}
-function allowlistHost(value) {
-  const text = String(value || "").trim().toLowerCase();
-  if (!text) return "";
-  try {
-    const parsed = new URL(/^[a-z][a-z0-9+.-]*:\/\//.test(text) ? text : "http://" + text);
-    return /^[a-z0-9.-]+$/.test(parsed.hostname) ? parsed.hostname : "";
-  } catch {
-    return "";
-  }
-}
-function buildPayload(state, protectionNow = state.protection) {
-  const enabledLists = FILTER_LISTS.filter((list) => state.lists[list.id]).map((list) => list.id);
-  const ruleIndex = {};
-  const dynamicRules = [];
-  const allowlist = [...new Set((state.allowlist || []).map(allowlistHost).filter(Boolean))];
-  let nextId = 1;
-  if (protectionNow) {
-    for (const list of FILTER_LISTS) {
-      if (!enabledLists.includes(list.id)) continue;
-      const compiled = compileRules(list.rules, list.id).filter((rule) => rule.kind === "network");
-      toDeclarativeNetRequest(compiled).forEach((rule, index) => {
-        ruleIndex[list.id + ":" + rule.id] = { listId: list.id, raw: compiled[index].raw };
-      });
-    }
-    const customNetwork = compileRules(state.customRules, "custom").filter(
-      (rule) => rule.kind === "network"
-    );
-    for (const rule of toDeclarativeNetRequest(customNetwork)) {
-      rule.id = nextId;
-      ruleIndex["_dynamic:" + rule.id] = {
-        listId: "custom",
-        raw: customNetwork[nextId - 1].raw
-      };
-      dynamicRules.push(rule);
-      nextId += 1;
-    }
-    const learnedNetwork = compileRules(
-      (state.learned || []).map((item) => item.rule),
-      "learned"
-    ).filter((rule) => rule.kind === "network");
-    toDeclarativeNetRequest(learnedNetwork).forEach((rule, index) => {
-      rule.id = nextId;
-      ruleIndex["_dynamic:" + rule.id] = { listId: "learned", raw: learnedNetwork[index].raw };
-      dynamicRules.push(rule);
-      nextId += 1;
-    });
-    for (const host of allowlist) {
-      dynamicRules.push({
-        id: nextId,
-        priority: 200,
-        action: { type: "allow" },
-        condition: { initiatorDomains: [host] }
-      });
-      nextId += 1;
-    }
-  }
-  const cosmeticSelectors = { generic: [], site: {} };
-  for (const rule of compileRules(state.customRules, "custom")) {
-    if (rule.kind !== "cosmetic") continue;
-    if (rule.exception) continue;
-    if (rule.domains.length) {
-      for (const domain of rule.domains) {
-        cosmeticSelectors.site[domain] = cosmeticSelectors.site[domain] || [];
-        cosmeticSelectors.site[domain].push(rule.selector);
-      }
-    } else {
-      cosmeticSelectors.generic.push(rule.selector);
-    }
-  }
-  return {
-    protection: protectionNow,
-    enabledLists,
-    dynamicRules,
-    ruleIndex,
-    cosmeticSelectors,
-    dashboard: {
-      protection: state.protection,
-      deep: Boolean(state.deep),
-      theme: state.theme,
-      // How the content script shows a removal: silent or outlined.
-      feedback: state.feedback === "visual" ? "visual" : "hidden",
-      privacy: Boolean(state.privacy),
-      lists: state.lists,
-      customRules: state.customRules,
-      allowlist,
-      schedule: state.schedule,
-      learned: state.learned || []
-    }
-  };
+const SITE_LABELS = {
+  protected: "Protected",
+  paused: "Paused here",
+  trusted: "Trusted"
+};
+function PanelSite() {
+  const { state, setSitePaused, addAllow, removeAllow } = useApp();
+  const [host, setHost] = reactExports.useState("");
+  reactExports.useEffect(() => {
+    if (!isExtension) return void 0;
+    let alive = true;
+    readActiveSite().then((value) => alive && setHost(siteHost(value)));
+    return () => {
+      alive = false;
+    };
+  }, []);
+  if (!isExtension || !host) return null;
+  const site = siteOf(host) || host;
+  const mode = siteMode(state, host);
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "panel-site", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", style: { gap: 8 }, children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(Globe, { width: 14, height: 14 }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "grow panel-site-host", title: host, children: site }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "badge " + (mode === "protected" ? "good" : "warn"), children: SITE_LABELS[mode] })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "row", style: { gap: 6, marginTop: 8 }, children: [
+      mode === "trusted" ? /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "btn sm ghost", onClick: () => removeAllow(site), children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Play, { width: 13, height: 13 }),
+        "Protect this site again"
+      ] }) : mode === "paused" ? /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "btn sm ghost", onClick: () => setSitePaused(site, false), children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Play, { width: 13, height: 13 }),
+        "Resume protection"
+      ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "btn sm ghost", onClick: () => setSitePaused(site, true), children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx(Pause, { width: 13, height: 13 }),
+        "Pause on this site"
+      ] }),
+      mode !== "trusted" ? /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", className: "btn sm ghost", onClick: () => addAllow(site), children: "Trust site" }) : null
+    ] })
+  ] });
 }
 function openPage(route) {
   const base = window.location.href.split("#")[0];
@@ -25294,6 +26011,22 @@ function Panel() {
         }
       )
     ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(PanelSite, {}),
+    isExtension ? /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      "button",
+      {
+        type: "button",
+        className: "btn sm ghost",
+        onClick: async () => {
+          await startPicker();
+          window.setTimeout(() => window.close(), 120);
+        },
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(MousePointerClick, { width: 13, height: 13 }),
+          "Block an element on this page"
+        ]
+      }
+    ) : null,
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "panel-links", children: SHORTCUTS.map((item) => {
       const Icon2 = item.icon;
       return /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { type: "button", className: "panel-link", onClick: () => openPage(item.route), children: [
@@ -25306,7 +26039,10 @@ function Panel() {
       ] }, item.route);
     }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("button", { type: "button", className: "btn sm ghost", onClick: () => openPage("/"), children: "Open Luma" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: "Luma v1.0.3 · Runs on this device" })
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "footer-note", children: API_BASE ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+      "Luma v1.0.3 · ",
+      /* @__PURE__ */ jsxRuntimeExports.jsx(SyncStatus, { compact: true })
+    ] }) : "Luma v1.0.3 · Runs on this device" })
   ] });
 }
 function Tools() {
@@ -25491,6 +26227,11 @@ function AuthProvider({ children }) {
     setUser(data.user);
     return data.user;
   }, []);
+  const updateProfile = reactExports.useCallback(async (values) => {
+    const data = await api("/api/profile", { method: "PUT", body: values });
+    setUser(data.user);
+    return data.user;
+  }, []);
   const changePassword = reactExports.useCallback(async ({ currentPassword, newPassword }) => {
     return api("/api/password", {
       method: "POST",
@@ -25513,10 +26254,21 @@ function AuthProvider({ children }) {
       signUp,
       signIn,
       signInWithCode,
+      updateProfile,
       changePassword,
       signOut
     }),
-    [user, status, connectionError, signUp, signIn, signInWithCode, changePassword, signOut]
+    [
+      user,
+      status,
+      connectionError,
+      signUp,
+      signIn,
+      signInWithCode,
+      updateProfile,
+      changePassword,
+      signOut
+    ]
   );
   return /* @__PURE__ */ jsxRuntimeExports.jsx(AuthContext.Provider, { value, children });
 }
@@ -25704,6 +26456,30 @@ const STORAGE_KEY = "luma.state.v3";
 const MEGABYTES_PER_BLOCK = 0.09;
 const MAX_ACTIVITY = 200;
 const normalizeFeedback = (value, fallback) => value === "visual" || value === "hidden" ? value : fallback;
+const normalizePickerRules = (value) => {
+  const next = {};
+  for (const [host, list] of Object.entries(value || {})) {
+    if (!Array.isArray(list) || !host) continue;
+    const selectors = [...new Set(list.map((item) => String(item || "").trim()).filter(Boolean))];
+    if (selectors.length) next[host] = selectors.slice(0, 200);
+  }
+  return next;
+};
+const normalizeSubscriptions = (value) => {
+  if (!Array.isArray(value)) return [];
+  return value.filter((item) => item && typeof item.url === "string").slice(0, MAX_SUBSCRIPTIONS).map((item) => ({
+    id: String(item.id || item.url),
+    url: item.url,
+    title: String(item.title || item.url),
+    description: String(item.description || ""),
+    enabled: item.enabled !== false,
+    lines: Array.isArray(item.lines) ? item.lines : [],
+    network: Number(item.network) || 0,
+    cosmetic: Number(item.cosmetic) || 0,
+    updatedAt: item.updatedAt || null,
+    error: ""
+  }));
+};
 function emptyState() {
   return {
     protection: true,
@@ -25717,7 +26493,13 @@ function emptyState() {
     privacy: false,
     lists: { ...DEFAULT_LISTS },
     customRules: [],
+    // Elements picked by hand in the browser, per site.
+    pickerRules: {},
+    // Filter lists downloaded from a URL the person chose.
+    subscriptions: [],
     allowlist: [],
+    // Sites where filtering is stopped on purpose, for now.
+    pausedSites: [],
     schedule: { ...DEFAULT_SCHEDULE },
     totals: { blocked: 0, trackers: 0, screened: 0, megabytes: 0 },
     domains: {},
@@ -25762,6 +26544,8 @@ function loadState() {
       ...fallback,
       ...parsed,
       lists: { ...DEFAULT_LISTS, ...parsed.lists || {} },
+      pickerRules: normalizePickerRules(parsed.pickerRules),
+      subscriptions: normalizeSubscriptions(parsed.subscriptions),
       schedule: normalizeSchedule(parsed.schedule, DEFAULT_SCHEDULE),
       totals: { ...fallback.totals, ...parsed.totals || {} }
     });
@@ -25793,10 +26577,61 @@ function reducer(state, action) {
         ...state,
         customRules: state.customRules.filter((rule) => rule !== action.rule)
       };
+    case "addPick": {
+      const host = String(action.host || "").trim().toLowerCase();
+      const selector = String(action.selector || "").trim();
+      if (!host || !selector) return state;
+      const list = [selector, ...(state.pickerRules[host] || []).filter((item) => item !== selector)];
+      return { ...state, pickerRules: { ...state.pickerRules, [host]: list.slice(0, 200) } };
+    }
+    case "removePick": {
+      const pickerRules = { ...state.pickerRules };
+      const list = (pickerRules[action.host] || []).filter((item) => item !== action.selector);
+      if (list.length) pickerRules[action.host] = list;
+      else delete pickerRules[action.host];
+      return { ...state, pickerRules };
+    }
+    case "addSubscription":
+      if (!action.subscription || !action.subscription.url) return state;
+      return {
+        ...state,
+        subscriptions: normalizeSubscriptions([
+          action.subscription,
+          ...state.subscriptions.filter((item) => item.url !== action.subscription.url)
+        ])
+      };
+    case "updateSubscription":
+      return {
+        ...state,
+        subscriptions: state.subscriptions.map(
+          (item) => item.id === action.id ? { ...item, ...action.patch, error: "" } : item
+        )
+      };
+    case "toggleSubscription":
+      return {
+        ...state,
+        subscriptions: state.subscriptions.map(
+          (item) => item.id === action.id ? { ...item, enabled: !item.enabled } : item
+        )
+      };
+    case "removeSubscription":
+      return {
+        ...state,
+        subscriptions: state.subscriptions.filter((item) => item.id !== action.id)
+      };
     case "addAllow":
-      return { ...state, allowlist: [action.host, ...state.allowlist] };
+      return {
+        ...state,
+        allowlist: [action.host, ...state.allowlist],
+        pausedSites: state.pausedSites.filter((host) => host !== action.host)
+      };
     case "removeAllow":
       return { ...state, allowlist: state.allowlist.filter((host) => host !== action.host) };
+    case "pauseSite":
+      if (state.pausedSites.includes(action.host)) return state;
+      return { ...state, pausedSites: [action.host, ...state.pausedSites].slice(0, 200) };
+    case "resumeSite":
+      return { ...state, pausedSites: state.pausedSites.filter((host) => host !== action.host) };
     case "schedule":
       return { ...state, schedule: normalizeSchedule(action.schedule, state.schedule) };
     case "restore": {
@@ -25810,7 +26645,10 @@ function reducer(state, action) {
         privacy: typeof settings.privacy === "boolean" ? settings.privacy : state.privacy,
         lists: { ...DEFAULT_LISTS, ...settings.lists || {} },
         customRules: Array.isArray(settings.customRules) ? settings.customRules : state.customRules,
+        pickerRules: settings.pickerRules ? normalizePickerRules(settings.pickerRules) : state.pickerRules,
+        subscriptions: settings.subscriptions ? normalizeSubscriptions(settings.subscriptions) : state.subscriptions,
         allowlist: Array.isArray(settings.allowlist) ? settings.allowlist : state.allowlist,
+        pausedSites: Array.isArray(settings.pausedSites) ? settings.pausedSites : state.pausedSites,
         schedule: normalizeSchedule(settings.schedule, state.schedule)
       };
     }
@@ -25836,7 +26674,10 @@ function reducer(state, action) {
         privacy: settings.privacy ?? state.privacy,
         lists: { ...DEFAULT_LISTS, ...settings.lists || {} },
         customRules: settings.customRules || [],
+        pickerRules: normalizePickerRules(settings.pickerRules),
+        subscriptions: normalizeSubscriptions(settings.subscriptions),
         allowlist: settings.allowlist || [],
+        pausedSites: settings.pausedSites || [],
         schedule: normalizeSchedule(settings.schedule, state.schedule),
         learned: settings.learned || []
       };
@@ -25852,7 +26693,10 @@ function reducer(state, action) {
         privacy: settings.privacy ?? state.privacy,
         lists: { ...DEFAULT_LISTS, ...settings.lists || {} },
         customRules: settings.customRules || [],
+        pickerRules: normalizePickerRules(settings.pickerRules),
+        subscriptions: normalizeSubscriptions(settings.subscriptions),
         allowlist: settings.allowlist || [],
+        pausedSites: settings.pausedSites || [],
         schedule: normalizeSchedule(settings.schedule, state.schedule)
       };
     }
@@ -25937,20 +26781,47 @@ function AppProvider({ children }) {
   const { user } = useAuth();
   const userId = user == null ? void 0 : user.id;
   const [accountSynced, setAccountSynced] = reactExports.useState(false);
-  reactExports.useEffect(() => {
-    setAccountSynced(false);
-    if (!userId) return void 0;
-    let alive = true;
-    api("/api/settings").then((data) => {
-      if (!alive) return;
+  const [sync, setSync] = reactExports.useState({
+    status: userId ? "syncing" : "signed-out",
+    at: 0,
+    message: ""
+  });
+  const syncVersion = reactExports.useRef(0);
+  const userIdRef = reactExports.useRef(userId || null);
+  userIdRef.current = userId || null;
+  const failedSync = reactExports.useCallback((error, fallback) => {
+    setSync({
+      // A device with no connection is not an error: it keeps working.
+      status: (error == null ? void 0 : error.status) === 0 ? "offline" : "error",
+      at: Date.now(),
+      message: (error == null ? void 0 : error.message) || fallback
+    });
+  }, []);
+  const pullSettings = reactExports.useCallback(() => {
+    const id = userIdRef.current;
+    if (!id) return Promise.resolve();
+    setSync({ status: "syncing", at: 0, message: "" });
+    return api("/api/settings").then((data) => {
+      if (userIdRef.current !== id) return;
+      syncVersion.current = Number(data.version) || 0;
       if (data.settings) dispatch({ type: "syncIn", settings: data.settings });
       setAccountSynced(true);
-    }).catch(() => {
+      setSync({ status: "synced", at: Date.now(), message: "" });
+    }).catch((error) => {
+      if (userIdRef.current !== id) return;
+      setAccountSynced(false);
+      failedSync(error, "Settings could not be loaded.");
     });
-    return () => {
-      alive = false;
-    };
-  }, [userId]);
+  }, [failedSync]);
+  reactExports.useEffect(() => {
+    setAccountSynced(false);
+    syncVersion.current = 0;
+    if (!userId) {
+      setSync({ status: "signed-out", at: 0, message: "" });
+      return;
+    }
+    void pullSettings();
+  }, [userId, pullSettings]);
   const settingsSnapshot = reactExports.useMemo(
     () => ({
       protection: state.protection,
@@ -25960,7 +26831,10 @@ function AppProvider({ children }) {
       privacy: state.privacy,
       lists: state.lists,
       customRules: state.customRules,
+      pickerRules: state.pickerRules,
+      subscriptions: state.subscriptions,
       allowlist: state.allowlist,
+      pausedSites: state.pausedSites,
       schedule: state.schedule
     }),
     [
@@ -25971,7 +26845,10 @@ function AppProvider({ children }) {
       state.privacy,
       state.lists,
       state.customRules,
+      state.pickerRules,
+      state.subscriptions,
       state.allowlist,
+      state.pausedSites,
       state.schedule
     ]
   );
@@ -25980,10 +26857,32 @@ function AppProvider({ children }) {
   const saveTimer = reactExports.useRef(0);
   const pushSettings = reactExports.useCallback(() => {
     const current = syncRef.current;
-    if (!current.userId || !current.ready || !current.settings) return;
-    api("/api/settings", { method: "PUT", body: { settings: current.settings } }).catch(() => {
-    });
-  }, []);
+    if (!current.userId || !current.ready || !current.settings) return Promise.resolve();
+    const id = current.userId;
+    const sendSettings = (baseVersion, note) => {
+      setSync({ status: "syncing", at: 0, message: "" });
+      return api("/api/settings", {
+        method: "PUT",
+        body: { settings: current.settings, baseVersion }
+      }).then((data) => {
+        if (userIdRef.current !== id) return;
+        syncVersion.current = Number(data.version) || baseVersion + 1;
+        setSync({ status: "synced", at: Date.now(), message: note });
+      }).catch((error) => {
+        var _a;
+        if (userIdRef.current !== id) return;
+        if ((error == null ? void 0 : error.status) === 409 && !note) {
+          const serverVersion = Number((_a = error == null ? void 0 : error.data) == null ? void 0 : _a.version);
+          return sendSettings(
+            Number.isFinite(serverVersion) ? serverVersion : baseVersion + 1,
+            "Merged with another device"
+          );
+        }
+        failedSync(error, "Settings could not be saved.");
+      });
+    };
+    return sendSettings(syncVersion.current, "");
+  }, [failedSync]);
   reactExports.useEffect(() => {
     if (!userId || !accountSynced) return void 0;
     const timer = window.setTimeout(pushSettings, 1200);
@@ -26013,6 +26912,14 @@ function AppProvider({ children }) {
     };
   }, [pushSettings]);
   reactExports.useEffect(() => {
+    if (!userId) return void 0;
+    const onOnline = () => {
+      if (!syncRef.current.ready) void pullSettings();
+    };
+    window.addEventListener("online", onOnline);
+    return () => window.removeEventListener("online", onOnline);
+  }, [userId, pullSettings]);
+  reactExports.useEffect(() => {
     if (isExtension) return;
     try {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
@@ -26025,12 +26932,16 @@ function AppProvider({ children }) {
       if (!state.lists[list.id]) continue;
       compiled.push(...compileRules(list.rules, list.id));
     }
+    for (const subscription of state.subscriptions) {
+      if (!subscription.enabled) continue;
+      compiled.push(...compileRules(subscription.lines || [], subscription.id));
+    }
     const custom = state.customRules.map((rule) => rule.trim()).filter(Boolean);
     compiled.push(...compileRules(custom, "custom"));
     const learned = state.learned.map((item) => item.rule);
     compiled.push(...compileRules(learned, "learned"));
     return compiled;
-  }, [state.lists, state.customRules, state.learned]);
+  }, [state.lists, state.customRules, state.learned, state.subscriptions]);
   const networkRuleCount = reactExports.useMemo(
     () => rules.filter((rule) => rule.kind === "network").length,
     [rules]
@@ -26075,7 +26986,10 @@ function AppProvider({ children }) {
       state.protection,
       state.lists,
       state.customRules,
+      state.pickerRules,
+      state.subscriptions,
       state.allowlist,
+      state.pausedSites,
       state.schedule,
       state.learned,
       state.privacy,
@@ -26096,6 +27010,19 @@ function AppProvider({ children }) {
     });
     return () => {
       alive = false;
+    };
+  }, []);
+  reactExports.useEffect(() => {
+    if (!isExtension) return void 0;
+    const offPicked = subscribePicked(
+      ({ host, selector }) => dispatch({ type: "addPick", host, selector })
+    );
+    const offSettings = subscribeSettings((settings) => {
+      if (settings) dispatch({ type: "hydrate", settings });
+    });
+    return () => {
+      offPicked();
+      offSettings();
     };
   }, []);
   reactExports.useEffect(() => {
@@ -26165,8 +27092,17 @@ function AppProvider({ children }) {
       toggleList: (id) => dispatch({ type: "toggleList", id }),
       addCustomRule: (rule) => dispatch({ type: "addRule", rule }),
       removeCustomRule: (rule) => dispatch({ type: "removeRule", rule }),
+      addPickerRule: (host, selector) => dispatch({ type: "addPick", host, selector }),
+      removePickerRule: (host, selector) => dispatch({ type: "removePick", host, selector }),
+      addSubscription: (subscription) => dispatch({ type: "addSubscription", subscription }),
+      updateSubscription: (id, patch) => dispatch({ type: "updateSubscription", id, patch }),
+      toggleSubscription: (id) => dispatch({ type: "toggleSubscription", id }),
+      removeSubscription: (id) => dispatch({ type: "removeSubscription", id }),
       addAllow: (host) => dispatch({ type: "addAllow", host }),
       removeAllow: (host) => dispatch({ type: "removeAllow", host }),
+      setSitePaused: (host, paused) => dispatch({ type: paused ? "pauseSite" : "resumeSite", host }),
+      sync,
+      retrySync: () => accountSynced ? pushSettings() : pullSettings(),
       protectionNow,
       pausedBySchedule,
       setSchedule: (schedule) => dispatch({ type: "schedule", schedule }),
@@ -26190,7 +27126,11 @@ function AppProvider({ children }) {
       activeListCount,
       protectionNow,
       pausedBySchedule,
-      observe
+      observe,
+      sync,
+      accountSynced,
+      pushSettings,
+      pullSettings
     ]
   );
   return /* @__PURE__ */ jsxRuntimeExports.jsx(AppContext.Provider, { value, children });

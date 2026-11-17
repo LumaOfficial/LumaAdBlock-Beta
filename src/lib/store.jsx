@@ -6,6 +6,7 @@ import { MAX_LEARNED, MAX_OBSERVATIONS, learnCandidate, runHealthChecks } from '
 import { dayKey } from './dates'
 import { DEFAULT_LISTS, FILTER_LISTS } from './blocklists'
 import { DEFAULT_SCHEDULE, isQuietNow, normalizeSchedule } from './schedule'
+import { MAX_SUBSCRIPTIONS } from './subscriptions'
 import {
   buildPayload,
   isExtension,
@@ -13,6 +14,8 @@ import {
   readSettings,
   readStats,
   resetStats,
+  subscribePicked,
+  subscribeSettings,
   subscribeStats,
 } from './platform'
 import { AppContext } from './appContext'
@@ -30,6 +33,36 @@ const MAX_ACTIVITY = 200
 const normalizeFeedback = (value, fallback) =>
   value === 'visual' || value === 'hidden' ? value : fallback
 
+/** Only site -> selector lists a page can actually use reach the hiding sheet. */
+const normalizePickerRules = (value) => {
+  const next = {}
+  for (const [host, list] of Object.entries(value || {})) {
+    if (!Array.isArray(list) || !host) continue
+    const selectors = [...new Set(list.map((item) => String(item || '').trim()).filter(Boolean))]
+    if (selectors.length) next[host] = selectors.slice(0, 200)
+  }
+  return next
+}
+
+const normalizeSubscriptions = (value) => {
+  if (!Array.isArray(value)) return []
+  return value
+    .filter((item) => item && typeof item.url === 'string')
+    .slice(0, MAX_SUBSCRIPTIONS)
+    .map((item) => ({
+      id: String(item.id || item.url),
+      url: item.url,
+      title: String(item.title || item.url),
+      description: String(item.description || ''),
+      enabled: item.enabled !== false,
+      lines: Array.isArray(item.lines) ? item.lines : [],
+      network: Number(item.network) || 0,
+      cosmetic: Number(item.cosmetic) || 0,
+      updatedAt: item.updatedAt || null,
+      error: '',
+    }))
+}
+
 function emptyState() {
   return {
     protection: true,
@@ -43,6 +76,10 @@ function emptyState() {
     privacy: false,
     lists: { ...DEFAULT_LISTS },
     customRules: [],
+    // Elements picked by hand in the browser, per site.
+    pickerRules: {},
+    // Filter lists downloaded from a URL the person chose.
+    subscriptions: [],
     allowlist: [],
     // Sites where filtering is stopped on purpose, for now.
     pausedSites: [],
@@ -99,6 +136,8 @@ function loadState() {
       ...fallback,
       ...parsed,
       lists: { ...DEFAULT_LISTS, ...(parsed.lists || {}) },
+      pickerRules: normalizePickerRules(parsed.pickerRules),
+      subscriptions: normalizeSubscriptions(parsed.subscriptions),
       schedule: normalizeSchedule(parsed.schedule, DEFAULT_SCHEDULE),
       totals: { ...fallback.totals, ...(parsed.totals || {}) },
     })
@@ -131,6 +170,48 @@ function reducer(state, action) {
         ...state,
         customRules: state.customRules.filter((rule) => rule !== action.rule),
       }
+    case 'addPick': {
+      const host = String(action.host || '').trim().toLowerCase()
+      const selector = String(action.selector || '').trim()
+      if (!host || !selector) return state
+      const list = [selector, ...(state.pickerRules[host] || []).filter((item) => item !== selector)]
+      return { ...state, pickerRules: { ...state.pickerRules, [host]: list.slice(0, 200) } }
+    }
+    case 'removePick': {
+      const pickerRules = { ...state.pickerRules }
+      const list = (pickerRules[action.host] || []).filter((item) => item !== action.selector)
+      if (list.length) pickerRules[action.host] = list
+      else delete pickerRules[action.host]
+      return { ...state, pickerRules }
+    }
+    case 'addSubscription':
+      if (!action.subscription || !action.subscription.url) return state
+      return {
+        ...state,
+        subscriptions: normalizeSubscriptions([
+          action.subscription,
+          ...state.subscriptions.filter((item) => item.url !== action.subscription.url),
+        ]),
+      }
+    case 'updateSubscription':
+      return {
+        ...state,
+        subscriptions: state.subscriptions.map((item) =>
+          item.id === action.id ? { ...item, ...action.patch, error: '' } : item,
+        ),
+      }
+    case 'toggleSubscription':
+      return {
+        ...state,
+        subscriptions: state.subscriptions.map((item) =>
+          item.id === action.id ? { ...item, enabled: !item.enabled } : item,
+        ),
+      }
+    case 'removeSubscription':
+      return {
+        ...state,
+        subscriptions: state.subscriptions.filter((item) => item.id !== action.id),
+      }
     case 'addAllow':
       // Trusting a site settles it: no need to keep it paused as well.
       return {
@@ -159,6 +240,12 @@ function reducer(state, action) {
         privacy: typeof settings.privacy === 'boolean' ? settings.privacy : state.privacy,
         lists: { ...DEFAULT_LISTS, ...(settings.lists || {}) },
         customRules: Array.isArray(settings.customRules) ? settings.customRules : state.customRules,
+        pickerRules: settings.pickerRules
+          ? normalizePickerRules(settings.pickerRules)
+          : state.pickerRules,
+        subscriptions: settings.subscriptions
+          ? normalizeSubscriptions(settings.subscriptions)
+          : state.subscriptions,
         allowlist: Array.isArray(settings.allowlist) ? settings.allowlist : state.allowlist,
         pausedSites: Array.isArray(settings.pausedSites) ? settings.pausedSites : state.pausedSites,
         schedule: normalizeSchedule(settings.schedule, state.schedule),
@@ -187,6 +274,8 @@ function reducer(state, action) {
         privacy: settings.privacy ?? state.privacy,
         lists: { ...DEFAULT_LISTS, ...(settings.lists || {}) },
         customRules: settings.customRules || [],
+        pickerRules: normalizePickerRules(settings.pickerRules),
+        subscriptions: normalizeSubscriptions(settings.subscriptions),
         allowlist: settings.allowlist || [],
         pausedSites: settings.pausedSites || [],
         schedule: normalizeSchedule(settings.schedule, state.schedule),
@@ -205,6 +294,8 @@ function reducer(state, action) {
         privacy: settings.privacy ?? state.privacy,
         lists: { ...DEFAULT_LISTS, ...(settings.lists || {}) },
         customRules: settings.customRules || [],
+        pickerRules: normalizePickerRules(settings.pickerRules),
+        subscriptions: normalizeSubscriptions(settings.subscriptions),
         allowlist: settings.allowlist || [],
         pausedSites: settings.pausedSites || [],
         schedule: normalizeSchedule(settings.schedule, state.schedule),
@@ -367,6 +458,8 @@ export function AppProvider({ children }) {
       privacy: state.privacy,
       lists: state.lists,
       customRules: state.customRules,
+      pickerRules: state.pickerRules,
+      subscriptions: state.subscriptions,
       allowlist: state.allowlist,
       pausedSites: state.pausedSites,
       schedule: state.schedule,
@@ -379,6 +472,8 @@ export function AppProvider({ children }) {
       state.privacy,
       state.lists,
       state.customRules,
+      state.pickerRules,
+      state.subscriptions,
       state.allowlist,
       state.pausedSites,
       state.schedule,
@@ -476,12 +571,18 @@ export function AppProvider({ children }) {
       if (!state.lists[list.id]) continue
       compiled.push(...compileRules(list.rules, list.id))
     }
+    // Subscribed lists are rules like any other: the engine screens them the
+    // same way whether they shipped with Luma or were downloaded.
+    for (const subscription of state.subscriptions) {
+      if (!subscription.enabled) continue
+      compiled.push(...compileRules(subscription.lines || [], subscription.id))
+    }
     const custom = state.customRules.map((rule) => rule.trim()).filter(Boolean)
     compiled.push(...compileRules(custom, 'custom'))
     const learned = state.learned.map((item) => item.rule)
     compiled.push(...compileRules(learned, 'learned'))
     return compiled
-  }, [state.lists, state.customRules, state.learned])
+  }, [state.lists, state.customRules, state.learned, state.subscriptions])
 
   const networkRuleCount = useMemo(
     () => rules.filter((rule) => rule.kind === 'network').length,
@@ -537,6 +638,8 @@ export function AppProvider({ children }) {
       state.protection,
       state.lists,
       state.customRules,
+      state.pickerRules,
+      state.subscriptions,
       state.allowlist,
       state.pausedSites,
       state.schedule,
@@ -561,6 +664,23 @@ export function AppProvider({ children }) {
     })
     return () => {
       alive = false
+    }
+  }, [])
+
+  // Changes made outside this page — the context menu, a keyboard shortcut,
+  // the click-to-block picker — arrive here, so a save from this tab never
+  // overwrites what the browser just changed.
+  useEffect(() => {
+    if (!isExtension) return undefined
+    const offPicked = subscribePicked(({ host, selector }) =>
+      dispatch({ type: 'addPick', host, selector }),
+    )
+    const offSettings = subscribeSettings((settings) => {
+      if (settings) dispatch({ type: 'hydrate', settings })
+    })
+    return () => {
+      offPicked()
+      offSettings()
     }
   }, [])
 
@@ -636,6 +756,12 @@ export function AppProvider({ children }) {
       toggleList: (id) => dispatch({ type: 'toggleList', id }),
       addCustomRule: (rule) => dispatch({ type: 'addRule', rule }),
       removeCustomRule: (rule) => dispatch({ type: 'removeRule', rule }),
+      addPickerRule: (host, selector) => dispatch({ type: 'addPick', host, selector }),
+      removePickerRule: (host, selector) => dispatch({ type: 'removePick', host, selector }),
+      addSubscription: (subscription) => dispatch({ type: 'addSubscription', subscription }),
+      updateSubscription: (id, patch) => dispatch({ type: 'updateSubscription', id, patch }),
+      toggleSubscription: (id) => dispatch({ type: 'toggleSubscription', id }),
+      removeSubscription: (id) => dispatch({ type: 'removeSubscription', id }),
       addAllow: (host) => dispatch({ type: 'addAllow', host }),
       removeAllow: (host) => dispatch({ type: 'removeAllow', host }),
       setSitePaused: (host, paused) =>

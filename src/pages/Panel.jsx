@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import { ArrowUpRight, History, LayoutGrid } from 'lucide-react'
+import { ArrowUpRight, History, LayoutGrid, MousePointerClick } from 'lucide-react'
 import PanelSite from '../components/PanelSite'
 import SyncStatus from '../components/SyncStatus'
 import { Switch } from '../components/ui'
-import { isExtension, readPageBlocks } from '../lib/platform'
+import { isExtension, readPageBlocks, startPicker } from '../lib/platform'
 import { API_BASE } from '../lib/api'
 import { useApp, useBlockedToday } from '../lib/useApp'
 
@@ -81,6 +81,21 @@ export default function Panel() {
       </div>
 
       <PanelSite />
+
+      {isExtension ? (
+        <button
+          type="button"
+          className="btn sm ghost"
+          onClick={async () => {
+            await startPicker()
+            // The page needs the focus back for the click that picks the element.
+            window.setTimeout(() => window.close(), 120)
+          }}
+        >
+          <MousePointerClick width={13} height={13} />
+          Block an element on this page
+        </button>
+      ) : null}
 
       <div className="panel-links">
         {SHORTCUTS.map((item) => {

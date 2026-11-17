@@ -8,8 +8,10 @@ import {
   ListChecks,
   Megaphone,
   MessagesSquare,
+  MousePointerClick,
   PlaySquare,
   Radar,
+  Rss,
   Search,
   Sparkles,
   Timer,
@@ -19,7 +21,9 @@ import {
 import ExperimentsPanel from '../experiments/ExperimentsPanel'
 import InspectorPanel from '../InspectorPanel'
 import BulkCheck from './BulkCheck'
+import ElementPicker from './ElementPicker'
 import ListCoverage from './ListCoverage'
+import Subscriptions from './Subscriptions'
 import RuleLibrary from './RuleLibrary'
 import RuleBuilder from './RuleBuilder'
 import RuleCleanup from './RuleCleanup'
@@ -79,6 +83,24 @@ const EVERYDAY = [
     lede: 'Compare one address against every list you have, and see which ones would stop it.',
     blurb: 'Compare one link against each of your lists.',
     Panel: ListCoverage,
+  },
+  {
+    id: 'picker',
+    label: 'Element picker',
+    icon: MousePointerClick,
+    title: 'Point, click, gone.',
+    lede: 'Start the picker on any page, click the thing that annoys you, and Luma hides it there from then on.',
+    blurb: 'Block one element on any page, by clicking it.',
+    Panel: ElementPicker,
+  },
+  {
+    id: 'subscriptions',
+    label: 'Filter subscriptions',
+    icon: Rss,
+    title: 'Borrow another list.',
+    lede: 'Subscribe to a filter list by address. Its rules join your protection and can be refreshed whenever you like.',
+    blurb: 'Add filter lists from a URL and refresh them.',
+    Panel: Subscriptions,
   },
   {
     id: 'library',

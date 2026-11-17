@@ -10,6 +10,14 @@ const TAB_KEY = 'luma:dashboard-tab'
 const APPLIED_KEY = 'luma:applied'
 const QUIET_ALARM = 'luma-quiet-hours'
 
+// Context-menu ids; the title is what the person reads.
+const MENU = {
+  pause: 'luma-menu-pause',
+  trust: 'luma-menu-trust',
+  pick: 'luma-menu-pick',
+  open: 'luma-menu-open',
+}
+
 // Rule sets this build actually ships (a list with no network rules has none).
 const RULESET_IDS = (
   chrome.runtime.getManifest().declarative_net_request?.rule_resources || []
@@ -250,6 +258,122 @@ async function recordHidden(message) {
   }
 }
 
+/** Setup from anywhere outside the dashboard: menus, shortcuts, the picker. */
+async function mutateSettings(mutate) {
+  let payload = await getSettings()
+  if (!payload) {
+    await applyDefaultsIfUnset()
+    payload = await getSettings()
+  }
+  if (!payload) return false
+  const dashboard = { ...(payload.dashboard || {}) }
+  mutate(dashboard, payload)
+  await applySettings({ ...payload, dashboard })
+  // An open panel or dashboard must see what just changed, or its next save
+  // would put the old value back.
+  try {
+    const sent = chrome.runtime.sendMessage({
+      type: 'luma:settings:changed',
+      settings: dashboard,
+    })
+    if (sent && sent.catch) sent.catch(() => {})
+  } catch {
+    /* nothing open */
+  }
+  return true
+}
+
+function hostOf(url) {
+  try {
+    return new URL(url).hostname.toLowerCase().replace(/^www\./, '')
+  } catch {
+    return ''
+  }
+}
+
+async function activeTab() {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
+  return tab || null
+}
+
+/**
+ * Ask the page in the active tab to outline elements for one click. A tab
+ * loaded before this version has no picker yet, so the script is injected and
+ * the request retried once.
+ */
+async function openPicker() {
+  let tab = await activeTab()
+  // The dashboard is its own tab; when it asks, the person means the last
+  // ordinary page they were reading.
+  if (!tab?.id || !/^https?:/i.test(tab.url || '')) {
+    const pages = await chrome.tabs.query({ url: ['http://*/*', 'https://*/*'] })
+    tab = pages.sort((a, b) => (b.lastAccessed || 0) - (a.lastAccessed || 0))[0] || null
+  }
+  if (!tab?.id || !/^https?:/i.test(tab.url || '')) return false
+  try {
+    await chrome.tabs.sendMessage(tab.id, { type: 'luma:pick' })
+    return true
+  } catch {
+    /* the script is not in this page yet */
+  }
+  try {
+    await chrome.scripting.executeScript({ target: { tabId: tab.id }, files: ['picker.js'] })
+    await chrome.tabs.sendMessage(tab.id, { type: 'luma:pick' })
+    return true
+  } catch {
+    return false
+  }
+}
+
+/** Keep a picked element for this site, and apply it at once. */
+async function savePick(message) {
+  const host = String(message?.host || '').toLowerCase()
+  const selector = String(message?.selector || '').trim()
+  if (!host || !selector) return { ok: false }
+  const saved = await mutateSettings((dashboard) => {
+    const pickerRules = { ...(dashboard.pickerRules || {}) }
+    const list = pickerRules[host] || []
+    pickerRules[host] = [selector, ...list.filter((item) => item !== selector)].slice(0, 200)
+    dashboard.pickerRules = pickerRules
+  })
+  if (!saved) return { ok: false }
+  try {
+    const sent = chrome.runtime.sendMessage({ type: 'luma:picked', host, selector })
+    if (sent && sent.catch) sent.catch(() => {})
+  } catch {
+    /* nothing open */
+  }
+  return { ok: true }
+}
+
+/** The master switch, for the keyboard shortcut. */
+async function toggleProtection() {
+  return mutateSettings((dashboard) => {
+    dashboard.protection = !(dashboard.protection ?? true)
+  })
+}
+
+function createMenus() {
+  chrome.contextMenus.removeAll(() => {
+    chrome.contextMenus.create({
+      id: MENU.pick,
+      title: 'Block this element with Luma',
+      contexts: ['all'],
+    })
+    chrome.contextMenus.create({
+      id: MENU.pause,
+      title: 'Pause Luma on this site',
+      contexts: ['page', 'frame'],
+    })
+    chrome.contextMenus.create({
+      id: MENU.trust,
+      title: 'Always allow this site',
+      contexts: ['page', 'frame'],
+    })
+    chrome.contextMenus.create({ id: MENU.open, title: 'Open Luma', contexts: ['action'] })
+  })
+}
+
 async function openDashboard() {
   const url = chrome.runtime.getURL('app/index.html')
   const session = await chrome.storage.session.get(TAB_KEY)
@@ -277,6 +401,11 @@ chrome.runtime.onInstalled.addListener(async () => {
   } catch {
     /* badge counting is a nice-to-have */
   }
+  try {
+    createMenus()
+  } catch (error) {
+    console.warn('Luma: context menus could not be created', error)
+  }
   await applyDefaultsIfUnset()
   const stored = await chrome.storage.local.get(SETTINGS_KEY)
   if (stored[SETTINGS_KEY]) await applySettings(stored[SETTINGS_KEY])
@@ -301,6 +430,40 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
 })
 
 chrome.action.onClicked.addListener(() => void openDashboard())
+
+chrome.contextMenus.onClicked.addListener(async (info, tab) => {
+  if (info.menuItemId === MENU.open) {
+    await openDashboard()
+    return
+  }
+  if (info.menuItemId === MENU.pick) {
+    await openPicker()
+    return
+  }
+  const host = hostOf(tab?.url || '')
+  if (!host) return
+  if (info.menuItemId === MENU.pause) {
+    await mutateSettings((dashboard) => {
+      const paused = new Set(dashboard.paused || [])
+      paused.add(host)
+      dashboard.paused = [...paused].slice(0, 200)
+      dashboard.allowlist = (dashboard.allowlist || []).filter((item) => item !== host)
+    })
+  }
+  if (info.menuItemId === MENU.trust) {
+    await mutateSettings((dashboard) => {
+      const allowlist = new Set(dashboard.allowlist || [])
+      allowlist.add(host)
+      dashboard.allowlist = [...allowlist].slice(0, 200)
+      dashboard.paused = (dashboard.paused || []).filter((item) => item !== host)
+    })
+  }
+})
+
+chrome.commands.onCommand.addListener((command) => {
+  if (command === 'pick-element') void openPicker()
+  if (command === 'toggle-protection') void toggleProtection()
+})
 
 chrome.runtime.onMessage.addListener((message, sender, respond) => {
   if (message?.type === 'luma:settings') {
@@ -340,6 +503,16 @@ chrome.runtime.onMessage.addListener((message, sender, respond) => {
   }
   if (message?.type === 'luma:open') {
     openDashboard().then(() => respond?.({ ok: true }))
+    return true
+  }
+  if (message?.type === 'luma:pick:start') {
+    openPicker().then((ok) => respond?.({ ok }))
+    return true
+  }
+  if (message?.type === 'luma:pick:save') {
+    savePick(message)
+      .then((reply) => respond?.(reply))
+      .catch(() => respond?.({ ok: false }))
     return true
   }
   return false

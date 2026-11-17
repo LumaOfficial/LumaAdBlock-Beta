@@ -95,6 +95,12 @@ function selectorsFor(payload) {
     if (!hostMatches(host, domain)) continue
     for (const selector of list) selectors.add(selector)
   }
+  // Elements picked with the click-to-block tool, for this site only.
+  const picked = (payload.dashboard && payload.dashboard.pickerRules) || {}
+  for (const [domain, list] of Object.entries(picked)) {
+    if (!hostMatches(host, domain)) continue
+    for (const selector of list || []) selectors.add(selector)
+  }
   return [...selectors]
 }
 

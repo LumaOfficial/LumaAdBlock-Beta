@@ -61,6 +61,33 @@ export function subscribeStats(handler) {
   return () => chrome.runtime.onMessage.removeListener(listener)
 }
 
+/** An element the person just picked on a page. */
+export function subscribePicked(handler) {
+  if (!isExtension) return () => {}
+  const listener = (message) => {
+    if (message?.type === 'luma:picked' && message.selector) {
+      handler({ host: message.host, selector: message.selector })
+    }
+  }
+  chrome.runtime.onMessage.addListener(listener)
+  return () => chrome.runtime.onMessage.removeListener(listener)
+}
+
+/** Settings the browser changed on its own: context menu, shortcut, picker. */
+export function subscribeSettings(handler) {
+  if (!isExtension) return () => {}
+  const listener = (message) => {
+    if (message?.type === 'luma:settings:changed' && message.settings) handler(message.settings)
+  }
+  chrome.runtime.onMessage.addListener(listener)
+  return () => chrome.runtime.onMessage.removeListener(listener)
+}
+
+/** Outline elements on the page in the active tab for one click. */
+export function startPicker() {
+  return safeSend({ type: 'luma:pick:start' })
+}
+
 export function resetStats() {
   return safeSend({ type: 'luma:stats:reset' })
 }
@@ -86,6 +113,11 @@ export function allowlistHost(value) {
     return ''
   }
 }
+
+// Browsers cap the dynamic ruleset at 5,000 entries; leave room for the
+// allow and pause rules that always have to be there.
+const DYNAMIC_RULE_BUDGET = 4500
+const MAX_GENERIC_COSMETIC = 2500
 
 export function buildPayload(state, protectionNow = state.protection) {
   const enabledLists = FILTER_LISTS.filter((list) => state.lists[list.id]).map((list) => list.id)
@@ -130,6 +162,23 @@ export function buildPayload(state, protectionNow = state.protection) {
       nextId += 1
     })
 
+    // Subscribed lists ride in the dynamic ruleset; it has a hard limit, so
+    // the allow rules below keep their ids and the list stops at the budget.
+    const subscribed = (state.subscriptions || [])
+      .filter((subscription) => subscription.enabled)
+      .flatMap((subscription) => compileRules(subscription.lines || [], subscription.id))
+      .filter((rule) => rule.kind === 'network')
+    toDeclarativeNetRequest(subscribed).forEach((rule, index) => {
+      if (nextId >= DYNAMIC_RULE_BUDGET) return
+      rule.id = nextId
+      ruleIndex['_dynamic:' + rule.id] = {
+        listId: subscribed[index].listId,
+        raw: subscribed[index].raw,
+      }
+      dynamicRules.push(rule)
+      nextId += 1
+    })
+
     for (const host of allowlist) {
       dynamicRules.push({
         id: nextId,
@@ -167,6 +216,28 @@ export function buildPayload(state, protectionNow = state.protection) {
     }
   }
 
+  // Hiding rules from subscribed lists join the same sheet.
+  for (const subscription of state.subscriptions || []) {
+    if (!subscription.enabled) continue
+    for (const rule of compileRules(subscription.lines || [], subscription.id)) {
+      if (rule.kind !== 'cosmetic' || rule.exception) continue
+      if (rule.domains.length) {
+        for (const domain of rule.domains) {
+          cosmeticSelectors.site[domain] = cosmeticSelectors.site[domain] || []
+          cosmeticSelectors.site[domain].push(rule.selector)
+        }
+      } else if (cosmeticSelectors.generic.length < MAX_GENERIC_COSMETIC) {
+        cosmeticSelectors.generic.push(rule.selector)
+      }
+    }
+  }
+
+  // Several lists often hide the same slot; the sheet only needs it once.
+  cosmeticSelectors.generic = [...new Set(cosmeticSelectors.generic)]
+  for (const domain of Object.keys(cosmeticSelectors.site)) {
+    cosmeticSelectors.site[domain] = [...new Set(cosmeticSelectors.site[domain])]
+  }
+
   return {
     protection: protectionNow,
     enabledLists,
@@ -182,6 +253,10 @@ export function buildPayload(state, protectionNow = state.protection) {
       privacy: Boolean(state.privacy),
       lists: state.lists,
       customRules: state.customRules,
+      // Elements picked by hand, and the lists downloaded from a URL. Both
+      // must survive a page reload, so the worker keeps them too.
+      pickerRules: state.pickerRules || {},
+      subscriptions: state.subscriptions || [],
       allowlist,
       paused: protectionNow && !state.privacy ? paused : [],
       pausedSites: paused,

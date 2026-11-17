@@ -17,13 +17,15 @@ a request inspector, and a Manifest V3 browser extension.
 | Agreements | `src/lib/legal.js`, `src/components/LegalDialog.jsx` | Terms & Conditions (EULA, Refund Policy) and Privacy Policy shown at sign-up |
 | State | `src/lib/store.jsx` | Protection switch, theme, privacy mode, lists, custom rules, allowlist, counters (kept in `localStorage`; the web build counts the requests the experiments and inspector really screen) |
 | Protection | `src/pages/Protection.jsx` | The settings that decide what gets blocked: filter lists, custom rules and trusted sites, at `/protection` |
-| Tools | `src/pages/Tools.jsx`, `src/components/tools/` | Eleven device-local tools at `/tools`: protection score, experiments, URL inspector, bulk check, list coverage, rule library, rule builder, rule clean-up, trusted sites, savings calculator and speed check |
+| Tools | `src/pages/Tools.jsx`, `src/components/tools/` | Thirteen device-local tools at `/tools`: protection score, experiments, URL inspector, bulk check, list coverage, element picker, filter subscriptions, rule library, rule builder, rule clean-up, trusted sites, savings calculator and speed check |
+| Click-to-block | `extension/picker.js` | Point at anything on a page and hide it for good; picked elements are listed under Element picker and hide only on the site they came from |
+| Subscriptions | `src/lib/subscriptions.js`, `src/components/tools/Subscriptions.jsx` | Download a filter list from an address, refresh it on demand, and let its blocking and hiding rules join the protection |
 | Activity | `src/pages/Activity.jsx` | Everything screened on this device, filterable by outcome and site, with a spreadsheet copy you can save |
 | Experiments | `src/components/experiments/`, `src/lib/experiments.js` | Three rotating monthly diagnostics at `/tools/experiments` — simulated sites, a ping reaction game, a ruleset speed test and an ad-finding game — with results kept on this device |
 | Inspector | `src/components/InspectorPanel.jsx` | Paste a URL and get a plain blocked/allowed verdict; lives inside All tools |
 | Detection | `src/lib/learning.js`, `src/components/DetectionCard.jsx` | Scores observed requests, adds a host rule for ad-like traffic that slips through (and, with "Look harder" on, a site's own ad servers too), and runs the engine's self-checks |
 | Diagnostics | `src/pages/Diagnostics.jsx` | Internal console at `/diagnostics` (never linked in the app): self-checks, detection feed and learned rules |
-| Extension | `extension/` | The shipped extension: generated rulesets, hiding stylesheets, service worker, content script and the built dashboard |
+| Extension | `extension/` | The shipped extension: generated rulesets, hiding stylesheets, service worker, content and picker scripts, context menus, keyboard shortcuts (Alt+Shift+L/P/E) and the built dashboard |
 | Browser bridge | `src/lib/platform.js` | Detects the extension, sends settings to the worker and receives live counters |
 
 ## Development

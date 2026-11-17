@@ -16,6 +16,7 @@ import {
   screenRequest,
   toDeclarativeNetRequest,
 } from '../src/lib/engine.js'
+import { MAX_NETWORK_LINES, parseSubscriptionText } from '../src/lib/subscriptions.js'
 
 const BROWSER_TYPE_NAMES = new Set(Object.values(BROWSER_TYPES))
 
@@ -71,7 +72,19 @@ async function main() {
     }
   }
   check('YouTube handler present', await exists(path.join(out, 'youtube.js')))
-  for (const script of ['youtube.js', 'background.js', 'content.js']) {
+  check(
+    'click-to-block picker declared',
+    (manifest.content_scripts || []).some((script) => (script.js || []).includes('picker.js')),
+  )
+  check('picker script present', await exists(path.join(out, 'picker.js')))
+  check('context menu permission declared', (manifest.permissions || []).includes('contextMenus'))
+  const commands = manifest.commands || {}
+  check(
+    'keyboard shortcuts declared',
+    Boolean(commands['pick-element'] && commands['toggle-protection']),
+    Object.keys(commands).join(', '),
+  )
+  for (const script of ['youtube.js', 'background.js', 'content.js', 'picker.js']) {
     const failure = await exists(path.join(out, script))
       ? syntaxError(path.join(out, script))
       : 'missing'
@@ -209,6 +222,35 @@ async function main() {
     const decision = decide(url, type, pageHost)
     check(label, decision.blocked === expected, 'got ' + decision.status)
   }
+
+  console.log('\nSubscriptions')
+  const parsedList = parseSubscriptionText(
+    [
+      '! a comment',
+      '[Adblock Plus 2.0]',
+      '||ads.example^',
+      'example.com##.ad',
+      '##.promo',
+      // Options Luma cannot honor would make the rule broader, so they are out.
+      '||ads.example^$removeparam=utm',
+      'example.com#$#scriptlet',
+      // A supported option keeps its line.
+      '||tracker.example^$script,third-party',
+    ].join('\n'),
+  )
+  check(
+    'a list splits into blocking and hiding rules',
+    parsedList.network === 2 && parsedList.cosmetic === 2,
+    JSON.stringify(parsedList),
+  )
+  const longList = parseSubscriptionText(
+    Array.from({ length: MAX_NETWORK_LINES + 50 }, (_, i) => '||ads' + i + '.example^').join('\n'),
+  )
+  check(
+    'a very long list is capped',
+    longList.network === MAX_NETWORK_LINES,
+    String(longList.network),
+  )
 
   const paused = screenRequest(
     { url: 'https://ad.doubleclick.net/ddm/adi/banner.gif', type: 'image' },
