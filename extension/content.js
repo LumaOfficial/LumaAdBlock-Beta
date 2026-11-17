@@ -46,6 +46,23 @@ function hostMatches(host, domain) {
   return h === d || h.endsWith('.' + d)
 }
 
+// A page's video player is never hidden. Hiding it would leave the video (or
+// an ad) playing with no picture at all, which is worse than the ad.
+const PLAYER_TARGET = 'video, #movie_player, .html5-video-player, .html5-video-container, ytd-player'
+
+/**
+ * True when a selector hits the player itself or any element that wraps it.
+ * Such a selector is dropped instead of hidden.
+ */
+function touchesPlayer(nodes) {
+  for (const node of nodes) {
+    if (!node || node.nodeType !== 1) continue
+    if (node.matches(PLAYER_TARGET)) return true
+    if (node.querySelector(PLAYER_TARGET)) return true
+  }
+  return false
+}
+
 async function loadBundled() {
   if (bundled) return bundled
   try {
@@ -136,14 +153,34 @@ function report() {
   }, REPORT_MS)
 }
 
+/** Draw the hiding stylesheet for the selectors still in force. */
+function render() {
+  observer.disconnect()
+  document.getElementById(STYLE_ID)?.remove()
+  if (!active.selectors.length) return
+  const style = document.createElement('style')
+  style.id = STYLE_ID
+  style.textContent = cssFor(active.selectors, active.visual)
+  ;(document.head || document.documentElement).appendChild(style)
+  observer.observe(document.documentElement, { childList: true, subtree: true })
+}
+
 /** Count what this page has hidden so far, and outline it in Visual mode. */
 function sweep() {
   let fresh = 0
+  const dropped = []
   for (const selector of active.selectors) {
     let nodes = []
     try {
       nodes = document.querySelectorAll(selector)
     } catch {
+      continue
+    }
+    if (!nodes.length) continue
+    // The player appeared after the stylesheet was drawn: drop the selector
+    // and redraw so the video is never left hidden.
+    if (touchesPlayer(nodes)) {
+      dropped.push(selector)
       continue
     }
     for (const element of nodes) {
@@ -152,6 +189,10 @@ function sweep() {
       fresh += 1
       if (active.visual) zap(element)
     }
+  }
+  if (dropped.length) {
+    active.selectors = active.selectors.filter((selector) => !dropped.includes(selector))
+    render()
   }
   if (!fresh) return
   pending += fresh
@@ -163,16 +204,13 @@ async function apply(payload) {
   const selectors = selectorsFor(payload)
   const visual = Boolean(payload && payload.protection && payload.dashboard?.feedback === 'visual')
   active = { selectors, visual }
-  observer.disconnect()
-  document.getElementById(STYLE_ID)?.remove()
-  if (!selectors.length) return
-
-  const style = document.createElement('style')
-  style.id = STYLE_ID
-  style.textContent = cssFor(selectors, visual)
-  ;(document.head || document.documentElement).appendChild(style)
+  if (!selectors.length) {
+    observer.disconnect()
+    document.getElementById(STYLE_ID)?.remove()
+    return
+  }
+  render()
   sweep()
-  observer.observe(document.documentElement, { childList: true, subtree: true })
 }
 
 chrome.storage.local.get(SETTINGS_KEY).then((stored) => apply(stored[SETTINGS_KEY]))

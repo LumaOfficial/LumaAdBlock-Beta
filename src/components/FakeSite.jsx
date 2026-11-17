@@ -158,7 +158,11 @@ function TubeTime() {
       </div>
       <div className="fakesite-body">
         <div className="video-frame player">
-          <div className="pre-roll-ad fake-ad" style={{ width: '78%', minHeight: 120 }}>
+          <div className="video-surface">
+            <div className="play">&#9654;</div>
+            <div>Now playing &middot; the recipe starts</div>
+          </div>
+          <div className="pre-roll-ad fake-ad">
             Pre-roll advertisement
             <strong>Your video starts after this message</strong>
             <span style={{ marginTop: 6, textTransform: 'none', letterSpacing: 0 }}>
