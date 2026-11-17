@@ -10,6 +10,7 @@ import {
 } from 'lucide-react'
 import { useApp } from '../lib/useApp'
 import AccountMenu from './AccountMenu'
+import SyncStatus from './SyncStatus'
 import { toolById } from './tools/registry'
 import { Switch } from './ui'
 
@@ -133,6 +134,7 @@ export default function Layout() {
               )}
             </p>
           </div>
+          <SyncStatus compact />
           <div className="side-links">
             <span>Luma v1.0.3</span>
             <span>·</span>

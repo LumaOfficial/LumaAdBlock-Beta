@@ -3,6 +3,8 @@ import { EyeOff, KeyRound, LogOut, Monitor, Moon, Sun, Trash2 } from 'lucide-rea
 import { CardHead, PageHead, Switch } from '../components/ui'
 import Auth from './Auth'
 import PasswordDialog from '../components/PasswordDialog'
+import ProfileEditor from '../components/ProfileEditor'
+import SyncStatus from '../components/SyncStatus'
 import ScheduleCard from '../components/dashboard/ScheduleCard'
 import BackupCard from '../components/dashboard/BackupCard'
 import { useApp } from '../lib/useApp'
@@ -29,7 +31,7 @@ function joined(value) {
 }
 
 export default function Account() {
-  const { user, stateLabel, signOut } = useAuth()
+  const { user, signOut } = useAuth()
   const { state, resetCounters, setTheme, setPrivacy } = useApp()
   const [passwordOpen, setPasswordOpen] = useState(false)
   const [confirmReset, setConfirmReset] = useState(false)
@@ -74,21 +76,24 @@ export default function Account() {
             </div>
           </div>
 
-          <div className="owner-row">
-            <div className="owner-who">
-              <div className="owner-name">Region</div>
-              <div className="owner-meta">{stateLabel || 'Not set'}</div>
-            </div>
-          </div>
+          <ProfileEditor user={user} />
 
-          <div className="owner-row">
+          <div className="owner-row" style={{ marginTop: 4 }}>
             <div className="owner-who">
               <div className="owner-name">Settings sync</div>
               <div className="owner-meta">
                 {formatNumber(Object.values(state.lists).filter(Boolean).length)} lists,{' '}
-                {formatNumber(state.customRules.length)} custom rules and{' '}
-                {formatNumber(state.allowlist.length)} trusted sites saved to this account
+                {formatNumber(state.customRules.length)} custom rules,{' '}
+                {formatNumber(state.allowlist.length)} trusted sites and{' '}
+                {formatNumber(state.pausedSites.length)} paused sites
               </div>
+            </div>
+          </div>
+
+          <div className="owner-row">
+            <div className="owner-who grow">
+              <div className="owner-name">Sync status</div>
+              <SyncStatus />
             </div>
           </div>
         </div>

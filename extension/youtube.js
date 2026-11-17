@@ -31,14 +31,19 @@ function hostMatches(host, domain) {
   return h === d || h.endsWith('.' + d)
 }
 
-/** Protection off, the core list off, or this site allowlisted: do nothing. */
+/**
+ * Protection off, the core list off, this site allowlisted or paused for now:
+ * do nothing.
+ */
 function active() {
   if (!payload) return true
   if (payload.protection === false) return false
   const lists = payload.dashboard && payload.dashboard.lists
   if (lists && lists['luma-core'] === false) return false
   const allowlist = (payload.dashboard && payload.dashboard.allowlist) || []
-  return !allowlist.some((entry) => hostMatches(location.hostname, entry))
+  if (allowlist.some((entry) => hostMatches(location.hostname, entry))) return false
+  const paused = (payload.dashboard && payload.dashboard.paused) || []
+  return !paused.some((entry) => hostMatches(location.hostname, entry))
 }
 
 function player() {

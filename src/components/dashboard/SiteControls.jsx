@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { Globe, Plus, ShieldCheck, Undo2, X } from 'lucide-react'
+import { Globe, PauseCircle, Plus, ShieldCheck, Undo2, X } from 'lucide-react'
 import { CardHead } from '../ui'
+import PausedSites from './PausedSites'
 import { useApp, useTopDomains } from '../../lib/useApp'
 import { hostnameOf, siteOf } from '../../lib/engine'
 import { formatCompact } from '../../lib/format'
@@ -11,19 +12,26 @@ function allowRule(host) {
 }
 
 export default function SiteControls() {
-  const { state, addAllow, removeAllow, addCustomRule, removeCustomRule } = useApp()
+  const { state, addAllow, removeAllow, addCustomRule, removeCustomRule, setSitePaused } = useApp()
   const [draft, setDraft] = useState('')
   const [error, setError] = useState('')
   const domains = useTopDomains(5)
   const topMax = domains.length ? domains[0].count : 1
 
-  function submit(event) {
-    event.preventDefault()
+  /** The address in the box, as a site, or an empty string and a message. */
+  function siteInDraft() {
     const host = siteOf(hostnameOf(draft))
     if (!host || !host.includes('.')) {
       setError('That does not look like a website address.')
-      return
+      return ''
     }
+    return host
+  }
+
+  function submit(event) {
+    event.preventDefault()
+    const host = siteInDraft()
+    if (!host) return
     if (state.allowlist.includes(host)) {
       setError(host + ' is already trusted.')
       return
@@ -33,13 +41,25 @@ export default function SiteControls() {
     setError('')
   }
 
+  /** Stop filtering one site, leaving every other site as it is. */
+  function pause() {
+    const host = siteInDraft()
+    if (!host) return
+    setSitePaused(host, true)
+    setDraft('')
+    setError('')
+  }
+
   return (
     <div className="card">
-      <CardHead title="Sites you control" sub="Trust a site, or let one blocked domain through" />
+      <CardHead
+        title="Sites you control"
+        sub="Trust one site, pause one site, or let a blocked domain through"
+      />
 
       <form className="inline-form" onSubmit={submit}>
         <div className="field grow">
-          <label htmlFor="trust-site">Trust a site</label>
+          <label htmlFor="trust-site">Site address</label>
           <input
             id="trust-site"
             className="input"
@@ -54,6 +74,10 @@ export default function SiteControls() {
         <button className="btn primary" type="submit">
           <Plus />
           Trust
+        </button>
+        <button className="btn" type="button" onClick={pause}>
+          <PauseCircle />
+          Pause
         </button>
       </form>
       {error ? (
@@ -76,6 +100,8 @@ export default function SiteControls() {
           <div className="empty">No trusted sites yet. Everything is filtered.</div>
         ) : null}
       </div>
+
+      <PausedSites />
 
       <div className="site-list" style={{ marginTop: 14 }}>
         <div className="mini-label">Top blocked domains</div>
@@ -126,8 +152,9 @@ export default function SiteControls() {
       </div>
 
       <p className="footer-note">
-        A trusted site is left alone completely. Allowing a domain only stops Luma from blocking that
-        one domain everywhere.
+        A trusted site is left alone completely. A paused site keeps its place in the lists and
+        stops being filtered until you resume it. Allowing a domain only stops Luma from blocking
+        that one domain everywhere.
       </p>
     </div>
   )

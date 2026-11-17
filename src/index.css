@@ -3217,3 +3217,41 @@ h3 {
   margin: 0;
   text-align: center;
 }
+
+/* ---------- per-site controls and account sync ---------- */
+
+.panel-site {
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  background: var(--card);
+  border: 1px solid var(--line);
+  font-size: 12px;
+}
+
+.panel-site-host {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sync-block {
+  margin-top: 8px;
+}
+
+.sync-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--ink-3);
+}
+
+.panel .footer-note .sync-line {
+  justify-content: center;
+}
+
+.sync-line[data-status="offline"],
+.sync-line[data-status="error"] {
+  color: var(--warn);
+}

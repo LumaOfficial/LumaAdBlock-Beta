@@ -169,9 +169,12 @@ async function applySettings(payload) {
     await chrome.declarativeNetRequest.updateDynamicRules({ removeRuleIds })
   }
 
+  // A paused site is excluded the same way a trusted one is: its hiding
+  // stylesheets are not registered, so nothing disappears there.
   const allowlist = active ? payload.dashboard?.allowlist || [] : []
+  const paused = active ? payload.dashboard?.paused || [] : []
   const visual = payload.dashboard?.feedback === 'visual'
-  await syncCosmetic(enabledLists, allowlist, visual)
+  await syncCosmetic(enabledLists, [...allowlist, ...paused], visual)
 }
 
 /**
@@ -187,6 +190,17 @@ async function readPageBlocks() {
     return Number.isFinite(count) ? count : 0
   } catch {
     return 0
+  }
+}
+
+/** The site in the tab the panel was opened from, for its per-site controls. */
+async function readActiveSite() {
+  try {
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
+    const host = tab?.url ? new URL(tab.url).hostname.toLowerCase() : ''
+    return /^[a-z0-9.-]+$/.test(host) ? host : ''
+  } catch {
+    return ''
   }
 }
 
@@ -305,6 +319,10 @@ chrome.runtime.onMessage.addListener((message, sender, respond) => {
   }
   if (message?.type === 'luma:page:read') {
     readPageBlocks().then((blocked) => respond?.({ blocked }))
+    return true
+  }
+  if (message?.type === 'luma:site:read') {
+    readActiveSite().then((host) => respond?.({ host }))
     return true
   }
   if (message?.type === 'luma:hidden') {

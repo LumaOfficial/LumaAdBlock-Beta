@@ -77,6 +77,16 @@ db.exec(`
   );
 `)
 
+// Databases created before settings were versioned keep their rows: the two
+// columns are added in place, starting every account at version 0.
+const accountColumns = db.prepare('PRAGMA table_info(accounts)').all().map((column) => column.name)
+if (!accountColumns.includes('settings_version')) {
+  db.exec('ALTER TABLE accounts ADD COLUMN settings_version INTEGER NOT NULL DEFAULT 0')
+}
+if (!accountColumns.includes('settings_updated_at')) {
+  db.exec('ALTER TABLE accounts ADD COLUMN settings_updated_at INTEGER')
+}
+
 // ---------- crypto helpers ----------
 
 function seal(value) {
@@ -849,9 +859,48 @@ async function handle(req, res) {
     return send(res, 200, { ok: true })
   }
 
+  // ---------- profile ----------
+
+  if (route === 'PUT /api/profile') {
+    const body = await readBody(req)
+    const row = db
+      .prepare('SELECT profile, created_at FROM accounts WHERE id = ?')
+      .get(session.accountId)
+    if (!row) return send(res, 401, { error: 'Please sign in again' })
+    const profile = open(row.profile)
+    const errors = {}
+    // Only the details an account may change about itself. The address is the
+    // account's identity and is never edited here.
+    const name = String(body.name ?? profile.name ?? '')
+      .trim()
+      .replace(/\s+/g, ' ')
+      .slice(0, 120)
+    const state = String(body.state ?? profile.state ?? '').toUpperCase()
+    const phone = String(body.phone ?? profile.phone ?? '').replace(/\D/g, '')
+    if (name.length < 2) errors.name = 'Enter your full name'
+    if (state && !STATES.has(state)) errors.state = 'Select your state'
+    if (phone && phone.length !== 10) errors.phone = 'Enter a 10-digit phone number'
+    if (Object.keys(errors).length) {
+      return send(res, 422, { error: 'Check the highlighted fields', errors })
+    }
+    const next = { ...profile, name, state, phone }
+    db.prepare('UPDATE accounts SET profile = ? WHERE id = ?').run(seal(next), session.accountId)
+    return send(res, 200, { user: publicProfile(session.accountId, next, row.created_at) })
+  }
+
+  // ---------- settings ----------
+
   if (route === 'GET /api/settings') {
-    const row = db.prepare('SELECT settings FROM accounts WHERE id = ?').get(session.accountId)
-    return send(res, 200, { settings: row?.settings ? open(row.settings) : null })
+    const row = db
+      .prepare('SELECT settings, settings_version, settings_updated_at FROM accounts WHERE id = ?')
+      .get(session.accountId)
+    return send(res, 200, {
+      settings: row?.settings ? open(row.settings) : null,
+      version: Number(row?.settings_version) || 0,
+      updatedAt: row?.settings_updated_at
+        ? new Date(row.settings_updated_at).toISOString()
+        : null,
+    })
   }
 
   if (route === 'PUT /api/settings') {
@@ -895,8 +944,39 @@ async function handle(req, res) {
         to: String(input.schedule.to || '07:00').slice(0, 5),
       }
     }
-    db.prepare('UPDATE accounts SET settings = ? WHERE id = ?').run(seal(settings), session.accountId)
-    return send(res, 200, { ok: true })
+    // Paused sites are optional in the same way: an older client that knows
+    // nothing about them leaves the list untouched.
+    if (Array.isArray(input.pausedSites)) {
+      settings.pausedSites = [...new Set(input.pausedSites.map(hostname).filter(Boolean))].slice(
+        0,
+        200,
+      )
+    }
+
+    const row = db
+      .prepare('SELECT settings, settings_version, settings_updated_at FROM accounts WHERE id = ?')
+      .get(session.accountId)
+    const currentVersion = Number(row?.settings_version) || 0
+    // Two devices at once: the caller says which version it started from, and
+    // a write from an older one is answered with the newer copy instead of
+    // overwriting it. The caller decides what to do with that.
+    const baseVersion = Number(body.baseVersion)
+    if (Number.isInteger(baseVersion) && baseVersion < currentVersion) {
+      return send(res, 409, {
+        error: 'These settings changed on another device',
+        settings: row?.settings ? open(row.settings) : null,
+        version: currentVersion,
+        updatedAt: row?.settings_updated_at
+          ? new Date(row.settings_updated_at).toISOString()
+          : null,
+      })
+    }
+    const version = currentVersion + 1
+    const savedAt = Date.now()
+    db.prepare(
+      'UPDATE accounts SET settings = ?, settings_version = ?, settings_updated_at = ? WHERE id = ?',
+    ).run(seal(settings), version, savedAt, session.accountId)
+    return send(res, 200, { ok: true, version, updatedAt: new Date(savedAt).toISOString() })
   }
 
   return send(res, 404, { error: 'Not found' })

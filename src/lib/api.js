@@ -10,10 +10,13 @@ export const API_BASE = String(import.meta.env.VITE_API_URL || '').replace(/\/$/
 const TOKEN_KEY = 'luma.token.v2'
 
 export class ApiError extends Error {
-  constructor(message, status, errors) {
+  constructor(message, status, errors, data) {
     super(message)
     this.status = status
     this.errors = errors || {}
+    // The service's own reply, for the one route that answers a conflict with
+    // its current copy of the settings.
+    this.data = data || null
   }
 }
 
@@ -68,7 +71,7 @@ export async function api(path, { method = 'GET', body, auth = true } = {}) {
     throw new ApiError('Luma could not reach its accounts service. Check your connection and try again.', 0)
   }
   if (!response.ok) {
-    throw new ApiError(data?.error || 'Something went wrong. Try again.', response.status, data?.errors)
+    throw new ApiError(data?.error || 'Something went wrong. Try again.', response.status, data?.errors, data)
   }
   return data
 }

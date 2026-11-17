@@ -44,6 +44,8 @@ function emptyState() {
     lists: { ...DEFAULT_LISTS },
     customRules: [],
     allowlist: [],
+    // Sites where filtering is stopped on purpose, for now.
+    pausedSites: [],
     schedule: { ...DEFAULT_SCHEDULE },
     totals: { blocked: 0, trackers: 0, screened: 0, megabytes: 0 },
     domains: {},
@@ -130,9 +132,19 @@ function reducer(state, action) {
         customRules: state.customRules.filter((rule) => rule !== action.rule),
       }
     case 'addAllow':
-      return { ...state, allowlist: [action.host, ...state.allowlist] }
+      // Trusting a site settles it: no need to keep it paused as well.
+      return {
+        ...state,
+        allowlist: [action.host, ...state.allowlist],
+        pausedSites: state.pausedSites.filter((host) => host !== action.host),
+      }
     case 'removeAllow':
       return { ...state, allowlist: state.allowlist.filter((host) => host !== action.host) }
+    case 'pauseSite':
+      if (state.pausedSites.includes(action.host)) return state
+      return { ...state, pausedSites: [action.host, ...state.pausedSites].slice(0, 200) }
+    case 'resumeSite':
+      return { ...state, pausedSites: state.pausedSites.filter((host) => host !== action.host) }
     case 'schedule':
       return { ...state, schedule: normalizeSchedule(action.schedule, state.schedule) }
     case 'restore': {
@@ -148,6 +160,7 @@ function reducer(state, action) {
         lists: { ...DEFAULT_LISTS, ...(settings.lists || {}) },
         customRules: Array.isArray(settings.customRules) ? settings.customRules : state.customRules,
         allowlist: Array.isArray(settings.allowlist) ? settings.allowlist : state.allowlist,
+        pausedSites: Array.isArray(settings.pausedSites) ? settings.pausedSites : state.pausedSites,
         schedule: normalizeSchedule(settings.schedule, state.schedule),
       }
     }
@@ -175,6 +188,7 @@ function reducer(state, action) {
         lists: { ...DEFAULT_LISTS, ...(settings.lists || {}) },
         customRules: settings.customRules || [],
         allowlist: settings.allowlist || [],
+        pausedSites: settings.pausedSites || [],
         schedule: normalizeSchedule(settings.schedule, state.schedule),
         learned: settings.learned || [],
       }
@@ -192,6 +206,7 @@ function reducer(state, action) {
         lists: { ...DEFAULT_LISTS, ...(settings.lists || {}) },
         customRules: settings.customRules || [],
         allowlist: settings.allowlist || [],
+        pausedSites: settings.pausedSites || [],
         schedule: normalizeSchedule(settings.schedule, state.schedule),
       }
     }
@@ -288,23 +303,58 @@ export function AppProvider({ children }) {
   const { user } = useAuth()
   const userId = user?.id
   const [accountSynced, setAccountSynced] = useState(false)
+  // What the account connection is doing, so every screen tells the same story.
+  const [sync, setSync] = useState({
+    status: userId ? 'syncing' : 'signed-out',
+    at: 0,
+    message: '',
+  })
+  // The settings version this device last saw. The service refuses a write
+  // that started from an older one instead of overwriting silently.
+  const syncVersion = useRef(0)
+  const userIdRef = useRef(userId || null)
+  userIdRef.current = userId || null
 
-  // Account sync: pull the account's settings on sign-in, then keep them current.
-  useEffect(() => {
-    setAccountSynced(false)
-    if (!userId) return undefined
-    let alive = true
-    api('/api/settings')
+  const failedSync = useCallback((error, fallback) => {
+    setSync({
+      // A device with no connection is not an error: it keeps working.
+      status: error?.status === 0 ? 'offline' : 'error',
+      at: Date.now(),
+      message: error?.message || fallback,
+    })
+  }, [])
+
+  const pullSettings = useCallback(() => {
+    const id = userIdRef.current
+    if (!id) return Promise.resolve()
+    setSync({ status: 'syncing', at: 0, message: '' })
+    return api('/api/settings')
       .then((data) => {
-        if (!alive) return
+        if (userIdRef.current !== id) return
+        syncVersion.current = Number(data.version) || 0
         if (data.settings) dispatch({ type: 'syncIn', settings: data.settings })
         setAccountSynced(true)
+        setSync({ status: 'synced', at: Date.now(), message: '' })
       })
-      .catch(() => {})
-    return () => {
-      alive = false
+      .catch((error) => {
+        if (userIdRef.current !== id) return
+        // Nothing is pushed until a pull works, so a device that cannot reach
+        // the service never overwrites what the account already holds.
+        setAccountSynced(false)
+        failedSync(error, 'Settings could not be loaded.')
+      })
+  }, [failedSync])
+
+  // Account sync: read the account's settings on sign-in, then keep them current.
+  useEffect(() => {
+    setAccountSynced(false)
+    syncVersion.current = 0
+    if (!userId) {
+      setSync({ status: 'signed-out', at: 0, message: '' })
+      return
     }
-  }, [userId])
+    void pullSettings()
+  }, [userId, pullSettings])
 
   // The latest settings ride in a ref so a save can be flushed the moment the
   // tab is hidden or the person signs out, instead of being lost with the timer.
@@ -318,6 +368,7 @@ export function AppProvider({ children }) {
       lists: state.lists,
       customRules: state.customRules,
       allowlist: state.allowlist,
+      pausedSites: state.pausedSites,
       schedule: state.schedule,
     }),
     [
@@ -329,6 +380,7 @@ export function AppProvider({ children }) {
       state.lists,
       state.customRules,
       state.allowlist,
+      state.pausedSites,
       state.schedule,
     ],
   )
@@ -338,9 +390,36 @@ export function AppProvider({ children }) {
 
   const pushSettings = useCallback(() => {
     const current = syncRef.current
-    if (!current.userId || !current.ready || !current.settings) return
-    api('/api/settings', { method: 'PUT', body: { settings: current.settings } }).catch(() => {})
-  }, [])
+    if (!current.userId || !current.ready || !current.settings) return Promise.resolve()
+    const id = current.userId
+    const sendSettings = (baseVersion, note) => {
+      setSync({ status: 'syncing', at: 0, message: '' })
+      return api('/api/settings', {
+        method: 'PUT',
+        body: { settings: current.settings, baseVersion },
+      })
+        .then((data) => {
+          if (userIdRef.current !== id) return
+          syncVersion.current = Number(data.version) || baseVersion + 1
+          setSync({ status: 'synced', at: Date.now(), message: note })
+        })
+        .catch((error) => {
+          if (userIdRef.current !== id) return
+          // Another device wrote first. What was just changed here is the most
+          // recent change anyone made, so it is written again on top of that
+          // version rather than dropped — once, so two devices cannot loop.
+          if (error?.status === 409 && !note) {
+            const serverVersion = Number(error?.data?.version)
+            return sendSettings(
+              Number.isFinite(serverVersion) ? serverVersion : baseVersion + 1,
+              'Merged with another device',
+            )
+          }
+          failedSync(error, 'Settings could not be saved.')
+        })
+    }
+    return sendSettings(syncVersion.current, '')
+  }, [failedSync])
 
   useEffect(() => {
     if (!userId || !accountSynced) return undefined
@@ -371,6 +450,16 @@ export function AppProvider({ children }) {
       document.removeEventListener('visibilitychange', onVisibility)
     }
   }, [pushSettings])
+
+  // A device that lost the connection catches up as soon as it is back.
+  useEffect(() => {
+    if (!userId) return undefined
+    const onOnline = () => {
+      if (!syncRef.current.ready) void pullSettings()
+    }
+    window.addEventListener('online', onOnline)
+    return () => window.removeEventListener('online', onOnline)
+  }, [userId, pullSettings])
 
   useEffect(() => {
     if (isExtension) return
@@ -449,6 +538,7 @@ export function AppProvider({ children }) {
       state.lists,
       state.customRules,
       state.allowlist,
+      state.pausedSites,
       state.schedule,
       state.learned,
       state.privacy,
@@ -548,6 +638,10 @@ export function AppProvider({ children }) {
       removeCustomRule: (rule) => dispatch({ type: 'removeRule', rule }),
       addAllow: (host) => dispatch({ type: 'addAllow', host }),
       removeAllow: (host) => dispatch({ type: 'removeAllow', host }),
+      setSitePaused: (host, paused) =>
+        dispatch({ type: paused ? 'pauseSite' : 'resumeSite', host }),
+      sync,
+      retrySync: () => (accountSynced ? pushSettings() : pullSettings()),
       protectionNow,
       pausedBySchedule,
       setSchedule: (schedule) => dispatch({ type: 'schedule', schedule }),
@@ -572,6 +666,10 @@ export function AppProvider({ children }) {
       protectionNow,
       pausedBySchedule,
       observe,
+      sync,
+      accountSynced,
+      pushSettings,
+      pullSettings,
     ],
   )
 

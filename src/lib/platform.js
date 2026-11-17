@@ -46,6 +46,12 @@ export async function readPageBlocks() {
   return Number(reply?.blocked) || 0
 }
 
+/** The site the person is looking at, so the panel can control just that one. */
+export async function readActiveSite() {
+  const reply = await safeSend({ type: 'luma:site:read' })
+  return reply?.host || ''
+}
+
 export function subscribeStats(handler) {
   if (!isExtension) return () => {}
   const listener = (message) => {
@@ -88,6 +94,7 @@ export function buildPayload(state, protectionNow = state.protection) {
   // One bad entry would make the browser reject every dynamic rule, so only
   // real host names are sent, once each.
   const allowlist = [...new Set((state.allowlist || []).map(allowlistHost).filter(Boolean))]
+  const paused = [...new Set((state.pausedSites || []).map(allowlistHost).filter(Boolean))]
   let nextId = 1
 
   if (protectionNow) {
@@ -132,6 +139,18 @@ export function buildPayload(state, protectionNow = state.protection) {
       })
       nextId += 1
     }
+
+    // A paused site stops everything: the page and what it embeds are allowed
+    // above every filter list, so pausing one site leaves the others alone.
+    for (const host of paused) {
+      dynamicRules.push({
+        id: nextId,
+        priority: 300,
+        action: { type: 'allowAllRequests' },
+        condition: { requestDomains: [host], resourceTypes: ['main_frame'] },
+      })
+      nextId += 1
+    }
   }
 
   const cosmeticSelectors = { generic: [], site: {} }
@@ -164,6 +183,8 @@ export function buildPayload(state, protectionNow = state.protection) {
       lists: state.lists,
       customRules: state.customRules,
       allowlist,
+      paused: protectionNow && !state.privacy ? paused : [],
+      pausedSites: paused,
       schedule: state.schedule,
       learned: state.learned || [],
     },

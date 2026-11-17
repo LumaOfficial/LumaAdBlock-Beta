@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react'
 import { ArrowUpRight, History, LayoutGrid } from 'lucide-react'
+import PanelSite from '../components/PanelSite'
+import SyncStatus from '../components/SyncStatus'
 import { Switch } from '../components/ui'
 import { isExtension, readPageBlocks } from '../lib/platform'
+import { API_BASE } from '../lib/api'
 import { useApp, useBlockedToday } from '../lib/useApp'
 
 /** Opens the full dashboard in a tab, whichever build is running. */
@@ -77,6 +80,8 @@ export default function Panel() {
         />
       </div>
 
+      <PanelSite />
+
       <div className="panel-links">
         {SHORTCUTS.map((item) => {
           const Icon = item.icon
@@ -99,7 +104,15 @@ export default function Panel() {
         Open Luma
       </button>
 
-      <p className="footer-note">Luma v1.0.3 · Runs on this device</p>
+      <p className="footer-note">
+        {API_BASE ? (
+          <>
+            Luma v1.0.3 · <SyncStatus compact />
+          </>
+        ) : (
+          'Luma v1.0.3 · Runs on this device'
+        )}
+      </p>
     </main>
   )
 }

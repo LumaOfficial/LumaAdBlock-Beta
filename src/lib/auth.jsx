@@ -105,6 +105,13 @@ export function AuthProvider({ children }) {
     return data.user
   }, [])
 
+  // The details an account may change about itself. The address stays fixed.
+  const updateProfile = useCallback(async (values) => {
+    const data = await api('/api/profile', { method: 'PUT', body: values })
+    setUser(data.user)
+    return data.user
+  }, [])
+
   const changePassword = useCallback(async ({ currentPassword, newPassword }) => {
     return api('/api/password', {
       method: 'POST',
@@ -129,10 +136,21 @@ export function AuthProvider({ children }) {
       signUp,
       signIn,
       signInWithCode,
+      updateProfile,
       changePassword,
       signOut,
     }),
-    [user, status, connectionError, signUp, signIn, signInWithCode, changePassword, signOut],
+    [
+      user,
+      status,
+      connectionError,
+      signUp,
+      signIn,
+      signInWithCode,
+      updateProfile,
+      changePassword,
+      signOut,
+    ],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

@@ -65,6 +65,9 @@ function selectorsFor(payload) {
   // An allowlisted site is left exactly as it is, custom hiding included.
   const allowlist = (payload.dashboard && payload.dashboard.allowlist) || []
   if (allowlist.some((entry) => hostMatches(host, entry))) return []
+  // A paused site keeps loading its own ads; the rest of the browser does not.
+  const paused = (payload.dashboard && payload.dashboard.paused) || []
+  if (paused.some((entry) => hostMatches(host, entry))) return []
 
   for (const id of payload.enabledLists || []) {
     for (const selector of (bundled && bundled[id]) || []) selectors.add(selector)
