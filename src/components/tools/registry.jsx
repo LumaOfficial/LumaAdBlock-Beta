@@ -14,6 +14,7 @@ import {
   Rss,
   Search,
   Sparkles,
+  Plug,
   Timer,
   UserCheck,
   Wallet,
@@ -33,6 +34,7 @@ import TrustedSites from './TrustedSites'
 import SavingsCalculator from './SavingsCalculator'
 import SpeedCheck from './SpeedCheck'
 import ProtectionScore from './ProtectionScore'
+import Integrations from './Integrations'
 
 /**
  * Every tool the app offers. The order here is the order on the Tools page:
@@ -47,6 +49,15 @@ const EVERYDAY = [
     lede: 'One number for your setup, and the few changes that lift it.',
     blurb: 'See how much of Luma is working for you.',
     Panel: ProtectionScore,
+  },
+  {
+    id: 'integrations',
+    label: 'Integrations',
+    icon: Plug,
+    title: 'Your platforms, cleaned up.',
+    lede: 'Connect the places you spend your day and Luma clears their ads, sponsored posts and promos while you browse.',
+    blurb: 'Clean up Gmail, GitHub, Discord and more.',
+    Panel: Integrations,
   },
   {
     id: 'experiments',

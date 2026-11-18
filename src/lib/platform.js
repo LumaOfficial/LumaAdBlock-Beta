@@ -8,6 +8,7 @@
  */
 import { FILTER_LISTS } from './blocklists'
 import { compileRules, toDeclarativeNetRequest } from './engine'
+import { integrationById } from './integrations'
 
 export const isExtension =
   typeof chrome !== 'undefined' && Boolean(chrome.runtime && chrome.runtime.id)
@@ -119,6 +120,11 @@ export function allowlistHost(value) {
 const DYNAMIC_RULE_BUDGET = 4500
 const MAX_GENERIC_COSMETIC = 2500
 
+/** The platforms the person connected, as catalog entries. */
+function connectedPlatforms(state) {
+  return (state.integrations || []).map(integrationById).filter(Boolean)
+}
+
 export function buildPayload(state, protectionNow = state.protection) {
   const enabledLists = FILTER_LISTS.filter((list) => state.lists[list.id]).map((list) => list.id)
   const ruleIndex = {}
@@ -179,6 +185,24 @@ export function buildPayload(state, protectionNow = state.protection) {
       nextId += 1
     })
 
+    // Connected platforms clean their own sites: ad requests from the platform
+    // are dropped the same way a subscribed list's are.
+    const platformNetwork = connectedPlatforms(state).flatMap((platform) =>
+      compileRules(platform.lines, 'integration:' + platform.id).filter(
+        (rule) => rule.kind === 'network',
+      ),
+    )
+    toDeclarativeNetRequest(platformNetwork).forEach((rule, index) => {
+      if (nextId >= DYNAMIC_RULE_BUDGET) return
+      rule.id = nextId
+      ruleIndex['_dynamic:' + rule.id] = {
+        listId: platformNetwork[index].listId,
+        raw: platformNetwork[index].raw,
+      }
+      dynamicRules.push(rule)
+      nextId += 1
+    })
+
     for (const host of allowlist) {
       dynamicRules.push({
         id: nextId,
@@ -232,6 +256,21 @@ export function buildPayload(state, protectionNow = state.protection) {
     }
   }
 
+  // What each connected platform removes on its own site.
+  for (const platform of connectedPlatforms(state)) {
+    for (const rule of compileRules(platform.lines, 'integration:' + platform.id)) {
+      if (rule.kind !== 'cosmetic' || rule.exception) continue
+      if (rule.domains.length) {
+        for (const domain of rule.domains) {
+          cosmeticSelectors.site[domain] = cosmeticSelectors.site[domain] || []
+          cosmeticSelectors.site[domain].push(rule.selector)
+        }
+      } else if (cosmeticSelectors.generic.length < MAX_GENERIC_COSMETIC) {
+        cosmeticSelectors.generic.push(rule.selector)
+      }
+    }
+  }
+
   // Several lists often hide the same slot; the sheet only needs it once.
   cosmeticSelectors.generic = [...new Set(cosmeticSelectors.generic)]
   for (const domain of Object.keys(cosmeticSelectors.site)) {
@@ -257,6 +296,7 @@ export function buildPayload(state, protectionNow = state.protection) {
       // must survive a page reload, so the worker keeps them too.
       pickerRules: state.pickerRules || {},
       subscriptions: state.subscriptions || [],
+      integrations: state.integrations || [],
       allowlist,
       paused: protectionNow && !state.privacy ? paused : [],
       pausedSites: paused,

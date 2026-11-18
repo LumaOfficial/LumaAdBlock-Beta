@@ -7,6 +7,7 @@ import { dayKey } from './dates'
 import { DEFAULT_LISTS, FILTER_LISTS } from './blocklists'
 import { DEFAULT_SCHEDULE, isQuietNow, normalizeSchedule } from './schedule'
 import { MAX_SUBSCRIPTIONS } from './subscriptions'
+import { integrationById, normalizeIntegrations } from './integrations'
 import {
   buildPayload,
   isExtension,
@@ -80,6 +81,8 @@ function emptyState() {
     pickerRules: {},
     // Filter lists downloaded from a URL the person chose.
     subscriptions: [],
+    // Platforms whose ads Luma clears while the person browses them.
+    integrations: [],
     allowlist: [],
     // Sites where filtering is stopped on purpose, for now.
     pausedSites: [],
@@ -138,6 +141,7 @@ function loadState() {
       lists: { ...DEFAULT_LISTS, ...(parsed.lists || {}) },
       pickerRules: normalizePickerRules(parsed.pickerRules),
       subscriptions: normalizeSubscriptions(parsed.subscriptions),
+      integrations: normalizeIntegrations(parsed.integrations),
       schedule: normalizeSchedule(parsed.schedule, DEFAULT_SCHEDULE),
       totals: { ...fallback.totals, ...(parsed.totals || {}) },
     })
@@ -212,6 +216,14 @@ function reducer(state, action) {
         ...state,
         subscriptions: state.subscriptions.filter((item) => item.id !== action.id),
       }
+    case 'connectIntegration':
+      if (!integrationById(action.id) || state.integrations.includes(action.id)) return state
+      return { ...state, integrations: [...state.integrations, action.id] }
+    case 'disconnectIntegration':
+      return {
+        ...state,
+        integrations: state.integrations.filter((id) => id !== action.id),
+      }
     case 'addAllow':
       // Trusting a site settles it: no need to keep it paused as well.
       return {
@@ -246,6 +258,9 @@ function reducer(state, action) {
         subscriptions: settings.subscriptions
           ? normalizeSubscriptions(settings.subscriptions)
           : state.subscriptions,
+        integrations: settings.integrations
+          ? normalizeIntegrations(settings.integrations)
+          : state.integrations,
         allowlist: Array.isArray(settings.allowlist) ? settings.allowlist : state.allowlist,
         pausedSites: Array.isArray(settings.pausedSites) ? settings.pausedSites : state.pausedSites,
         schedule: normalizeSchedule(settings.schedule, state.schedule),
@@ -276,6 +291,7 @@ function reducer(state, action) {
         customRules: settings.customRules || [],
         pickerRules: normalizePickerRules(settings.pickerRules),
         subscriptions: normalizeSubscriptions(settings.subscriptions),
+        integrations: normalizeIntegrations(settings.integrations),
         allowlist: settings.allowlist || [],
         pausedSites: settings.pausedSites || [],
         schedule: normalizeSchedule(settings.schedule, state.schedule),
@@ -296,6 +312,7 @@ function reducer(state, action) {
         customRules: settings.customRules || [],
         pickerRules: normalizePickerRules(settings.pickerRules),
         subscriptions: normalizeSubscriptions(settings.subscriptions),
+        integrations: normalizeIntegrations(settings.integrations),
         allowlist: settings.allowlist || [],
         pausedSites: settings.pausedSites || [],
         schedule: normalizeSchedule(settings.schedule, state.schedule),
@@ -460,6 +477,7 @@ export function AppProvider({ children }) {
       customRules: state.customRules,
       pickerRules: state.pickerRules,
       subscriptions: state.subscriptions,
+      integrations: state.integrations,
       allowlist: state.allowlist,
       pausedSites: state.pausedSites,
       schedule: state.schedule,
@@ -474,6 +492,7 @@ export function AppProvider({ children }) {
       state.customRules,
       state.pickerRules,
       state.subscriptions,
+      state.integrations,
       state.allowlist,
       state.pausedSites,
       state.schedule,
@@ -577,12 +596,18 @@ export function AppProvider({ children }) {
       if (!subscription.enabled) continue
       compiled.push(...compileRules(subscription.lines || [], subscription.id))
     }
+    // Connected platforms clean their own sites: their lines join the ruleset
+    // the engine and the browser both work from.
+    for (const id of state.integrations) {
+      const platform = integrationById(id)
+      if (platform) compiled.push(...compileRules(platform.lines, 'integration:' + id))
+    }
     const custom = state.customRules.map((rule) => rule.trim()).filter(Boolean)
     compiled.push(...compileRules(custom, 'custom'))
     const learned = state.learned.map((item) => item.rule)
     compiled.push(...compileRules(learned, 'learned'))
     return compiled
-  }, [state.lists, state.customRules, state.learned, state.subscriptions])
+  }, [state.lists, state.customRules, state.learned, state.subscriptions, state.integrations])
 
   const networkRuleCount = useMemo(
     () => rules.filter((rule) => rule.kind === 'network').length,
@@ -640,6 +665,7 @@ export function AppProvider({ children }) {
       state.customRules,
       state.pickerRules,
       state.subscriptions,
+      state.integrations,
       state.allowlist,
       state.pausedSites,
       state.schedule,
@@ -762,6 +788,8 @@ export function AppProvider({ children }) {
       updateSubscription: (id, patch) => dispatch({ type: 'updateSubscription', id, patch }),
       toggleSubscription: (id) => dispatch({ type: 'toggleSubscription', id }),
       removeSubscription: (id) => dispatch({ type: 'removeSubscription', id }),
+      connectIntegration: (id) => dispatch({ type: 'connectIntegration', id }),
+      disconnectIntegration: (id) => dispatch({ type: 'disconnectIntegration', id }),
       addAllow: (host) => dispatch({ type: 'addAllow', host }),
       removeAllow: (host) => dispatch({ type: 'removeAllow', host }),
       setSitePaused: (host, paused) =>

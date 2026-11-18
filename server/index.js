@@ -954,6 +954,17 @@ async function handle(req, res) {
         200,
       )
     }
+    // Connected platforms are optional the same way, and only short slugs are
+    // kept: the app decides which ones it knows.
+    if (Array.isArray(input.integrations)) {
+      settings.integrations = [
+        ...new Set(
+          input.integrations
+            .map((id) => String(id || '').trim().toLowerCase())
+            .filter((id) => /^[a-z0-9][a-z0-9-]{0,39}$/.test(id)),
+        ),
+      ].slice(0, 50)
+    }
     // Elements picked by hand with the click-to-block tool, grouped by site.
     if (input.pickerRules && typeof input.pickerRules === 'object' && !Array.isArray(input.pickerRules)) {
       const pickerRules = {}
