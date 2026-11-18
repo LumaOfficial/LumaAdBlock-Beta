@@ -4,6 +4,7 @@ import {
   FlaskConical,
   Gauge,
   History,
+  Plug,
   ShieldCheck,
   UserRound,
   Wrench,
@@ -23,6 +24,7 @@ const NAV = [
     label: 'Protection',
     items: [
       { to: '/protection', label: 'Protection', icon: ShieldCheck },
+      { to: '/tools/integrations', label: 'Integrations', icon: Plug },
       { to: '/activity', label: 'Activity', icon: History },
     ],
   },
@@ -35,6 +37,11 @@ const TOOLS = [
   { to: '/tools/experiments', label: 'Experiments', icon: FlaskConical },
   { to: '/account', label: 'Account & settings', icon: UserRound },
 ]
+
+// Tool pages that already sit in the rail keep "All tools" dark.
+const SHORTCUTS = [...TOOLS, ...NAV.flatMap((group) => group.items)].filter(
+  (item) => item.to !== '/tools' && item.to.startsWith('/tools'),
+)
 
 const TITLES = {
   '/': 'Overview',
@@ -96,7 +103,7 @@ export default function Layout() {
             const active =
               tool.to === '/tools'
                 ? location.pathname.startsWith('/tools') &&
-                  !TOOLS.some((other) => other.to !== '/tools' && other.to === location.pathname)
+                  !SHORTCUTS.some((other) => other.to === location.pathname)
                 : location.pathname === tool.to
             return (
               <NavLink

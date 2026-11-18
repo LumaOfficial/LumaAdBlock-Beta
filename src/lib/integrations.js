@@ -3,12 +3,20 @@
  * lines plus the plain-language list of what it removes, so connecting a
  * platform is a switch rather than a new engine.
  *
+ * The catalogue is built from real data: sites people actually visit, the ad
+ * servers those sites call (./adNetworks) and the ad-slot selectors public
+ * filter lists use (./integrationCatalog). The hand-written entries below
+ * carry site-specific selectors for platforms whose layouts are well known.
+ *
  * Everything runs in the browser on the web version of the platform. Luma
  * never signs in to an account, never reads messages, and sends nothing away.
  */
-export const MAX_INTEGRATIONS = 50
+import { AD_NETWORKS } from './adNetworks'
+import { CATALOG } from './integrationCatalog'
 
-const PLATFORMS = [
+export const MAX_INTEGRATIONS = 600
+
+const HAND_WRITTEN = [
   {
     id: 'gmail',
     label: 'Gmail',
@@ -180,16 +188,58 @@ const PLATFORMS = [
   },
 ]
 
-export const INTEGRATIONS = PLATFORMS
+/** One catalog tuple turned into the platform entry the app works with. */
+function fromCatalog(group, [id, label, site]) {
+  const networks = group.networks.map((key) => AD_NETWORKS[key]).filter(Boolean)
+  const named = networks.map((network) => network.label)
+  return {
+    id,
+    label,
+    kind: group.kind,
+    site,
+    blurb: `${label} carries ${named.slice(0, 3).join(', ')} tags and the ad slots they fill.`,
+    removes: [
+      `Ads served by ${named.slice(0, 2).join(' and ')}`,
+      'Sponsored and promoted slots on the page',
+      'Ad requests before they load',
+    ],
+    lines: [
+      ...networks.map((network) => `||${network.host}^$important,domain=${site}`),
+      ...group.slots.map((selector) => `${site}##${selector}`),
+    ],
+    // The two busiest servers on this kind of site, screened for real when the
+    // person asks what is covered.
+    checks: networks.slice(0, 2).map((network) => ({
+      label: network.label,
+      url: `https://${network.host}${network.path}`,
+      type: network.type,
+    })),
+  }
+}
+
+const seen = new Set(HAND_WRITTEN.map((platform) => platform.id))
+const CATALOGUE = CATALOG.flatMap((group) =>
+  group.sites
+    .filter(([id]) => {
+      if (seen.has(id)) return false
+      seen.add(id)
+      return true
+    })
+    .map((tuple) => fromCatalog(group, tuple)),
+)
+
+export const INTEGRATIONS = [...HAND_WRITTEN, ...CATALOGUE]
+
+const BY_ID = new Map(INTEGRATIONS.map((platform) => [platform.id, platform]))
 
 /** The platform with this id, or null for an id this build does not know. */
 export function integrationById(id) {
-  return INTEGRATIONS.find((item) => item.id === id) || null
+  return BY_ID.get(id) || null
 }
 
 /** Only platforms this build knows, once each, in a stable order. */
 export function normalizeIntegrations(value) {
   if (!Array.isArray(value)) return []
-  const ids = value.map((item) => String(item || '').trim()).filter((id) => integrationById(id))
+  const ids = value.map((item) => String(item || '').trim()).filter((id) => BY_ID.has(id))
   return [...new Set(ids)].slice(0, MAX_INTEGRATIONS)
 }

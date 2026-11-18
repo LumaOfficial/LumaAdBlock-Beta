@@ -2748,6 +2748,105 @@ h3 {
   color: var(--ink-3);
 }
 
+/* ---------- integrations ---------- */
+
+.int-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 10px;
+}
+
+.int-tile {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card);
+  box-shadow: var(--shadow-sm);
+}
+
+.int-tile[data-on="true"] {
+  border-color: var(--accent);
+  background: rgba(255, 85, 34, 0.05);
+}
+
+.int-tile .feed-icon {
+  width: 26px;
+  height: 26px;
+  flex-basis: 26px;
+  border-radius: 8px;
+}
+
+.int-tile .feed-icon svg {
+  width: 13px;
+  height: 13px;
+}
+
+.int-name {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.25;
+}
+
+.int-label {
+  font-weight: 600;
+  font-size: 12.5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.int-kind {
+  font-size: 11px;
+  color: var(--ink-3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.int-tile[data-on="true"] .int-kind {
+  color: var(--accent-deep);
+}
+
+.int-check {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ink-3);
+}
+
+.int-check:hover {
+  background: var(--paper-deep);
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.int-verdict {
+  grid-column: 1 / -1;
+  font-size: 11px;
+  color: var(--ink-3);
+}
+
+.int-tile .switch {
+  width: 40px;
+  height: 23px;
+  flex: 0 0 40px;
+}
+
+.int-tile .switch::after {
+  width: 17px;
+  height: 17px;
+}
+
 @media (max-width: 1080px) {
   .hero-badge {
     margin-top: 10px;

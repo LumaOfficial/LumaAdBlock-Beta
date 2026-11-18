@@ -963,7 +963,7 @@ async function handle(req, res) {
             .map((id) => String(id || '').trim().toLowerCase())
             .filter((id) => /^[a-z0-9][a-z0-9-]{0,39}$/.test(id)),
         ),
-      ].slice(0, 50)
+      ].slice(0, 600)
     }
     // Elements picked by hand with the click-to-block tool, grouped by site.
     if (input.pickerRules && typeof input.pickerRules === 'object' && !Array.isArray(input.pickerRules)) {
